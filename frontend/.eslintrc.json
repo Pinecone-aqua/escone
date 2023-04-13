@@ -38,7 +38,7 @@
     },
     {
       "files": ["*.jsx", "**/*.tsx", "**/**/*.tsx", "!^\\[.*]\\.tsx$"], // for JSX Component
-      "excludedFiles": ["^\\[.*]\\.tsx$"],
+      "excludedFiles": ["^\\[.*]\\.tsx$", "!^_/.*.tsx$"],
       "rules": {
         "unicorn/prefer-module": "off",
         "unicorn/filename-case": ["error", { "case": "pascalCase" }]
