@@ -1,3 +1,9 @@
+import RecipeCard from "@/components/RecipeCard";
+
 export default function Home() {
-  return <main className=""></main>;
+  return (
+    <main className="container mx-auto">
+      <RecipeCard />
+    </main>
+  );
 }
