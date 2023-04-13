@@ -1,3 +1,4 @@
+import { Logo } from "@/public/icons/Icons";
 import Link from "next/link";
 import React from "react";
 import {
@@ -9,39 +10,42 @@ import {
 
 export default function footer() {
   return (
-    <div className="w-full">
-      <div className="container mx-auto  pb-6 sm:h-32 flex flex-col justify-between gap-5">
-        <div className="flex flex-col gap-5 sm:flex-row sm:justify-between items-center">
-          <div className="flex flex-col sm:flex-row gap-5 items-center">
-            <p className="text-lime-500 font-extrabold text-2xl">Food</p>
-            <ul className="flex gap-3 flex-wrap justify-center">
+    <div className="w-full bg-[#FFF3DF]">
+      <div className="container mx-auto  pb-6  flex flex-col justify-between gap-5">
+        <div className="flex flex-col gap-20 pt-5  sm:justify-between items-center">
+          <div className=" flex flex-col items-center gap-10">
+            <Logo />
+            <ul className="flex gap-10 text-[#485801] justify-center">
               <Link href={"/"}>
-                <p className="text-lg font-medium">About</p>
+                <p className="text-lg ">Home</p>
               </Link>
               <Link href={"/"}>
-                <p className="text-lg font-medium">Recipes</p>
+                <p className="text-lg ">Maps</p>
               </Link>
               <Link href={"/"}>
-                <p className="text-lg font-medium">Blog</p>
+                <p className="text-lg ">Blog</p>
               </Link>
               <Link href={"/"}>
-                <p className="text-lg font-medium">Shop</p>
+                <p className="text-lg ">Recipes</p>
               </Link>
               <Link href={"/"}>
-                <p className="text-lg font-medium">Contact</p>
+                <p className="text-lg ">About</p>
               </Link>
             </ul>
           </div>
-          <div className="flex gap-3">
+
+          <div className="flex gap-3 text-[#485801]">
             <BsPinterest />
             <BsTwitter />
             <BsInstagram />
             <BsFacebook />
           </div>
         </div>
-        <div className="border w-full border-gray-400"></div>
-        <div className="text-center sm:text-end">
-          <p className="text-sm">Copyright 2023 ©Food. All rights reserved.</p>
+
+        <div className="text-center text-[#485801]">
+          <p className="text-sm">
+            © 2023 food. Зохиогчийн эрх хуулиар хамгаалагдсан
+          </p>
         </div>
       </div>
     </div>
