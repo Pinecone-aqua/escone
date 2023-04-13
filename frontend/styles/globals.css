@@ -5,3 +5,19 @@
 * {
   box-sizing: border-box;
 }
+
+.container {
+  @apply max-w-[1440px] mx-auto
+}
+
+.card {
+  @apply max-w-[300px] rounded-2xl bg-white
+}
+
+.card-img {
+  @apply w-full max-h-[300px] rounded-t-2xl
+}
+
+.card-content {
+  @apply w-full rounded-b-2xl
+}
