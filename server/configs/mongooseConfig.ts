@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 mongoose
-  .connect(`${process.env.MONGOOSE_CONNECT_KEY}`)
+  .connect(`${process.env.MONGODB_CONNECT_URL}`)
   .then(() => {
     console.log("successfully connected to mongoose");
   })
