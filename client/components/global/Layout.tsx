@@ -1,15 +1,12 @@
-import React, { ReactNode } from "react";
+import { PropType } from "@/utils/types";
 import Header from "./Header";
 import Footer from "./Footer";
-type PropType = {
-  children: ReactNode;
-};
 
 export default function Layout({ children }: PropType) {
   return (
-    <div className="min-h-[100vh] w-full flex flex-col justify-between">
+    <div style={{ fontFamily: "Poppins, sans-serif" }}>
       <Header />
-      {children}
+      <main>{children}</main>
       <Footer />
     </div>
   );
