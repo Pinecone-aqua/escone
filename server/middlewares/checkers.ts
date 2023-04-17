@@ -27,6 +27,29 @@ export async function roleCheker(
   if (!role) {
     return res.status(403).send({ message: "You can't user delete" });
   } else {
-    next;
+    next();
+  }
+}
+
+export async function recipeChecker(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const newRecipe = req.body;
+  const isRecipe =
+    "created_by" in newRecipe &&
+    "images" in newRecipe &&
+    "title" in newRecipe &&
+    "description" in newRecipe &&
+    "ingredients" in newRecipe &&
+    "categories" in newRecipe &&
+    "tags" in newRecipe &&
+    "servings" in newRecipe &&
+    "cook_time" in newRecipe;
+  if (!isRecipe) {
+    res.send("this is not recipe").status(403);
+  } else {
+    next();
   }
 }
