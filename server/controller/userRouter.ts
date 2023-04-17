@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { emailChecker, roleCheker } from "../middlewares/checkers";
+import { emailChecker, roleCheker } from "../middlewares/emailChecker";
 import {
   createUser,
   deleteUser,
