@@ -17,3 +17,8 @@ export async function getRecipe(id: string): Promise<RecipeType | null> {
 
   return result;
 }
+
+export async function createRecipe(newRecipe: RecipeType) {
+  const result = await RecipeModel.insertMany(newRecipe);
+  return result;
+}
