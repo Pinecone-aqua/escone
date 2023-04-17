@@ -17,9 +17,9 @@ export interface RecipeType {
   images: string[];
   title: string;
   description: string;
-  ingredients: string[];
+  ingredients: mongoose.SchemaDefinitionProperty<string[]>;
   categories: mongoose.SchemaDefinitionProperty<string[]>;
-  tags: string[];
+  tags: mongoose.SchemaDefinitionProperty<string[]>;
   servings: number;
   cook_time: number;
   created_date: Date;
