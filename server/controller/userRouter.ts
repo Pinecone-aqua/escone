@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { emailChecker, roleCheker } from "../middlewares/checkers";
-
 import {
   createUser,
   deleteUser,
