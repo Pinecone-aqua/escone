@@ -1,9 +1,5 @@
-import Layout from "@/components/Layout";
+import React from "react";
 
-export default function Home() {
-  return (
-    <>
-      <Layout />
-    </>
-  );
+export default function index() {
+  return <>Home</>;
 }

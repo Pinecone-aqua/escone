@@ -1,14 +1,19 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
-type Props = {};
+type Props = { children: ReactNode };
 
-export default function Layout({}: Props): JSX.Element {
+export default function Layout({ children }: Props): JSX.Element {
   return (
     <div className="">
       <Header />
-      <Sidebar />
+      <div className="flex gap-40">
+        <Sidebar />
+        {children}
+      </div>
+      <Footer />
     </div>
   );
 }
