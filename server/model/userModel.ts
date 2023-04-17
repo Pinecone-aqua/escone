@@ -1,9 +1,11 @@
-import { model, Schema } from "mongoose";
+import { isObjectIdOrHexString, model, Schema } from "mongoose";
 import { UserType } from "../utils/types";
 
 const UserSchema = new Schema<UserType>({
+  _id: String,
   username: String,
   image: { type: String, required: false },
+  password: String,
   email: String,
   role: Boolean,
   favorites: [String],
