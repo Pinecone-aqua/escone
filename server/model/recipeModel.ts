@@ -1,5 +1,8 @@
 import mongoose, { model, Schema } from "mongoose";
 import { RecipeType } from "../utils/types";
+import CategoryModel from "./categoryModel";
+import IngredientModel from "./IngredientModel";
+import TagModel from "./tagModel";
 
 const RecipeSchema = new Schema<RecipeType>(
   {
@@ -8,9 +11,12 @@ const RecipeSchema = new Schema<RecipeType>(
     images: [String],
     title: String,
     description: String,
-    ingredients: [String],
-    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "categories" }],
-    tags: [String],
+    ingredients: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: IngredientModel,
+    },
+    categories: { type: [mongoose.Schema.Types.ObjectId], ref: CategoryModel },
+    tags: { type: [mongoose.Schema.Types.ObjectId], ref: TagModel },
     servings: Number,
     cook_time: Number,
     created_date: Date,
