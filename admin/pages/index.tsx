@@ -1,3 +1,5 @@
-export default function Home() {
-  return <></>;
+import React from "react";
+
+export default function index() {
+  return <>Home</>;
 }
