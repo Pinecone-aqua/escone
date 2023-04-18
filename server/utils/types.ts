@@ -17,9 +17,9 @@ export interface RecipeType {
   images: string[];
   title: string;
   description: string;
-  ingredients: string[];
-  categories: string[];
-  tags: string[];
+  ingredients: mongoose.SchemaDefinitionProperty<string[]>;
+  categories: mongoose.SchemaDefinitionProperty<string[]>;
+  tags: mongoose.SchemaDefinitionProperty<string[]>;
   servings: number;
   cook_time: number;
   created_date: Date;
@@ -41,7 +41,7 @@ export interface IngredientType {
 export interface ReviewType {
   _id: string;
   created_by: mongoose.SchemaDefinitionProperty<string>;
-  recipe_id: mongoose.SchemaDefinitionProperty<string>;
+  recipe_id: string;
   rate: number;
   content: string;
   created_date: Date;
