@@ -6,7 +6,7 @@ import { FaSearch, FaUser } from "react-icons/fa";
 export default function Header(): JSX.Element {
   return (
     <div className="flex sticky top-0 w-full h-[80px] bg-light-orange">
-      <div className="container flex items-center justify-between mx-auto p-[20px]">
+      <div className="container flex items-center justify-between p-[20px]">
         <Link href={"/"}>
           <Image src={logo} alt="foodie" />
         </Link>

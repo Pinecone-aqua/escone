@@ -11,7 +11,7 @@ import {
 export default function Footer(): JSX.Element {
   return (
     <div className="flex w-full h-[325px] bg-light-orange">
-      <div className="container flex flex-col items-center  justify-between mx-auto px-[20px] py-[30px]">
+      <div className="container flex flex-col items-center  justify-between px-[20px] py-[30px]">
         <Link href={"/"}>
           <Image src={logo} alt="foodie" />
         </Link>
