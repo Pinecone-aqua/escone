@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+.container {
+  @apply mx-auto
+}
+
 .card {
   @apply max-w-[300px] rounded-2xl bg-white;
 }
