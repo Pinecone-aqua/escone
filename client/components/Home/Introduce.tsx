@@ -4,7 +4,7 @@ import introIcons from "@/assets/introduce-elements.svg";
 
 export default function Introduce(): JSX.Element {
   return (
-    <div className="container relative flex mx-auto my-5 w-full md:w-[720px] lg:w-[960px] xl:w-[1140px] h-[420px] items-center bg-light-orange rounded-2xl ">
+    <div className="container relative flex my-5 w-full md:w-[720px] lg:w-[960px] xl:w-[1140px] h-[420px] items-center bg-light-orange rounded-2xl ">
       <Image src={introIcons} alt="introIcons" />
       <div className="absolute w-full h-full top-0 flex flex-col items-center justify-center gap-10 text-black/70">
         <Image src={logo} alt="logo" />
