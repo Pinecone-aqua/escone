@@ -10,8 +10,10 @@ import {
 
 export default function Footer(): JSX.Element {
   return (
+
     <div className="fixed bottom-0 flex w-full h-[325px] bg-white shadow-inner">
       <div className="container flex flex-col items-center  justify-around mx-auto px-[20px] py-[30px]">
+
         <Link href={"/"}>
           <Image src={logo} alt="foodie" />
         </Link>

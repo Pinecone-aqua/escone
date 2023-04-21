@@ -21,7 +21,9 @@ export default function Header({}: Props): JSX.Element {
     }
   }
   return (
-    <div className="flex justify-between bg-slate-500">
+
+    <div className="flex justify-between bg-slate-500 h-10">
+
       <h2 className="">Dashboard</h2>
       <input type="text" placeholder="Search" className="w-2/5 rounded" />
       {IsLogged()}

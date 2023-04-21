@@ -1,7 +1,11 @@
 import React from "react";
+
+import { navLinks } from "../utils/data";
+
 import Link from "next/link";
 
 type Props = {};
+
 
 export default function Sidebar({}: Props): JSX.Element {
   const Home = () => <h1>Home</h1>;
@@ -22,6 +26,7 @@ export default function Sidebar({}: Props): JSX.Element {
           </li>
         </ul>
       </div>
+
     </div>
   );
 }
