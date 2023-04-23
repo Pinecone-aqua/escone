@@ -6,7 +6,7 @@ import { FiMenu } from "react-icons/fi";
 
 export default function Header(): JSX.Element {
   return (
-    <div className="flex sticky top-0 w-full h-[100px] bg-white shadow">
+    <div className="flex sticky top-0 w-full h-[100px] bg-white shadow z-40">
       <div className="container flex items-center justify-between mx-auto p-[20px]">
         <button className="flex items-center justify-center md:hidden">
           <FiMenu className="text-primary w-[25px] h-[25px]" />

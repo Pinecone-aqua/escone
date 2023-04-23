@@ -4,7 +4,10 @@ import Footer from "./Footer";
 
 export default function Layout({ children }: PropType) {
   return (
-    <div style={{ fontFamily: "Abhaya Libre, serif" }}>
+    <div
+      style={{ fontFamily: "Abhaya Libre, serif" }}
+      className={`min-h-[100vh] flex flex-col justify-between`}
+    >
       <Header />
       <main>{children}</main>
       <Footer />
