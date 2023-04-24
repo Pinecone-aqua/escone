@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import "./configs/mongooseConfig";
 import User from "./controller/userRouter";
 import recipe from "./controller/recipesRuoter";
