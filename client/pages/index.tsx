@@ -1,4 +1,5 @@
 import Carousel from "@/components/Home/Carousel";
+import Introduce from "@/components/Home/Introduce";
 import RecipesGrid from "@/components/Home/RecipesGrid";
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
@@ -22,6 +23,7 @@ export default function Home() {
         <title key="title">Home | FOODIE</title>
       </Head>
       <Carousel recipes={recipes} />
+      <Introduce />
       <RecipesGrid recipes={limitedRecipes} />
     </>
   );
