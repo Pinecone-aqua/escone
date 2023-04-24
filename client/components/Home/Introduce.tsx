@@ -8,7 +8,7 @@ export default function Introduce(): JSX.Element {
       <Image src={introIcons} alt="introIcons" />
       <div className="absolute w-full h-full top-0 flex flex-col items-center justify-center gap-10 text-black/70">
         <Image src={logo} alt="logo" />
-        <div className="block text-lg md:text-3xl font-bold ">
+        <div className="block text-2xl md:text-3xl font-bold ">
           Foodie is a platform for sharing.
           <span className="block">Sharing recipes and ingredients.</span>
         </div>
