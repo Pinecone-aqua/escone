@@ -1,10 +1,10 @@
-import cors from "cors";
-import express from "express";
-import * as dotenv from "dotenv";
-import "./configs/mongooseConfig";
-import User from "./controller/userRouter";
-import recipe from "./controller/recipesRuoter";
-import review from "./controller/reviewRouter";
+import cors from 'cors';
+import express from 'express';
+import * as dotenv from 'dotenv';
+import './configs/mongooseConfig';
+import User from './controller/userRouter';
+import recipe from './controller/recipesRuoter';
+import review from './controller/reviewRouter';
 
 dotenv.config();
 
