@@ -1,4 +1,3 @@
-
 import React, { ReactNode } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -15,7 +14,6 @@ export default function Layout({ children }: Props): JSX.Element {
         {children}
       </div>
       <Footer />
-
     </div>
   );
 }
