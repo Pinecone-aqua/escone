@@ -1,4 +1,4 @@
-export class AddRecipeDto {
+export class RecipeDto {
   _id: string;
   title: string;
   description: string;
