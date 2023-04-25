@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class RecipeService {
+  [x: string]: any;
   addRecipe: any;
   constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) {}
   recipes = [];
