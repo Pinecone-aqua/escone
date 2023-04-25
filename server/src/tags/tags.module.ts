@@ -9,4 +9,4 @@ import { Tag, TagSchema } from './tags.schema';
   controllers: [TagController],
   providers: [TagService],
 })
-export class TagsModule {}
+export class tagsModule {}
