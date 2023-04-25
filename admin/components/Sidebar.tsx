@@ -4,12 +4,12 @@ import { navLinks } from "../utils/data";
 
 import Link from "next/link";
 
-export default function Sidebar(): JSX.Element {
+export default function Sidebar() {
   return (
     <div>
       <nav>
         {navLinks.map((link, index) => (
-          <ul>
+          <ul key={index}>
             <Link href={link.path}>
               <li key={index}>{link.name}</li>
             </Link>
