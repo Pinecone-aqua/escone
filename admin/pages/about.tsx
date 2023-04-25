@@ -1,7 +1,5 @@
 import React from "react";
 
-type Props = {};
-
-export default function about({}: Props) {
-  return <div>about</div>;
+export default function about() {
+  return <div>About</div>;
 }
