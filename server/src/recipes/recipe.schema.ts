@@ -23,7 +23,7 @@ export class Recipe {
   @Prop()
   created_date: string;
   @Prop()
-  statis: string;
+  status: string;
 }
 
 export const RecipeSchema = SchemaFactory.createForClass(Recipe);

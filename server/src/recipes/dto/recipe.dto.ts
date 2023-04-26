@@ -1,5 +1,4 @@
 export class RecipeDto {
-  _id: string;
   title: string;
   description: string;
   images: string[];
@@ -10,5 +9,5 @@ export class RecipeDto {
   servings: number;
   created_by: string;
   created_date: Date;
-  statis: string;
+  status: string;
 }

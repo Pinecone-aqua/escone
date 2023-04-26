@@ -23,6 +23,10 @@ export class RecipeController {
   getAllRecipes() {
     return this.recipeService.getRecipes();
   }
+  @Get('pending')
+  getPendingRecipes() {
+    return this.recipeService.getPendingRecipes();
+  }
 
   @Get(':id')
   getRecipe(@Param('id') id: string) {

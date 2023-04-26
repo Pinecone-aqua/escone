@@ -15,10 +15,7 @@ export class RecipeService {
   }
 
   async getRecipes() {
-    const result = await this.recipeModel.updateMany(
-      {},
-      { $set: { status: 'pending' } },
-    );
+    const result = await this.recipeModel.find({ status: 'pending' });
     return result;
   }
 
@@ -36,5 +33,9 @@ export class RecipeService {
   async deleteRecipe(id: string) {
     const result = await this.recipeModel.deleteOne({ _id: id });
     return `deleted recipe: ${result}`;
+  }
+  async getPendingRecipes() {
+    const result = await this.recipeModel.find();
+    return result;
   }
 }
