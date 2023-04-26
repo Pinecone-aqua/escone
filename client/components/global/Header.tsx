@@ -6,13 +6,10 @@ import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 
 export default function Header(): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const [menu, setMenu] = useState<boolean>(true);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function clickHandler(e:any){
-    console.log(e)
-  }
-  clickHandler()
+  const [menu, setMenu] = useState<boolean>(false);
+
   return (
     <div className="flex sticky top-0 w-full h-[100px] bg-white shadow z-40">
       <div className="container flex items-center justify-between mx-auto p-[20px]">
@@ -21,6 +18,7 @@ export default function Header(): JSX.Element {
             className="flex items-center justify-center lg:hidden"
             onClick={() => {
               setMenu(!menu);
+              console.log("asd");
             }}
           >
             <FiMenu className="text-primary hover:text-secondary duration-500 w-[25px] h-[25px]" />
@@ -33,6 +31,9 @@ export default function Header(): JSX.Element {
                 </label>
                 <div className="relative flex">
                   <input
+                    onChange={() => {
+                      console.log("hha hogcne");
+                    }}
                     type="search"
                     className="block w-[300px] h-[45px] pl-[60px] text-primary text-md-reg rounded-3xl bg-white placeholder-primary border-none"
                     placeholder="Search recipe..."
@@ -110,7 +111,9 @@ export default function Header(): JSX.Element {
         <div className="relative">
           <button
             className="border p-2 rounded-full block"
-            onClick={clickHandler}
+            onClick={() => {
+              setDropdown(!dropdown);
+            }}
           >
             <FaUser className="fill-primary hover:fill-secondary duration-500 w-[23px] h-[23px]" />
           </button>
