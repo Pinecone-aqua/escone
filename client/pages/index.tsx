@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const limitedRecipes = recipes.slice(0, 12);
-  console.log(recipes);
+
   useEffect(() => {
     axios
       .get("http://localhost:3030/recipes")

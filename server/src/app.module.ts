@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { tagsModule } from './tags/tags.module';
 import { userModule } from './users/users.module';
 import { recipeModule } from './recipes/recipes.module';
+import { indicatesModel } from './ingredients/ingredients.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { recipeModule } from './recipes/recipes.module';
     ),
     tagsModule,
     recipeModule,
+    indicatesModel,
   ],
   controllers: [AppController],
   providers: [AppService],
