@@ -13,4 +13,4 @@ import { IngredientService } from './ingredients.service';
   controllers: [IngredientController],
   providers: [IngredientService],
 })
-export class indicatesModel {}
+export class IngredientModel {}
