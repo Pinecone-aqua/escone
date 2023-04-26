@@ -10,4 +10,5 @@ export class RecipeDto {
   servings: number;
   created_by: string;
   created_date: Date;
+  statis: string;
 }

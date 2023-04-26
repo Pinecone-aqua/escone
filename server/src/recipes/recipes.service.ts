@@ -6,17 +6,19 @@ import { RecipeDto } from './dto/recipe.dto';
 
 @Injectable()
 export class RecipeService {
-  [x: string]: any;
   constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) {}
   recipes = [];
 
   async addRecipe(recipe: RecipeDto) {
     const result = await this.recipeModel.create(recipe);
-    return `added recipe: ${result}`;
+    return result;
   }
 
   async getRecipes() {
-    const result = await this.recipeModel.find({});
+    const result = await this.recipeModel.updateMany(
+      {},
+      { $set: { status: 'pending' } },
+    );
     return result;
   }
 

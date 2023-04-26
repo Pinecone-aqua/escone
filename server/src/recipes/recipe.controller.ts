@@ -16,7 +16,7 @@ export class RecipeController {
 
   @Post('add')
   createRecipe(@Body() RecipeDto: RecipeDto) {
-    return this.recipeService.createRecipe(RecipeDto);
+    return this.recipeService.addRecipe(RecipeDto);
   }
 
   @Get('all')
