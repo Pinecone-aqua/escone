@@ -3,15 +3,23 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Recipe } from './recipe.schema';
 import { Model } from 'mongoose';
 import { RecipeDto } from './dto/recipe.dto';
+import { User } from 'src/users/user.schema';
 
 @Injectable()
 export class RecipeService {
-  constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) {}
+  constructor(
+    @InjectModel(Recipe.name) private recipeModel: Model<Recipe>,
+    @InjectModel(User.name) private userModel: Model<User>,
+  ) {}
   recipes = [];
 
-  async addRecipe(recipe: RecipeDto) {
-    const result = await this.recipeModel.create(recipe);
-    return result;
+  async addRecipe(recipeDto: RecipeDto, created_by: string) {
+    const creator = await this.userModel.findById(created_by);
+    const createdRecipe = await this.recipeModel.create({
+      ...recipeDto,
+      created_by: creator.username,
+    });
+    return createdRecipe;
   }
 
   async getRecipes() {
