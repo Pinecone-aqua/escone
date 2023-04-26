@@ -4,8 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { tagsModule } from './tags/tags.module';
 import { userModule } from './users/users.module';
-import { recipeModule } from './recipes/recipes.module';
-import { indicatesModel } from './ingredients/ingredients.module';
 
 @Module({
   imports: [
@@ -13,9 +11,7 @@ import { indicatesModel } from './ingredients/ingredients.module';
     MongooseModule.forRoot(
       'mongodb+srv://escone:H4YbL4MhTZWA7WvJ@pineapple-cluster.a1sr54g.mongodb.net/escone?retryWrites=true&w=majority',
     ),
-    tagsModule,
-    recipeModule,
-    indicatesModel,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

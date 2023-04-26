@@ -23,8 +23,8 @@ export default function Home() {
         <title key="title">Home | FOODIE</title>
       </Head>
       <Carousel recipes={recipes} />
-      <Introduce />
       <RecipesGrid recipes={limitedRecipes} />
+      <Introduce />
     </>
   );
 }
