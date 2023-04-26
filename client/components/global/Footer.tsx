@@ -36,7 +36,7 @@ export default function Footer(): JSX.Element {
           </ul>
         </nav>
 
-        <div className="text-gray-800 gap-5 flex flex-col">
+        <div className="text-gray-700 gap-5 flex flex-col">
           <div className="links">
             <ul className="flex justify-center items-center text-lg-bold gap-5">
               <li className="hover:text-primary duration-500">
