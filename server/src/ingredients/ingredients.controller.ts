@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Put } from '@nestjs/common';
 import { IngredientService } from './ingredients.service';
 
 @Controller('/ingredient')
@@ -10,6 +10,6 @@ export class IngredientController {
   }
   @Delete(':id')
   deleteIngredient(@Param('id') id: string) {
-    return;
+    return this.IngrediendService.deleteIngredient(id);
   }
 }
