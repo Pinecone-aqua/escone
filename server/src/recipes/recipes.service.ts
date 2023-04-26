@@ -17,7 +17,7 @@ export class RecipeService {
 
   async getRecipes() {
     const result = await this.recipeModel.find({});
-    return `all recipes: ${result}`;
+    return result;
   }
 
   async getRecipe(id: string) {

@@ -7,7 +7,6 @@ type PropType = {
   recipe: RecipeType;
 };
 export default function RecipeCard({ recipe }: PropType): JSX.Element {
-  console.log(recipe);
   return (
     <Link href={"/"}>
       <div className="card max-h-[416px]">

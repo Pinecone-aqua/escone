@@ -7,7 +7,7 @@ type PropType = { recipes: RecipeType[] };
 
 export default function Carousel({ recipes }: PropType): null | JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
-  console.log(recipes);
+
   const handleNext = () => {
     setCurrentSlide((currentSlide + 1) % recipes.length);
   };
