@@ -13,9 +13,9 @@ export default function Header(): JSX.Element {
   return (
     <div className="flex sticky top-0 w-full h-[100px] bg-white shadow z-40">
       <div className="container flex items-center justify-between mx-auto p-[20px]">
-        <div className="relative">
+        <div className="relative lg:hidden">
           <button
-            className="flex items-center justify-center lg:hidden"
+            className="flex items-center justify-center "
             onClick={() => {
               setMenu(!menu);
             }}
