@@ -1,14 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/logo-main.svg";
-import { FaSearch, FaUser } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
+import { FaSearch, FaUser } from "react-icons/fa";
 import { useState } from "react";
 
 export default function Header(): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
+  // const [login, setLogin] = useState<boolean>(false);
 
   return (
     <div className="flex sticky top-0 w-full h-[100px] bg-white shadow z-40">
@@ -18,7 +18,6 @@ export default function Header(): JSX.Element {
             className="flex items-center justify-center lg:hidden"
             onClick={() => {
               setMenu(!menu);
-              console.log("asd");
             }}
           >
             <FiMenu className="text-primary hover:text-secondary duration-500 w-[25px] h-[25px]" />
@@ -106,6 +105,13 @@ export default function Header(): JSX.Element {
             </li>
           </ul>
         </nav>
+
+        {/* LOGIN TEST BUTTON */}
+        <div className="static">
+          <button className="p-1 px-3 rounded-full border text-secondary border-secondary hover:bg-secondary/10 duration-300">
+            LOGIN
+          </button>
+        </div>
 
         {/* USER */}
         <div className="relative">
