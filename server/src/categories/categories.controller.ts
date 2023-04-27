@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CategoryService } from './categories.service';
 import { CategoryDto } from './dto/categories.create.dto';
 
-@Controller()
+@Controller('category')
 export class CategoryContoller {
   constructor(private readonly categoryService: CategoryService) {}
 

@@ -10,7 +10,7 @@ type RecipesGridProps = {
 
 export default function RecipesGrid({ recipes }: RecipesGridProps) {
   return (
-    <div className="container rounded-2xl my-5 p-5 bg-cover h-[550px] flex flex-col px-[80px] max-w-full min-w-[550px]">
+    <div className="container rounded-2xl my-5 pb-20 pt-5 bg-cover h-full flex flex-col px-[80px] ">
       <div className="flex justify-between items-center">
         <h1 className="text-xl-semibold md:text-2xl-semibold text-[#485801]">
           Popular Recipes
@@ -23,8 +23,8 @@ export default function RecipesGrid({ recipes }: RecipesGridProps) {
           </div>
         </Link>
       </div>
-      <div className="flex h-full overflow-x-scroll my-5 gap-5 w-full justify-evenly">
-        {recipes.map((recipe: RecipeType) => (
+      <div className=" w-full flex h-full justify-between gap-5  md:gap-y-20  ">
+        {recipes.slice(0, 3).map((recipe: RecipeType) => (
           <RecipeCard key={recipe._id} recipe={recipe} />
         ))}
       </div>

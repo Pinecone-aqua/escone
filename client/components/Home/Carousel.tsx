@@ -17,24 +17,24 @@ export default function Carousel({ recipes }: PropType): null | JSX.Element {
   };
 
   return recipes.length != 0 ? (
-    <div className="w-full h-[600px] bg-[#FFFCF6] pb-10">
+    <div className=" w-full  h-[600px] bg-[#FFFCF6] sm:pb-10">
       <div className="relative w-full h-full container">
-        <div className="absolute flex items-center w-full h-full justify-around">
-          <picture className="w-96">
+        <div className=" flex gap-5 px-10 items-center w-full h-full justify-around">
+          <picture className="w-full max-w-[400px] sm:w-1/2">
             <img
               src={recipes[currentSlide].images[1]}
               className="h-full w-full "
             />
           </picture>
 
-          <div className=" flex flex-col gap-10">
-            <h1 className="text-3xl font-bold">
+          <div className="sm:flex hidden lg:w-1/2 flex-col gap-10">
+            <h1 className="text-xl lg:text-3xl font-bold">
               {recipes[currentSlide].title}
             </h1>
-            <p className="w-96">{recipes[currentSlide].description}</p>
+            <p className="w-[400px] ">{recipes[currentSlide].description}</p>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full flex justify-center">
+        <div className="absolute bottom-0 flex-wrap gap-3 left-0 w-full flex justify-center">
           {recipes.map((_image, index) => (
             <button
               key={index}

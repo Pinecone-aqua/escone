@@ -8,7 +8,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body>
+      <body className="w-full">
         <Main />
         <NextScript />
       </body>
