@@ -17,6 +17,11 @@ export class IngredientService {
     const result = await this.ingredientModel.deleteOne({ _id: id });
     return result;
   }
+  async getIngredient(id: string) {
+    const result = await this.ingredientModel.findOne({ _id: id });
+    return result;
+  }
+
   async createIngredient(newIngredient: CreateIngredientDto) {
     console.log(newIngredient);
     const result = await this.ingredientModel.insertMany(newIngredient);
