@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Req,
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
@@ -16,9 +15,8 @@ export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
   @Post('add')
-  addRecipe(@Body() recipeDto: RecipeDto, @Req() req: any) {
-    const created_by = req.user.username;
-    return this.recipeService.addRecipe(recipeDto, created_by);
+  addRecipe(@Body() recipeDto: RecipeDto) {
+    return this.recipeService.addRecipe(recipeDto);
   }
 
   @Get('all')
