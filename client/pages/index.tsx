@@ -1,4 +1,3 @@
-import Layout from "@/components/global/Layout";
 import Carousel from "@/components/Home/Carousel";
 import Introduce from "@/components/Home/Introduce";
 import RecipesGrid from "@/components/Home/RecipesGrid";
@@ -23,11 +22,10 @@ export default function Home() {
       <Head>
         <title key="title">Home | FOODIE</title>
       </Head>
-      <Layout>
-        <Carousel recipes={recipes} />
-        <RecipesGrid recipes={limitedRecipes} />
-        <Introduce />
-      </Layout>
+
+      <Carousel recipes={recipes} />
+      <RecipesGrid recipes={limitedRecipes} />
+      <Introduce />
     </>
   );
 }

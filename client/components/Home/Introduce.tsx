@@ -4,13 +4,13 @@ import introIcons from "@/assets/introduce-elements.svg";
 
 export default function Introduce(): JSX.Element {
   return (
-    <div className="container relative flex items-center rounded-2xl max-w-full min-w-[550px] min-h-[260px]">
-      <Image src={introIcons} alt="introIcons" className="w-full" />
+    <div className="container relative flex items-center rounded-2xl max-w-full border min-h-[260px]">
+      <Image src={introIcons} alt="introIcons" className="w-full container" />
 
       <div className="absolute w-full h-full top-0 flex flex-col items-center justify-center gap-10 text-black/70">
-        <Image src={logo} alt="logo" />
+        <Image src={logo} alt="logo" width={"100"} />
 
-        <div className="block text-2xl sm:text-3xl font-bold ">
+        <div className="block text-lg sm:text-3xl font-bold ">
           Foodie is a platform for sharing.
           <span className="block">Sharing recipes and ingredients.</span>
         </div>
