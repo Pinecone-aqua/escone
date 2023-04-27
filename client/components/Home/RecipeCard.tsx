@@ -9,7 +9,7 @@ type PropType = {
 export default function RecipeCard({ recipe }: PropType): JSX.Element {
   return (
     <Link href={"/"}>
-      <div className="card max-h-[416px]">
+      <div className="card max-h-[302px] w-[302px]">
         {recipe.images.length > 0 && (
           <picture>
             <img
