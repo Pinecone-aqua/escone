@@ -15,14 +15,15 @@ export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
   @Post('add')
-  createRecipe(@Body() RecipeDto: RecipeDto) {
-    return this.recipeService.addRecipe(RecipeDto);
+  addRecipe(@Body() recipeDto: RecipeDto) {
+    return this.recipeService.addRecipe(recipeDto);
   }
 
   @Get('all')
-  getAllRecipes() {
+  getRecipes() {
     return this.recipeService.getRecipes();
   }
+
   @Get('pending')
   getPendingRecipes() {
     return this.recipeService.getPendingRecipes();

@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 
 @Schema()
 export class Recipe {
@@ -8,12 +9,12 @@ export class Recipe {
   description: string;
   @Prop()
   images: string[];
-  @Prop()
-  categories: string[];
-  @Prop()
-  tags: string[];
-  @Prop()
-  ingredients: string[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }] })
+  categories: ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }] })
+  tags: ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient' }] })
+  ingredients: ObjectId[];
   @Prop()
   cook_time: number;
   @Prop()
