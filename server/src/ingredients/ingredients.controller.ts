@@ -17,6 +17,10 @@ export class IngredientController {
   getAllIngredient() {
     return this.IngrediendService.getAllIngredient();
   }
+  @Get(':id')
+  getIngredient(@Param('id') id: string) {
+    return this.IngrediendService.getIngredient(id);
+  }
   @Delete(':id')
   deleteIngredient(@Param('id') id: string) {
     return this.IngrediendService.deleteIngredient(id);
