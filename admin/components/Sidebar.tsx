@@ -2,24 +2,25 @@ import React from "react";
 
 import Link from "next/link";
 
-type Props = {};
-
-export default function Sidebar({}: Props): JSX.Element {
-  const Home = () => <h1>Home</h1>;
-  const Profile = () => <h1>Profile</h1>;
-  const Settings = () => <h1>Settings</h1>;
+export default function Sidebar(): JSX.Element {
   return (
     <div className="wrapper">
       <div className="sidebar">
         <ul className="nav">
           <li>
-            <Link to="/">Home</Link>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link href="/accounting">Accounting</Link>
           </li>
           <li>
-            <Link to="/settings">Settings</Link>
+            <Link href="/reciperequest">Recipe request</Link>
+          </li>
+          <li>
+            <Link href="/messages">Messages</Link>
+          </li>
+          <li>
+            <Link href="/about">About</Link>
           </li>
         </ul>
       </div>
