@@ -8,12 +8,8 @@ type PropType = {
   className?: RecipeType;
 };
 export default function RecipeCard({ recipe }: PropType): JSX.Element {
-  console.log(recipe);
   return (
-    <Link
-      href={"/"}
-      className={`w-5/12 sm:w-[29%] max-h-[302px] h-full max-w-[302px]`}
-    >
+    <Link href={"/"} className={`w-5/12 sm:w-[29%] h-[342px]  max-w-[302px]`}>
       <div className="rounded-2xl bg-white h-full w-full ">
         {recipe.images.length > 0 && (
           <picture>
@@ -26,7 +22,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
             />
           </picture>
         )}
-        <div className="w-full rounded-b-2xl    flex justify-between p-2 md:p-5 shadow-md">
+        <div className="w-full rounded-b-2xl bg-white   flex justify-between p-2 md:p-5 shadow-md">
           <div className="  w-full">
             <h2 className="text-xs md:text-sm font-bold">
               {recipe.title && recipe.title.slice(0, 15)}...
