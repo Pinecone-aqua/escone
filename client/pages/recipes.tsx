@@ -1,5 +1,5 @@
 import RecipeCard from "@/components/Home/RecipeCard";
-import Filter from "@/components/RecipePage copy/Filter";
+import Filter from "@/components/RecipePage/Filter";
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
