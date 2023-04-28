@@ -3,6 +3,8 @@ import mongoose, { ObjectId } from 'mongoose';
 
 @Schema()
 export class Recipe {
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  _id: ObjectId;
   @Prop()
   title: string;
   @Prop()

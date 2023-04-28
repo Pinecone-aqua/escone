@@ -17,7 +17,7 @@ export class RecipeService {
   }
 
   async getRecipes() {
-    const result = await this.recipeModel.find();
+    const result = await this.recipeModel.find({ status: 'approve' });
 
     return result;
   }
@@ -30,7 +30,13 @@ export class RecipeService {
       .populate('ingredients');
     return result;
   }
-
+  async recipeApprove(id: string) {
+    const result = await this.recipeModel.updateOne(
+      { _id: id },
+      { status: 'approve' },
+    );
+    return result;
+  }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async editRecipe(id: string, recipeDto: RecipeDto) {
     const result = await this.recipeModel.updateOne({ _id: id });

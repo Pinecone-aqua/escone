@@ -33,6 +33,10 @@ export class RecipeController {
   getRecipe(@Param('id') id: string) {
     return this.recipeService.getRecipe(id);
   }
+  @Put('approve')
+  recipeApprove(@Body('id') id: string) {
+    return this.recipeService.recipeApprove(id);
+  }
 
   @Put(':id')
   editRecipe(@Param('id') id: string, @Body() recipeDto: RecipeDto) {
