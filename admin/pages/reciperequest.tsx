@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 export default function Reciperequest() {
   const [recipes, setRecipes] = useState<RecipeType[] | null>();
-  const [refresh, setRefresh] = useState();
+  const [refresh, setRefresh] = useState<unknown>();
   useEffect(() => {
     axios.get("http://localhost:3030/recipe/pending").then((res) => {
       setRecipes(res.data);
