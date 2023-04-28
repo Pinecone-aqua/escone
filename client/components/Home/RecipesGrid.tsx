@@ -23,7 +23,7 @@ export default function RecipesGrid({ recipes }: RecipesGridProps) {
           </div>
         </Link>
       </div>
-      <div className=" w-full flex h-full justify-between gap-5  md:gap-y-20  ">
+      <div className=" w-full flex h-full justify-between gap-5 overflow-x-scroll  md:gap-y-20  ">
         {recipes.slice(0, 4).map((recipe: RecipeType) => (
           <RecipeCard key={recipe._id} recipe={recipe} />
         ))}

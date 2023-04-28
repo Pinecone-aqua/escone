@@ -20,7 +20,6 @@ const buttonClass =
 // ---------------------------
 
 type prop = {
-  show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
 };
 

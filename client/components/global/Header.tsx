@@ -4,11 +4,12 @@ import logo from "@/assets/logo-main.svg";
 import { FiMenu } from "react-icons/fi";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { useState } from "react";
+import { Login } from "./header/Login";
 
 export default function Header(): JSX.Element {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
-  // const [login, setLogin] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
 
   return (
     <div className="flex sticky top-0 w-full h-[100px] bg-white shadow z-40">
@@ -92,7 +93,7 @@ export default function Header(): JSX.Element {
               <Link href={"#"}>Home</Link>
             </li>
             <li className="hover:text-secondary duration-500">
-              <Link href={"#"}>Recipes</Link>
+              <Link href={"/recipes"}>Recipes</Link>
             </li>
             <li className="hover:text-secondary duration-500">
               <Link href={"#"}>Blog</Link>
@@ -108,9 +109,15 @@ export default function Header(): JSX.Element {
 
         {/* LOGIN TEST BUTTON */}
         <div className="static">
-          <button className="p-1 px-3 rounded-full border text-secondary border-secondary hover:bg-secondary/10 duration-300">
+          <button
+            className="p-1 px-3 rounded-full border text-secondary border-secondary hover:bg-secondary/10 duration-300"
+            onClick={() => {
+              setShow(!show);
+            }}
+          >
             LOGIN
           </button>
+          {show && <Login setShow={setShow} />}
         </div>
 
         {/* USER */}

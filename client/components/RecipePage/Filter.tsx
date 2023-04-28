@@ -81,7 +81,7 @@ function Filter() {
             )}
         </div>
       </div>
-      <div className="w-full rounded-3xl shadow-2xl p-8 border-2 flex flex-col gap-5 border-t-black ">
+      <div className="w-full rounded-3xl shadow-2xl p-8  flex flex-col gap-5 ">
         <p className="text-2xl">Tags</p>
         <div className=" w-full flex flex-wrap gap-3 justify-center">
           {tags &&
