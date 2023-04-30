@@ -15,18 +15,27 @@ export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
   @Post('add')
-  createRecipe(@Body() RecipeDto: RecipeDto) {
-    return this.recipeService.createRecipe(RecipeDto);
+  addRecipe(@Body() recipeDto: RecipeDto) {
+    return this.recipeService.addRecipe(recipeDto);
   }
 
   @Get('all')
-  getAllRecipes() {
+  getRecipes() {
     return this.recipeService.getRecipes();
+  }
+
+  @Get('pending')
+  getPendingRecipes() {
+    return this.recipeService.getPendingRecipes();
   }
 
   @Get(':id')
   getRecipe(@Param('id') id: string) {
     return this.recipeService.getRecipe(id);
+  }
+  @Put('approve')
+  recipeApprove(@Body('id') id: string) {
+    return this.recipeService.recipeApprove(id);
   }
 
   @Put(':id')

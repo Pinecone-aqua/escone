@@ -16,8 +16,8 @@ export default function Footer(): JSX.Element {
           <Image src={logo} alt="foodie" />
         </Link>
 
-        <nav className="px-5 w-[460px]">
-          <ul className="flex flex-wrap items-center justify-between text-gray-800 text-md-reg w-full">
+        <nav className="px-5 ">
+          <ul className="flex flex-wrap items-center gap-3 justify-center text-gray-800 text-md-reg w-full">
             <li className="flex justify-center hover:text-secondary duration-500 w-1/3 md:w-1/5">
               <Link href={"#"}>Home</Link>
             </li>

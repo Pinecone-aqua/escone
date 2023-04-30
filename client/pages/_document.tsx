@@ -1,4 +1,3 @@
-import Layout from "@/components/global/Layout";
 import { Html, Head, Main, NextScript } from "next/document";
 export default function Document() {
   return (
@@ -9,11 +8,9 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body>
-        <Layout>
-          <Main />
-          <NextScript />
-        </Layout>
+      <body className="w-full">
+        <Main />
+        <NextScript />
       </body>
     </Html>
   );

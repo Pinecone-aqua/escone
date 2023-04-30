@@ -6,33 +6,49 @@ import { RecipeDto } from './dto/recipe.dto';
 
 @Injectable()
 export class RecipeService {
-  [x: string]: any;
   constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) {}
   recipes = [];
 
-  async addRecipe(recipe: RecipeDto) {
-    const result = await this.recipeModel.create(recipe);
-    return `added recipe: ${result}`;
+  async addRecipe(recipeDto: RecipeDto) {
+    const createdRecipe = await this.recipeModel.create({
+      ...recipeDto,
+    });
+    return createdRecipe;
   }
 
   async getRecipes() {
-    const result = await this.recipeModel.find({});
-    return `all recipes: ${result}`;
+    const result = await this.recipeModel.find({ status: 'approve' });
+
+    return result;
   }
 
   async getRecipe(id: string) {
-    const result = await this.recipeModel.findOne({ _id: id });
-    return `selected recipe: ${result}`;
+    const result = await this.recipeModel
+      .findOne({ _id: id })
+      .populate('categories')
+      .populate('tags')
+      .populate('ingredients');
+    return result;
   }
-
+  async recipeApprove(id: string) {
+    const result = await this.recipeModel.updateOne(
+      { _id: id },
+      { status: 'approve' },
+    );
+    return result;
+  }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async editRecipe(id: string, recipeDto: RecipeDto) {
     const result = await this.recipeModel.updateOne({ _id: id });
-    return `edited recipe: ${result}`;
+    return result;
   }
 
   async deleteRecipe(id: string) {
     const result = await this.recipeModel.deleteOne({ _id: id });
-    return `deleted recipe: ${result}`;
+    return result;
+  }
+  async getPendingRecipes() {
+    const result = await this.recipeModel.find({ status: 'pending' });
+    return result;
   }
 }

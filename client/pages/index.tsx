@@ -9,10 +9,10 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const limitedRecipes = recipes.slice(0, 12);
-  console.log(recipes);
+
   useEffect(() => {
     axios
-      .get("http://localhost:3030/recipes")
+      .get("http://localhost:3030/recipe/all")
       .then((response) => setRecipes(response.data))
       .catch((error) => console.error(error));
   }, []);
@@ -22,6 +22,7 @@ export default function Home() {
       <Head>
         <title key="title">Home | FOODIE</title>
       </Head>
+
       <Carousel recipes={recipes} />
       <RecipesGrid recipes={limitedRecipes} />
       <Introduce />

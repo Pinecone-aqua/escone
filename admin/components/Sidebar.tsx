@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-
-import { navLinks } from "../utils/data";
+import React from "react";
 
 import Link from "next/link";
 
-export default function Sidebar() {
-  const [active, isActive] = useState(false);
+export default function Sidebar(): JSX.Element {
   return (
-    <div className="bg-[#0F123F] w-2/12 min-h-screen box-border">
-      <nav>
-        {navLinks.map((link, index) => (
-          <ul key={index}>
-            <Link href={link.path}>
-              <li
-                key={index}
-                className="mt-20 h-10 text-center rounded bg-green-500 hover:bg-cyan-100 hover:text-xl"
-              >
-                {link.name}
-              </li>
-            </Link>
-          </ul>
-        ))}
-      </nav>
+    <div className="bg-blue-900 w-[300px] px-14 text-white min-h-[100vh] py-10">
+      <ul className="w-full flex flex-col gap-8">
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/accounting">Accounting</Link>
+        </li>
+        <li>
+          <Link href="/reciperequest">Recipe request</Link>
+        </li>
+        <li>
+          <Link href="/messages">Messages</Link>
+        </li>
+        <li>
+          <Link href="/about">About</Link>
+        </li>
+      </ul>
     </div>
   );
 }
