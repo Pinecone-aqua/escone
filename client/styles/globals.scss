@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./variables.scss";
+@import "./header.scss";
+
 * {
   box-sizing: border-box;
+  font: $font-stack;
 }
 
 .container {
-  @apply mx-auto w-[1440px]
+  @apply mx-auto max-w-[1440px];
 }
 
 .card {
