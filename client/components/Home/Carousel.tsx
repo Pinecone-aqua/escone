@@ -6,59 +6,54 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 type PropType = { recipes: RecipeType[] };
 
 export default function Carousel({ recipes }: PropType): null | JSX.Element {
+  const specialRecipes = recipes.slice(0, 5);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleNext = () => {
-    setCurrentSlide((currentSlide + 1) % recipes.length);
+    setCurrentSlide((currentSlide + 1) % specialRecipes.length);
   };
 
   const handlePrev = () => {
-    setCurrentSlide(currentSlide === 0 ? recipes.length - 1 : currentSlide - 1);
+    setCurrentSlide(
+      currentSlide === 0 ? specialRecipes.length - 1 : currentSlide - 1
+    );
   };
 
-  return recipes.length != 0 ? (
-    <div className=" w-full  h-[600px] bg-[#FFFCF6] sm:pb-10">
-      <div className="relative w-full h-full container">
-        <div className=" flex gap-5 px-10 items-center w-full h-full justify-around">
-          <picture className="w-full max-w-[400px] sm:w-1/2">
-            <img
-              src={recipes[currentSlide].images[1]}
-              className="h-full w-full "
-            />
+  return specialRecipes.length != 0 ? (
+    <div className="container">
+      <div className="carousel">
+        <div className="carousel-content">
+          <picture>
+            <img src={specialRecipes[currentSlide].images[1]} />
           </picture>
-
-          <div className="sm:flex hidden lg:w-1/2 flex-col gap-10">
-            <h1 className="text-xl lg:text-3xl font-bold">
-              {recipes[currentSlide].title}
-            </h1>
-            <p className="w-[400px] ">{recipes[currentSlide].description}</p>
+          <div className="text">
+            <h1>{specialRecipes[currentSlide].title.slice(0, 20)}</h1>
+            <p>{specialRecipes[currentSlide].description.slice(0, 130)}...</p>
           </div>
+          <div className="gradient" />
         </div>
-        <div className="absolute bottom-0 flex-wrap gap-3 left-0 w-full flex justify-center">
-          {recipes.map((_image, index) => (
+
+        <div className="carousel-buttons">
+          <button onClick={handlePrev}>
+            <FiArrowLeft />
+          </button>
+
+          <button onClick={handleNext}>
+            <FiArrowRight />
+          </button>
+        </div>
+
+        <div className="pagination-dots">
+          {specialRecipes.map((_image, index) => (
             <button
               key={index}
-              className={`${
-                currentSlide === index
-                  ? "bg-gray-900 text-white"
-                  : "bg-gray-200 text-gray-900"
-              } w-4 h-4 rounded-full mx-2 `}
+              className={
+                currentSlide === index ? "bg-orange-300" : "bg-gray-300"
+              }
               onClick={() => setCurrentSlide(index)}
             />
           ))}
         </div>
-        <button
-          onClick={handlePrev}
-          className="absolute top-1/2 left-0 bg-[#F06101] p-2 rounded-full text-3xl text-white font-bold"
-        >
-          <FiArrowLeft />
-        </button>
-        <button
-          onClick={handleNext}
-          className="absolute top-1/2 right-0 bg-[#F06101] p-2 rounded-full text-3xl text-white font-bold"
-        >
-          <FiArrowRight />
-        </button>
       </div>
     </div>
   ) : null;
