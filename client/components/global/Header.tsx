@@ -66,7 +66,7 @@ export default function Header(): JSX.Element {
                   </li>
                 </ul>
               </nav>
-              {!menu && (
+              {menu && (
                 <div className="menu-links">
                   <ul>
                     <li>

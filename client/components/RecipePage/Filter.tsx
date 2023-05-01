@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CategoryType, IngredientType, TagType } from "../../utils/types";
-import MainBtn from "../global/MainBtn";
+import { useRouter } from "next/router";
 
 function Filter() {
+  const Router = useRouter();
   const [tags, setTags] = useState<TagType[] | undefined>();
   const [categories, setCategories] = useState<CategoryType[] | undefined>();
   const [ingredients, setIngredients] = useState<
     IngredientType[] | undefined
   >();
-  const [isSelect, setIsSelect] = useState<number[]>([]);
+
   useEffect(() => {
     axios.get("http://localhost:3030/tag/all").then((res) => {
       setTags(res.data.slice(0, 10));
@@ -21,17 +22,22 @@ function Filter() {
       setIngredients(res.data.slice(0, 10));
     });
   }, []);
-  function selectHandler(index: number) {
-    if (isSelect.some((val) => val == index)) {
-      const i = isSelect.indexOf(index);
-      const newArr = isSelect.splice(i, 1);
-      console.log(newArr);
-      setIsSelect([...isSelect]);
+  function selectHandler(index: string, name: string) {
+    let query: string | string[] | undefined = Router.query[index];
+    console.log(Router.query);
+    if (!query) {
+      Router.push({ query: { [index]: name, ...Router.query } });
     } else {
-      setIsSelect([...isSelect, index]);
+      if (typeof query == "string") {
+        console.log(typeof query == "string");
+        query = [query];
+      }
+      const newarr = [...query, name];
+      Router.push({
+        query: { [index]: newarr },
+      });
     }
   }
-  console.log();
   return (
     <div className="flex flex-col gap-10">
       <div className="w-full  flex flex-col shadow-2xl rounded-2xl ">
@@ -50,6 +56,9 @@ function Filter() {
                   name={category.name}
                   id={category.name}
                   className=" focus:outline-0 border rounded w-4 h-4"
+                  onChange={() => {
+                    selectHandler("cat", category.name);
+                  }}
                 />
                 <label htmlFor={category.name}>{category.name}</label>
               </div>
@@ -74,6 +83,9 @@ function Filter() {
                       name={ingredient.name}
                       id={ingredient.name}
                       className=" focus:outline-0 border rounded w-4 h-4"
+                      onChange={() => {
+                        selectHandler("ing", ingredient.name);
+                      }}
                     />
                     <label htmlFor={ingredient.name}>{ingredient.name}</label>
                   </div>
@@ -87,19 +99,15 @@ function Filter() {
           {tags &&
             tags.map((tag, index: number) => (
               <button
-                className={`border border-black px-3 py-1 rounded-full ${
-                  isSelect.some((val) => val == index) &&
-                  `bg-primary text-white border-none`
-                } `}
+                className={`border border-black px-3 py-1 rounded-full ${`bg-primary text-white border-none`} `}
                 key={index}
-                onClick={() => selectHandler(index)}
+                onClick={() => selectHandler("tag", tag.name)}
               >
                 {tag.name}
               </button>
             ))}
         </div>
       </div>
-      <MainBtn text="Apply" className="shadow" />
     </div>
   );
 }
