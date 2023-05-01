@@ -1,5 +1,7 @@
-import Link from "next/link";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Image from "next/image";
+import Link from "next/link";
 import logo from "@/assets/logo-main.svg";
 import {
   FaPinterest,
@@ -8,62 +10,64 @@ import {
   FaFacebook,
 } from "react-icons/fa";
 
+interface NavLink {
+  name: string;
+  link: string;
+}
+const navLinks: NavLink[] = [
+  { name: "Home", link: "/" },
+  { name: "Recipe", link: "/recipe" },
+  { name: "Blog", link: "/blog" },
+  { name: "About", link: "/about" },
+];
+
+interface SocialLink {
+  name: string;
+  icon: any;
+  link: string;
+}
+const socialLinks: SocialLink[] = [
+  {
+    name: "Pinterest",
+    icon: <FaPinterest />,
+    link: "https://www.pinterest.com/",
+  },
+  { name: "Twitter", icon: <FaTwitter />, link: "https://www.twitter.com/" },
+  {
+    name: "Instagram",
+    icon: <FaInstagram />,
+    link: "https://www.instagram.com/",
+  },
+  { name: "Facebook", icon: <FaFacebook />, link: "https://www.facebook.com/" },
+];
+
 export default function Footer(): JSX.Element {
   return (
-    <div className=" flex w-full h-[325px] bg-white shadow-inner">
-      <div className="container flex flex-col items-center  justify-around mx-auto px-[20px] py-[30px]">
-        <Link href={"/"}>
-          <Image src={logo} alt="foodie" />
+    <div className="footer">
+      <div className="container">
+        <Link className="footer-logo" href={"/"}>
+          <Image src={logo} alt="Foodie" />
         </Link>
-
-        <nav className="px-5 ">
-          <ul className="flex flex-wrap items-center gap-3 justify-center text-gray-800 text-md-reg w-full">
-            <li className="flex justify-center hover:text-secondary duration-500 w-1/3 md:w-1/5">
-              <Link href={"#"}>Home</Link>
-            </li>
-            <li className="flex justify-center hover:text-secondary duration-500 w-1/3 md:w-1/5">
-              <Link href={"#"}>Recipes</Link>
-            </li>
-            <li className="flex justify-center hover:text-secondary duration-500 w-1/3 md:w-1/5">
-              <Link href={"#"}>Blog</Link>
-            </li>
-            <li className="flex justify-center hover:text-secondary duration-50 w-1/2 md:w-1/5">
-              <Link href={"#"}>Maps</Link>
-            </li>
-            <li className="flex justify-center hover:text-secondary duration-500 w-1/2 md:w-1/5">
-              <Link href={"#"}>About</Link>
-            </li>
+        <div className="navLinks">
+          <ul>
+            {navLinks.map((navLink, index) => (
+              <li key={index}>
+                <Link href={navLink.link}>{navLink.name}</Link>
+              </li>
+            ))}
           </ul>
-        </nav>
-
-        <div className="text-gray-700 gap-5 flex flex-col">
-          <div className="links">
-            <ul className="flex justify-center items-center text-lg-bold gap-5">
-              <li className="hover:text-primary duration-500">
-                <Link href={"#"}>
-                  <FaPinterest />
-                </Link>
+        </div>
+        <div className="socialLinks">
+          <ul>
+            {socialLinks.map((socialLink, index) => (
+              <li key={index} value={socialLink.name}>
+                <Link href={socialLink.link}>{socialLink.icon}</Link>
               </li>
-              <li className="hover:text-primary duration-500">
-                <Link href={"#"}>
-                  <FaTwitter />
-                </Link>
-              </li>
-              <li className="hover:text-primary duration-500">
-                <Link href={"#"}>
-                  <FaInstagram />
-                </Link>
-              </li>
-              <li className="hover:text-primary duration-500">
-                <Link href={"#"}>
-                  <FaFacebook />
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="copyright text-2xs-reg">
-            &copy; 2023 Foodie. team PineApple | AQUA
-          </div>
+            ))}
+          </ul>
+        </div>
+        <div className="copyright">
+          <p>&copy;2023 Foodie. team PineApple | AQUA</p>
         </div>
       </div>
     </div>

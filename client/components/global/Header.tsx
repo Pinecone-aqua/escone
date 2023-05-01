@@ -8,7 +8,7 @@ import { FiMenu } from "react-icons/fi";
 export default function Header(): JSX.Element {
   const dropItems: string[] = ["Information", "Favorites", "Log out"];
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const [menu, setMenu] = useState<boolean>(false);
+  const [menu, setMenu] = useState<boolean>(true);
   return (
     <>
       <div className="header">
