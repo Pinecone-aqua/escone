@@ -1,0 +1,239 @@
+.carousel {
+  position: relative;
+  display: flex;
+  &-buttons {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    button {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $brand-gray;
+      background-color: $brand-secondary;
+      border-radius: 50%;
+      opacity: 70%;
+    }
+  }
+  .pagination-dots {
+    width: 100vw;
+    margin: 20px 0;
+    width: 100%;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    button {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      margin: 0 10px;
+    }
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .carousel {
+    height: 400px;
+    &-content {
+      width: 100%;
+      picture {
+        img {
+          z-index: -1;
+          position: static;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .gradient {
+        z-index: 0;
+        position: absolute;
+        background-image: linear-gradient(transparent, $brand-gray);
+        width: 100%;
+        height: 100%;
+        top: 0;
+      }
+      .text {
+        bottom: 35px;
+        padding: 30px;
+        z-index: 1;
+        position: absolute;
+        h1 {
+          font-size: 32px;
+          font-weight: 700;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+    &-buttons {
+      z-index: 2;
+      button {
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+      }
+      button:first-child {
+        left: 20px;
+      }
+      button:nth-child(2) {
+        right: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .carousel {
+    height: 500px;
+    &-content {
+      width: 100%;
+      picture {
+        img {
+          z-index: -1;
+          position: static;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .gradient {
+        z-index: 0;
+        position: absolute;
+        background-image: linear-gradient(transparent, $brand-gray);
+        width: 100%;
+        height: 100%;
+        top: 0;
+      }
+      .text {
+        bottom: 40px;
+        padding: 30px 40px;
+        z-index: 1;
+        position: absolute;
+        h1 {
+          font-size: 36px;
+          font-weight: 700;
+        }
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+    &-buttons {
+      z-index: 2;
+      button {
+        font-size: 25px;
+        width: 40px;
+        height: 40px;
+      }
+      button:first-child {
+        left: 30px;
+      }
+      button:nth-child(2) {
+        right: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .carousel {
+    height: 500px;
+    &-content {
+      width: 100%;
+      picture {
+        img {
+          z-index: -1;
+          position: static;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .gradient {
+        z-index: 0;
+        position: absolute;
+        background-image: linear-gradient(transparent, $brand-gray);
+        width: 100%;
+        height: 100%;
+        top: 0;
+      }
+      .text {
+        bottom: 40px;
+        padding: 30px 50px;
+        z-index: 1;
+        position: absolute;
+        h1 {
+          font-size: 36px;
+          font-weight: 700;
+        }
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+    &-buttons {
+      z-index: 2;
+      button {
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+      }
+      button:first-child {
+        left: 40px;
+      }
+      button:nth-child(2) {
+        right: 40px;
+      }
+    }
+  }
+
+  // .carousel {
+  //   height: 600px;
+  //   &-content {
+  //     background-color: green;
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: space-around;
+  //     .gradient {
+  //       display: none;
+  //     }
+  //     picture {
+  //       background-color: blue;
+  //       width: 500px;
+  //       height: 500px;
+  //     }
+  //     .text {
+  //       bottom: 0;
+  //       height: 100%;
+  //       right: 150px;
+  //       width: 400px;
+  //       background-color: red;
+  //       h1 {
+  //         font-size: 32px;
+  //         font-weight: 700;
+  //       }
+  //       p {
+  //         font-size: 16px;
+  //       }
+  //     }
+  //   }
+  //   &-buttons {
+  //     z-index: 2;
+  //     button {
+  //       font-size: 30px;
+  //       width: 50px;
+  //       height: 50px;
+  //     }
+  //     button:first-child {
+  //       left: 40px;
+  //     }
+  //     button:nth-child(2) {
+  //       right: 40px;
+  //     }
+  //   }
+  // }
+}
