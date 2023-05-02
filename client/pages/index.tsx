@@ -12,7 +12,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3030/recipe/all")
+      .get("http://localhost:3030/recipes/all")
       .then((response) => setRecipes(response.data))
       .catch((error) => console.error(error));
   }, []);
