@@ -6,11 +6,12 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
 
-@Controller('/recipe')
+@Controller('/recipes')
 export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
@@ -27,6 +28,10 @@ export class RecipeController {
   @Get('pending')
   getPendingRecipes() {
     return this.recipeService.getPendingRecipes();
+  }
+  @Get('filter')
+  getFilterRecipes(@Query() filter: any) {
+    return this.recipeService.getFilterRecipe(filter);
   }
 
   @Get(':id')
