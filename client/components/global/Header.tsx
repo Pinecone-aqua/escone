@@ -8,7 +8,7 @@ import { FiMenu } from "react-icons/fi";
 export default function Header(): JSX.Element {
   const dropItems: string[] = ["Information", "Favorites", "Log out"];
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const [menu, setMenu] = useState<boolean>(true);
+  const [menu, setMenu] = useState<boolean>(false);
   return (
     <>
       <div className="header">
@@ -66,7 +66,7 @@ export default function Header(): JSX.Element {
                   </li>
                 </ul>
               </nav>
-              {!menu && (
+              {menu && (
                 <div className="menu-links">
                   <ul>
                     <li>

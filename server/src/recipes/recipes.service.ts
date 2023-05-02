@@ -3,10 +3,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Recipe } from './recipe.schema';
 import { Model } from 'mongoose';
 import { RecipeDto } from './dto/recipe.dto';
+import { Category } from 'src/categories/categories.schema';
+import { Ingredient } from 'src/ingredients/ingredients.schema';
+import { Tag } from 'src/tags/tags.schema';
 
 @Injectable()
 export class RecipeService {
-  constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) {}
+  constructor(
+    @InjectModel(Recipe.name) private recipeModel: Model<Recipe>,
+    @InjectModel(Category.name) private categoryModel: Model<Category>,
+    @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,
+    @InjectModel(Tag.name) private tagModel: Model<Tag>,
+  ) {}
   recipes = [];
 
   async addRecipe(recipeDto: RecipeDto) {
@@ -18,7 +26,6 @@ export class RecipeService {
 
   async getRecipes() {
     const result = await this.recipeModel.find({ status: 'approve' });
-
     return result;
   }
 
@@ -42,7 +49,43 @@ export class RecipeService {
     const result = await this.recipeModel.updateOne({ _id: id });
     return result;
   }
+  async getFilterRecipe(filter: any) {
+    console.log(filter);
+    const catRawIds = await this.categoryModel.find(
+      { name: filter.cat },
+      { _id: 1 },
+    );
+    const ingRawIds = await this.ingredientModel.find(
+      { name: filter.ing },
+      { _id: 1 },
+    );
+    const tagRawIds = await this.tagModel.find(
+      { name: filter.tag },
+      { _id: 1 },
+    );
+    const catIds = catRawIds.map((id) => {
+      return {
+        categories: id._id,
+      };
+    });
+    const tagIds = tagRawIds.map((id) => {
+      return {
+        tags: id._id,
+      };
+    });
+    const ingIds = ingRawIds.map((id) => {
+      return {
+        ingredients: id._id,
+      };
+    });
 
+    const filteredRecipes = await this.recipeModel.find({
+      $and: [...catIds, ...ingIds, ...tagIds],
+    });
+    console.log([...catIds, ...ingIds, ...tagIds]);
+    console.log(filteredRecipes);
+    return filteredRecipes;
+  }
   async deleteRecipe(id: string) {
     const result = await this.recipeModel.deleteOne({ _id: id });
     return result;
