@@ -4,12 +4,16 @@ import { Recipe } from './recipe.schema';
 import { Model } from 'mongoose';
 import { RecipeDto } from './dto/recipe.dto';
 import { Category } from 'src/categories/categories.schema';
+import { Ingredient } from 'src/ingredients/ingredients.schema';
+import { Tag } from 'src/tags/tags.schema';
 
 @Injectable()
 export class RecipeService {
   constructor(
     @InjectModel(Recipe.name) private recipeModel: Model<Recipe>,
     @InjectModel(Category.name) private categoryModel: Model<Category>,
+    @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,
+    @InjectModel(Tag.name) private tagModel: Model<Tag>,
   ) {}
   recipes = [];
 
@@ -22,7 +26,6 @@ export class RecipeService {
 
   async getRecipes() {
     const result = await this.recipeModel.find({ status: 'approve' });
-
     return result;
   }
 
@@ -52,12 +55,36 @@ export class RecipeService {
       { name: filter.cat },
       { _id: 1 },
     );
-    const catIds = catRawIds.map((id) => id._id);
-    const filteredRecipes = await this.recipeModel.find({
-      categories: '6438bb05d4f6f42f7c57cfec',
+    const ingRawIds = await this.ingredientModel.find(
+      { name: filter.ing },
+      { _id: 1 },
+    );
+    const tagRawIds = await this.tagModel.find(
+      { name: filter.tag },
+      { _id: 1 },
+    );
+    const catIds = catRawIds.map((id) => {
+      return {
+        categories: id._id,
+      };
     });
-    console.log(catIds);
+    const tagIds = tagRawIds.map((id) => {
+      return {
+        tags: id._id,
+      };
+    });
+    const ingIds = ingRawIds.map((id) => {
+      return {
+        ingredients: id._id,
+      };
+    });
+
+    const filteredRecipes = await this.recipeModel.find({
+      $and: [...catIds, ...ingIds, ...tagIds],
+    });
+    console.log([...catIds, ...ingIds, ...tagIds]);
     console.log(filteredRecipes);
+    return filteredRecipes;
   }
   async deleteRecipe(id: string) {
     const result = await this.recipeModel.deleteOne({ _id: id });

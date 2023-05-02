@@ -118,7 +118,7 @@ function Filter() {
               <button
                 className={`border border-black px-3 text-sm py-1 rounded-full
                  ${
-                   Router.query.tag?.indexOf(tag.name) != -1
+                   Router.query.tag && Router.query.tag.indexOf(tag.name) != -1
                      ? `bg-primary text-white border-none`
                      : ""
                  } `}
