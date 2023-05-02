@@ -22,26 +22,33 @@ function Filter() {
       setIngredients(res.data.slice(0, 10));
     });
   }, []);
-  function selectHandler(index: string, name: string) {
-    let query: string | string[] | undefined = Router.query[index];
-    console.log(Router.query);
+
+  function selectHandler(type: string, name: string) {
+    let query: string | string[] | undefined = Router.query[type];
+    const objectQuery = Router.query;
+
     if (!query) {
-      Router.push({ query: { [index]: name, ...Router.query } });
+      Router.push({ query: { [type]: name, ...Router.query } });
     } else {
-      if (typeof query == "string") {
-        console.log(typeof query == "string");
-        query = [query];
+      if (typeof query == "string") query = [query];
+
+      if (query.some((n) => n == name)) {
+        query.splice(query.indexOf(name), 1);
+        objectQuery[type] = query;
+      } else {
+        const newarr = [...query, name];
+        objectQuery[type] = newarr;
       }
-      const newarr = [...query, name];
+
       Router.push({
-        query: { [index]: newarr },
+        query: objectQuery,
       });
     }
   }
   return (
-    <div className="flex flex-col gap-10">
-      <div className="w-full  flex flex-col shadow-2xl rounded-2xl ">
-        <div className="text-2xl bg-[#E2F2BF] w-full rounded-t-2xl mb-[-18px] p-8 ">
+    <div className="flex flex-col gap-5">
+      <div className="w-10/12  flex flex-col shadow-2xl rounded-2xl ">
+        <div className="text-xl bg-[#E2F2BF] w-full rounded-t-2xl mb-[-18px] p-6 ">
           Categories
         </div>
         <div className="flex flex-col bg-white gap-5 p-8 rounded-2xl w-full  h-full z-30">
@@ -49,7 +56,7 @@ function Filter() {
             categories.map((category, index) => (
               <div
                 key={index}
-                className="flex gap-4 items-center text-lg border-b-2 border-dashed py-4"
+                className="flex gap-4 items-center text-sm border-b-2 border-dashed py-2"
               >
                 <input
                   type="checkbox"
@@ -59,14 +66,19 @@ function Filter() {
                   onChange={() => {
                     selectHandler("cat", category.name);
                   }}
+                  checked={
+                    Router.query.cat
+                      ? Router.query.cat.indexOf(category.name) != -1
+                      : false
+                  }
                 />
                 <label htmlFor={category.name}>{category.name}</label>
               </div>
             ))}
         </div>
       </div>
-      <div className="w-full  flex flex-col shadow-2xl rounded-2xl ">
-        <div className="text-2xl bg-[#E2F2BF] w-full rounded-t-2xl mb-[-18px] p-8 ">
+      <div className="w-10/12  flex flex-col shadow-2xl rounded-2xl  ">
+        <div className="text-xl bg-[#E2F2BF] w-full rounded-t-2xl mb-[-18px] p-6 ">
           Ingredients
         </div>
         <div className="flex flex-col bg-white gap-5 p-8 rounded-2xl w-full  h-full z-30">
@@ -76,7 +88,7 @@ function Filter() {
                 ingredient.name && (
                   <div
                     key={index}
-                    className="flex gap-4 items-center text-lg border-b-2 border-dashed py-4"
+                    className="flex gap-4 items-center text-sm border-b-2 border-dashed py-2"
                   >
                     <input
                       type="checkbox"
@@ -86,6 +98,11 @@ function Filter() {
                       onChange={() => {
                         selectHandler("ing", ingredient.name);
                       }}
+                      checked={
+                        Router.query.ing
+                          ? Router.query.ing.indexOf(ingredient.name) != -1
+                          : false
+                      }
                     />
                     <label htmlFor={ingredient.name}>{ingredient.name}</label>
                   </div>
@@ -93,13 +110,18 @@ function Filter() {
             )}
         </div>
       </div>
-      <div className="w-full rounded-3xl shadow-2xl p-8  flex flex-col gap-5 ">
+      <div className="w-10/12 rounded-3xl shadow-2xl p-8  flex flex-col gap-5 ">
         <p className="text-2xl">Tags</p>
         <div className=" w-full flex flex-wrap gap-3 justify-center">
           {tags &&
             tags.map((tag, index: number) => (
               <button
-                className={`border border-black px-3 py-1 rounded-full ${`bg-primary text-white border-none`} `}
+                className={`border border-black px-3 text-sm py-1 rounded-full
+                 ${
+                   Router.query.tag?.indexOf(tag.name) != -1
+                     ? `bg-primary text-white border-none`
+                     : ""
+                 } `}
                 key={index}
                 onClick={() => selectHandler("tag", tag.name)}
               >
