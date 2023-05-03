@@ -5,28 +5,9 @@ import { Dialog } from "primereact/dialog";
 import { PrimeIcons } from "primereact/api";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
-<<<<<<< HEAD
 import Link from "next/link";
-<<<<<<< HEAD
-=======
-=======
->>>>>>> db1103b (google login)
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
-import {
-  FaFacebook,
-  FaGoogle,
-  FaInstagram,
-  FaPinterest,
-  FaTwitter,
-} from "react-icons/fa";
-import { IoCloseOutline } from "react-icons/io5";
->>>>>>> f3b54c1 (google login)
-=======
-import Link from "next/link";
->>>>>>> 887e1f9 (login modal & scss done)
 
 interface SocialLink {
   label: string;
@@ -44,6 +25,12 @@ const socialLinks: SocialLink[] = [
 
 export default function Login() {
   const [visible, setVisible] = useState<boolean>(false);
+  const modalHeader = (
+    <div className="modal-header">
+      <h1>Login | Register</h1>
+    </div>
+  );
+
   const Router = useRouter();
 
   function googleHandler() {
@@ -52,18 +39,7 @@ export default function Login() {
       .get("http://localhost:3030/user/google")
       .then((res) => Router.push(res.data));
   }
-  const modalHeader = (
-    <div className="modal-header">
-      <h1>Login | Register</h1>
-    </div>
-  );
 
-  function googleHandler() {
-    console.log("clicked");
-    axios
-      .get("http://localhost:3030/user/google")
-      .then((res) => Router.push(res.data));
-  }
   return (
     <div className="login-button mx-5">
       <Button
@@ -96,7 +72,6 @@ export default function Login() {
           </div>
           <Divider align="center">OR</Divider>
           <div className="login-inputs">
->>>>>>> c1d683b (google login worked)
             <InputText
               type="email"
               placeholder="Email Address"
