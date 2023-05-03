@@ -8,6 +8,8 @@ import Popup from "./header/Popup";
 import Sidemenu from "./header/Sidemenu";
 
 export default function Header(): JSX.Element {
+
+
   return (
     <>
       <div className="header">
@@ -32,7 +34,9 @@ export default function Header(): JSX.Element {
             </div>
 
             <div className="menu">
+
               <Sidemenu />
+
             </div>
           </div>
         </div>

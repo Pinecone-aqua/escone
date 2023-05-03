@@ -18,6 +18,12 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "tailwind.config.js", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "tailwind.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "public/Logo.ico"
+  ],
   "exclude": ["node_modules"]
 }
