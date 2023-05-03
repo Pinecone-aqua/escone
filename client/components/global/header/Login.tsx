@@ -72,8 +72,8 @@ default function Login() {
           </div>
           <Divider align="center">OR</Divider>
           <div className="login-inputs">
-            <InputText placeholder="Email Address" className="input" />
-            <InputText placeholder="Password" className="input" />
+            <InputText type="email" placeholder="Email Address" className="input" />
+            <InputText type="password" placeholder="Password" className="input" />
           </div>
           <div className="modal-footer">
             <Button label="Login" onClick={() => setVisible(false)} />
