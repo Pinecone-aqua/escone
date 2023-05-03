@@ -6,6 +6,7 @@ import { PrimeIcons } from "primereact/api";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import Link from "next/link";
+
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -29,7 +30,7 @@ export default function Login() {
     <div className="modal-header">
       <h1>Login | Register</h1>
     </div>
-  );
+
 
   const Router = useRouter();
 
@@ -39,6 +40,7 @@ export default function Login() {
       .get("http://localhost:3030/user/google")
       .then((res) => Router.push(res.data));
   }
+
 
   return (
     <div className="login-button mx-5">
@@ -58,6 +60,7 @@ export default function Login() {
           <div className="social-links">
             <ul>
               {socialLinks.map((socialLink, index) => (
+
                 <li
                   key={index}
                   className={socialLink.icon}
@@ -65,6 +68,7 @@ export default function Login() {
                     socialLink.label == "google" ? googleHandler() : ""
                   }
                 >
+
                   <Link href={socialLink.url} />
                 </li>
               ))}
@@ -72,6 +76,7 @@ export default function Login() {
           </div>
           <Divider align="center">OR</Divider>
           <div className="login-inputs">
+
             <InputText
               type="email"
               placeholder="Email Address"
@@ -82,6 +87,7 @@ export default function Login() {
               placeholder="Password"
               className="input"
             />
+
           </div>
           <div className="modal-footer">
             <Button label="Login" onClick={() => setVisible(false)} />

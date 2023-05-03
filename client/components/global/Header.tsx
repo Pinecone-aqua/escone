@@ -6,7 +6,7 @@ import { FaSearch } from "react-icons/fa";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Popup from "./header/Popup";
 import Sidemenu from "./header/Sidemenu";
-import Login from "./header/Login";
+
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { UserType } from "@/utils/types";
@@ -30,7 +30,6 @@ export default function Header(): JSX.Element {
   useEffect(() => {
     token && setUser(jwtDecode(token));
   }, [token]);
-
   return (
     <>
       <div className="header">
@@ -39,7 +38,9 @@ export default function Header(): JSX.Element {
             <Image src={logo} alt="Foodie" />
           </Link>
 
+
           {user ? null : <Login />}
+
 
           <div className="header-content">
             <form>
