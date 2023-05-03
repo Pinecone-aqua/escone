@@ -1,3 +1,48 @@
-# FOODIE
+![Logo](./client/assets/logo-main.svg)
 
-<img width="1065" alt="Screenshot 2023-04-13 at 15 28 48" src="https://user-images.githubusercontent.com/101621033/231686045-7d40165f-956a-4ed0-8489-39e247a15e38.png">
+RECIPE SHARING PLATFORM
+
+
+## ERD
+
+![App Screenshot](./client/assets/erd.png)
+
+
+## Developers
+
+Team "PineApple" ~ PINECONE AQUA 2023
+
+- [@maralisgoood](https://github.com/maralisgoood)
+- [@uugan-erdene](https://github.com/uka03)
+- [@bayanmunkh](https://github.com/zyota)
+
+
+## Tech Stack
+
+**Client:** React, Next.js, TailwindCSS, Sass,..
+
+**Server:** Node, NestJS,..
+
+
+## Features
+
+- User authentication and authorization
+- Recipe creation and management
+- Recipe search and filtering
+- Recipe rating and commenting
+- Saved recipes
+- Blog
+- ...
+
+
+## MVP
+* Client side:
+    * Recipe CRUD
+    * Comment & review 
+    * Save recipes
+* Admin side:
+    * Accept or Reject requests from users 
+    * View posted recipes, users list / sort
+
+***
+~~~ All rights reserved :) ~~~
