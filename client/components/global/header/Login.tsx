@@ -6,6 +6,10 @@ import { PrimeIcons } from "primereact/api";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import Link from "next/link";
+=======
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import {
   FaFacebook,
@@ -15,6 +19,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
+>>>>>>> f3b54c1 (google login)
 
 interface SocialLink {
   label: string;
