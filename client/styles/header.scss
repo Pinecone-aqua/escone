@@ -82,32 +82,8 @@
   }
   .profile {
     position: relative;
-    .dropdown {
-      width: 200px;
-      padding-left: 10px;
-      padding-right: 10px;
-      top: 45px;
-      right: 0;
-      box-shadow: $brand-shadow;
-      background-color: $brand-white;
-      position: absolute;
-      border: 1px solid $brand-lightgray;
-      border-radius: 10px;
-      ul {
-        color: $brand-gray;
-        display: grid;
-        li {
-          border-top: 0.5px solid $brand-lightgray;
-          height: 35px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          &:first-child {
-            border: none;
-          }
-        }
-      }
-    }
+    // .dropdown {
+    // }
   }
   .menu {
     z-index: 1;
