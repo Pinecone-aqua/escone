@@ -1,4 +1,6 @@
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import {
   FaFacebook,
@@ -23,7 +25,15 @@ type prop = {
   setShow: Dispatch<SetStateAction<boolean>>;
 };
 
-export const Login = ({ setShow }: prop): JSX.Element => {
+const Login = ({ setShow }: prop): JSX.Element => {
+  const Router = useRouter();
+
+  function googleHandler() {
+    console.log("clicked");
+    axios
+      .get("http://localhost:3030/user/google")
+      .then((res) => Router.push(res.data));
+  }
   const closeLogin = () => {
     setShow(false);
   };
@@ -47,7 +57,7 @@ export const Login = ({ setShow }: prop): JSX.Element => {
 
           {/* LINKS w ICON */}
           <ul className="flex flex-wrap items-center m-3 justify-evenly text-gray-800 text-md-reg w-[335px] lg:w-[415px]">
-            <li className={linksListClass}>
+            <li className={linksListClass} onClick={googleHandler}>
               <Link href={"#"} className={linkClass}>
                 <FaGoogle className="w-[32px] h-[32px]" />
               </Link>
@@ -106,3 +116,5 @@ export const Login = ({ setShow }: prop): JSX.Element => {
     </div>
   );
 };
+
+export default Login;

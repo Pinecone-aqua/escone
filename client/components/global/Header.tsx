@@ -1,15 +1,15 @@
 import logo from "@/assets/logo-main.svg";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Popup from "./header/Popup";
 import Sidemenu from "./header/Sidemenu";
+import Login from "./header/Login";
 
 export default function Header(): JSX.Element {
-
-
+  const [show, setShow] = useState<boolean>(false);
   return (
     <>
       <div className="header">
@@ -28,15 +28,18 @@ export default function Header(): JSX.Element {
                 </div>
               </div>
             </form>
-
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 border border-blue-700 rounded"
+              onClick={() => setShow(true)}
+            >
+              Log in
+            </button>
+            {show && <Login setShow={setShow} />}
             <div className="profile">
               <Popup />
             </div>
-
             <div className="menu">
-
               <Sidemenu />
-
             </div>
           </div>
         </div>
