@@ -1,10 +1,26 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  Res,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
 import { CreateUserDto } from './dto/user.create.dto';
 import { UserService } from './users.service';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
   @Get('all')
   getAllUser() {
     return this.userService.getAllUsers();
@@ -17,6 +33,29 @@ export class UserController {
   deleteUser(@Param('id') id: string) {
     console.log(id);
     return this.userService.deleteUser(id);
+  }
+  @Get('google')
+  getGoogle() {
+    return this.userService.googleLogin();
+  }
+
+  @Get('google-callback')
+  async getGoogleCallback(@Query('code') code: string, @Res() res: Response) {
+    const user = await this.userService.verifyGoogle(code);
+
+    if (user.error) {
+      return 'error';
+    }
+
+    const result = await this.userService.getUserInfo(user);
+    console.log(result);
+    if (result && result[0].email == user.email) {
+      const token = this.jwtService.sign(result[0].toJSON());
+      res
+        .status(200)
+        .cookie('token', token)
+        .redirect(`http://localhost:${process.env.CLIENT_PORT}`);
+    }
   }
   @Get(':id')
   getUser(@Param('id') id: string) {

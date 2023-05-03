@@ -1,17 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 
 @Schema()
 export class User {
-  @Prop()
-  _id: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  _id: ObjectId;
   @Prop()
   username: string;
   @Prop()
-  image: string;
+  image?: string;
   @Prop()
   email: string;
   @Prop()
-  password: string;
+  password?: string;
   @Prop()
   role: boolean;
   @Prop()

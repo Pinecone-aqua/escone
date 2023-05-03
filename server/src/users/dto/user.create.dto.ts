@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
   @ApiProperty()
-  _id: string;
+  _id?: string;
   @ApiProperty()
   username: string;
   @ApiProperty()
@@ -10,11 +10,11 @@ export class CreateUserDto {
   @ApiProperty()
   email: string;
   @ApiProperty()
-  password: string;
+  password?: string;
   @ApiProperty()
   role: boolean;
   @ApiProperty()
   favorites: string[];
   @ApiProperty()
-  created_date: Date;
+  created_date: Date | string;
 }

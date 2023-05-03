@@ -1,26 +1,35 @@
 import logo from "@/assets/logo-main.svg";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Popup from "./header/Popup";
 import Sidemenu from "./header/Sidemenu";
-import Login from "./header/Login";
 
-interface NavLink {
-  label: string;
-  url: string;
-}
-
-const navLinks: NavLink[] = [
-  { label: "Home", url: "/" },
-  { label: "Recipes", url: "/recipes/filter" },
-  { label: "Blog", url: "/blog" },
-  { label: "About", url: "/about" },
-];
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import { UserType } from "@/utils/types";
 
 export default function Header(): JSX.Element {
+  interface NavLink {
+    label: string;
+    url: string;
+  }
+
+  const navLinks: NavLink[] = [
+    { label: "Home", url: "/" },
+    { label: "Recipes", url: "/recipes/filter" },
+    { label: "Blog", url: "/blog" },
+    { label: "About", url: "/about" },
+  ];
+
+  const token: string | undefined = Cookies.get("token");
+  const [user, setUser] = useState<undefined | UserType>();
+
+  useEffect(() => {
+    token && setUser(jwtDecode(token));
+  }, [token]);
   return (
     <>
       <div className="header">
@@ -29,7 +38,9 @@ export default function Header(): JSX.Element {
             <Image src={logo} alt="Foodie" />
           </Link>
 
-          <Login />
+
+          {user ? null : <Login />}
+
 
           <div className="header-content">
             <form>
@@ -45,7 +56,6 @@ export default function Header(): JSX.Element {
             <div className="profile">
               <Popup />
             </div>
-
             <div className="menu">
               <Sidemenu />
               <nav>
