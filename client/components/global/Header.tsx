@@ -1,13 +1,19 @@
 import logo from "@/assets/logo-main.svg";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Popup from "./header/Popup";
 import Sidemenu from "./header/Sidemenu";
 import Login from "./header/Login";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import { UserType } from "@/utils/types";
+>>>>>>> e427d44 (google login worked)
 
 interface NavLink {
   label: string;
@@ -22,6 +28,7 @@ const navLinks: NavLink[] = [
 ];
 
 export default function Header(): JSX.Element {
+<<<<<<< HEAD
 =======
 
 interface NavLink {
@@ -42,6 +49,14 @@ export default function Header(): JSX.Element {
 >>>>>>> f3b54c1 (google login)
 =======
 >>>>>>> 614eabd (temporary login button & header nav added)
+=======
+  const token: string | undefined = Cookies.get("token");
+  const [user, setUser] = useState<undefined | UserType>();
+
+  useEffect(() => {
+    token && setUser(jwtDecode(token));
+  }, [token]);
+>>>>>>> e427d44 (google login worked)
   return (
     <>
       <div className="header">
@@ -50,7 +65,7 @@ export default function Header(): JSX.Element {
             <Image src={logo} alt="Foodie" />
           </Link>
 
-          <Login />
+          {user ? null : <Login />}
 
           <div className="header-content">
             <form>

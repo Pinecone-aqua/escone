@@ -1,5 +1,7 @@
 import * as queryString from 'query-string';
 import fetch from 'node-fetch';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export async function getAccessTokenFromCode(code: any) {
   const postData = queryString.stringify({

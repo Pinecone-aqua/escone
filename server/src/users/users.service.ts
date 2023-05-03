@@ -4,10 +4,11 @@ import { Model } from 'mongoose';
 import { User } from 'src/users/user.schema';
 import { CreateUserDto } from './dto/user.create.dto';
 import * as dotenv from 'dotenv';
+
 import * as queryString from 'query-string';
 import { getAccessTokenFromCode } from './getAccessToken';
-import axios from 'axios';
 import fetch from 'node-fetch';
+import * as moment from 'moment';
 
 dotenv.config();
 
@@ -43,23 +44,33 @@ export class UserService {
   }
 
   async getUserInfo(user) {
-    // console.log(user);
-    // const result = await this.userModel.find({ email: user.email }).exec();
-    // if (result) {
-    // }
+    const findEmail = await this.userModel.find({ email: 'hh' });
+
+    const date = moment().format();
+    if (findEmail.length != 1) {
+      const newUser = {
+        username: user.name,
+        image: user.picture,
+        email: user.email,
+        role: false,
+        favorites: [],
+        created_date: date,
+      };
+      const result = await this.userModel.insertMany(newUser);
+
+      return result;
+    } else {
+      return findEmail;
+    }
   }
 
   async verifyGoogle(code) {
-    console.log('first');
     const access_token: any = await getAccessTokenFromCode(code);
     const user = await getGoogleUserInfo(access_token);
-    // console.log(code);
-    // console.log(access_token);
-    console.log(user);
-    // return user;
+
+    return user;
 
     async function getGoogleUserInfo(access_token: string) {
-      console.log(access_token);
       const data = await fetch(
         'https://www.googleapis.com/oauth2/v2/userinfo',
         {
@@ -68,7 +79,7 @@ export class UserService {
           },
         },
       ).then((res) => res.json());
-      console.log(data);
+
       return data;
     }
   }

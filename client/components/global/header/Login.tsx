@@ -5,7 +5,9 @@ import { Dialog } from "primereact/dialog";
 import { PrimeIcons } from "primereact/api";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
+<<<<<<< HEAD
 import Link from "next/link";
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> db1103b (google login)
@@ -56,6 +58,12 @@ export default function Login() {
     </div>
   );
 
+  function googleHandler() {
+    console.log("clicked");
+    axios
+      .get("http://localhost:3030/user/google")
+      .then((res) => Router.push(res.data));
+  }
   return (
     <div className="login-button mx-5">
       <Button
@@ -74,7 +82,13 @@ export default function Login() {
           <div className="social-links">
             <ul>
               {socialLinks.map((socialLink, index) => (
-                <li key={index} className={socialLink.icon}>
+                <li
+                  key={index}
+                  className={socialLink.icon}
+                  onClick={() =>
+                    socialLink.label == "google" ? googleHandler() : ""
+                  }
+                >
                   <Link href={socialLink.url} />
                 </li>
               ))}
@@ -82,6 +96,7 @@ export default function Login() {
           </div>
           <Divider align="center">OR</Divider>
           <div className="login-inputs">
+>>>>>>> c1d683b (google login worked)
             <InputText
               type="email"
               placeholder="Email Address"
