@@ -7,7 +7,6 @@ import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import Link from "next/link";
 =======
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
@@ -20,6 +19,9 @@ import {
 } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 >>>>>>> f3b54c1 (google login)
+=======
+import Link from "next/link";
+>>>>>>> 887e1f9 (login modal & scss done)
 
 interface SocialLink {
   label: string;
@@ -35,7 +37,7 @@ const socialLinks: SocialLink[] = [
   { label: "instagram", icon: PrimeIcons.INSTAGRAM, url: "/" },
 ];
 
-default function Login() {
+export default function Login() {
   const [visible, setVisible] = useState<boolean>(false);
   const Router = useRouter();
 
@@ -88,4 +90,4 @@ default function Login() {
       </Dialog>
     </div>
   );
-};
+}
