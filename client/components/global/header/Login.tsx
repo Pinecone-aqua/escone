@@ -7,6 +7,9 @@ import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import Link from "next/link";
 =======
+=======
+>>>>>>> db1103b (google login)
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
@@ -79,8 +82,16 @@ export default function Login() {
           </div>
           <Divider align="center">OR</Divider>
           <div className="login-inputs">
-            <InputText type="email" placeholder="Email Address" className="input" />
-            <InputText type="password" placeholder="Password" className="input" />
+            <InputText
+              type="email"
+              placeholder="Email Address"
+              className="input"
+            />
+            <InputText
+              type="password"
+              placeholder="Password"
+              className="input"
+            />
           </div>
           <div className="modal-footer">
             <Button label="Login" onClick={() => setVisible(false)} />
