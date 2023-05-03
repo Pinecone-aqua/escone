@@ -24,9 +24,24 @@ const navLinks: NavLink[] = [
 export default function Header(): JSX.Element {
 =======
 
+interface NavLink {
+  label: string;
+  url: string;
+}
+
+const navLinks: NavLink[] = [
+  { label: "Home", url: "/" },
+  { label: "Recipes", url: "/recipes/filter" },
+  { label: "Blog", url: "/blog" },
+  { label: "About", url: "/about" },
+];
+
 export default function Header(): JSX.Element {
+<<<<<<< HEAD
   const [show, setShow] = useState<boolean>(false);
 >>>>>>> f3b54c1 (google login)
+=======
+>>>>>>> 614eabd (temporary login button & header nav added)
   return (
     <>
       <div className="header">
@@ -60,6 +75,9 @@ export default function Header(): JSX.Element {
             <div className="menu">
               <Sidemenu />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 614eabd (temporary login button & header nav added)
               <nav>
                 <ul>
                   {navLinks.map((navLink, index) => (
@@ -69,8 +87,11 @@ export default function Header(): JSX.Element {
                   ))}
                 </ul>
               </nav>
+<<<<<<< HEAD
 =======
 >>>>>>> f3b54c1 (google login)
+=======
+>>>>>>> 614eabd (temporary login button & header nav added)
             </div>
           </div>
         </div>
