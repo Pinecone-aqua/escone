@@ -28,6 +28,7 @@ export class UserController {
   }
   @Post('add')
   addUser(@Body() createUserDto: CreateUserDto) {
+    console.log(createUserDto);
     return this.userService.addUser(createUserDto);
   }
   @Delete(':id')
