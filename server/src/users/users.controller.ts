@@ -13,6 +13,7 @@ import { Response } from 'express';
 import { CreateUserDto } from './dto/user.create.dto';
 import { UserService } from './users.service';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 @Controller('/user')
@@ -48,7 +49,7 @@ export class UserController {
     }
 
     const result = await this.userService.getUserInfo(user);
-    console.log(result);
+
     if (result && result[0].email == user.email) {
       const token = this.jwtService.sign(result[0].toJSON());
       res
@@ -57,6 +58,20 @@ export class UserController {
         .redirect(`http://localhost:${process.env.CLIENT_PORT}`);
     }
   }
+  @Get('login')
+  async getLogin(@Query('token') token: string, @Res() res: Response) {
+    const user = this.jwtService.decode(token);
+    const result = await this.userService.getLogin(user);
+    console.log(result);
+    if (result.length != 0) {
+      const token = this.jwtService.sign(result[0].toJSON());
+      console.log(token);
+      res.status(200).send({ token });
+    } else {
+      res.status(203).send('email or password wrong');
+    }
+  }
+
   @Get(':id')
   getUser(@Param('id') id: string) {
     return this.userService.getUser(id);
