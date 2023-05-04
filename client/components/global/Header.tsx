@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { UserType } from "@/utils/types";
 import Login from "./header/Login";
+import AddRecipe from "./AddRecipe";
 
 export default function Header(): JSX.Element {
   interface NavLink {
@@ -40,6 +41,8 @@ export default function Header(): JSX.Element {
           </Link>
 
           {user ? null : <Login />}
+          
+          <AddRecipe />
 
           <div className="header-content">
             <form>
