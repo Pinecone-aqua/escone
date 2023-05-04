@@ -63,13 +63,10 @@ export class UserController {
   async getLogin(@Query('token') token: string, @Res() res: Response) {
     const user = this.jwtService.decode(token);
     const result = await this.userService.getLogin(user);
-    console.log(result);
-    if (result.length != 0) {
-      const token = this.jwtService.sign(result[0].toJSON());
-      console.log(token);
-      res.status(200).send({ token });
+    if (result.status) {
+      res.status(200).send(result);
     } else {
-      res.status(203).send('email or password wrong');
+      res.status(203).send(result);
     }
   }
 
