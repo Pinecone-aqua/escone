@@ -1,14 +1,34 @@
 .add-recipe {
   &-modal {
-    width: 80%;
-  }
-  &-inputs {
-    background-color: aqua;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    label {
+    &-inputs {
       display: flex;
+      flex-direction: column;
+      gap: 20px;
+      label {
+        display: flex;
+      }
+      .input {
+        width: 100%;
+      }
+      .category {
+        &-choices {
+          gap: 20px;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        &-choice {
+          display: flex;
+          gap: 5px;
+        }
+      }
+      .servings {
+        span {
+          width: 100px;
+        }
+        &-input {
+          width: 50px;
+        }
+      }
     }
   }
 }
@@ -16,4 +36,26 @@ Button {
   background-color: $brand-secondary;
   border: none;
   width: 125px;
+}
+
+@media screen and (min-width: 375px) {
+  .add-recipe {
+    &-modal {
+      width: 100%;
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .add-recipe {
+    &-modal {
+      width: 425px;
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  .add-recipe {
+    &-modal {
+      width: 500px;
+    }
+  }
 }

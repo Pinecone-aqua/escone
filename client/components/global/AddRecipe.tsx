@@ -8,46 +8,49 @@ import Categories from "./addRecipe/Categories";
 import Tags from "./addRecipe/Tags";
 
 export default function AddRecipe() {
-  const [visible, setVisible] = useState<boolean>(false);
-  const footerContent = (
+  const [ModalVisible, setModalVisible] = useState<boolean>(false);
+  const modalFooter = (
     <div>
       <Button
         label="Cancel"
-        onClick={() => setVisible(false)}
+        onClick={() => setModalVisible(false)}
         className="p-button-text"
       />
-      <Button label="Add" onClick={() => setVisible(false)} />
+      <Button label="Add" onClick={() => setModalVisible(false)} />
     </div>
   );
 
-  const show = () => {
-    setVisible(true);
-  };
+  const show = () => setModalVisible(true);
 
-  // const [servings, setServings] = useState<number>(1);
+  const [servings, setServings] = useState<number>(1);
 
   return (
     <div className="add-recipe">
-      <Button label="Add recipe" onClick={() => show()} />
+      <Button label="Add" onClick={() => show()} />
       <Dialog
         header="Add Recipe"
         className="add-recipe-modal"
-        visible={visible}
+        visible={ModalVisible}
         position="top-right"
-        onHide={() => setVisible(false)}
-        footer={footerContent}
+        onHide={() => setModalVisible(false)}
+        footer={modalFooter}
       >
         <div className="add-recipe-modal-inputs">
           {/* title */}
           <div className="title">
             <label htmlFor="title">Title</label>
-            <InputText className="title" />
+            <InputText className="input" />
           </div>
 
           {/* description */}
           <div className="description">
             <label htmlFor="description">Description</label>
-            <InputTextarea autoResize rows={3} cols={30} />
+            <InputTextarea autoResize rows={2} cols={30} className="input" />
+          </div>
+
+          {/* image uploader */}
+          <div className="image">
+            <label htmlFor="image">Image</label>
           </div>
 
           {/* categories */}
@@ -70,14 +73,19 @@ export default function AddRecipe() {
           <div className="servings">
             <label htmlFor="servings">Servings</label>
             <InputNumber
-              // value={servings}
-              // onValueChange={(e) => setServings(e.value)}
+              value={servings}
+              className="servings-input"
+              onValueChange={(e) => {
+                if (typeof e.value === "number") {
+                  setServings(e.value);
+                }
+              }}
               showButtons
               buttonLayout="horizontal"
               decrementButtonClassName="p-button-secondary"
               incrementButtonClassName="p-button-secondary"
-              incrementButtonIcon="pi pi-plus"
-              decrementButtonIcon="pi pi-minus"
+              // incrementButtonIcon="pi pi-plus"
+              // decrementButtonIcon="pi pi-minus"
             />
           </div>
         </div>
