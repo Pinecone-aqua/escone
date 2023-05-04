@@ -63,12 +63,7 @@ export class UserService {
       return findEmail;
     }
   }
-  async getLogin(user) {
-    const result = this.userModel.find({
-      $and: [{ email: user.email }, { password: user.password }],
-    });
-    return result;
-  }
+
   async verifyGoogle(code) {
     const access_token: any = await getAccessTokenFromCode(code);
     const user = await getGoogleUserInfo(access_token);
