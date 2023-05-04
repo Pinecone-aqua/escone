@@ -9,6 +9,7 @@ import Link from "next/link";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 interface SocialLink {
   label: string;
@@ -45,10 +46,13 @@ export default function Login() {
     const user = jwt.sign(payload, secret);
     console.log(user);
 
-    axios
-      .get(`http://localhost:3030/user/login?token=${user}`)
-      .then((res) => console.log(res.data));
-    // setVisible(false);
+    axios.get(`http://localhost:3030/user/login?token=${user}`).then((res) => {
+      console.log(res.data);
+      if (res.data.token) {
+        Cookies.set("token", res.data.token);
+        setVisible(false);
+      }
+    });
   }
 
   function googleHandler() {
