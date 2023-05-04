@@ -1,4 +1,6 @@
 import Layout from "@/components/global/Layout";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import "@/styles/globals.scss";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -10,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
       <Component {...pageProps} />
+      <ToastContainer />
     </Layout>
   );
 }
