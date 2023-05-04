@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { PrimeIcons } from "primereact/api";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 import Link from "next/link";
-import jwt from "jsonwebtoken";
+
 import axios from "axios";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -27,9 +27,6 @@ const socialLinks: SocialLink[] = [
 
 export default function Login() {
   const [visible, setVisible] = useState<boolean>(false);
-  const emailRef = useRef<string>();
-  const passwordRef = useRef<string>();
-
   const modalHeader = (
     <div className="modal-header">
       <h1>Login | Register</h1>
@@ -37,6 +34,7 @@ export default function Login() {
   );
 
   const Router = useRouter();
+
   function loginHandler() {
     const secret = "nuurs ug";
     const payload = {
@@ -54,6 +52,7 @@ export default function Login() {
       }
     });
   }
+
 
   function googleHandler() {
     console.log("clicked");
@@ -98,26 +97,15 @@ export default function Login() {
               type="email"
               placeholder="Email Address"
               className="input"
-              onChange={(e) => {
-                emailRef.current = e.target.value;
-              }}
             />
             <InputText
               type="password"
               placeholder="Password"
               className="input"
-              onChange={(e) => {
-                passwordRef.current = e.target.value;
-              }}
             />
           </div>
           <div className="modal-footer">
-            <Button
-              label="Login"
-              onClick={() => {
-                loginHandler();
-              }}
-            />
+            <Button label="Login" onClick={() => setVisible(false)} />
             <Button label="Register" onClick={() => setVisible(false)} />
           </div>
         </div>
