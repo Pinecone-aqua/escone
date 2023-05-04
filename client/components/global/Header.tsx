@@ -40,9 +40,7 @@ export default function Header(): JSX.Element {
             <Image src={logo} alt="Foodie" />
           </Link>
 
-          {user ? null : <Login />}
-          
-          <AddRecipe />
+          {user ? <AddRecipe /> : <Login />}
 
           <div className="header-content">
             <form>

@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-
+import { toast } from "react-toastify";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
 
@@ -50,9 +50,32 @@ export default function Login() {
 
     axios.get(`http://localhost:3030/user/login?token=${user}`).then((res) => {
       console.log(res.data);
-      if (res.data.token) {
+
+      if (res.data.status) {
         Cookies.set("token", res.data.token);
         setVisible(false);
+        toast.success(res.data.data, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        console.log(res.data.data);
+        toast.error(res.data.data, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     });
   }
