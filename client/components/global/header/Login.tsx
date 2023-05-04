@@ -37,20 +37,6 @@ export default function Login() {
   );
 
   const Router = useRouter();
-  function loginHandler() {
-    const secret = "nuurs ug";
-    const payload = {
-      email: emailRef.current,
-      password: passwordRef.current,
-    };
-    const user = jwt.sign(payload, secret);
-    console.log(user);
-
-    axios
-      .get(`http://localhost:3030/user/login?token=${user}`)
-      .then((res) => console.log(res.data));
-    // setVisible(false);
-  }
 
   function loginHandler() {
     const secret = "nuurs ug";
@@ -69,7 +55,6 @@ export default function Login() {
       }
     });
   }
-
 
   function googleHandler() {
     console.log("clicked");
