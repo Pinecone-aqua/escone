@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { RecipesService } from './recipes.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
@@ -38,6 +39,11 @@ export class RecipesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.recipesService.findOne(id);
+  }
+
+  @Get('filter')
+  filterRecipes(@Query() filter: any) {
+    return this.recipesService.filter(filter);
   }
 
   @Get('pending')
