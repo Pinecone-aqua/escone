@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { RecipesService } from './recipes.service';
+import { RecipesController } from './recipes.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Recipe, RecipeSchema } from './recipe.schema';
-import { RecipeController } from './recipe.controller';
-import { RecipeService } from './recipes.service';
+import { Recipe, RecipeSchema } from './recipes.schema';
 import { Category, CategorySchema } from 'src/categories/categories.schema';
 import {
   Ingredient,
@@ -19,7 +19,7 @@ import { Tag, TagSchema } from 'src/tags/tags.schema';
       { name: Tag.name, schema: TagSchema },
     ]),
   ],
-  controllers: [RecipeController],
-  providers: [RecipeService],
+  controllers: [RecipesController],
+  providers: [RecipesService],
 })
-export class recipeModule {}
+export class RecipesModule {}

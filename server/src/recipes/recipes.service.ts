@@ -1,66 +1,84 @@
 import { Injectable } from '@nestjs/common';
+import { CreateRecipeDto } from './dto/create-recipe.dto';
+import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Recipe } from './recipe.schema';
+import { Recipe } from './recipes.schema';
 import { Model } from 'mongoose';
-import { RecipeDto } from './dto/recipe.dto';
 import { Category } from 'src/categories/categories.schema';
 import { Ingredient } from 'src/ingredients/ingredients.schema';
 import { Tag } from 'src/tags/tags.schema';
+import { v2 as cloudinaryV2 } from 'cloudinary';
 
 @Injectable()
-export class RecipeService {
+export class RecipesService {
   constructor(
     @InjectModel(Recipe.name) private recipeModel: Model<Recipe>,
     @InjectModel(Category.name) private categoryModel: Model<Category>,
     @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,
     @InjectModel(Tag.name) private tagModel: Model<Tag>,
-  ) {}
-  recipes = [];
-
-  async addRecipe(recipeDto: RecipeDto) {
-    const createdRecipe = await this.recipeModel.create({
-      ...recipeDto,
+  ) {
+    cloudinaryV2.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
     });
+  }
+
+  async uploadImageToCloudinary(image: Express.Multer.File): Promise<string> {
+    const result = await cloudinaryV2.uploader.upload(image.path);
+    console.log(result);
+    return result.secure_url;
+  }
+
+  async create(createRecipeDto: CreateRecipeDto) {
+    const createdRecipe = await this.recipeModel.create({ createRecipeDto });
     return createdRecipe;
   }
 
-  async getRecipes() {
-    const result = await this.recipeModel.find({ status: 'approve' });
-    return result;
+  async findAll() {
+    const allRecipes = await this.recipeModel.find({ status: 'approved' });
+    return allRecipes;
   }
 
-  async getRecipe(id: string) {
-    const result = await this.recipeModel
+  async findOne(id: string) {
+    const selectedRecipe = await this.recipeModel
       .findOne({ _id: id })
       .populate('categories')
       .populate('tags')
       .populate('ingredients');
-    return result;
+    return selectedRecipe;
   }
-  async recipeApprove(id: string) {
-    const result = await this.recipeModel.updateOne(
+
+  async update(id: string, updateRecipeDto: UpdateRecipeDto) {
+    const updatedRecipe = await this.recipeModel.updateOne(
       { _id: id },
-      { status: 'approve' },
+      updateRecipeDto,
     );
-    return result;
+    return updatedRecipe;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async editRecipe(id: string, recipeDto: RecipeDto) {
-    const result = await this.recipeModel.updateOne({ _id: id });
-    return result;
+
+  async remove(id: string) {
+    const deletedRecipe = await this.recipeModel.deleteOne({ _id: id });
+    return deletedRecipe;
   }
-  async getFilterRecipe(filter: any) {
+
+  async pending() {
+    const pendingRecipe = await this.recipeModel.find({ status: 'pending' });
+    return pendingRecipe;
+  }
+
+  async approve(id: string) {
+    const approvedRecipe = await this.recipeModel.updateOne(
+      { _id: id },
+      { status: 'approved' },
+    );
+    return approvedRecipe;
+  }
+
+  async filter(filter: any) {
     console.log(filter);
     const catRawIds = await this.categoryModel.find(
       { name: filter.cat },
-      { _id: 1 },
-    );
-    const ingRawIds = await this.ingredientModel.find(
-      { name: filter.ing },
-      { _id: 1 },
-    );
-    const tagRawIds = await this.tagModel.find(
-      { name: filter.tag },
       { _id: 1 },
     );
     const catIds = catRawIds.map((id) => {
@@ -68,14 +86,24 @@ export class RecipeService {
         categories: id._id,
       };
     });
-    const tagIds = tagRawIds.map((id) => {
-      return {
-        tags: id._id,
-      };
-    });
+
+    const ingRawIds = await this.ingredientModel.find(
+      { name: filter.ing },
+      { _id: 1 },
+    );
     const ingIds = ingRawIds.map((id) => {
       return {
         ingredients: id._id,
+      };
+    });
+
+    const tagRawIds = await this.tagModel.find(
+      { name: filter.tag },
+      { _id: 1 },
+    );
+    const tagIds = tagRawIds.map((id) => {
+      return {
+        tags: id._id,
       };
     });
 
@@ -83,15 +111,6 @@ export class RecipeService {
       $and: [...catIds, ...ingIds, ...tagIds],
     });
     console.log([...catIds, ...ingIds, ...tagIds]);
-    console.log(filteredRecipes);
     return filteredRecipes;
-  }
-  async deleteRecipe(id: string) {
-    const result = await this.recipeModel.deleteOne({ _id: id });
-    return result;
-  }
-  async getPendingRecipes() {
-    const result = await this.recipeModel.find({ status: 'pending' });
-    return result;
   }
 }
