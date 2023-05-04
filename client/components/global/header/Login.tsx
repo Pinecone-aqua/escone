@@ -2,33 +2,24 @@
 import React, { useRef, useState } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { PrimeIcons } from "primereact/api";
+
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
-import Link from "next/link";
+
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-
-interface SocialLink {
-  label: string;
-  icon: any;
-  url: string;
-}
-
-const socialLinks: SocialLink[] = [
-  { label: "google", icon: PrimeIcons.GOOGLE, url: "/" },
-  { label: "whatsapp", icon: PrimeIcons.WHATSAPP, url: "/" },
-  { label: "twitter", icon: PrimeIcons.TWITTER, url: "/" },
-  { label: "facebook", icon: PrimeIcons.FACEBOOK, url: "/" },
-  { label: "instagram", icon: PrimeIcons.INSTAGRAM, url: "/" },
-];
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
   const [visible, setVisible] = useState<boolean>(false);
+  const [register, setRegister] = useState<boolean>(false);
+  const [pass, setpass] = useState<boolean>(false);
   const emailRef = useRef<string>();
-  const passwordRef = useRef<string>();
+  const passwordRef = useRef<string>("");
+  const nameRef = useRef<string>();
+  const password2Ref = useRef<string>();
 
   const modalHeader = (
     <div className="modal-header">
@@ -37,7 +28,17 @@ export default function Login() {
   );
 
   const Router = useRouter();
-
+  function registerHandler() {
+    const user = {
+      username: nameRef.current,
+      email: emailRef.current,
+      password: passwordRef.current,
+    };
+    axios.post("http://localhost:3030/user/add", user).then((res) => {
+      console.log(res);
+    });
+    console.log(user);
+  }
   function loginHandler() {
     const secret = "nuurs ug";
     const payload = {
@@ -78,20 +79,14 @@ export default function Login() {
       >
         <div className="login-content">
           <p>Sign up with your social media account or email address</p>
-          <div className="social-links">
-            <ul>
-              {socialLinks.map((socialLink, index) => (
-                <li
-                  key={index}
-                  className={socialLink.icon}
-                  onClick={() =>
-                    socialLink.label == "google" ? googleHandler() : ""
-                  }
-                >
-                  <Link href={socialLink.url} />
-                </li>
-              ))}
-            </ul>
+          <div className="mt-3">
+            <button
+              className={`w-full border p-2 flex text-2xl items-center gap-3 justify-center rounded-full`}
+              onClick={googleHandler}
+            >
+              {<FcGoogle size={"30px"} />}
+              Google sign in
+            </button>
           </div>
           <Divider align="center">OR</Divider>
           <div className="login-inputs">
@@ -106,20 +101,58 @@ export default function Login() {
             <InputText
               type="password"
               placeholder="Password"
-              className="input"
+              className={`input ${!pass && register && `p-invalid`}`}
               onChange={(e) => {
                 passwordRef.current = e.target.value;
+                setpass(
+                  passwordRef.current != "" &&
+                    password2Ref.current == passwordRef.current
+                );
               }}
             />
+            {register && (
+              <>
+                <InputText
+                  type="text"
+                  placeholder="Username"
+                  className="input"
+                  onChange={(e) => {
+                    nameRef.current = e.target.value;
+                  }}
+                />
+                <InputText
+                  type="password"
+                  placeholder="Confirm Password"
+                  className={`input ${!pass && `p-invalid`}`}
+                  onChange={(e) => {
+                    password2Ref.current = e.target.value;
+                    setpass(
+                      password2Ref.current != "" &&
+                        password2Ref.current == passwordRef.current
+                    );
+                  }}
+                />
+              </>
+            )}
           </div>
           <div className="modal-footer">
             <Button
-              label="Login"
+              label={register ? "register" : "login"}
               onClick={() => {
-                loginHandler();
+                register ? pass && registerHandler() : loginHandler();
               }}
             />
-            <Button label="Register" onClick={() => setVisible(false)} />
+            {register ? (
+              <p className="">
+                already have an acccount ?{" "}
+                <span onClick={() => setRegister(false)}>Sign in</span>
+              </p>
+            ) : (
+              <p className="">
+                {"don't"} have an acccount ?{" "}
+                <span onClick={() => setRegister(true)}>Create one</span>
+              </p>
+            )}
           </div>
         </div>
       </Dialog>

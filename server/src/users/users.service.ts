@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { User } from 'src/users/user.schema';
 import { CreateUserDto } from './dto/user.create.dto';
 import * as dotenv from 'dotenv';
-
+import * as bcrypt from 'bcrypt';
 import * as queryString from 'query-string';
 import { getAccessTokenFromCode } from './getAccessToken';
 import fetch from 'node-fetch';
@@ -44,9 +44,10 @@ export class UserService {
   }
 
   async getUserInfo(user) {
-    const findEmail = await this.userModel.find({ email: 'hh' });
+    const findEmail = await this.userModel.find({ email: user.email }).limit(1);
 
     const date = moment().format();
+    console.log(findEmail.length != 1, findEmail.length);
     if (findEmail.length != 1) {
       const newUser = {
         username: user.name,
@@ -89,9 +90,25 @@ export class UserService {
     }
   }
   async addUser(user: CreateUserDto) {
-    // console.log(user);
-    const resilt = await this.userModel.insertMany(user);
-    return `success ${resilt}`;
+    const date = moment().format();
+    const nsn = await bcrypt.hash(user.password, 247);
+    console.log(nsn);
+    const newUser = {
+      ...user,
+      _role: false,
+      get role() {
+        return this._role;
+      },
+      set role(value) {
+        this._role = value;
+      },
+      favorites: [],
+      created_date: date,
+    };
+    const userCheck = await this.userModel.find({ email: user.email }).limit(1);
+    if (userCheck.length == 1) return 'already have an account';
+    const resilt = await this.userModel.insertMany(newUser);
+    return resilt;
   }
   async deleteUser(id: string) {
     const result = await this.userModel.deleteOne({ _id: id });
