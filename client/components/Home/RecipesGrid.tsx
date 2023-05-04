@@ -16,7 +16,7 @@ export default function RecipesGrid({ recipes }: RecipesGridProps) {
           Popular Recipes
         </h1>
 
-        <Link href={"/recipes/filter"}>
+        <Link href={"/recipes"}>
           <div className="flex items-center text-secondary gap-2 rounded-full bg-light-orange text-sm-semibold md:text-md-semibold hover:text-[#485801] duration-500">
             All Recipes
             <FaArrowRight />
