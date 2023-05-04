@@ -1,0 +1,19 @@
+.add-recipe {
+  &-modal {
+    width: 80%;
+  }
+  &-inputs {
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    label {
+      display: flex;
+    }
+  }
+}
+Button {
+  background-color: $brand-secondary;
+  border: none;
+  width: 125px;
+}
