@@ -9,12 +9,16 @@ import * as queryString from 'query-string';
 import { getAccessTokenFromCode } from './getAccessToken';
 import fetch from 'node-fetch';
 import * as moment from 'moment';
+import { JwtService } from '@nestjs/jwt';
 
 dotenv.config();
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private readonly jwtService: JwtService,
+  ) {}
   users = [];
   async getAllUsers() {
     const result = await this.userModel.find({});
@@ -65,10 +69,24 @@ export class UserService {
     }
   }
   async getLogin(user) {
-    const result = this.userModel.find({
-      $and: [{ email: user.email }, { password: user.password }],
-    });
-    return result;
+    const result = await this.userModel.find({ email: { $eq: user.email } });
+    const message = { data: 'email wrong ', token: '', status: false };
+    if (result.length != 0) {
+      const passwordCheck = await bcrypt.compare(
+        user.password,
+        result[0].password,
+      );
+      if (passwordCheck) {
+        const token = this.jwtService.sign(result[0].toJSON());
+        message.data = 'success sign in';
+        message.token = token;
+        message.status = true;
+        return message;
+      }
+      message.data = 'password wrong';
+    }
+
+    return message;
   }
   async verifyGoogle(code) {
     const access_token: any = await getAccessTokenFromCode(code);
@@ -91,8 +109,8 @@ export class UserService {
   }
   async addUser(user: CreateUserDto) {
     const date = moment().format();
-    const nsn = await bcrypt.hash(user.password, 247);
-    console.log(nsn);
+    const password = await bcrypt.hash(user.password, 7);
+    user.password = password;
     const newUser = {
       ...user,
       _role: false,
