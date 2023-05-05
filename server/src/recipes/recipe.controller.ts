@@ -14,7 +14,7 @@ import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-@Controller('/recipes')
+@Controller('recipes')
 export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
@@ -23,9 +23,10 @@ export class RecipeController {
     return this.recipeService.addRecipe(recipeDto);
   }
 
-  @Post(':id/upload-image')
+  @Post('upload/:id')
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(@UploadedFile() image: Express.Multer.File) {
+    console.log(image);
     const url = await this.recipeService.uploadImageToCloudinary(image);
     return { url };
   }
