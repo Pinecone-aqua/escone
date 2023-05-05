@@ -55,6 +55,13 @@ export class RecipeService {
     );
     return result;
   }
+  async recipeDeny(id: string) {
+    const result = await this.recipeModel.deleteOne(
+      { _id: id },
+      { status: 'deny' },
+    );
+    return result;
+  }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async editRecipe(id: string, recipeDto: RecipeDto) {
     const result = await this.recipeModel.updateOne({ _id: id });
