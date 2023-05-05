@@ -9,6 +9,11 @@ import Tags from "./addRecipe/Tags";
 
 export default function AddRecipe() {
   const [ModalVisible, setModalVisible] = useState<boolean>(false);
+
+  function addHandler() {
+    console.log("add button handler");
+  }
+
   const modalFooter = (
     <div>
       <Button
@@ -16,7 +21,11 @@ export default function AddRecipe() {
         onClick={() => setModalVisible(false)}
         className="p-button-text"
       />
-      <Button label="Add" onClick={() => setModalVisible(false)} />
+      <Button
+        label="Add"
+        onClick={() => setModalVisible(false)}
+        onSubmit={addHandler}
+      />
     </div>
   );
 
@@ -51,6 +60,7 @@ export default function AddRecipe() {
           {/* image uploader */}
           <div className="image">
             <label htmlFor="image">Image</label>
+            <input type="file" />
           </div>
 
           {/* categories */}
@@ -84,8 +94,6 @@ export default function AddRecipe() {
               buttonLayout="horizontal"
               decrementButtonClassName="p-button-secondary"
               incrementButtonClassName="p-button-secondary"
-              // incrementButtonIcon="pi pi-plus"
-              // decrementButtonIcon="pi pi-minus"
             />
           </div>
         </div>

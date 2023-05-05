@@ -6,6 +6,7 @@ import { RecipeDto } from './dto/recipe.dto';
 import { Category } from 'src/categories/categories.schema';
 import { Ingredient } from 'src/ingredients/ingredients.schema';
 import { Tag } from 'src/tags/tags.schema';
+import { v2 as cloudinaryV2 } from 'cloudinary';
 
 @Injectable()
 export class RecipeService {
@@ -14,7 +15,13 @@ export class RecipeService {
     @InjectModel(Category.name) private categoryModel: Model<Category>,
     @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,
     @InjectModel(Tag.name) private tagModel: Model<Tag>,
-  ) {}
+  ) {
+    cloudinaryV2.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+  }
   recipes = [];
 
   async addRecipe(recipeDto: RecipeDto) {
@@ -28,7 +35,11 @@ export class RecipeService {
     const result = await this.recipeModel.find({ status: 'approve' });
     return result;
   }
-
+  async uploadImageToCloudinary(image: Express.Multer.File): Promise<string> {
+    const result = await cloudinaryV2.uploader.upload(image.path);
+    console.log(result);
+    return result.secure_url;
+  }
   async getRecipe(id: string) {
     const result = await this.recipeModel
       .findOne({ _id: id })
