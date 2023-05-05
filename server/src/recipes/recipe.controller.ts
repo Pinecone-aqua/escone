@@ -7,9 +7,12 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('/recipes')
 export class RecipeController {
@@ -18,6 +21,13 @@ export class RecipeController {
   @Post('add')
   addRecipe(@Body() recipeDto: RecipeDto) {
     return this.recipeService.addRecipe(recipeDto);
+  }
+
+  @Post(':id/upload-image')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImage(@UploadedFile() image: Express.Multer.File) {
+    const url = await this.recipeService.uploadImageToCloudinary(image);
+    return { url };
   }
 
   @Get('all')
