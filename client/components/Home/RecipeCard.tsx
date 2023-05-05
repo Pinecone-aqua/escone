@@ -1,42 +1,33 @@
 import { RecipeType } from "@/utils/types";
-
 import Link from "next/link";
+import { Divider } from "primereact/divider";
 import { FiHeart } from "react-icons/fi";
 
 type PropType = {
   recipe: RecipeType;
-  className?: RecipeType;
+  width?: string;
 };
-export default function RecipeCard({ recipe }: PropType): JSX.Element {
+export default function RecipeCard({ recipe, width }: PropType): JSX.Element {
   return (
-    <Link href={"/"} className={`w-5/12 sm:w-[29%] h-[342px]  max-w-[302px]`}>
-      <div className="rounded-2xl bg-white h-full w-full ">
-        {recipe.images.length > 0 && (
-          <picture>
-            <img
-              className="w-full max-h-[300px] rounded-t-2xl"
-              src={recipe.images[0]}
-              width={100}
-              height={100}
-              alt={"recipe-image"}
-            />
-          </picture>
-        )}
-        <div className="w-full rounded-b-2xl bg-white   flex justify-between p-2 md:p-5 shadow-md">
-          <div className="  w-full">
-            <h2 className="text-xs md:text-sm font-bold">
-              {recipe.title && recipe.title.slice(0, 15)}...
-            </h2>
-            <h5 className="text-[8px] sm:text-sm font-light">
-              {recipe.description && recipe.description.slice(0, 40)}...
-            </h5>
-          </div>
-          <div className="border border-black" />
-          <div className=" flex items-center p-3">
-            <FiHeart className="border-none hover:fill-red-600" />
-          </div>
+    <div
+      className={`min-w-[160px] max-w-[302px] ${
+        width ? width : "xl:w-[302px] lg:w-[240px] sm:w-[200px]"
+      }  rounded-lg drop-shadow-2xl `}
+    >
+      <Link href={"/recipe/id"} className="w-full">
+        <picture className="w-full">
+          <img src={recipe.images[0]} alt="" className="w-full rounded-t-lg " />
+        </picture>
+      </Link>
+      <div className="p-[8px] sm:p-[12px] xl:p-[16px] flex justify-between text-xs sm:text-sm lg:text-md xl:text-xl bg-white rounded-b-lg">
+        <Link href={"/recipe/id"}>
+          <p>{recipe.title}</p>
+        </Link>
+        <div className="flex items-center text-lg  sm:text-xl lg:text-2xl">
+          <Divider layout="vertical" />
+          <FiHeart className="hover:fill-red-600 hover:stroke-red-600" />
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
