@@ -9,6 +9,13 @@ module.exports = {
     "./public/**/*.html",
   ],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "978px",
+      xl: "1240px",
+      "2xl": "1536px",
+    },
     extend: {
       colors: {
         transparent: "transparent",

@@ -33,13 +33,13 @@ export default function Recipes() {
       <div className="hidden lg:block w-3/12 ">
         <Filter />
       </div>
-      <div className="lg:w-9/12 w-full flex h-full flex-wrap gap-5 md:gap-y-20  justify-center">
+      <div className="lg:w-9/12 w-full flex h-full flex-wrap gap-y-4 justify-between">
         {finish ? (
           recipes?.length == 0 ? (
             <p>empty</p>
           ) : (
             recipes?.map((recipe, index) => (
-              <RecipeCard key={index} recipe={recipe} className={recipe} />
+              <RecipeCard key={index} recipe={recipe} width={"w-[30%]"} />
             ))
           )
         ) : (
