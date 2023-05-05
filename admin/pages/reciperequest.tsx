@@ -12,15 +12,18 @@ export default function Reciperequest() {
   }, [refresh]);
   function approveHandler(id: string) {
     axios
-      .put("http://localhost:3030/recipes/approve", { id: id }
-      .then((res) => setRefresh(res));
+      .put("http://localhost:3030/recipes/approve", { id: id })
+      .then((res) => {
+        setRefresh(res.data);
+      });
   }
   function denyHandler(id: string) {
-    axios
-      .delete( "http://localhost:3030/recipes/deny", { id: id })
-
-      .then((res) => setRefresh(res));
+    axios.put("http://localhost:3030/recipes/deny", { id: id }).then((res) => {
+      setRefresh(res);
+    });
   }
+  denyHandler;
+  approveHandler;
   return (
     recipes && (
       <div className="w-full flex flex-col gap-5 mt-10">
@@ -47,10 +50,10 @@ export default function Reciperequest() {
                 approve
               </button>
 
-              <button 
-                onClick={()=>{
+              <button
+                onClick={() => {
                   denyHandler(recipe._id);
-                }} 
+                }}
                 className="px-4 py-2 bg-red-500 rounded-full"
               >
                 denied
