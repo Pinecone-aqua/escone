@@ -6,13 +6,13 @@ export default function Reciperequest() {
   const [recipes, setRecipes] = useState<RecipeType[] | null>();
   const [refresh, setRefresh] = useState<unknown>();
   useEffect(() => {
-    axios.get("http://localhost:3030/recipe/pending").then((res) => {
+    axios.get("http://localhost:3030/recipes/pending").then((res) => {
       setRecipes(res.data);
     });
   }, [refresh]);
   function approveHandler(id: string) {
     axios
-      .put("http://localhost:3030/recipe/approve", { id: id })
+      .put("http://localhost:3030/recipes/approve", { id: id })
       .then((res) => setRefresh(res));
   }
   return (
@@ -41,7 +41,7 @@ export default function Reciperequest() {
                 approve
               </button>
               <button className="px-4 py-2 bg-red-500 rounded-full">
-                denied
+                deny
               </button>
             </div>
           </div>
