@@ -7,12 +7,15 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 import type { AppProps } from "next/app";
+import RecipeProvider from "@/context/recipeContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-      <ToastContainer />
-    </Layout>
+    <RecipeProvider>
+      <Layout>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </Layout>
+    </RecipeProvider>
   );
 }

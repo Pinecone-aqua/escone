@@ -3,7 +3,12 @@ import { ReactNode } from "react";
 export type PropType = {
   children: ReactNode;
 };
-
+export type recipeContextType = {
+  recipes: RecipeType[];
+  setRecipes: React.Dispatch<React.SetStateAction<RecipeType[]>>;
+  finish: boolean;
+  setFinish: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export interface UserType {
   _id: string;
   username: string;

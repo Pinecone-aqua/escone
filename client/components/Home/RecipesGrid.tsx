@@ -3,12 +3,10 @@ import RecipeCard from "./RecipeCard";
 import { RecipeType } from "@/utils/types";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
+import { useRecipe } from "@/context/recipeContext";
 
-type RecipesGridProps = {
-  recipes: RecipeType[];
-};
-
-export default function RecipesGrid({ recipes }: RecipesGridProps) {
+export default function RecipesGrid() {
+  const { recipes } = useRecipe();
   return (
     <div className="container rounded-2xl gap-4 my-5 pb-10 lg:pb-20 pt-5 bg-cover h-full flex flex-col px-[10px] lg:px-[80px] ">
       <div className="flex justify-between items-center">
