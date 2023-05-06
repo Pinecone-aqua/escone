@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { RecipeType } from "@/utils/types";
+import { useRecipe } from "@/context/recipeContext";
 import { useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
-type PropType = { recipes: RecipeType[] };
-
-export default function Carousel({ recipes }: PropType): null | JSX.Element {
+export default function Carousel(): null | JSX.Element {
+  const { recipes } = useRecipe();
   const specialRecipes = recipes.slice(0, 5);
   const [currentSlide, setCurrentSlide] = useState(0);
 
