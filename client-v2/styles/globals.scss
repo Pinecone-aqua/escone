@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./variables.scss";
+@import "./header.scss";
+@import "./hero.scss";
+@import "./popular.scss";
+@import "./recipeCard.scss";
+@import "./recipe.scss";
+@import "./login.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-inter;
+}
+
+.container {
+  margin: 0 auto;
+  width: 0 auto;
+  width: 1440px;
+  height: 100px;
+  width: 100%;
+}
