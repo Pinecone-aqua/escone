@@ -98,35 +98,38 @@ export default function Login() {
   }
 
   return (
-    <div className="login-button mx-5">
+    <div className="login">
       <Button
-        label="Login"
+        outlined
         onClick={() => setVisible(true)}
-        className="bg-primary border-none"
-      />
+        className="login-button"
+      >
+        Login
+      </Button>
       <Dialog
         header={modalHeader}
         visible={visible}
-        className="login"
         onHide={() => setVisible(false)}
       >
-        <div className="login-content">
-          <p>Sign up with your social media account or email address</p>
-          <div className="mt-3">
-            <button
-              className={`w-full border p-2 flex text-2xl items-center gap-3 justify-center rounded-full`}
-              onClick={googleHandler}
-            >
-              {<FcGoogle size={"30px"} />}
-              Google sign in
-            </button>
-          </div>
-          <Divider align="center">OR</Divider>
-          <div className="login-inputs">
+        <div className="modal-content">
+          <Button
+            outlined
+            onClick={googleHandler}
+            className="google-button w-full flex gap-2 items-center justify-center"
+          >
+            <FcGoogle />
+            Sign in with <span className="font-semibold">Google account</span>
+          </Button>
+
+          <Divider layout="horizontal" align="center">
+            <b>OR</b>
+          </Divider>
+
+          <div className="modal-inputs w-[500px] justify-between flex flex-wrap gap-2">
             <InputText
+              className="w-[245px]"
               type="email"
               placeholder="Email Address"
-              className="input"
               onChange={(e) => {
                 emailRef.current = e.target.value;
               }}
@@ -134,7 +137,7 @@ export default function Login() {
             <InputText
               type="password"
               placeholder="Password"
-              className={`input ${!pass && register && `p-invalid`}`}
+              className={`input ${!pass && register} w-[245px]`}
               onChange={(e) => {
                 passwordRef.current = e.target.value;
                 setpass(
@@ -146,17 +149,17 @@ export default function Login() {
             {register && (
               <>
                 <InputText
+                  className="w-[245px]"
                   type="text"
                   placeholder="Username"
-                  className="input"
                   onChange={(e) => {
                     nameRef.current = e.target.value;
                   }}
                 />
                 <InputText
+                  className="w-[245px]"
                   type="password"
                   placeholder="Confirm Password"
-                  className={`input ${!pass && `p-invalid`}`}
                   onChange={(e) => {
                     password2Ref.current = e.target.value;
                     setpass(
@@ -168,22 +171,36 @@ export default function Login() {
               </>
             )}
           </div>
-          <div className="modal-footer">
+
+          <div className="modal-footer mt-5 h-[90px] flex flex-col gap-3">
             <Button
-              label={register ? "register" : "login"}
+              outlined
+              className="w-full"
+              severity="success"
+              label={register ? "Register" : "Login"}
               onClick={() => {
                 register ? pass && registerHandler() : loginHandler();
               }}
             />
             {register ? (
-              <p className="">
-                already have an acccount ?{" "}
-                <span onClick={() => setRegister(false)}>Sign in</span>
+              <p>
+                Already have an acccount?{" "}
+                <span
+                  className="font-semibold"
+                  onClick={() => setRegister(false)}
+                >
+                  Sign in
+                </span>
               </p>
             ) : (
-              <p className="">
-                {"don't"} have an acccount ?{" "}
-                <span onClick={() => setRegister(true)}>Create one</span>
+              <p>
+                {"Don't"} have an acccount?{" "}
+                <span
+                  className="font-semibold"
+                  onClick={() => setRegister(true)}
+                >
+                  Create one
+                </span>
               </p>
             )}
           </div>

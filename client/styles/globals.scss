@@ -8,14 +8,17 @@
 @import "./carousel.scss";
 @import "./login.scss";
 @import "./add.scss";
-
+@import "./hero.scss";
+@import "./popular.scss";
+@import "./recipeCard.scss";
+@import "./recipe.scss";
 * {
   box-sizing: border-box;
   font: $font-stack;
 }
 
 .container {
-  @apply mx-auto max-w-[1440px];
+  margin: 0 auto;
 }
 
 .card {

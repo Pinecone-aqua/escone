@@ -1,23 +1,17 @@
-import logo from "@/assets/logo-main.svg";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaSearch } from "react-icons/fa";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Popup from "./header/Popup";
-import Sidemenu from "./header/Sidemenu";
 import Login from "./header/Login";
-import AddRecipe from "./AddRecipe";
 import { useUser } from "@/context/userContext";
 
 export default function Header(): JSX.Element {
   const { user } = useUser();
-  interface NavLink {
+  interface MenuItem {
     label: string;
     url: string;
   }
-
-  const navLinks: NavLink[] = [
+  const menuItems: MenuItem[] = [
     { label: "Home", url: "/" },
     { label: "Recipes", url: "/recipes/filter" },
     { label: "Blog", url: "/blog" },
@@ -27,40 +21,22 @@ export default function Header(): JSX.Element {
   return (
     <>
       <div className="header">
-        <div className="container">
-          <Link className="header-logo" href={"/"}>
-            <Image src={logo} alt="Foodie" />
-          </Link>
-
-          {user ? <AddRecipe /> : <Login />}
-
-          <div className="header-content">
-            <form>
-              <label className="sr-only">Search</label>
-              <div className="search">
-                <input type="search" placeholder="Search some recipe..." />
-                <div className="search-icon">
-                  <FaSearch className="w-full" />
-                </div>
-              </div>
-            </form>
-
-            <div className="profile">
-              <Popup />
-            </div>
-            <div className="menu">
-              <Sidemenu />
-              <nav>
-                <ul>
-                  {navLinks.map((navLink, index) => (
-                    <li key={index}>
-                      <Link href={navLink.url}>{navLink.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
+        <div className="container content">
+          <div className="logo">
+            <h1>foodie.</h1>
           </div>
+
+          <nav>
+            <ul>
+              {menuItems.map((menuItem, index) => (
+                <li key={index}>
+                  <Link href={menuItem.url}>{menuItem.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {user ? <Popup /> : <Login />}
         </div>
       </div>
     </>

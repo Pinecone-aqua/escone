@@ -1,230 +1,79 @@
-@media screen and (max-width: 375px) {
-  .header {
-    display: none;
-  }
-}
-
 .header {
-  background-color: $brand-white;
-  z-index: 100;
   position: sticky;
   top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: $brand-shadow;
-  .container {
-    padding-left: 20px;
-    padding-right: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  &-logo {
-    display: flex;
-    align-self: center;
-  }
-  &-content {
+  width: 100%;
+  height: 90px;
+  z-index: 1000;
+  background-color: $brand-primary;
+  font-weight: 400;
+  border-bottom: 1px solid $brand-shade;
+  .content {
+    height: 100%;
     width: 100%;
-    justify-content: end;
     display: flex;
-  }
-  form {
-    display: none;
     align-items: center;
-    .search {
-      display: flex;
-      position: relative;
+    justify-content: space-around;
+    .logo {
+      color: $brand-lightgray;
+      font-size: 32px;
+      font-weight: 600;
     }
-    input {
-      border: none;
-      display: flex;
-      max-width: 400px;
-      min-width: 300px;
-      width: 100%;
-      padding-left: 40px;
-    }
-    ::placeholder {
-      font-size: 16px;
-      color: rgb(200, 200, 200);
-    }
-    .search-icon {
-      width: 40px;
-      pointer-events: none;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $brand-primary;
-      position: absolute;
-    }
-  }
-  .menu,
-  .profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      color: $brand-primary;
-      transition: 0.5s;
-      .icon {
-        width: 50%;
-        height: 50%;
-      }
-    }
-    button:hover {
-      background-color: rgb(235, 235, 235);
-      color: $brand-secondary;
-    }
-  }
-  .profile {
-    position: relative;
-    // .dropdown {
-    // }
-  }
-  .menu {
-    z-index: 1;
-    position: static;
-    &-links {
-      border-radius: 25px;
-      box-shadow: $brand-shadow;
-      position: absolute;
-      border: 1px solid $brand-lightgray;
-      background-color: $brand-white;
-      padding-left: 20px;
-      padding-right: 20px;
-      width: 100vw;
-      right: 0;
-      top: 70px;
+    nav {
+      width: 400px;
       ul {
-        color: $brand-gray;
-        display: grid;
+        font-size: 16px;
+        color: $brand-shade;
+        display: flex;
+        justify-content: space-between;
         li {
-          border-top: 0.5px solid $brand-lightgray;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          &:first-child {
-            border: none;
-          }
+          position: relative;
+          padding: 0 10px;
+          margin: 0 10px;
         }
         li:hover {
-          color: $brand-secondary;
-          transition: 0.5s;
+          color: $brand-lightgray;
+        }
+        li:after {
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          margin: auto;
+          width: 0%;
+          content: ".";
+          color: transparent;
+          background: $brand-lightgray;
+          height: 1.4px;
+        }
+        li:hover:after {
+          width: 100%;
+        }
+        li,
+        li:after,
+        li:before {
+          transition: all 0.5s;
         }
       }
     }
-  }
-}
-
-@media screen and (min-width: 375px) {
-  .header {
-    height: 70px;
-    &-logo {
+    .hello {
+      color: $brand-lightgray;
+    }
+    button.login {
+      font-size: 14px;
       width: 100px;
-    }
-    form,
-    nav {
-      display: none;
-    }
-    &-content {
-      gap: 20px;
-    }
-  }
-  .menu,
-  .profile {
-    button {
-      width: 35px;
-      height: 35px;
-    }
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .header {
-    height: 85px;
-    &-logo {
-      width: 125px;
-    }
-    form {
-      display: flex;
-      input {
-        max-width: 400px;
-        height: 40px;
-      }
-    }
-    &-content {
-      gap: 30px;
-    }
-    .menu,
-    .profile {
-      button {
-        width: 40px;
-        height: 40px;
-      }
-      .dropdown {
-        top: 58px;
-      }
-    }
-    .menu {
-      &-links {
-        top: 85px;
-        ul {
-          li {
-            height: 50px;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .header {
-    height: 100px;
-    &-logo {
-      width: 150px;
-    }
-    form {
-      display: flex;
-      input {
-        max-width: 500px;
-        height: 45px;
-      }
-    }
-    .menu button {
-      display: none;
-    }
-    nav {
-      display: flex;
-      ul {
-        font-size: 18px;
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: 1px solid $brand-white;
+      color: $brand-white;
+      &:hover {
+        transition: all 0.5s;
         color: $brand-primary;
-        transition: 0.5s;
-        display: flex;
-        justify-content: space-around;
-        width: 300px;
-      }
-      li:hover {
-        transition: 0.5s;
-        color: $brand-secondary;
+        background-color: $brand-lightgray;
       }
     }
-    &-content {
-      gap: 40px;
-    }
-    .profile {
-      order: 1;
+    .popup {
       button {
-        width: 45px;
-        height: 45px;
-      }
-      .dropdown {
-        top: 70px;
+        color: $brand-lightgray;
       }
     }
   }
