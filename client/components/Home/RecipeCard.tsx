@@ -7,14 +7,14 @@ type PropType = {
   recipe: RecipeType;
   width?: string;
 };
-export default function RecipeCard({ recipe, width }: PropType): JSX.Element {
+export default function RecipeCard({ recipe }: PropType): JSX.Element {
   const [save, setSave] = useState(false);
   const saveHandler = () => {
     setSave(!save);
   };
   return (
     <div className="recipeCard">
-      <Link href={`/recipes/${recipe._id}`}>
+      <Link href={`/recipe/${recipe._id}`}>
         <picture>
           <img src={recipe.images[0]} alt="" />
         </picture>

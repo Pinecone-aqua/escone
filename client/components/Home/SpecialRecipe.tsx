@@ -1,4 +1,3 @@
-import { RecipeType } from "@/utils/types";
 import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
