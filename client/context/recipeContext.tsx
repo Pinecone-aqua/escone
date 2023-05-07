@@ -11,14 +11,20 @@ export default function RecipeProvider({ children }: PropType) {
   const { asPath, query } = useRouter();
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [finish, setFinish] = useState<boolean>(false);
-
   useEffect(() => {
     setFinish(false);
     if (Object.keys(query).length != 0) {
-      axios.get(`http://localhost:3030${asPath}`).then((res) => {
-        setRecipes(res.data);
-        setFinish(true);
-      });
+      if (query.id) {
+        axios.get(`http://localhost:3030/recipes/${query.id}`).then((res) => {
+          setRecipes(res.data);
+          setFinish(true);
+        });
+      } else {
+        axios.get(`http://localhost:3030${asPath}`).then((res) => {
+          setRecipes(res.data);
+          setFinish(true);
+        });
+      }
     } else {
       axios
         .get("http://localhost:3030/recipes/all")
