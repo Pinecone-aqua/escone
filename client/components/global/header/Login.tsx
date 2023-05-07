@@ -5,12 +5,12 @@ import { Dialog } from "primereact/dialog";
 import { toast } from "react-toastify";
 import { Divider } from "primereact/divider";
 import { InputText } from "primereact/inputtext";
-
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { FcGoogle } from "react-icons/fc";
+import { useUser } from "@/context/userContext";
 
 export default function Login() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export default function Login() {
   const passwordRef = useRef<string>("");
   const nameRef = useRef<string>();
   const password2Ref = useRef<string>();
-
+  const { setToken } = useUser();
   const modalHeader = (
     <div className="modal-header">
       <h1>Login | Register</h1>
@@ -35,10 +35,23 @@ export default function Login() {
       password: passwordRef.current,
     };
     axios.post("http://localhost:3030/user/add", user).then((res) => {
-      console.log(res);
+      if (res.data.status) {
+        loginHandler();
+      } else {
+        toast.error(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     });
-    console.log(user);
   }
+
   function loginHandler() {
     const secret = "nuurs ug";
     const payload = {
@@ -49,10 +62,9 @@ export default function Login() {
     console.log(user);
 
     axios.get(`http://localhost:3030/user/login?token=${user}`).then((res) => {
-      console.log(res.data);
-
       if (res.data.status) {
         Cookies.set("token", res.data.token);
+        setToken(res.data.token);
         setVisible(false);
         toast.success(res.data.data, {
           position: "top-right",
@@ -65,7 +77,6 @@ export default function Login() {
           theme: "light",
         });
       } else {
-        console.log(res.data.data);
         toast.error(res.data.data, {
           position: "top-right",
           autoClose: 5000,
@@ -81,7 +92,6 @@ export default function Login() {
   }
 
   function googleHandler() {
-    console.log("clicked");
     axios
       .get("http://localhost:3030/user/google")
       .then((res) => Router.push(res.data));

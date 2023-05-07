@@ -109,8 +109,10 @@ export class UserService {
   }
   async addUser(user: CreateUserDto) {
     const date = moment().format();
+    const message = { message: 'success register', status: true };
     const password = await bcrypt.hash(user.password, 7);
     user.password = password;
+
     const newUser = {
       ...user,
       _role: false,
@@ -123,14 +125,20 @@ export class UserService {
       favorites: [],
       created_date: date,
     };
+
     const userCheck = await this.userModel.find({ email: user.email }).limit(1);
-    if (userCheck.length == 1) return 'already have an account';
-    const resilt = await this.userModel.insertMany(newUser);
-    return resilt;
+
+    if (userCheck.length == 1) {
+      message.message = 'already have an account';
+      message.status = false;
+      return message;
+    }
+    await this.userModel.insertMany(newUser);
+    return message;
   }
   async deleteUser(id: string) {
     const result = await this.userModel.deleteOne({ _id: id });
-    // console.log(result);
-    return `deleted user ${result}`;
+
+    return result;
   }
 }
