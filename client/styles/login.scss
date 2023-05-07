@@ -1,5 +1,4 @@
 .login {
-  width: 100%;
   &-content {
     .social-links {
       display: flex;
@@ -49,7 +48,7 @@
 
 @media screen and (min-width: 375px) {
   .login {
-    width: 335px;
+    // width: 335px;
     &-content {
       p {
         font-size: 16px;
@@ -67,7 +66,7 @@
 }
 @media screen and (min-width: 768px) {
   .login {
-    width: 570px;
+    // width: 570px;
     &-content {
       p {
         font-size: 18px;
@@ -87,7 +86,7 @@
 }
 @media screen and (min-width: 1024px) {
   .login {
-    width: 680px;
+    // width: 680px;
     &-content {
       p {
         font-size: 20px;

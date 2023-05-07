@@ -1,34 +1,34 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from "react";
-import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
-import { FaUser } from "react-icons/fa";
+import Cookies from "js-cookie";
+import { useUser } from "@/context/userContext";
 
 export default function Popup() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const menu: React.MutableRefObject<any> = useRef(null);
+  const { setUser } = useUser();
   const items = [
+    { icon: "pi pi-fw pi-user", label: "Profile", link: "/profile" },
+    { icon: "pi pi-fw pi-cog", label: "Favorites", link: "/favorites" },
     {
-      label: "Information",
-      link: "/",
-    },
-    {
-      label: "Favorites",
-      link: "/",
-    },
-    {
+      icon: "pi pi-sign-out",
       label: "Log out",
       link: "/",
+      command: logoutHandler,
     },
   ];
-
+  function logoutHandler() {
+    console.log("logout");
+    Cookies.remove("token");
+    setUser(undefined);
+  }
   return (
-    <div className="popup">
-      <Menu model={items} popup ref={menu} className="mt-2" />
-      <Button
-        className="bg-white hover:bg-gray-200 border-none"
-        icon={<FaUser />}
-        onClick={(e) => menu.current.toggle(e)}
-      />
+    <div className="popup  flex justify-content-center">
+      <Menu model={items} popup ref={menu} className="mt-3" />
+
+      <button className="popup gap-2" onClick={(e) => menu.current.toggle(e)}>
+        Hi, User!
+      </button>
     </div>
   );
 }

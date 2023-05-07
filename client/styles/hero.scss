@@ -1,0 +1,57 @@
+.hero {
+  .content {
+    position: relative;
+    z-index: -1;
+    color: $brand-lightgray;
+    width: 100%;
+    height: 890px;
+    background-color: $brand-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .text {
+      position: relative;
+      z-index: 0;
+      h1 {
+        font-size: 250px;
+        font-weight: 800;
+      }
+      p {
+        position: absolute;
+        bottom: 30px;
+        font-size: 20px;
+        font-weight: 300;
+        width: 100%;
+        text-align: end;
+      }
+    }
+    .elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      .abs {
+        position: absolute;
+      }
+      .grape {
+        left: 0;
+        bottom: 5%;
+      }
+      .avocado {
+        left: 26%;
+        top: 35%;
+      }
+      .blueberry {
+        left: 38%;
+        bottom: 13%;
+      }
+      .flour {
+        right: 12%;
+        top: 14%;
+      }
+      .egg {
+        right: 2%;
+        top: 36%;
+      }
+    }
+  }
+}
