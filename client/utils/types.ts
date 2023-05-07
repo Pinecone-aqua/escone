@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export type PropType = {
   children: ReactNode;
@@ -8,6 +8,12 @@ export type recipeContextType = {
   setRecipes: React.Dispatch<React.SetStateAction<RecipeType[]>>;
   finish: boolean;
   setFinish: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export type userContextType = {
+  user: UserType | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null | undefined>>;
+  token: string | undefined;
+  setToken: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 export interface UserType {
   _id: string;

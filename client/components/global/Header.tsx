@@ -1,19 +1,17 @@
 import logo from "@/assets/logo-main.svg";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaSearch } from "react-icons/fa";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import Popup from "./header/Popup";
 import Sidemenu from "./header/Sidemenu";
-
-import Cookies from "js-cookie";
-import jwtDecode from "jwt-decode";
-import { UserType } from "@/utils/types";
 import Login from "./header/Login";
 import AddRecipe from "./AddRecipe";
+import { useUser } from "@/context/userContext";
 
 export default function Header(): JSX.Element {
+  const { user } = useUser();
   interface NavLink {
     label: string;
     url: string;
@@ -26,12 +24,6 @@ export default function Header(): JSX.Element {
     { label: "About", url: "/about" },
   ];
 
-  const token: string | undefined = Cookies.get("token");
-  const [user, setUser] = useState<undefined | UserType>();
-
-  useEffect(() => {
-    token && setUser(jwtDecode(token));
-  }, [token]);
   return (
     <>
       <div className="header">
