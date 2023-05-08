@@ -9,7 +9,7 @@ export default function Popup() {
   const { setUser } = useUser();
   const items = [
     { icon: "pi pi-fw pi-user", label: "Profile", url: "/profile" },
-    { icon: "pi pi-heart", label: "Favorites", url: "/favorites" },
+    { icon: "pi pi-heart", label: "Favorites", url: "/profile/favorites" },
     {
       icon: "pi pi-sign-out",
       label: "Log out",

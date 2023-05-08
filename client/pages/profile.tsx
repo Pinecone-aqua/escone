@@ -1,5 +1,4 @@
 import RecipeCard from "@/components/Home/RecipeCard";
-import RecipesGrid from "@/components/Home/RecipesGrid";
 import { useRecipe } from "@/context/recipeContext";
 import { useUser } from "@/context/userContext";
 import Link from "next/link";
@@ -8,9 +7,9 @@ const randomCover = "https://source.unsplash.com/random/900%C3%97700/?food";
 const randomProfile = "https://loremflickr.com/200/200/face";
 
 const contentHeaderItems = [
-  { icon: "pi pi-table", label: "Recipes", url: "/recipes" },
-  { icon: "pi pi-heart", label: "Favorites", url: "/favorites" },
-  { icon: "", label: "Reviews", url: "/reviews" },
+  { icon: "pi pi-table", label: "Recipes", url: "/" },
+  { icon: "pi pi-heart", label: "Favorites", url: "/profile/favorites" },
+  { icon: "", label: "Reviews", url: "profile/reviews" },
 ];
 
 export default function Profile() {
