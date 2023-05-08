@@ -1,6 +1,6 @@
 import { PropType } from "@/utils/types";
 import Header from "./Header";
-// import Footer from "./Footer";
+import Footer from "./Footer";
 import Head from "next/head";
 import Logo from "@/public/Logo";
 
@@ -18,7 +18,7 @@ export default function Layout({ children }: PropType) {
       </Head>
       <Header />
       <main>{children}</main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
