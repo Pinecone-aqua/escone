@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useState } from "react";
-import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { toast } from "react-toastify";
 import { Divider } from "primereact/divider";
-import { InputText } from "primereact/inputtext";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -21,9 +19,10 @@ export default function Login() {
   const nameRef = useRef<string>();
   const password2Ref = useRef<string>();
   const { setToken } = useUser();
+
   const modalHeader = (
     <div className="modal-header">
-      <h1>Login | Register</h1>
+      <h1>{register ? "Register" : "Login"}</h1>
     </div>
   );
 
@@ -99,45 +98,36 @@ export default function Login() {
 
   return (
     <div className="login">
-      <Button
-        outlined
-        onClick={() => setVisible(true)}
-        className="login-button"
-      >
+      <button onClick={() => setVisible(true)} className="login-btn">
         Login
-      </Button>
+      </button>
       <Dialog
         header={modalHeader}
         visible={visible}
         onHide={() => setVisible(false)}
       >
-        <div className="modal-content">
-          <Button
-            outlined
-            onClick={googleHandler}
-            className="google-button w-full flex gap-2 items-center justify-center"
-          >
+        <div className="login-modal">
+          <button onClick={googleHandler} className="btn-google">
             <FcGoogle />
-            Sign in with <span className="font-semibold">Google account</span>
-          </Button>
+            Sign in with <span>Google account</span>
+          </button>
 
           <Divider layout="horizontal" align="center">
             <b>OR</b>
           </Divider>
 
-          <div className="modal-inputs w-[500px] justify-between flex flex-wrap gap-2">
-            <InputText
-              className="w-[245px]"
-              type="email"
+          <div className="login-inputs">
+            <input
+              type="text"
               placeholder="Email Address"
               onChange={(e) => {
                 emailRef.current = e.target.value;
               }}
+              className="login-input"
             />
-            <InputText
+            <input
               type="password"
               placeholder="Password"
-              className={`input ${!pass && register} w-[245px]`}
               onChange={(e) => {
                 passwordRef.current = e.target.value;
                 setpass(
@@ -145,62 +135,52 @@ export default function Login() {
                     password2Ref.current == passwordRef.current
                 );
               }}
+              className={`login-input ${!pass && register}`}
             />
             {register && (
               <>
-                <InputText
-                  className="w-[245px]"
+                <input
                   type="text"
                   placeholder="Username"
                   onChange={(e) => {
                     nameRef.current = e.target.value;
                   }}
+                  className="login-input"
                 />
-                <InputText
-                  className="w-[245px]"
+                <input
                   type="password"
                   placeholder="Confirm Password"
                   onChange={(e) => {
-                    password2Ref.current = e.target.value;
+                    password2Ref.current != e.target.value;
                     setpass(
                       password2Ref.current != "" &&
                         password2Ref.current == passwordRef.current
                     );
                   }}
+                  className="login-input"
                 />
               </>
             )}
           </div>
 
-          <div className="modal-footer mt-5 h-[90px] flex flex-col gap-3">
-            <Button
-              outlined
-              className="w-full"
-              severity="success"
-              label={register ? "Register" : "Login"}
+          <div className="login-footer">
+            <button
               onClick={() => {
                 register ? pass && registerHandler() : loginHandler();
               }}
-            />
+            >
+              {register ? "Register" : "Login"}
+            </button>
+
             {register ? (
               <p>
                 Already have an acccount?{" "}
-                <span
-                  className="font-semibold"
-                  onClick={() => setRegister(false)}
-                >
-                  Sign in
-                </span>
+                <span onClick={() => setRegister(false)}>Sign in</span>
               </p>
             ) : (
               <p>
                 {"Don't"} have an acccount?{" "}
-                <span
-                  className="font-semibold"
-                  onClick={() => setRegister(true)}
-                >
-                  Create one
-                </span>
+                <span onClick={() => setRegister(true)}>Create one</span>
               </p>
             )}
           </div>

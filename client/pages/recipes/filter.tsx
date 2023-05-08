@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
 import { useRecipe } from "@/context/recipeContext";
+import Loader from "@/components/Loader";
 
 export default function Recipes() {
   const { recipes, finish } = useRecipe();
@@ -60,7 +61,7 @@ export default function Recipes() {
               ))
             )
           ) : (
-            <p>loading</p>
+            <Loader />
           )}
         </div>
       </div>
