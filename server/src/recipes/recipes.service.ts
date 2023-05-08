@@ -35,11 +35,18 @@ export class RecipeService {
     const result = await this.recipeModel.find({ status: 'approve' });
     return result;
   }
-  async uploadImageToCloudinary(image: Express.Multer.File): Promise<string> {
-    const result = await cloudinaryV2.uploader.upload(image.path);
-    console.log(result);
-    return result.secure_url;
+
+  async uploadImageToCloudinary(
+    images: Express.Multer.File[],
+  ): Promise<string[]> {
+    const urls = [];
+    for (const image of images) {
+      const result = await cloudinaryV2.uploader.upload(image.path);
+      urls.push(result.secure_url);
+    }
+    return urls;
   }
+
   async getRecipe(id: string) {
     const result = await this.recipeModel
       .findOne({ _id: id })
@@ -49,6 +56,7 @@ export class RecipeService {
     console.log('result: ', result);
     return result;
   }
+
   async recipeApprove(id: string) {
     const result = await this.recipeModel.updateOne(
       { _id: id },
@@ -56,6 +64,7 @@ export class RecipeService {
     );
     return result;
   }
+
   async recipeDeny(id: string) {
     const result = await this.recipeModel.deleteOne(
       { _id: id },
@@ -63,6 +72,7 @@ export class RecipeService {
     );
     return result;
   }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async editRecipe(id: string, recipeDto: RecipeDto) {
     const result = await this.recipeModel.updateOne({ _id: id });
@@ -105,10 +115,12 @@ export class RecipeService {
     console.log(filteredRecipes);
     return filteredRecipes;
   }
+
   async deleteRecipe(id: string) {
     const result = await this.recipeModel.deleteOne({ _id: id });
     return result;
   }
+
   async getPendingRecipes() {
     const result = await this.recipeModel.find({ status: 'pending' });
     return result;

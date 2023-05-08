@@ -34,15 +34,19 @@ export class RecipeDto {
   @IsNumber()
   @IsNotEmpty()
   cook_time: number;
+
   @IsNumber()
   @IsNotEmpty()
   method: [{ ['number']: string }];
+
   @IsNumber()
   @IsNotEmpty()
   servings: number;
+
   @IsNumber()
   @IsNotEmpty()
   rate: { rating: number; vote: number };
+
   @IsString()
   @IsNotEmpty()
   created_by: string;
