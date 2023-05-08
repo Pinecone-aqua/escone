@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/logo-main.svg";
 import {
   FaPinterest,
   FaTwitter,
   FaInstagram,
   FaFacebook,
 } from "react-icons/fa";
+import Logo from "@/public/Logo";
 
-interface NavLink {
-  name: string;
-  link: string;
+interface MenuItem {
+  label: string;
+  url: string;
 }
-const navLinks: NavLink[] = [
-  { name: "Home", link: "/" },
-  { name: "Recipe", link: "/recipe" },
-  { name: "Blog", link: "/blog" },
-  { name: "About", link: "/about" },
+const menuItems: MenuItem[] = [
+  { label: "Home", url: "/" },
+  { label: "Recipe", url: "/recipe" },
+  { label: "Blog", url: "/blog" },
+  { label: "About", url: "/about" },
 ];
 
 interface SocialLink {
@@ -45,29 +43,36 @@ export default function Footer(): JSX.Element {
   return (
     <div className="footer">
       <div className="container">
-        <Link className="footer-logo" href={"/"}>
-          <Image src={logo} alt="Foodie" />
-        </Link>
-        <div className="navLinks">
-          <ul>
-            {navLinks.map((navLink, index) => (
-              <li key={index}>
-                <Link href={navLink.link}>{navLink.name}</Link>
-              </li>
-            ))}
-          </ul>
+        <div className="footer-head">
+          <Link className="footer-logo" href={"/"}>
+            <Logo />
+          </Link>
+          <div className="menuItems">
+            <nav>
+              <ul>
+                {menuItems.map((menuItem, index) => (
+                  <li key={index}>
+                    <Link href={menuItem.url}>{menuItem.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </div>
-        <div className="socialLinks">
-          <ul>
-            {socialLinks.map((socialLink, index) => (
-              <li key={index} value={socialLink.name}>
-                <Link href={socialLink.link}>{socialLink.icon}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="copyright">
-          <p>&copy;2023 Foodie. team PineApple | AQUA</p>
+
+        <div className="footer-foot">
+          <div className="socialLinks">
+            <ul>
+              {socialLinks.map((socialLink, index) => (
+                <li key={index} value={socialLink.name}>
+                  <Link href={socialLink.link}>{socialLink.icon}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="copyright">
+            <p>&copy;2023 Foodie. team PineApple | AQUA</p>
+          </div>
         </div>
       </div>
     </div>
