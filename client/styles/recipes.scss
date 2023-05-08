@@ -1,0 +1,15 @@
+.recipes {
+  &-header {
+    font-size: 22px;
+    font-weight: 600;
+    padding: 35px 50px;
+  }
+  &-grid {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 75%;
+  }
+}
