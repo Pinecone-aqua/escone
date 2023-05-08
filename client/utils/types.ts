@@ -6,6 +6,8 @@ export type PropType = {
 export type recipeContextType = {
   recipes: RecipeType[];
   setRecipes: React.Dispatch<React.SetStateAction<RecipeType[]>>;
+  recipe: RecipeType | undefined;
+  setRecipe: React.Dispatch<React.SetStateAction<RecipeType | undefined>>;
   finish: boolean;
   setFinish: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -32,12 +34,14 @@ export interface RecipeType {
   images: string[];
   title: string;
   description: string;
-  ingredients: string[];
+  ingredients: string[] | IngredientType[];
   categories: string[];
   tags: string[];
+  method: { ["number"]: string }[];
   servings: number;
   cook_time: number;
   created_date: Date;
+  rate: { rating: number; vote: number };
 }
 
 export interface CategoryType {

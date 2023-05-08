@@ -2,8 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
 export class Ingredient {
-  @Prop()
-  _id: string;
+  // @Prop()
+  // _id: string;
   @Prop()
   name: string;
   @Prop()
