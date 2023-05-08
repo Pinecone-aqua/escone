@@ -8,7 +8,7 @@ import egg from "@/assets/egg.png";
 export default function HeroSection() {
   return (
     <div className="">
-      <div className="hero container">
+      <div className="hero">
         <div className="content">
           <div className="text">
             <h1>foodie</h1>
