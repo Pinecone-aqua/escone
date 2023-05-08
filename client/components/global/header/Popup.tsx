@@ -8,8 +8,8 @@ export default function Popup() {
   const menu: React.MutableRefObject<any> = useRef(null);
   const { setUser } = useUser();
   const items = [
-    { icon: "pi pi-fw pi-user", label: "Profile", link: "/profile" },
-    { icon: "pi pi-fw pi-cog", label: "Favorites", link: "/favorites" },
+    { icon: "pi pi-fw pi-user", label: "Profile", url: "/profile" },
+    { icon: "pi pi-heart", label: "Favorites", url: "/favorites" },
     {
       icon: "pi pi-sign-out",
       label: "Log out",
