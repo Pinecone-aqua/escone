@@ -46,7 +46,8 @@ export class RecipeService {
       .populate('categories')
       .populate('tags')
       .populate('ingredients');
-    return [result];
+    console.log('result: ', result);
+    return result;
   }
   async recipeApprove(id: string) {
     const result = await this.recipeModel.updateOne(

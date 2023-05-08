@@ -10,13 +10,14 @@ export const useRecipe = () => useContext(recipeContext);
 export default function RecipeProvider({ children }: PropType) {
   const { asPath, query } = useRouter();
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
+  const [recipe, setRecipe] = useState<RecipeType>();
   const [finish, setFinish] = useState<boolean>(false);
   useEffect(() => {
     setFinish(false);
     if (Object.keys(query).length != 0) {
       if (query.id) {
         axios.get(`http://localhost:3030/recipes/${query.id}`).then((res) => {
-          setRecipes(res.data);
+          setRecipe(res.data);
           setFinish(true);
         });
       } else {
@@ -39,7 +40,9 @@ export default function RecipeProvider({ children }: PropType) {
     }
   }, [asPath, query]);
   return (
-    <recipeContext.Provider value={{ recipes, setRecipes, finish, setFinish }}>
+    <recipeContext.Provider
+      value={{ recipes, setRecipes, finish, setFinish, recipe, setRecipe }}
+    >
       {children}
     </recipeContext.Provider>
   );

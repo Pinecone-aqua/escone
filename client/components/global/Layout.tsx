@@ -8,7 +8,7 @@ export default function Layout({ children }: PropType) {
   return (
     <div
       style={{ fontFamily: "Poltawski Nowy, serif" }}
-      className={`min-h-[100vh] w-[100wh] flex flex-col`}
+      className={`min-h-[100vh] w-[100wh] flex flex-col justify-between`}
     >
       <Head>
         <title>
