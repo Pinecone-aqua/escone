@@ -5,11 +5,9 @@
     padding: 35px 50px;
   }
   &-grid {
-    padding: 30px;
+    padding: 50px;
+    justify-content: space-between;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
-    width: 75%;
   }
 }

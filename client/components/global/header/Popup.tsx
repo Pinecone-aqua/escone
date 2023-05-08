@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from "react";
 import { Menu } from "primereact/menu";
 import Cookies from "js-cookie";
 import { useUser } from "@/context/userContext";
 
 export default function Popup() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const menu: React.MutableRefObject<any> = useRef(null);
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const items = [
     { icon: "pi pi-fw pi-user", label: "Profile", url: "/profile" },
     { icon: "pi pi-heart", label: "Favorites", url: "/profile/favorites" },
@@ -27,7 +27,7 @@ export default function Popup() {
       <Menu model={items} popup ref={menu} className="mt-3" />
 
       <button className="popup gap-2" onClick={(e) => menu.current.toggle(e)}>
-        Hi, User!
+        Hi, {user.username}!
       </button>
     </div>
   );

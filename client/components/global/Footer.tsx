@@ -14,7 +14,7 @@ interface MenuItem {
 }
 const menuItems: MenuItem[] = [
   { label: "Home", url: "/" },
-  { label: "Recipe", url: "/recipe" },
+  { label: "Recipe", url: "/recipes/filter" },
   { label: "Blog", url: "/blog" },
   { label: "About", url: "/about" },
 ];
