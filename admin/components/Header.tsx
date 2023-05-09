@@ -25,9 +25,10 @@ export default function Header(): JSX.Element {
             />
           </picture>
 
-          <p className="text-xl font-semibold">
-            <p className="text-sm text-green-500">ADMIN</p>Uka Yura
-          </p>
+          <div className="text-xl font-semibold">
+            <p className="text-sm text-green-500">ADMIN</p>
+            <p>Uka Yura</p>
+          </div>
           <button className="text-2xl">
             <BsArrowDownCircle />
           </button>

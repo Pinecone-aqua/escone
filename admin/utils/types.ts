@@ -16,19 +16,21 @@ export interface UserType {
 }
 
 export interface RecipeType {
+  status: ReactNode;
   _id: string;
   created_by: string;
   images: string[];
   title: string;
   description: string;
-  ingredients: string[];
-  categories: string[];
-  tags: string[];
+  ingredients: IngredientType[];
+  categories: CategoryType[];
+  tags: TagType[];
+  method: { ["number"]: string }[];
   servings: number;
   cook_time: number;
   created_date: Date;
+  rate: { rating: number; vote: number };
 }
-
 export interface CategoryType {
   _id: string;
   name: string;

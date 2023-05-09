@@ -16,8 +16,7 @@ const SideBarItems = [
 ];
 
 export default function Sidebar(): JSX.Element {
-  const { asPath } = useRouter();
-  console.log(asPath);
+  const { route } = useRouter();
   return (
     <div className="bg-blue-900 w-[300px] px-5 text-white min-h-[100vh] py-3 flex flex-col items-center gap-10">
       <Logo width={400} height={60} />
@@ -27,7 +26,7 @@ export default function Sidebar(): JSX.Element {
             key={index}
             href={item.url}
             className={`flex gap-2 items-center text-2xl  py-4 px-6 rounded-xl ${
-              asPath == item.url && `bg-green-500`
+              route == item.url && `bg-green-500`
             } `}
           >
             <span className="text-3xl"> {item.icon} </span>
