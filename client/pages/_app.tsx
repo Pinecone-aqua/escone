@@ -9,19 +9,15 @@ import "primeicons/primeicons.css";
 import type { AppProps } from "next/app";
 import RecipeProvider from "@/context/recipeContext";
 import UserProvider from "@/context/userContext";
-import ReviewProvider from "@/context/reviewContext";
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecipeProvider>
-      <ReviewProvider>
-        <UserProvider>
-          <Layout>
-            <Component {...pageProps} />
-            <ToastContainer />
-          </Layout>
-        </UserProvider>
-      </ReviewProvider>
+      <UserProvider>
+        <Layout>
+          <Component {...pageProps} />
+          <ToastContainer />
+        </Layout>
+      </UserProvider>
     </RecipeProvider>
   );
 }
