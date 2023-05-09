@@ -22,7 +22,6 @@ export class RecipeService {
       api_secret: process.env.CLOUDINARY_API_SECRET,
     });
   }
-  recipes = [];
 
   async addRecipe(recipeDto: RecipeDto) {
     const createdRecipe = await this.recipeModel.create({
@@ -46,7 +45,7 @@ export class RecipeService {
       .populate('categories')
       .populate('tags')
       .populate('ingredients');
-    console.log('result: ', result);
+
     return result;
   }
   async recipeApprove(id: string) {

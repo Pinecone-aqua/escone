@@ -1,22 +1,46 @@
 import PopularSection from "@/components/Home/PopularSection";
 import { useRecipe } from "@/context/recipeContext";
 import dayjs from "dayjs";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import React from "react";
+import {
+  AiOutlineStar,
+  AiFillStar,
+  AiOutlineLike,
+  AiOutlineDislike,
+} from "react-icons/ai";
+import React, { useRef, useState } from "react";
+import { useReview } from "@/context/reviewContext";
 
 function Recipe() {
   const { recipe } = useRecipe();
-  const date = dayjs(recipe?.created_date).format("MMM DD, YYYY");
-  console.log(recipe);
-  function rateHandler(rate: number) {
+  const { review } = useReview();
+  const [newRate, setNewRate] = useState(0);
+  const reviewRef = useRef("");
+  function dateFormat(date: Date) {
+    const newdate = dayjs(date).format("MMM DD, YYYY");
+    return newdate;
+  }
+  function starPrinter(
+    rate: number,
+    handler?: React.MouseEventHandler<HTMLDivElement> | undefined
+  ) {
     let result: JSX.Element[] = [];
     let newrate = Math.round(rate);
-    for (let i = 5; i > 0; i--) {
+    for (let i = 1; i <= 5; i++) {
       if (newrate != 0) {
-        result = [...result, <AiFillStar key={i} />];
+        result = [
+          ...result,
+          <div className="" id={`${i}`} key={i} onClick={handler}>
+            <AiFillStar id={`${i}`} />
+          </div>,
+        ];
         newrate -= 1;
       } else {
-        result = [...result, <AiOutlineStar key={i} />];
+        result = [
+          ...result,
+          <div className="" id={`${i}`} key={i} onClick={handler}>
+            <AiOutlineStar id={`${i}`} />
+          </div>,
+        ];
       }
     }
     return result;
@@ -35,10 +59,12 @@ function Recipe() {
                   <h1 className=" text-primary font-extrabold text-3xl">
                     {recipe.title}
                   </h1>
-                  <p className="text-base text-gray-500 italic">{date}</p>
+                  <p className="text-base text-gray-500 italic">
+                    {dateFormat(recipe.created_date)}
+                  </p>
                 </div>
                 <div className="text-2xl flex text-primary gap-2">
-                  {rateHandler(recipe.rate.rating).map((star) => star)}
+                  {starPrinter(recipe.rate.rating).map((star) => star)}
                   <p className="text-lg">
                     {recipe.rate.rating}/{recipe.rate.vote}
                   </p>
@@ -46,7 +72,7 @@ function Recipe() {
                 <div className="flex gap-3">
                   {recipe.tags.map((tag, index) => (
                     <div
-                      className=" px-3 py-2 bg-primary rounded-full text-xs text-white"
+                      className=" px-3 py-1 text-center bg-primary rounded-full text-xs text-white flex items-center justify-center"
                       key={index}
                     >
                       {tag.name}
@@ -93,7 +119,82 @@ function Recipe() {
           </div>
         </div>
         <PopularSection />
-        <div className="">review</div>
+        <div className="w-full ">
+          <h2 className=" text-primary font-extrabold text-3xl">
+            Recipe Reviews
+          </h2>
+          <div className="">
+            {review?.map((rev, index) => (
+              <div
+                key={index}
+                className="flex gap-10 py-10 w-full border-b-2 border-gray-300 "
+              >
+                <picture className="block w-[60px]">
+                  <img
+                    src={rev.created_by.image}
+                    alt=""
+                    className="w-full rounded-full"
+                  />
+                </picture>
+                <div className="w-full flex flex-col gap-3">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <p className="text-2xl font-semibold text-primary">
+                        {rev.created_by.username}
+                      </p>
+                      <p className="font-semibold text-gray-400">
+                        {dateFormat(rev.created_date)}
+                      </p>
+                    </div>
+                    <div className="flex text-2xl text-primary">
+                      {starPrinter(rev.rate)}
+                    </div>
+                  </div>
+                  <div className="w-full ">
+                    <p>{rev.content}</p>
+                  </div>
+                  <div className="flex text-3xl gap-10">
+                    <div className="flex gap-2 items-center">
+                      <AiOutlineLike color="green" />
+                      <span className="text-2xl">10</span>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <AiOutlineDislike color="red" />
+                      <span className="text-2xl">10</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-10">
+          <h2 className=" text-primary font-extrabold text-3xl">
+            Write a review
+          </h2>
+          <div className="">
+            <div className="flex gap-3">
+              <p>Rating</p>
+              <p>{newRate}</p>
+              <div className="flex text-2xl text-primary">
+                {starPrinter(newRate, (e) => setNewRate(Number(e.target.id)))}
+              </div>
+            </div>
+            <div className="w-full">
+              <input
+                name="review"
+                className="w-full border border-black"
+                onChange={(e) => (reviewRef.current = e.target.value)}
+              />
+              <button
+                type="submit"
+                onClick={() => console.log(reviewRef.current, newRate)}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     )
   );
