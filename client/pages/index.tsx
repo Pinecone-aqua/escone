@@ -1,6 +1,6 @@
 import HeroSection from "@/components/Home/HeroSection";
 import PopularSection from "@/components/Home/PopularSection";
-import SpecialRecipe from "@/components/Home/SpecialRecipe";
+import SpecialSection from "@/components/Home/SpecialSection";
 import Head from "next/head";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
 
       <HeroSection />
       <PopularSection />
-      <SpecialRecipe />
+      <SpecialSection />
     </>
   );
 }
