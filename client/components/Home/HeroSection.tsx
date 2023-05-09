@@ -1,9 +1,9 @@
 import Image from "next/image";
-import grape from "@/assets/grape.png";
-import avocado from "@/assets/avocado.png";
-import blueberry from "@/assets/blueberry.png";
-import flour from "@/assets/flour.png";
-import egg from "@/assets/egg.png";
+import item1 from "../../public/images/item1.png";
+import item2 from "../../public/images/item2.png";
+import item3 from "../../public/images/item3.png";
+import item4 from "../../public/images/item4.png";
+import item5 from "../../public/images/item5.png";
 
 export default function HeroSection() {
   return (
@@ -16,11 +16,11 @@ export default function HeroSection() {
           </div>
 
           <div className="elements">
-            <Image src={grape} alt="grape" className="abs grape" />
-            <Image src={avocado} alt="avocado" className="abs avocado" />
-            <Image src={blueberry} alt="blueberry" className="abs blueberry" />
-            <Image src={flour} alt="flour" className="abs flour" />
-            <Image src={egg} alt="egg" className="abs egg" />
+            <Image src={item1} alt="item1" className="abs item1 grape" />
+            <Image src={item2} alt="item2" className="abs item2 avocado" />
+            <Image src={item3} alt="item3" className="abs item3 blueberry" />
+            <Image src={item4} alt="item4" className="abs item4 flour" />
+            <Image src={item5} alt="item5" className="abs item5 egg" />
           </div>
         </div>
       </div>

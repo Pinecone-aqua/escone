@@ -6,18 +6,20 @@ import Login from "./header/Login";
 import { useUser } from "@/context/userContext";
 import Logo from "@/public/Logo";
 
+interface MenuItem {
+  label: string;
+  url: string;
+}
+
+const menuItems: MenuItem[] = [
+  { label: "Home", url: "/" },
+  { label: "Recipes", url: "/recipes" },
+  { label: "Blog", url: "/blog" },
+  { label: "About", url: "/about" },
+];
+
 export default function Header(): JSX.Element {
   const { user } = useUser();
-  interface MenuItem {
-    label: string;
-    url: string;
-  }
-  const menuItems: MenuItem[] = [
-    { label: "Home", url: "/" },
-    { label: "Recipes", url: "/recipes/filter" },
-    { label: "Blog", url: "/blog" },
-    { label: "About", url: "/about" },
-  ];
 
   return (
     <>
