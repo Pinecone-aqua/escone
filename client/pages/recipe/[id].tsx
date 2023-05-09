@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import PopularSection from "@/components/Home/PopularSection";
 import dayjs from "dayjs";
 import {
@@ -6,9 +7,14 @@ import {
   AiOutlineLike,
   AiOutlineDislike,
 } from "react-icons/ai";
-import React, { useRef, useState } from "react";
+import { BsTrashFill } from "react-icons/bs";
+import React, { useState } from "react";
 import axios from "axios";
 import { RecipeType, ReviewType } from "@/utils/types";
+import { toast } from "react-toastify";
+import { useUser } from "@/context/userContext";
+import { Button } from "primereact/button";
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 function Recipe({
   recipe,
@@ -17,11 +23,41 @@ function Recipe({
   recipe: RecipeType;
   review: ReviewType[];
 }) {
+  const { user } = useUser();
   const [newRate, setNewRate] = useState(0);
-  const reviewRef = useRef("");
+  const [content, setContent] = useState("");
   function dateFormat(date: Date) {
     const newdate = dayjs(date).format("MMM DD, YYYY");
     return newdate;
+  }
+  const rates = review.map((rev) => rev.rate);
+
+  function Avg(array: number[]) {
+    let sum = 0;
+    for (let i = 0; i < array.length; i++) {
+      sum += array[i];
+    }
+    return sum / array.length;
+  }
+
+  const accept = (id: string) => {
+    axios
+      .delete(`http://localhost:3030/review/${id}`)
+      .then(() => toast.success("review deleted"));
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const reject = () => {};
+
+  function confirm2(id: string) {
+    confirmDialog({
+      message: "Do you want to delete this review?",
+      header: "Delete Confirmation",
+      icon: "pi pi-info-circle",
+      acceptClassName: "p-button-danger",
+      accept: () => accept(id),
+      reject,
+    });
   }
   function starPrinter(
     rate: number,
@@ -49,6 +85,28 @@ function Recipe({
     }
     return result;
   }
+  function reviewHandler() {
+    // eslint-disable-next-line camelcase
+    const newReview = {
+      created_by: user?._id,
+      recipe_id: recipe._id,
+      rate: newRate,
+      content: content,
+      created_date: dayjs().format(),
+    };
+    console.log(newReview);
+    if (newRate === 0) {
+      toast.error("You have not rated");
+    } else if (content === "") {
+      toast.error("You have not written a review");
+    } else {
+      axios.post("http://localhost:3030/review/create", newReview);
+      toast.success("You have written a review");
+      setContent("");
+      setNewRate(0);
+    }
+  }
+
   return (
     <div className="container ">
       <div className="w-full h-[820px] flex ">
@@ -67,9 +125,9 @@ function Recipe({
                 </p>
               </div>
               <div className="text-2xl flex text-primary gap-2">
-                {starPrinter(recipe.rate.rating).map((star) => star)}
+                {starPrinter(Avg(rates))}
                 <p className="text-lg">
-                  {recipe.rate.rating}/{recipe.rate.vote}
+                  {Avg(rates).toFixed(2)}/{rates.length}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -126,6 +184,7 @@ function Recipe({
         <h2 className=" text-primary font-extrabold text-3xl">
           Recipe Reviews
         </h2>
+        <ConfirmDialog />
         <div className="">
           {review.map((rev, index) => (
             <div
@@ -149,8 +208,17 @@ function Recipe({
                       {dateFormat(rev.created_date)}
                     </p>
                   </div>
-                  <div className="flex text-2xl text-primary">
-                    {starPrinter(rev.rate)}
+                  <div className=" flex text-2xl  flex-col gap-2 items-end ">
+                    <div className="flex  text-primary ">
+                      {starPrinter(rev.rate)}
+                    </div>
+
+                    <button
+                      onClick={() => confirm2(rev._id)}
+                      className="text-red-700 border-2 p-2 rounded-xl border-red-700"
+                    >
+                      <BsTrashFill />
+                    </button>
                   </div>
                 </div>
                 <div className="w-full ">
@@ -171,27 +239,32 @@ function Recipe({
           ))}
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 flex flex-col gap-8">
         <h2 className=" text-primary font-extrabold text-3xl">
           Write a review
         </h2>
-        <div className="">
-          <div className="flex gap-3">
-            <p>Rating</p>
-            <p>{newRate}</p>
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 items-center">
+            <p className="text-2xl text-primary font-semibold">Rating</p>
+            <p className="text-xl text-primary">{newRate}</p>
             <div className="flex text-2xl text-primary">
               {starPrinter(newRate, (e) => setNewRate(Number(e.target.id)))}
             </div>
           </div>
-          <div className="w-full">
-            <input
+          <div className="w-full flex flex-col items-end gap-3">
+            <textarea
               name="review"
-              className="w-full border border-black"
-              onChange={(e) => (reviewRef.current = e.target.value)}
+              placeholder="Your review"
+              className="w-full border-none  bg-gray-300 rounded-xl p-7"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
             <button
               type="submit"
-              onClick={() => console.log(reviewRef.current, newRate)}
+              onClick={reviewHandler}
+              className={
+                "py-3 border px-10 text-primary bg-lime-200 border-primary rounded-md"
+              }
             >
               Submit
             </button>

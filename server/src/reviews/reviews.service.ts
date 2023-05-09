@@ -27,4 +27,13 @@ export class ReviewService {
     console.log(result);
     return result;
   }
+
+  async createReview(newReview) {
+    const result = await this.ReviewModel.insertMany(newReview);
+    return result;
+  }
+  async deleteReview(id: string) {
+    const result = await this.ReviewModel.deleteOne({ _id: id });
+    return result;
+  }
 }
