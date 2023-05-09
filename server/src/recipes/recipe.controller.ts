@@ -12,58 +12,23 @@ import {
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('recipes')
 export class RecipeController {
-  constructor(
-    private readonly recipeService: RecipeService,
-    private readonly cloudinary: CloudinaryService,
-  ) {}
-
-  // @Post('add')
-  // @UseInterceptors(FileFieldsInterceptor([{ name: 'image' }]))
-  // async addRecipe(
-  //   @Body() recipeDto: RecipeDto,
-  //   @UploadedFile(new ParseFilePipe()) files: { image?: Express.Multer.File[] },
-  // ) {
-  //   try {
-  //     const image = files.image?.[0];
-  //     const imageUrl = image
-  //       ? await this.recipeService.uploadImageToCloudinary(image)
-  //       : null;
-
-  //     const recipeData = { ...recipeDto, image_url: imageUrl };
-  //     return this.recipeService.addRecipe(recipeData);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  constructor(private readonly recipeService: RecipeService) {}
 
   @Post('add')
-  @UseInterceptors(FileFieldsInterceptor([{ name: 'image' }]))
-  async addRecipe(
-    @Body()
-    body: {
-      recipeDto: RecipeDto;
-      name: string;
-    },
-    @UploadedFile() files: { image?: Express.Multer.File[] },
-  ) {
-    try {
-      const response = await this.cloudinary.uploadImage(files.image[0]);
+  addRecipe(@Body() recipeDto: RecipeDto) {
+    return this.recipeService.addRecipe(recipeDto);
+  }
 
-      const data = {
-        ...body.recipeDto,
-        image_url: response.secure_url,
-        name: body.name,
-      };
-
-      return this.recipeService.addRecipe(data);
-    } catch (error) {
-      console.log(error);
-    }
+  @Post('upload/:id')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImage(@UploadedFile() image: Express.Multer.File) {
+    console.log(image);
+    const url = await this.recipeService.uploadImageToCloudinary(image);
+    return { url };
   }
 
   @Get('all')
