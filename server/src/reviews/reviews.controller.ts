@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { ReviewDto } from './dto/review.dto';
 import { ReviewService } from './reviews.service';
 
 @Controller('review')
@@ -18,6 +19,16 @@ export class ReviewController {
   @Get('recipe/:id')
   getRecipeReview(@Param('id') id: string) {
     const result = this.reviewService.getRecipeReview(id);
+    return result;
+  }
+  @Post('create')
+  createReview(@Body() ReviewDto: ReviewDto) {
+    const result = this.reviewService.createReview(ReviewDto);
+    return result;
+  }
+  @Delete(':id')
+  deleteReview(@Param('id') id: string) {
+    const result = this.reviewService.deleteReview(id);
     return result;
   }
 }
