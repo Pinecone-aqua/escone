@@ -17,6 +17,12 @@ export type userContextType = {
   token: string | undefined;
   setToken: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
+
+export type reviewContextType = {
+  review: ReviewType[] | undefined;
+  setReview: React.Dispatch<React.SetStateAction<ReviewType[] | undefined>>;
+};
+
 export interface UserType {
   _id: string;
   username: string;
