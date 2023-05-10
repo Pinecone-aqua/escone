@@ -31,7 +31,13 @@ export class RecipeService {
   }
 
   async getRecipes() {
-    const result = await this.recipeModel.find({ status: 'approve' });
+    const result = await this.recipeModel
+      .find()
+      .limit(8)
+      .populate('categories')
+      .populate('tags')
+      .populate('ingredients')
+      .populate('created_by');
     return result;
   }
   async uploadImageToCloudinary(image: Express.Multer.File): Promise<string> {

@@ -1,16 +1,14 @@
-import Card from "@/components/Card";
+import GridCards from "@/components/GridCards";
 import RecipesLayout from "@/components/RecipesLayout";
+import Table from "@/components/Table";
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
-import React from "react";
-
+import React, { useState } from "react";
 export default function Recipes({ recipes }: { recipes: RecipeType[] }) {
-  console.log(recipes);
+  const [grid, setGrid] = useState(false);
   return (
-    <RecipesLayout page="all">
-      {recipes.map((recipe, index) => (
-        <Card key={index} recipe={recipe} />
-      ))}
+    <RecipesLayout setGrid={setGrid} grid={grid}>
+      {grid ? <GridCards recipes={recipes} /> : <Table recipes={recipes} />}
     </RecipesLayout>
   );
 }
