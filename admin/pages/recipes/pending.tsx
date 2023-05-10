@@ -2,11 +2,12 @@ import Card from "@/components/Card";
 import RecipesLayout from "@/components/RecipesLayout";
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Pending({ recipes }: { recipes: RecipeType[] }) {
+  const [grid, setGrid] = useState(false);
   return (
-    <RecipesLayout page="pending">
+    <RecipesLayout setGrid={setGrid} grid={grid}>
       {recipes.map((recipe, index) => (
         <Card key={index} recipe={recipe} />
       ))}

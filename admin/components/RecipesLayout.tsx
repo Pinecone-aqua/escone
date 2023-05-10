@@ -1,46 +1,20 @@
-import Link from "next/link";
-import React, { ReactNode } from "react";
-type PropsType = { children: ReactNode; page: string };
-export default function RecipesLayout({ children, page }: PropsType) {
+import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import { BsFillGrid3X3GapFill, BsTable } from "react-icons/bs";
+type PropsType = {
+  children: ReactNode;
+  grid: boolean;
+  setGrid: Dispatch<SetStateAction<boolean>>;
+};
+export default function RecipesLayout({ children, setGrid, grid }: PropsType) {
   return (
-    <div className="w-full flex flex-col gap-5">
-      <div className="w-full  border-black flex gap-5 shadow-xl">
-        <Link
-          href={"/recipes"}
-          className={`px-5 py-3  block text-lg ${
-            page == "all" && "border-b-2 border-green-400"
-          }`}
-        >
-          All recipes
-        </Link>
-        <Link
-          href={"/recipes/approve"}
-          className={`px-5 py-3  block text-lg ${
-            page == "approve" && "border-b-2 border-green-400"
-          }`}
-        >
-          Approve
-        </Link>
-        <Link
-          href={"/recipes/pending"}
-          className={`px-5 py-3  block text-lg ${
-            page == "pending" && "border-b-2 border-green-400"
-          }`}
-        >
-          Pending
-        </Link>
-        <Link
-          href={"/recipes/deny"}
-          className={`px-5 py-3  block text-lg ${
-            page == "deny" && "border-b-2 border-green-400"
-          }`}
-        >
-          Deny
-        </Link>
+    <div className="w-full flex flex-col gap-5 p-10">
+      <div className="w-full text-green-700 p-4 border-b-2 border-green-500 text-2xl flex justify-between">
+        <p> Recipes</p>
+        <button onClick={() => setGrid(!grid)}>
+          {grid ? <BsTable /> : <BsFillGrid3X3GapFill />}
+        </button>
       </div>
-      <div className="w-full  flex flex-wrap gap-10 justify-between">
-        {children}
-      </div>
+      <div className="">{children}</div>
     </div>
   );
 }

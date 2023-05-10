@@ -18,7 +18,7 @@ export interface UserType {
 export interface RecipeType {
   status: ReactNode;
   _id: string;
-  created_by: string;
+  created_by: UserType;
   images: string[];
   title: string;
   description: string;
