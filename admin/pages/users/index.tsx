@@ -2,9 +2,9 @@ import React from "react";
 import axios from "axios";
 import UserTable from "@/components/UserTable";
 import { UserType } from "@/utils/types";
-import { FiUser } from "react-icons/fi";
 
 export default function Users({ users }: { users: UserType[] }) {
+  // const [grid, setGrid] = useState(false);
   return <UserTable users={users} />;
 }
 
