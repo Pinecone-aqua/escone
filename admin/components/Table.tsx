@@ -110,7 +110,7 @@ function Table({ recipes }: { recipes: RecipeType[] }) {
                 <a x-data="{ tooltip: 'Delete' }" href="#">
                   delete
                 </a>
-                <a x-data="{ tooltip: 'Edite' }" href="#">
+                <a x-data="{ tooltip: 'Edit' }" href="#">
                   edit
                 </a>
               </div>
