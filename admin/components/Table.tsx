@@ -111,11 +111,13 @@ function Table({ recipes, setShow }: PropType) {
             </td>
             <td className="px-6 py-4">
               <div className="flex justify-end gap-4">
+
                 <button x-data="{ tooltip: 'Delete' }">delete</button>
                 <button
                   x-data="{ tooltip: 'Edite' }"
                   onClick={() => setShow(true)}
                 >
+
                   edit
                 </button>
               </div>
