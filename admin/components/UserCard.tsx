@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Card({ user }: { user: UserType }) {
   let statusClass;
-  switch (recipe.role) {
+  switch (user.role) {
     case true:
       statusClass =
         "py-1 px-2 border border-green-500 text-green-700 bg-green-200 rounded-full";
