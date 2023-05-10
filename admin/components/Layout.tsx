@@ -6,9 +6,9 @@ type Props = { children: ReactNode };
 
 export default function Layout({ children }: Props): JSX.Element {
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <Sidebar />
-      <div className="flex flex-col gap-10 px-10 bg-slate-200 w-full">
+      <div className="flex flex-col gap-10 px-10 bg-slate-200 ">
         <Header />
         {children}
       </div>

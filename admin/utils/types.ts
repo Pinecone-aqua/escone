@@ -25,7 +25,7 @@ export interface RecipeType {
   ingredients: IngredientType[];
   categories: CategoryType[];
   tags: TagType[];
-  method: { ["number"]: string }[];
+  instructions: { [x: number]: string }[];
   servings: number;
   cook_time: number;
   created_date: Date;
@@ -37,11 +37,9 @@ export interface CategoryType {
   picture: string;
 }
 export interface IngredientType {
-  _id: string;
   name: string;
-  quintity: number;
+  quantity: number;
   measure: string;
-  picture: string;
 }
 
 export interface ReviewType {

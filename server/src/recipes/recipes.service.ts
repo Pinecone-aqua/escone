@@ -49,8 +49,7 @@ export class RecipeService {
     const result = await this.recipeModel
       .findOne({ _id: id })
       .populate('categories')
-      .populate('tags')
-      .populate('ingredients');
+      .populate('tags');
 
     return result;
   }
