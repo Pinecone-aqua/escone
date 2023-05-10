@@ -1,7 +1,14 @@
 import { RecipeType } from "@/utils/types";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { Dispatch, SetStateAction } from "react";
 
-export default function Card({ recipe }: { recipe: RecipeType }) {
+type PropType = {
+  recipe: RecipeType;
+  setShow: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function Card({ recipe, setShow }: PropType) {
+  const router = useRouter();
   let statusClass;
   switch (recipe.status) {
     case "approve":
@@ -18,7 +25,13 @@ export default function Card({ recipe }: { recipe: RecipeType }) {
       break;
   }
   return (
-    <div className="w-[400px] rounded-2xl">
+    <div
+      className="w-[400px] rounded-2xl"
+      onClick={() => {
+        setShow(true);
+        router.push({ query: { id: recipe._id } });
+      }}
+    >
       <picture className="w-full block rounded-2xl">
         <img src={recipe.images[1]} alt="" className="w-full rounded-t-2xl" />
       </picture>

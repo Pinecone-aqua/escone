@@ -1,8 +1,12 @@
 import { RecipeType } from "@/utils/types";
 import dayjs from "dayjs";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+type PropType = {
+  recipes: RecipeType[];
+  setShow: Dispatch<SetStateAction<boolean>>;
+};
 
-function Table({ recipes }: { recipes: RecipeType[] }) {
+function Table({ recipes, setShow }: PropType) {
   return (
     <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
       <thead className="bg-gray-50">
@@ -107,12 +111,13 @@ function Table({ recipes }: { recipes: RecipeType[] }) {
             </td>
             <td className="px-6 py-4">
               <div className="flex justify-end gap-4">
-                <a x-data="{ tooltip: 'Delete' }" href="#">
-                  delete
-                </a>
-                <a x-data="{ tooltip: 'Edite' }" href="#">
+                <button x-data="{ tooltip: 'Delete' }">delete</button>
+                <button
+                  x-data="{ tooltip: 'Edite' }"
+                  onClick={() => setShow(true)}
+                >
                   edit
-                </a>
+                </button>
               </div>
             </td>
           </tr>
