@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ReactOffcanvas {
+  z-index: 9999;
+}
+
+.ReactOffcanvas__Overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.ReactOffcanvas__Content {
+  height: 100%;
+}
+
+.ReactOffcanvas__Content--overlay {
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+}
