@@ -1,4 +1,4 @@
-import Coming from "@/components/Coming";
+import Coming from "@/components/subs/Coming";
 
 export default function About() {
   return (

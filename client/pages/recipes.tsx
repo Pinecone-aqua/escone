@@ -1,5 +1,5 @@
-import RecipeCard from "@/components/Home/RecipeCard";
-import Filter from "@/components/RecipePage/Filter";
+import RecipeCard from "@/components/common/RecipeCard";
+import Filter from "@/components/recipes/Filter";
 import { useRouter } from "next/router";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import React, { useEffect, useState } from "react";

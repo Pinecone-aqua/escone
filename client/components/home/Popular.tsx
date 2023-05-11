@@ -5,7 +5,7 @@ import {
   MdOutlineArrowForwardIos,
   MdOutlineArrowBackIos,
 } from "react-icons/md";
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../common/RecipeCard";
 
 export default function PopularSection() {
   const { recipes } = useRecipe();

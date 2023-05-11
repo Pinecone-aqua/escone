@@ -4,7 +4,7 @@ import { Menu } from "primereact/menu";
 import Cookies from "js-cookie";
 import { useUser } from "@/context/userContext";
 
-export default function Popup() {
+export default function Dropdown() {
   const menu: React.MutableRefObject<any> = useRef(null);
   const { user, setUser } = useUser();
   const items = [

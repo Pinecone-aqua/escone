@@ -1,7 +1,7 @@
-import HeroSection from "@/components/Home/HeroSection";
-import PopularSection from "@/components/Home/PopularSection";
-import SpecialSection from "@/components/Home/SpecialSection";
 import Head from "next/head";
+import Hero from "@/components/home/Hero";
+import Popular from "@/components/home/Popular";
+import Special from "@/components/home/Special";
 
 export default function Home() {
   return (
@@ -10,9 +10,9 @@ export default function Home() {
         <title key="title">Home | FOODIE</title>
       </Head>
 
-      <HeroSection />
-      <PopularSection />
-      <SpecialSection />
+      <Hero />
+      <Popular />
+      <Special />
     </>
   );
 }

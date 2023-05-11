@@ -4,8 +4,6 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
-import Categories from "./addRecipe/Categories";
-import Tags from "./addRecipe/Tags";
 
 export default function AddRecipe() {
   const [ModalVisible, setModalVisible] = useState<boolean>(false);
@@ -45,13 +43,11 @@ export default function AddRecipe() {
         footer={modalFooter}
       >
         <div className="add-recipe-modal-inputs">
-          {/* title */}
           <div className="title">
             <label htmlFor="title">Title</label>
             <InputText className="input" />
           </div>
 
-          {/* description */}
           <div className="description">
             <label htmlFor="description">Description</label>
             <InputTextarea autoResize rows={2} cols={30} className="input" />
@@ -63,23 +59,18 @@ export default function AddRecipe() {
             <input type="file" />
           </div>
 
-          {/* categories */}
           <div className="category">
             <label htmlFor="category" className="inline w-full">
               Category
             </label>
-            <Categories />
           </div>
 
-          {/* tags */}
           <div className="tags">
             <label htmlFor="tags" className="inline w-full">
               Tags
             </label>
-            <Tags />
           </div>
 
-          {/* servings */}
           <div className="servings">
             <label htmlFor="servings">Servings</label>
             <InputNumber
