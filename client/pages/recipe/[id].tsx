@@ -149,12 +149,12 @@ function Recipe({
               <h3 className="text-xl font-semibold text-primary">
                 Ingredients
               </h3>
-              <div className="">
+              <div className="flex flex-wrap gap-2">
                 {recipe.ingredients.map((ing, index) => (
-                  <div className="" key={index}>
-                    <p className="flex gap-3 text-gray-700">
+                  <div className="  " key={index}>
+                    <p className="flex gap-1 text-gray-700 px-3 py-1 border border-green-500 rounded-full">
                       {" "}
-                      {ing.quintity}
+                      {ing.quantity}
                       <span className="text-sm">{ing.measure}</span>
                       {ing.name}
                     </p>
@@ -170,7 +170,7 @@ function Recipe({
           {" "}
           <h2 className="text-xl text-primary font-semibold  mb-7">Method</h2>
           <div className="flex flex-col gap-5">
-            {recipe.method.map((mtd, index) => (
+            {recipe.instructions.map((mtd, index) => (
               <div key={index} className="flex flex-col gap-5">
                 <h4 className="text-primary">STEP {Object.keys(mtd)}</h4>
                 <p>{Object.values(mtd)}</p>

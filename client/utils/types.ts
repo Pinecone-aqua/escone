@@ -32,22 +32,27 @@ export interface UserType {
   created_date: Date;
 }
 
+export enum ProcessStatus {
+  Pending = "pending",
+  Approve = "approve",
+  Deny = "deny",
+}
 export interface RecipeType {
+  status: ProcessStatus;
   _id: string;
-  created_by: string;
+  created_by: UserType;
   images: string[];
   title: string;
   description: string;
   ingredients: IngredientType[];
   categories: CategoryType[];
   tags: TagType[];
-  method: { ["number"]: string }[];
+  instructions: { [x: number]: string }[];
   servings: number;
   cook_time: number;
   created_date: Date;
   rate: { rating: number; vote: number };
 }
-
 export interface CategoryType {
   _id: string;
   name: string;
@@ -56,9 +61,8 @@ export interface CategoryType {
 export interface IngredientType {
   _id: string;
   name: string;
-  quintity: number;
+  quantity: number;
   measure: string;
-  picture: string;
 }
 
 export interface ReviewType {
