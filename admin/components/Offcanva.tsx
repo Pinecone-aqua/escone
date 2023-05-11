@@ -21,6 +21,7 @@ function Offcanva({ show, setShow }: PropType) {
   );
   const [newInstruction, setNewInstruction] = useState<string>();
   const [isChange, setIsChange] = useState<number>();
+  const [isChangeIns, setIsChangeIns] = useState<number>();
 
   useEffect(() => {
     setIsChange(undefined);
@@ -76,7 +77,7 @@ function Offcanva({ show, setShow }: PropType) {
     setNewIngredientMeasure("");
   }
 
-  function removeIngredientHanlder(index: number) {
+  function removeIngredient(index: number) {
     ingredients.splice(index, 1);
     console.log(ingredients);
     setIngredients([...ingredients]);
@@ -88,6 +89,11 @@ function Offcanva({ show, setShow }: PropType) {
     const newInstructionObject = { [instructions.length + 1]: newInstruction };
     setInstructions([...instructions, newInstructionObject]);
     setNewInstruction("");
+  }
+
+  function removeInstruction(index: number) {
+    instructions.splice(index, 1);
+    setInstructions([...instructions]);
   }
   return (
     <div>
@@ -169,16 +175,16 @@ function Offcanva({ show, setShow }: PropType) {
                       {isChange == index && (
                         <input
                           type="button"
-                          className="cursor-pointer"
+                          className="cursor-pointer text-green-500"
                           value={"save"}
                           onClick={() => updateIngredientHanlder(index, ing)}
                         />
                       )}
                       <input
                         type="button"
-                        className="cursor-pointer"
+                        className="cursor-pointer text-red-500"
                         value={"remove"}
-                        onClick={() => removeIngredientHanlder(index)}
+                        onClick={() => removeIngredient(index)}
                       />
                     </div>
                   </div>
@@ -214,15 +220,35 @@ function Offcanva({ show, setShow }: PropType) {
               <div className="flex flex-col gap-4">
                 <p className="text-xl font-semi">Instructions</p>
                 {instructions.map((ins, index) => (
-                  <div key={index}>
+                  <div key={index} className="relative">
                     {" "}
-                    <p>Step {Object.keys(ins)}</p>{" "}
+                    <div className="flex w-full justify-between ">
+                      <p>Step {index + 1}</p>
+                      <input
+                        type={"button"}
+                        value="remove"
+                        className="text-red-500"
+                        onClick={() => removeInstruction(index)}
+                      />
+                    </div>
                     <textarea
                       name=""
                       id=""
                       defaultValue={Object.values(ins)}
-                      className="w-full border p-4 rounded-lg resize-none h-[200px]"
+                      onChange={(e) => {
+                        setNewInstruction(e.target.value);
+                        setIsChangeIns(index);
+                      }}
+                      className="w-full border p-4 rounded-lg resize-none h-[150px]"
                     />
+                    {isChangeIns == index &&
+                      newInstruction != Object.values(ins).at(0) && (
+                        <input
+                          type="button"
+                          value={"save"}
+                          className="text-green-500 absolute bottom-3 right-2 px-2 py-1 border border-green-500 rounded-xl hover:bg-green-500 hover:text-white"
+                        />
+                      )}
                   </div>
                 ))}
                 <div className="flex flex-col w-full ">
