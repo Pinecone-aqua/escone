@@ -36,7 +36,6 @@ export class RecipeService {
       .limit(8)
       .populate('categories')
       .populate('tags')
-      .populate('ingredients')
       .populate('created_by');
     return result;
   }
@@ -49,7 +48,8 @@ export class RecipeService {
     const result = await this.recipeModel
       .findOne({ _id: id })
       .populate('categories')
-      .populate('tags');
+      .populate('tags')
+      .populate('created_by');
 
     return result;
   }
