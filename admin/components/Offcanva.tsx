@@ -9,9 +9,9 @@ import {
   RecipeType,
   TagType,
 } from "@/utils/types";
-import { FileUpload } from "primereact/fileupload";
 import Instructions from "./offcanva/Instructions";
 import Ingredient from "./offcanva/Ingredient";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 type PropType = {
   show: boolean;
@@ -31,6 +31,7 @@ function Offcanva({ show, setShow }: PropType) {
   const [instructions, setInstructions] = useState<{ [x: number]: string }[]>(
     []
   );
+  const [images, setImages] = useState<File[]>([]);
   const [servings, setServings] = useState<number>();
   const [cookTime, setCookTime] = useState<number>();
 
@@ -116,6 +117,20 @@ function Offcanva({ show, setShow }: PropType) {
     setRecipeCategory(updatedCategory);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function uploadHandler(e: any) {
+    const image: FileList = e.target.files;
+    console.log(Object.values(image));
+    console.log(image);
+    setImages([...images, ...Object.values(image)]);
+    console.log(images);
+  }
+  function removeImage(index: number) {
+    images.splice(index, 1);
+
+    setImages([...images]);
+  }
+
   return (
     <div>
       (
@@ -162,21 +177,35 @@ function Offcanva({ show, setShow }: PropType) {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </label>
-              <label className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3">
                 <p className="text-xl font-semi">Image upload</p>
-                <div className="flex flex-wrap justify-between">
+                <div className="flex flex-wrap justify-between items-center">
                   {recipe.images.map((img, index) => (
-                    <img src={img} alt="" key={index} className="w-20" />
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={img} alt="" key={index} className="w-40" />
+                  ))}
+                  {images.map((image, i: number) => (
+                    <picture
+                      key={image.lastModified}
+                      className="relative group group-hover:delay-300 "
+                    >
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={image.name}
+                        className="w-40"
+                      />
+                      <div
+                        className=" absolute top-[-10px] right-[-10px] hidden group-hover:block text-2xl text-gray-400 hover:text-black bg-gray-100 rounded-full"
+                        onClick={() => removeImage(i)}
+                      >
+                        <IoMdCloseCircleOutline />
+                      </div>
+                    </picture>
                   ))}
                 </div>
 
-                <FileUpload
-                  name="imageUpload"
-                  url={"/api/upload"}
-                  multiple
-                  accept="image/*"
-                />
-              </label>
+                <input type="file" multiple onChange={uploadHandler} />
+              </div>
               <div className="w-full flex  flex-col gap-3">
                 <label className="flex gap-10">
                   <p>Servings</p>
