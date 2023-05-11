@@ -7,7 +7,7 @@ import Logo from "@/public/Logo";
 export default function Layout({ children }: PropType) {
   return (
     <div
-      style={{ fontFamily: "Poltawski Nowy, serif" }}
+      style={{ fontFamily: "Poppins, sans-serif" }}
       className={`min-h-[100vh] w-[100wh] flex flex-col justify-between`}
     >
       <Head>
@@ -16,6 +16,7 @@ export default function Layout({ children }: PropType) {
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+
       <Header />
       <main>{children}</main>
       <Footer />
