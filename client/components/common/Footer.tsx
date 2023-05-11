@@ -43,24 +43,23 @@ export default function Footer(): JSX.Element {
   return (
     <div className="footer">
       <div className="container">
-        <div className="footer-head">
-          <Link className="footer-logo" href={"/"}>
+        <div>
+          <Link className="logo" href={"/"}>
             <Logo />
           </Link>
-          <div className="menuItems">
-            <nav>
-              <ul>
-                {menuItems.map((menuItem, index) => (
-                  <li key={index}>
-                    <Link href={menuItem.url}>{menuItem.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+
+          <nav>
+            <ul>
+              {menuItems.map((menuItem, index) => (
+                <li key={index}>
+                  <Link href={menuItem.url}>{menuItem.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <div className="footer-foot">
+        <div>
           <div className="socialLinks">
             <ul>
               {socialLinks.map((socialLink, index) => (

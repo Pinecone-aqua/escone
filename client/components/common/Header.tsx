@@ -1,10 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
-import Login from "./Login";
 import { useUser } from "@/context/userContext";
 import Logo from "@/public/Logo";
+import Login from "./Login";
 import Dropdown from "../subs/Dropdown";
+import { AiOutlineMenu } from "react-icons/ai";
 
 interface MenuItem {
   label: string;
@@ -24,7 +25,7 @@ export default function Header(): JSX.Element {
   return (
     <>
       <div className="header">
-        <div className="container content">
+        <div className="container">
           <div className="logo">
             <Logo />
           </div>
@@ -39,7 +40,16 @@ export default function Header(): JSX.Element {
             </ul>
           </nav>
 
-          {user ? <Dropdown /> : <Login />}
+          <div className="menu">
+            {/* {user ? <Dropdown /> : <Login />} */}
+            <button className="sign">
+              {!user ? "Login" : `Welcome, ${user.username}`}
+            </button>
+
+            <button className="menu">
+              <AiOutlineMenu />
+            </button>
+          </div>
         </div>
       </div>
     </>

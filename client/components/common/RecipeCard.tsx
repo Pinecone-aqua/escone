@@ -14,16 +14,16 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
   };
   return (
     <div className="recipeCard">
+      <picture>
+        <img src={recipe.images[0]} alt="" />
+      </picture>
       <Link href={`/recipe/${recipe._id}`}>
-        <picture>
-          <img src={recipe.images[0]} alt="" />
-        </picture>
         <div className="text">
           <div className="title">
-            <h4>{recipe.title.slice(0, 20)}</h4>
-            <button onClick={saveHandler}>
+            <button onClick={saveHandler} className="favorite">
               {save === false ? <MdFavoriteBorder /> : <MdFavorite />}
             </button>
+            <h4>{recipe.title.slice(0, 20)}</h4>
           </div>
           <p>{recipe.description.slice(0, 80)}...</p>
           <button className="more">
