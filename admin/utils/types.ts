@@ -14,9 +14,13 @@ export interface UserType {
   favorites?: string[];
   created_date: Date;
 }
-
+export enum ProcessStatus {
+  Pending = "pending",
+  Approve = "approve",
+  Deny = "deny",
+}
 export interface RecipeType {
-  status: ReactNode;
+  status: ProcessStatus;
   _id: string;
   created_by: UserType;
   images: string[];
