@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
-import Popup from "./header/Popup";
-import Login from "./header/Login";
+import Login from "./Login";
 import { useUser } from "@/context/userContext";
 import Logo from "@/public/Logo";
+import Dropdown from "../subs/Dropdown";
 
 interface MenuItem {
   label: string;
@@ -39,7 +39,7 @@ export default function Header(): JSX.Element {
             </ul>
           </nav>
 
-          {user ? <Popup /> : <Login />}
+          {user ? <Dropdown /> : <Login />}
         </div>
       </div>
     </>

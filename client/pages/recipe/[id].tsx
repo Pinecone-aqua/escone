@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import PopularSection from "@/components/Home/PopularSection";
+import PopularSection from "@/components/home/Popular";
 import dayjs from "dayjs";
 import {
   AiOutlineStar,

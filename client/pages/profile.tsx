@@ -1,4 +1,4 @@
-import RecipeCard from "@/components/Home/RecipeCard";
+import RecipeCard from "@/components/common/RecipeCard";
 import { useRecipe } from "@/context/recipeContext";
 import { useUser } from "@/context/userContext";
 import Link from "next/link";
@@ -26,7 +26,6 @@ export default function Profile() {
           </picture>
         </div>
 
-        {/* CONTENT */}
         <div className="content">
           {/* HEADER */}
           <div className="content-header">

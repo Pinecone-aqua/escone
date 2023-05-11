@@ -3,38 +3,27 @@
 @tailwind utilities;
 
 @import "./variables.scss";
-@import "./header.scss";
-@import "./footer.scss";
-@import "./carousel.scss";
-@import "./login.scss";
-@import "./add.scss";
-@import "./hero.scss";
-@import "./popular.scss";
-@import "./recipeCard.scss";
-@import "./recipe.scss";
-@import "./profile.scss";
-@import "./recipes.scss";
-@import "./filter.scss";
+
+@import "./common/header.scss";
+@import "./common/footer.scss";
+@import "./common/login.scss";
+@import "./common/profile.scss";
+@import "./common/recipeCard.scss";
+
+@import "./home/hero.scss";
+@import "./home/popular.scss";
+
+@import "./recipes/add.scss";
+@import "./recipes/filter.scss";
+@import "./recipes/recipes.scss";
+@import "./recipes/recipe.scss";
 
 * {
   box-sizing: border-box;
-  font: $font-stack;
 }
 
 .container {
   margin: 0 auto;
-}
-
-.card {
-  @apply max-w-[300px] rounded-2xl bg-black;
-}
-
-.card-img {
-  @apply w-full max-h-[300px] rounded-t-2xl;
-}
-
-.card-content {
-  @apply w-full rounded-b-2xl;
 }
 
 // COMING
