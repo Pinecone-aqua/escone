@@ -117,4 +117,47 @@ export class RecipeService {
     const result = await this.recipeModel.find({ status: 'pending' });
     return result;
   }
+
+  async getStatus() {
+    const recipes: any = await this.getRecipes();
+    type popular = {
+      name: string;
+      count: number;
+    };
+    const ingredientStatus: popular[] = [];
+    const tagsStatus: popular[] = [];
+    const CategoryStatus: popular[] = [];
+    recipes.forEach((recipe) => {
+      recipe.ingredients.forEach((ingredient) => {
+        const existingIngredient = ingredientStatus.find(
+          (pi) => pi.name === ingredient.name,
+        );
+
+        if (existingIngredient) {
+          existingIngredient.count++;
+        } else {
+          ingredientStatus.push({ name: ingredient.name, count: 1 });
+        }
+      });
+      recipe.categories.forEach((Category) => {
+        const existingCategory = CategoryStatus.find(
+          (pi) => pi.name === Category.name,
+        );
+        if (existingCategory) {
+          existingCategory.count++;
+        } else {
+          CategoryStatus.push({ name: Category.name, count: 1 });
+        }
+      });
+      recipe.tags.forEach((tags) => {
+        const existingTags = tagsStatus.find((pi) => pi.name === tags.name);
+        if (existingTags) {
+          existingTags.count++;
+        } else {
+          tagsStatus.push({ name: tags.name, count: 1 });
+        }
+      });
+    });
+    return { ingredientStatus, tagsStatus, CategoryStatus };
+  }
 }

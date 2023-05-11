@@ -39,10 +39,8 @@ export class Recipe {
   created_by: Types.ObjectId;
   @Prop()
   created_date: string;
-  @Prop()
+  @Prop({ type: mongoose.Schema.Types.String })
   status: string;
-  @Prop({ type: { rating: Number, vote: Number } })
-  rate: { rating: number; vote: number };
 }
 
 export const RecipeSchema = SchemaFactory.createForClass(Recipe);
