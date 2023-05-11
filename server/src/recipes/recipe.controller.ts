@@ -30,6 +30,11 @@ export class RecipeController {
     const url = await this.recipeService.uploadImageToCloudinary(image);
     return { url };
   }
+  @Get('status')
+  getStatus() {
+    console.log('this');
+    return this.recipeService.getStatus();
+  }
 
   @Get('all')
   getRecipes() {
