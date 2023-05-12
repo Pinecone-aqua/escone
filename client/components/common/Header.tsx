@@ -41,10 +41,10 @@ export default function Header(): JSX.Element {
           </nav>
 
           <div className="menu">
-            {/* {user ? <Dropdown /> : <Login />} */}
-            <button className="sign">
+            {user ? <Dropdown /> : <Login />}
+            {/* <button className="sign">
               {!user ? "Login" : `Welcome, ${user.username}`}
-            </button>
+            </button> */}
 
             <button className="menu">
               <AiOutlineMenu />
