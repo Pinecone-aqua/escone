@@ -10,6 +10,7 @@ import { getAccessTokenFromCode } from './getAccessToken';
 import fetch from 'node-fetch';
 import * as moment from 'moment';
 import { JwtService } from '@nestjs/jwt';
+import * as dayjs from 'dayjs';
 
 dotenv.config();
 
@@ -140,5 +141,28 @@ export class UserService {
     const result = await this.userModel.deleteOne({ _id: id });
 
     return result;
+  }
+
+  async getUserStatus() {
+    type popular = {
+      date: string;
+      count: number;
+    };
+    const userStatus: popular[] = [];
+    const users = await this.userModel.find();
+    users.forEach((user) => {
+      const existingCategory = userStatus.find(
+        (pi) => pi.date === dayjs(user.created_date).format('YYYY-MM-DD'),
+      );
+      if (existingCategory) {
+        existingCategory.count++;
+      } else {
+        userStatus.push({
+          date: dayjs(user.created_date).format('YYYY-MM-DD'),
+          count: 1,
+        });
+      }
+    });
+    return userStatus;
   }
 }

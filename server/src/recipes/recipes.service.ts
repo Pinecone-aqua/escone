@@ -7,6 +7,7 @@ import { Category } from 'src/categories/categories.schema';
 import { Ingredient } from 'src/ingredients/ingredients.schema';
 import { Tag } from 'src/tags/tags.schema';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class RecipeService {
@@ -67,10 +68,12 @@ export class RecipeService {
     return result;
   }
   async recipeDeny(id: string) {
-    const result = await this.recipeModel.deleteOne(
+    console.log(id);
+    const result = await this.recipeModel.updateOne(
       { _id: id },
       { status: 'deny' },
     );
+    console.log(result);
     return result;
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -133,6 +136,8 @@ export class RecipeService {
     const ingredientStatus: popular[] = [];
     const tagsStatus: popular[] = [];
     const CategoryStatus: popular[] = [];
+    const createStatus: popular[] = [];
+
     recipes.forEach((recipe) => {
       recipe.ingredients.forEach((ingredient) => {
         const existingIngredient = ingredientStatus.find(
@@ -163,7 +168,19 @@ export class RecipeService {
           tagsStatus.push({ name: tags.name, count: 1 });
         }
       });
+
+      const existingCategory = createStatus.find(
+        (pi) => pi.name === dayjs(recipe.created_date).format('YYYY-MM-DD'),
+      );
+      if (existingCategory) {
+        existingCategory.count++;
+      } else {
+        createStatus.push({
+          name: dayjs(recipe.created_date).format('YYYY-MM-DD'),
+          count: 1,
+        });
+      }
     });
-    return { ingredientStatus, tagsStatus, CategoryStatus };
+    return { ingredientStatus, tagsStatus, CategoryStatus, createStatus };
   }
 }

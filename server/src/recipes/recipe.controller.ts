@@ -26,24 +26,6 @@ export class RecipeController {
     return this.recipeService.addRecipe(recipeDto);
   }
 
-  // @Patch('upload/:id')
-  // @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
-  // async uploadImage(
-  //   @Param('id') id: string,
-  //   @Body() body: { body: string },
-  //   @UploadedFiles(new ParseFilePipe())
-  //   files?: {
-  //     images?: Express.Multer.File[];
-  //   },
-  // ) {
-  //   const req: RecipeDto = JSON.parse(body.body);
-  //   console.log('asd');
-
-  //   const url = await this.recipeService.uploadImageToCloudinary(files.images);
-  //   req.images.push(...url);
-  //   console.log(url, req, id);
-  //   return this.recipeService.editRecipe(id, req);
-  // }
   @Patch('upload/:id')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
   async uploadImage(
@@ -66,7 +48,15 @@ export class RecipeController {
 
     return this.recipeService.editRecipe(id, req);
   }
-
+  @Put('approve')
+  recipeApprove(@Body('id') id: string) {
+    return this.recipeService.recipeApprove(id);
+  }
+  @Put('deny')
+  recipeDeny(@Body('id') id: string) {
+    console.log(id);
+    return this.recipeService.recipeDeny(id);
+  }
   @Get('status')
   getStatus() {
     console.log('this');
@@ -90,10 +80,6 @@ export class RecipeController {
   @Get(':id')
   getRecipe(@Param('id') id: string) {
     return this.recipeService.getRecipe(id);
-  }
-  @Put('approve')
-  recipeApprove(@Body('id') id: string) {
-    return this.recipeService.recipeApprove(id);
   }
 
   @Put(':id')

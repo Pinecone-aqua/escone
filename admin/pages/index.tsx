@@ -1,5 +1,5 @@
 import React from "react";
-import { Doughnut, Line } from "react-chartjs-2";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +9,7 @@ import {
   Title,
   Tooltip,
   Filler,
+  BarElement,
   Legend,
   ArcElement,
 } from "chart.js";
@@ -20,6 +21,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+  BarElement,
   LineElement,
   Title,
   Tooltip,
@@ -27,9 +29,10 @@ ChartJS.register(
   Legend
 );
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Home({ status }: any) {
+export default function Home({ status, userStatus }: any) {
   console.log(status);
-  const { tagsStatus, ingredientStatus, CategoryStatus } = status;
+  console.log(userStatus);
+  const { tagsStatus, ingredientStatus, CategoryStatus, createStatus } = status;
   const data1 = {
     labels: ingredientStatus.map((st: { name: string }) => st.name),
     datasets: [
@@ -108,27 +111,8 @@ export default function Home({ status }: any) {
       },
     ],
   };
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
-      },
-    },
-  };
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+
+  const labels = userStatus.map((us: { date: string }) => us.date);
 
   const data = {
     labels,
@@ -136,7 +120,20 @@ export default function Home({ status }: any) {
       {
         fill: true,
         label: "users",
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        data: userStatus.map((us: { count: number }) => us.count),
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+
+  const data4 = {
+    labels: createStatus.map((us: { name: string }) => us.name),
+    datasets: [
+      {
+        fill: true,
+        label: "users",
+        data: createStatus.map((us: { count: number }) => us.count),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
@@ -145,8 +142,13 @@ export default function Home({ status }: any) {
   return (
     <div className="w-full">
       {" "}
-      <div className="w-[700px]">
-        <Line options={options} data={data} />
+      <div className="flex ">
+        <div className="w-[700px]">
+          <Line data={data} />
+        </div>
+        <div className="w-[700px]">
+          <Bar data={data4} />
+        </div>
       </div>
       <div className="w-full flex justify-between">
         <div className=" w-[500px]">
@@ -169,7 +171,9 @@ export default function Home({ status }: any) {
 export async function getStaticProps() {
   const result = await axios.get("http://localhost:3030/recipes/status");
   const status = result.data;
+  const resultuser = await axios.get("http://localhost:3030/user/status");
+  const userStatus = resultuser.data;
   return {
-    props: { status }, // will be passed to the page component as props
+    props: { status, userStatus }, // will be passed to the page component as props
   };
 }
