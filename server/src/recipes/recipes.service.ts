@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Recipe } from './recipe.schema';
 import { Model } from 'mongoose';
@@ -6,22 +6,19 @@ import { RecipeDto } from './dto/recipe.dto';
 import { Category } from 'src/categories/categories.schema';
 import { Ingredient } from 'src/ingredients/ingredients.schema';
 import { Tag } from 'src/tags/tags.schema';
-import { v2 as cloudinaryV2 } from 'cloudinary';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class RecipeService {
   constructor(
+    @Inject(forwardRef(() => CloudinaryService))
+    private readonly cloudinaryService: CloudinaryService,
+
     @InjectModel(Recipe.name) private recipeModel: Model<Recipe>,
     @InjectModel(Category.name) private categoryModel: Model<Category>,
     @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,
     @InjectModel(Tag.name) private tagModel: Model<Tag>,
-  ) {
-    cloudinaryV2.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
-  }
+  ) {}
 
   async addRecipe(recipeDto: RecipeDto) {
     const createdRecipe = await this.recipeModel.create({
@@ -39,11 +36,20 @@ export class RecipeService {
       .populate('created_by');
     return result;
   }
-  async uploadImageToCloudinary(image: Express.Multer.File): Promise<string> {
-    const result = await cloudinaryV2.uploader.upload(image.path);
-    console.log(result);
-    return result.secure_url;
+  async uploadImageToCloudinary(
+    images: Express.Multer.File[],
+  ): Promise<string[]> {
+    const arr = [];
+    console.log(images);
+    await Promise.all(
+      images?.map(async (file) => {
+        const { secure_url } = await this.cloudinaryService.uploadImage(file);
+        return arr.push(secure_url);
+      }),
+    );
+    return arr;
   }
+
   async getRecipe(id: string) {
     const result = await this.recipeModel
       .findOne({ _id: id })
@@ -69,7 +75,7 @@ export class RecipeService {
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async editRecipe(id: string, recipeDto: RecipeDto) {
-    const result = await this.recipeModel.updateOne({ _id: id });
+    const result = await this.recipeModel.updateOne({ _id: id }, recipeDto);
     return result;
   }
   async getFilterRecipe(filter: any) {

@@ -9,6 +9,7 @@ import {
   IngredientSchema,
 } from 'src/ingredients/ingredients.schema';
 import { Tag, TagSchema } from 'src/tags/tags.schema';
+import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Tag, TagSchema } from 'src/tags/tags.schema';
       { name: Ingredient.name, schema: IngredientSchema },
       { name: Tag.name, schema: TagSchema },
     ]),
+    CloudinaryModule,
   ],
   controllers: [RecipeController],
   providers: [RecipeService],

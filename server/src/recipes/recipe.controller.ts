@@ -4,15 +4,18 @@ import {
   Delete,
   Get,
   Param,
+  ParseFilePipe,
+  Patch,
   Post,
   Put,
   Query,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('recipes')
 export class RecipeController {
@@ -23,13 +26,47 @@ export class RecipeController {
     return this.recipeService.addRecipe(recipeDto);
   }
 
-  @Post('upload/:id')
-  @UseInterceptors(FileInterceptor('image'))
-  async uploadImage(@UploadedFile() image: Express.Multer.File) {
-    console.log(image);
-    const url = await this.recipeService.uploadImageToCloudinary(image);
-    return { url };
+  // @Patch('upload/:id')
+  // @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  // async uploadImage(
+  //   @Param('id') id: string,
+  //   @Body() body: { body: string },
+  //   @UploadedFiles(new ParseFilePipe())
+  //   files?: {
+  //     images?: Express.Multer.File[];
+  //   },
+  // ) {
+  //   const req: RecipeDto = JSON.parse(body.body);
+  //   console.log('asd');
+
+  //   const url = await this.recipeService.uploadImageToCloudinary(files.images);
+  //   req.images.push(...url);
+  //   console.log(url, req, id);
+  //   return this.recipeService.editRecipe(id, req);
+  // }
+  @Patch('upload/:id')
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  async uploadImage(
+    @Param('id') id: string,
+    @Body() body: { body: string },
+    @UploadedFiles()
+    files?: {
+      images?: Express.Multer.File[];
+    },
+  ) {
+    const req: RecipeDto = JSON.parse(body.body);
+    console.log(req);
+    if (files?.images) {
+      const url = await this.recipeService.uploadImageToCloudinary(
+        files.images,
+      );
+      req.images.push(...url);
+      console.log(url, req, id);
+    }
+
+    return this.recipeService.editRecipe(id, req);
   }
+
   @Get('status')
   getStatus() {
     console.log('this');

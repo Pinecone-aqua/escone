@@ -34,6 +34,7 @@ function Offcanva({ show, setShow }: PropType) {
   const [images, setImages] = useState<File[]>([]);
   const [servings, setServings] = useState<number>();
   const [cookTime, setCookTime] = useState<number>();
+  const [recipeImages, setRecipeImages] = useState<string[]>([]);
 
   useEffect(() => {
     setRecipe(undefined);
@@ -50,6 +51,7 @@ function Offcanva({ show, setShow }: PropType) {
           setDescription(res.data.description);
           setIngredients(res.data.ingredients);
           setStatus(res.data.status);
+          setRecipeImages(res.data.images);
           setInstructions(res.data.instructions);
         });
     axios.get(`http://localhost:3030/category/all`).then((res) => {
@@ -62,18 +64,54 @@ function Offcanva({ show, setShow }: PropType) {
 
   function hideHandler() {
     setShow(false);
-
+    setImages([]);
     const { pathname } = router;
     router.push({ pathname }, undefined, { shallow: true });
   }
 
+  // function updateRecipe() {
+  //   console.log("work");
+  //   const recipeFormData = new FormData();
+  //   const updatedRecipe = {
+  //     status,
+  //     title,
+  //     // eslint-disable-next-line camelcase
+  //     created_by: recipe?.created_by._id,
+  //     images: recipeImages,
+  //     description,
+  //     ingredients,
+  //     categories: recipecategory.map((category) => category._id),
+  //     tags: recipeTags.map((tag) => tag._id),
+  //     instructions,
+  //     servings,
+  //     // eslint-disable-next-line camelcase
+  //     cook_time: cookTime,
+  //     // eslint-disable-next-line camelcase
+  //     created_date: recipe?.created_date,
+  //   };
+  //   images.forEach((image) => recipeFormData.append("images", image));
+
+  //   recipeFormData.append("body", JSON.stringify(updatedRecipe));
+  //   console.log(updatedRecipe);
+
+  //   axios
+  //     .patch(
+  //       `http://localhost:3030/recipes/upload/${recipe?._id}`,
+  //       recipeFormData
+  //     )
+  //     .then((res) => console.log(res.data));
+
+  //   hideHandler();
+  // }
   function updateRecipe() {
+    console.log("work");
+    const recipeFormData = new FormData();
     const updatedRecipe = {
       status,
       title,
       // eslint-disable-next-line camelcase
       created_by: recipe?.created_by._id,
-      images: recipe?.images,
+      images: recipeImages,
       description,
       ingredients,
       categories: recipecategory.map((category) => category._id),
@@ -85,8 +123,20 @@ function Offcanva({ show, setShow }: PropType) {
       // eslint-disable-next-line camelcase
       created_date: recipe?.created_date,
     };
-
+    if (images.length > 0) {
+      images.forEach((image) => recipeFormData.append("images", image));
+    }
+    recipeFormData.append("body", JSON.stringify(updatedRecipe));
     console.log(updatedRecipe);
+
+    axios
+      .patch(
+        `http://localhost:3030/recipes/upload/${recipe?._id}`,
+        recipeFormData
+      )
+      .then((res) => console.log(res.data));
+
+    hideHandler();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,15 +170,21 @@ function Offcanva({ show, setShow }: PropType) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function uploadHandler(e: any) {
     const image: FileList = e.target.files;
-    console.log(Object.values(image));
-    console.log(image);
-    setImages([...images, ...Object.values(image)]);
+    for (let i = 0; i < image.length; i++) {
+      console.log(i);
+      images.push(image[i]);
+    }
+    setImages([...images]);
     console.log(images);
   }
   function removeImage(index: number) {
     images.splice(index, 1);
 
     setImages([...images]);
+  }
+  function removeRecipeImage(index: number) {
+    recipeImages.splice(index, 1);
+    setRecipeImages([...recipeImages]);
   }
 
   return (
@@ -180,23 +236,33 @@ function Offcanva({ show, setShow }: PropType) {
               <div className="flex flex-col gap-3">
                 <p className="text-xl font-semi">Image upload</p>
                 <div className="flex flex-wrap justify-between items-center">
-                  {recipe.images.map((img, index) => (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={img} alt="" key={index} className="w-40" />
-                  ))}
-                  {images.map((image, i: number) => (
+                  {recipeImages.map((img, index) => (
                     <picture
-                      key={image.lastModified}
+                      key={index}
+                      className="relative group group-hover:delay-300 "
+                    >
+                      <img src={img} alt="" className="w-40" />
+                      <div
+                        className=" absolute top-[-10px] right-[-10px] hidden group-hover:block text-2xl text-gray-400 hover:text-black bg-gray-100 rounded-full"
+                        onClick={() => removeRecipeImage(index)}
+                      >
+                        <IoMdCloseCircleOutline />
+                      </div>
+                    </picture>
+                  ))}
+                  {images.map((img, index) => (
+                    <picture
+                      key={index}
                       className="relative group group-hover:delay-300 "
                     >
                       <img
-                        src={URL.createObjectURL(image)}
-                        alt={image.name}
+                        src={URL.createObjectURL(img)}
+                        alt=""
                         className="w-40"
                       />
                       <div
                         className=" absolute top-[-10px] right-[-10px] hidden group-hover:block text-2xl text-gray-400 hover:text-black bg-gray-100 rounded-full"
-                        onClick={() => removeImage(i)}
+                        onClick={() => removeImage(index)}
                       >
                         <IoMdCloseCircleOutline />
                       </div>
