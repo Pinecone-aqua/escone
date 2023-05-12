@@ -1,8 +1,31 @@
 import React from "react";
-import { Doughnut, Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut, Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+  ArcElement,
+} from "chart.js";
 import axios from "axios";
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Home({ status }: any) {
   console.log(status);
@@ -85,9 +108,46 @@ export default function Home({ status }: any) {
       },
     ],
   };
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: "Chart.js Line Chart",
+      },
+    },
+  };
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: "users",
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
   return (
     <div className="w-full">
       {" "}
+      <div className="w-[700px]">
+        <Line options={options} data={data} />
+      </div>
       <div className="w-full flex justify-between">
         <div className=" w-[500px]">
           <p>ingredient</p>
