@@ -16,12 +16,16 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-@Controller('/user')
+@Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
+  @Get('status')
+  getUserStatus() {
+    return this.userService.getUserStatus();
+  }
   @Get('all')
   getAllUser() {
     return this.userService.getAllUsers();
