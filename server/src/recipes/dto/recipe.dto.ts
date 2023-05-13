@@ -36,7 +36,7 @@ export class RecipeDto {
   cook_time: number;
   @IsNumber()
   @IsNotEmpty()
-  method: [{ ['number']: string }];
+  instructions: [{ [x: number]: string }];
   @IsNumber()
   @IsNotEmpty()
   servings: number;

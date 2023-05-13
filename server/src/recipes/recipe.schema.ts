@@ -32,7 +32,7 @@ export class Recipe {
   @Prop()
   cook_time: number;
   @Prop()
-  method: [{ ['number']: string }];
+  instructions: [{ [x: number]: string }];
   @Prop()
   servings: number;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })

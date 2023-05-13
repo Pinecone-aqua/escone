@@ -59,7 +59,6 @@ export interface CategoryType {
   picture: string;
 }
 export interface IngredientType {
-  _id: string;
   name: string;
   quantity: number;
   measure: string;
