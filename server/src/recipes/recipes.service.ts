@@ -50,7 +50,15 @@ export class RecipeService {
     );
     return arr;
   }
+  async getUserRecipe(userId: string) {
+    const result = await this.recipeModel
+      .find({ created_by: userId })
+      .populate('categories')
+      .populate('tags')
+      .populate('created_by');
 
+    return result;
+  }
   async getRecipe(id: string) {
     const result = await this.recipeModel
       .findOne({ _id: id })

@@ -69,40 +69,6 @@ function Offcanva({ show, setShow }: PropType) {
     router.push({ pathname }, undefined, { shallow: true });
   }
 
-  // function updateRecipe() {
-  //   console.log("work");
-  //   const recipeFormData = new FormData();
-  //   const updatedRecipe = {
-  //     status,
-  //     title,
-  //     // eslint-disable-next-line camelcase
-  //     created_by: recipe?.created_by._id,
-  //     images: recipeImages,
-  //     description,
-  //     ingredients,
-  //     categories: recipecategory.map((category) => category._id),
-  //     tags: recipeTags.map((tag) => tag._id),
-  //     instructions,
-  //     servings,
-  //     // eslint-disable-next-line camelcase
-  //     cook_time: cookTime,
-  //     // eslint-disable-next-line camelcase
-  //     created_date: recipe?.created_date,
-  //   };
-  //   images.forEach((image) => recipeFormData.append("images", image));
-
-  //   recipeFormData.append("body", JSON.stringify(updatedRecipe));
-  //   console.log(updatedRecipe);
-
-  //   axios
-  //     .patch(
-  //       `http://localhost:3030/recipes/upload/${recipe?._id}`,
-  //       recipeFormData
-  //     )
-  //     .then((res) => console.log(res.data));
-
-  //   hideHandler();
-  // }
   function updateRecipe() {
     console.log("work");
     const recipeFormData = new FormData();

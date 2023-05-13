@@ -1,35 +1,29 @@
 /* eslint-disable camelcase */
 import PopularSection from "@/components/home/Popular";
 import dayjs from "dayjs";
-import {
-  AiOutlineStar,
-  AiFillStar,
-  AiOutlineLike,
-  AiOutlineDislike,
-} from "react-icons/ai";
-import { BsTrashFill } from "react-icons/bs";
 import React, { useState } from "react";
 import axios from "axios";
 import { RecipeType, ReviewType } from "@/utils/types";
 import { toast } from "react-toastify";
 import { useUser } from "@/context/userContext";
 
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import Review from "@/components/recipe/Review";
+import { dateFormat, starPrinter } from "@/utils/functions";
 
 function Recipe({
   recipe,
   review,
+  recipes,
 }: {
+  recipes: RecipeType[];
   recipe: RecipeType;
   review: ReviewType[];
 }) {
   const { user } = useUser();
   const [newRate, setNewRate] = useState(0);
   const [content, setContent] = useState("");
-  function dateFormat(date: Date) {
-    const newdate = dayjs(date).format("MMM DD, YYYY");
-    return newdate;
-  }
+
   const rates = review.map((rev) => rev.rate);
 
   function Avg(array: number[]) {
@@ -40,51 +34,6 @@ function Recipe({
     return sum / array.length;
   }
 
-  const accept = (id: string) => {
-    axios
-      .delete(`http://localhost:3030/review/${id}`)
-      .then(() => toast.success("review deleted"));
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const reject = () => {};
-
-  function confirm2(id: string) {
-    confirmDialog({
-      message: "Do you want to delete this review?",
-      header: "Delete Confirmation",
-      icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
-      accept: () => accept(id),
-      reject,
-    });
-  }
-  function starPrinter(
-    rate: number,
-    handler?: React.MouseEventHandler<HTMLDivElement> | undefined
-  ) {
-    let result: JSX.Element[] = [];
-    let newrate = Math.round(rate);
-    for (let i = 1; i <= 5; i++) {
-      if (newrate != 0) {
-        result = [
-          ...result,
-          <div className="" id={`${i}`} key={i} onClick={handler}>
-            <AiFillStar id={`${i}`} />
-          </div>,
-        ];
-        newrate -= 1;
-      } else {
-        result = [
-          ...result,
-          <div className="" id={`${i}`} key={i} onClick={handler}>
-            <AiOutlineStar id={`${i}`} />
-          </div>,
-        ];
-      }
-    }
-    return result;
-  }
   function reviewHandler() {
     // eslint-disable-next-line camelcase
     const newReview = {
@@ -179,63 +128,15 @@ function Recipe({
           </div>
         </div>
       </div>
-      <PopularSection />
+      <PopularSection recipes={recipes} />
       <div className="w-full ">
         <h2 className=" text-primary font-extrabold text-3xl">
           Recipe Reviews
         </h2>
         <ConfirmDialog />
-        <div className="">
+        <div className="w-full">
           {review.map((rev, index) => (
-            <div
-              key={index}
-              className="flex gap-10 py-10 w-full border-b-2 border-gray-300 "
-            >
-              <picture className="block w-[60px]">
-                <img
-                  src={rev.created_by.image}
-                  alt=""
-                  className="w-full rounded-full"
-                />
-              </picture>
-              <div className="w-full flex flex-col gap-3">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <p className="text-2xl font-semibold text-primary">
-                      {rev.created_by.username}
-                    </p>
-                    <p className="font-semibold text-gray-400">
-                      {dateFormat(rev.created_date)}
-                    </p>
-                  </div>
-                  <div className=" flex text-2xl  flex-col gap-2 items-end ">
-                    <div className="flex  text-primary ">
-                      {starPrinter(rev.rate)}
-                    </div>
-
-                    <button
-                      onClick={() => confirm2(rev._id)}
-                      className="text-red-700 border-2 p-2 rounded-xl border-red-700"
-                    >
-                      <BsTrashFill />
-                    </button>
-                  </div>
-                </div>
-                <div className="w-full ">
-                  <p>{rev.content}</p>
-                </div>
-                <div className="flex text-3xl gap-10">
-                  <div className="flex gap-2 items-center">
-                    <AiOutlineLike color="green" />
-                    <span className="text-2xl">10</span>
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <AiOutlineDislike color="red" />
-                    <span className="text-2xl">10</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Review key={index} review={rev} />
           ))}
         </div>
       </div>
@@ -295,9 +196,11 @@ export async function getStaticProps(context: { params: { id: string } }) {
   const reviewResult = await axios.get(
     `http://localhost:3030/review/recipe/${id}`
   );
+  const resultRecipes = await axios.get(`http://localhost:3030/recipes/all`);
   const recipe = result.data;
+  const recipes = resultRecipes.data;
   const review = reviewResult.data;
   return {
-    props: { recipe, review },
+    props: { recipe, review, recipes },
   };
 }

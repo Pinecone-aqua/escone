@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { useRecipe } from "@/context/recipeContext";
 import { RecipeType } from "@/utils/types";
 import {
   MdOutlineArrowForwardIos,
@@ -7,9 +5,7 @@ import {
 } from "react-icons/md";
 import RecipeCard from "../common/RecipeCard";
 
-export default function PopularSection() {
-  const { recipes } = useRecipe();
-
+export default function PopularSection({ recipes }: { recipes: RecipeType[] }) {
   return (
     <div className="popular container">
       <div className="popular-head">
@@ -25,12 +21,9 @@ export default function PopularSection() {
       </div>
 
       <div className="popular-grid">
-        {recipes &&
-          recipes
-            .slice(0, 4)
-            .map((recipe: RecipeType) => (
-              <RecipeCard key={recipe._id} recipe={recipe} />
-            ))}
+        {recipes.slice(0, 4).map((recipe: RecipeType) => (
+          <RecipeCard key={recipe._id} recipe={recipe} />
+        ))}
       </div>
     </div>
   );
