@@ -4,12 +4,10 @@ import {
   Delete,
   Get,
   Param,
-  ParseFilePipe,
   Patch,
   Post,
   Put,
   Query,
-  UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -22,8 +20,23 @@ export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
   @Post('add')
-  addRecipe(@Body() recipeDto: RecipeDto) {
-    return this.recipeService.addRecipe(recipeDto);
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'images' }]))
+  async addRecipe(
+    @Body() body: { body: string },
+    @UploadedFiles()
+    files?: {
+      images?: Express.Multer.File[];
+    },
+  ) {
+    const req: RecipeDto = JSON.parse(body.body);
+
+    if (files?.images) {
+      const url = await this.recipeService.uploadImageToCloudinary(
+        files.images,
+      );
+      req.images.push(...url);
+    }
+    return this.recipeService.addRecipe(req);
   }
 
   @Patch('upload/:id')
@@ -37,13 +50,12 @@ export class RecipeController {
     },
   ) {
     const req: RecipeDto = JSON.parse(body.body);
-    console.log(req);
+
     if (files?.images) {
       const url = await this.recipeService.uploadImageToCloudinary(
         files.images,
       );
       req.images.push(...url);
-      console.log(url, req, id);
     }
 
     return this.recipeService.editRecipe(id, req);
@@ -54,7 +66,6 @@ export class RecipeController {
   }
   @Put('deny')
   recipeDeny(@Body('id') id: string) {
-    console.log(id);
     return this.recipeService.recipeDeny(id);
   }
   @Get('user/:id')
@@ -64,7 +75,6 @@ export class RecipeController {
   }
   @Get('status')
   getStatus() {
-    console.log('this');
     return this.recipeService.getStatus();
   }
 

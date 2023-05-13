@@ -41,7 +41,6 @@ export class RecipeService {
     images: Express.Multer.File[],
   ): Promise<string[]> {
     const arr = [];
-    console.log(images);
     await Promise.all(
       images?.map(async (file) => {
         const { secure_url } = await this.cloudinaryService.uploadImage(file);
@@ -76,12 +75,10 @@ export class RecipeService {
     return result;
   }
   async recipeDeny(id: string) {
-    console.log(id);
     const result = await this.recipeModel.updateOne(
       { _id: id },
       { status: 'deny' },
     );
-    console.log(result);
     return result;
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -90,7 +87,6 @@ export class RecipeService {
     return result;
   }
   async getFilterRecipe(filter: any) {
-    console.log(filter);
     const catRawIds = await this.categoryModel.find(
       { name: filter.cat },
       { _id: 1 },
@@ -122,8 +118,6 @@ export class RecipeService {
     const filteredRecipes = await this.recipeModel.find({
       $and: [...catIds, ...ingIds, ...tagIds],
     });
-    console.log([...catIds, ...ingIds, ...tagIds]);
-    console.log(filteredRecipes);
     return filteredRecipes;
   }
   async deleteRecipe(id: string) {
