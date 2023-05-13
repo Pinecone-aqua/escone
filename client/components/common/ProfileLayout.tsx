@@ -1,21 +1,28 @@
-import RecipeCard from "@/components/common/RecipeCard";
-import { useRecipe } from "@/context/recipeContext";
 import { useUser } from "@/context/userContext";
 import Link from "next/link";
-
+import React from "react";
 const randomCover = "https://source.unsplash.com/random/900%C3%97700/?food";
 const randomProfile = "https://loremflickr.com/200/200/face";
 
-const contentHeaderItems = [
-  { icon: "pi pi-table", label: "Recipes", url: "/" },
-  { icon: "pi pi-heart", label: "Favorites", url: "/profile/favorites" },
-  { icon: "", label: "Reviews", url: "profile/reviews" },
-];
-
-export default function Profile() {
-  const { recipes } = useRecipe();
+export default function ProfileLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { user } = useUser();
-  console.log(user);
+  const contentHeaderItems = [
+    {
+      icon: "pi pi-table",
+      label: "Recipes",
+      url: `/profile?user=${user?._id}`,
+    },
+    {
+      icon: "pi pi-heart",
+      label: "Favorites",
+      url: `/profile/favorites?user=${user?._id}`,
+    },
+    { icon: "", label: "Reviews", url: "profile/reviews" },
+  ];
   return (
     <>
       <div className="profile container">
@@ -44,7 +51,10 @@ export default function Profile() {
               {/* PROFILE BOX */}
               <div className="side-box">
                 <picture>
-                  <img src={randomProfile} alt="profile" />
+                  <img
+                    src={user?.image ? user.image : randomProfile}
+                    alt="profile"
+                  />
                 </picture>
                 <div className="profile-text">
                   <h2>{user?.username}</h2>
@@ -62,12 +72,7 @@ export default function Profile() {
                 </p>
               </div>
             </div>
-
-            <div className="recipes lg:w-9/12 flex h-full flex-wrap gap-3">
-              {recipes.map((recipe, index) => (
-                <RecipeCard key={index} recipe={recipe} />
-              ))}
-            </div>
+            {children}
           </div>
         </div>
       </div>

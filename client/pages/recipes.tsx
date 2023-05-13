@@ -3,11 +3,10 @@ import Filter from "@/components/recipes/Filter";
 import { useRouter } from "next/router";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
-import { useRecipe } from "@/context/recipeContext";
-import Loader from "@/components/subs/Loader";
+import axios from "axios";
+import { RecipeType } from "@/utils/types";
 
-export default function Recipes() {
-  const { recipes, finish } = useRecipe();
+export default function Recipes({ recipes }: { recipes: RecipeType[] }) {
   const { query } = useRouter();
   const [filter, setFilter] = useState<(string[] | undefined)[]>([]);
   const [show, setShow] = useState<boolean>(false);
@@ -52,19 +51,47 @@ export default function Recipes() {
 
         {/* RECIPES */}
         <div className="recipes-grid w-9/12">
-          {finish ? (
-            recipes.length == 0 ? (
-              <p>empty</p>
-            ) : (
-              recipes.map((recipe, index) => (
-                <RecipeCard key={index} recipe={recipe} />
-              ))
-            )
+          {recipes.length == 0 ? (
+            <p>empty</p>
           ) : (
-            <Loader />
+            recipes.map((recipe, index) => (
+              <RecipeCard key={index} recipe={recipe} />
+            ))
           )}
         </div>
       </div>
     </div>
   );
+}
+
+type queryType = {
+  cat?: string | string[];
+  ing?: string | string[];
+  tag?: string | string[];
+};
+
+export async function getServerSideProps(context: { query: queryType }) {
+  const queryObj = context.query;
+
+  const queryParams = new URLSearchParams();
+
+  for (const key in queryObj) {
+    const value = queryObj[key];
+    if (Array.isArray(value)) {
+      value.forEach((v) => queryParams.append(key, v));
+    } else {
+      queryParams.append(key, value);
+    }
+  }
+
+  const queryString = queryParams.toString();
+  console.log(queryString, "this");
+  const url = `http://localhost:3030/recipes/${
+    queryString ? `filter?${queryString}` : "all"
+  }`;
+  const result = await axios.get(url);
+  const recipes = result.data;
+  return {
+    props: { recipes },
+  };
 }

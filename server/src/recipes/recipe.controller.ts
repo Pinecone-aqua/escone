@@ -57,6 +57,11 @@ export class RecipeController {
     console.log(id);
     return this.recipeService.recipeDeny(id);
   }
+  @Get('user/:id')
+  getUserRecipe(@Param('id') id: string) {
+    const result = this.recipeService.getUserRecipe(id);
+    return result;
+  }
   @Get('status')
   getStatus() {
     console.log('this');
