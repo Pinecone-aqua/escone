@@ -13,11 +13,11 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
     setSave(!save);
   };
   return (
-    <div className="recipeCard">
-      <picture>
-        <img src={recipe.images[0]} alt="" />
-      </picture>
-      <Link href={`/recipe/${recipe._id}`}>
+    <>
+      <Link href={`/recipe/${recipe._id}`} className="recipeCard">
+        <picture>
+          <img src={recipe.images[0]} alt="" />
+        </picture>
         <div className="text">
           <div className="title">
             <button onClick={saveHandler} className="favorite">
@@ -31,6 +31,6 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
           </button>
         </div>
       </Link>
-    </div>
+    </>
   );
 }

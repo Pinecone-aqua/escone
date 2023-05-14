@@ -14,7 +14,7 @@ export default function Home({ recipes }: { recipes: RecipeType[] }) {
 
       <Hero />
       <Popular recipes={recipes} />
-      <Special />
+      {/* <Special /> */}
     </>
   );
 }
