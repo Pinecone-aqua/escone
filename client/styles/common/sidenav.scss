@@ -1,0 +1,39 @@
+.sidenav {
+  nav {
+    display: block;
+    ul {
+      font-size: 16px;
+      font-weight: 500;
+      color: $brand-shade;
+      li,
+      li:after,
+      li:before {
+        transition: all 0.5s;
+      }
+      li {
+        text-align: center;
+        position: relative;
+        padding: 0 10px;
+        margin: 20px 5px;
+        &:hover {
+          color: $brand-gray;
+          &:after {
+            width: 100%;
+          }
+        }
+        &:after {
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          right: 0;
+          margin: auto;
+          width: 0%;
+          content: ".";
+          color: transparent;
+          background: $brand-primary-light;
+          height: 1px;
+        }
+      }
+    }
+  }
+}
