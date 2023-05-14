@@ -1,7 +1,9 @@
+/* eslint-disable camelcase */
+import Login from "@/components/common/Login";
 import Ingredient from "@/components/offcanva/Ingredient";
 import Instructions from "@/components/offcanva/Instructions";
 import { useUser } from "@/context/userContext";
-import { CategoryType, IngredientType, TagType } from "@/utils/types";
+import { CategoryType, RecipeType, TagType } from "@/utils/types";
 import axios from "axios";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
@@ -11,57 +13,103 @@ import { toast } from "react-toastify";
 export default function AddRecipe({
   categories,
   tag,
+  recipe,
 }: {
   categories: CategoryType[];
   tag: TagType[];
+  recipe?: RecipeType;
 }) {
   const { user } = useUser();
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>();
-  const [ingredients, setIngredients] = useState<IngredientType[]>([]);
-  const [recipecategory, setRecipeCategory] = useState<CategoryType[]>([]);
+  const emtpyObject = {
+    created_by: user?._id,
+    images: [],
+    title: "",
+    description: "",
+    ingredients: [],
+    categories: [],
+    tags: [],
+    instructions: [],
+    servings: 0,
+    cook_time: 0,
+    created_date: "",
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [newRecipe, setNewRecipe] = useState<any>(emtpyObject);
   const [category, setCategory] = useState<CategoryType[]>([]);
-  const [recipeTags, setRecipeTags] = useState<TagType[]>([]);
   const [tags, setTags] = useState<TagType[]>([]);
-  const [instructions, setInstructions] = useState<{ [x: number]: string }[]>(
-    []
-  );
   const [images, setImages] = useState<File[]>([]);
-  const [servings, setServings] = useState<number>();
-  const [cookTime, setCookTime] = useState<number>();
-  const [recipeImages, setRecipeImages] = useState<string[]>([]);
   const [adding, setAdding] = useState<boolean>(false);
 
   useEffect(() => {
     setCategory(categories);
     setTags(tag);
-  }, [categories, tag]);
+    if (recipe) {
+      setNewRecipe(recipe);
+    }
+  }, [categories, recipe, tag]);
 
-  function createRecipe() {
+  function updateRecipe() {
     setAdding(true);
     const recipeFormData = new FormData();
-    const updatedRecipe = {
-      status: "pending",
-      title,
-      // eslint-disable-next-line camelcase
-      created_by: user?._id,
-      images: recipeImages,
-      description,
-      ingredients,
-      categories: recipecategory.map((category) => category._id),
-      tags: recipeTags.map((tag) => tag._id),
-      instructions,
-      servings,
-      // eslint-disable-next-line camelcase
-      cook_time: cookTime,
-      // eslint-disable-next-line camelcase
-      created_date: dayjs().format(),
-    };
+
     if (images.length > 0) {
       images.forEach((image) => recipeFormData.append("images", image));
     }
-    recipeFormData.append("body", JSON.stringify(updatedRecipe));
-    console.log(updatedRecipe);
+
+    recipeFormData.append("body", JSON.stringify(newRecipe));
+    axios
+      .patch(
+        `http://localhost:3030/recipes/upload/${recipe?._id}`,
+        recipeFormData
+      )
+      .then(() => {
+        toast.success("succes recipe updated", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+  }
+
+  function createRecipe() {
+    if (
+      newRecipe.title === "" ||
+      newRecipe.description === "" ||
+      newRecipe.ingredients.length == 0 ||
+      newRecipe.categories.length == 0 ||
+      newRecipe.tags.length == 0 ||
+      newRecipe.instructions.length == 0 ||
+      newRecipe.servings === 0 ||
+      newRecipe.cook_time === 0
+    ) {
+      toast.error("information is missing", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      return;
+    }
+
+    setAdding(true);
+    const recipeFormData = new FormData();
+    newRecipe.created_by = user?._id;
+    newRecipe.created_date = dayjs().format();
+    if (images.length > 0) {
+      images.forEach((image) => recipeFormData.append("images", image));
+    }
+    recipeFormData.append("body", JSON.stringify(newRecipe));
 
     axios.post(`http://localhost:3030/recipes/add`, recipeFormData).then(() => {
       toast.success("succes recipe add", {
@@ -74,7 +122,6 @@ export default function AddRecipe({
         progress: undefined,
         theme: "light",
       });
-      console.log("amiltai");
     });
   }
 
@@ -86,24 +133,34 @@ export default function AddRecipe({
       name: newCategoryArr[1],
       picture: newCategoryArr[2],
     };
-    setRecipeCategory([...recipecategory, newCategoryObject]);
+    newRecipe.categories = [...newRecipe.categories, newCategoryObject];
+    setNewRecipe({ ...newRecipe });
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function addTagHandler(e: any) {
-    const newTagsArr = e.target.value.split(",");
-    const newTagsObject = {
-      _id: newTagsArr[0],
-      name: newTagsArr[1],
+    const newTag = e.target.value.split(",");
+    const newTagObject = {
+      _id: newTag[0],
+      name: newTag[1],
     };
-    setRecipeTags([...recipeTags, newTagsObject]);
+    const newTagArr = [...newRecipe.tags, newTagObject];
+    newRecipe.tags = newTagArr;
+    setNewRecipe({ ...newRecipe });
   }
   function removeTagHandler(id: string) {
-    const updatedTag = recipeTags.filter((tag) => tag._id !== id);
-    setRecipeTags(updatedTag);
+    const updatedTag = newRecipe.tags.filter(
+      (tag: { _id: string }) => tag._id !== id
+    );
+    newRecipe.tags = updatedTag;
+    setNewRecipe({ ...newRecipe });
   }
+
   function removeCategoryHandler(id: string) {
-    const updatedCategory = recipecategory.filter((tag) => tag._id !== id);
-    setRecipeCategory(updatedCategory);
+    const updatedCategory = newRecipe.categories.filter(
+      (tag: { _id: string }) => tag._id !== id
+    );
+    newRecipe.categories = updatedCategory;
+    setNewRecipe({ ...newRecipe });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,12 +177,14 @@ export default function AddRecipe({
     setImages([...images]);
   }
   function removeRecipeImage(index: number) {
-    recipeImages.splice(index, 1);
-    setRecipeImages([...recipeImages]);
+    newRecipe.images.splice(index, 1);
+    setNewRecipe({ ...newRecipe });
+    // setRecipeImages([...recipeImages]);
   }
 
   return (
     <div className="container mb-20 relative">
+      {!user && <Login show={true} />}
       <form className="px-10 py-5 flex flex-col gap-5">
         <div className=" flex w-full justify-between">
           <p className="flex gap-2">
@@ -136,16 +195,19 @@ export default function AddRecipe({
         <label className="flex flex-col gap-3">
           <p className="text-xl font-semi">Title</p>
           <input
-            defaultValue={title}
+            defaultValue={newRecipe.title}
             type="text"
             className="border w-full px-3 py-2 rounded-xl"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+              newRecipe.title = e.target.value;
+              setNewRecipe({ ...newRecipe });
+            }}
           />
         </label>
         <div className="flex flex-col gap-3">
           <p className="text-xl font-semi">Image upload</p>
           <div className="flex flex-wrap justify-between items-center">
-            {recipeImages.map((img, index) => (
+            {newRecipe.images.map((img: string | undefined, index: number) => (
               <picture
                 key={index}
                 className="relative group group-hover:delay-300 "
@@ -182,25 +244,31 @@ export default function AddRecipe({
             <p>Servings</p>
             <input
               type="number"
-              defaultValue={servings}
+              defaultValue={newRecipe.servings}
               className="w-16 border border-black rounded-md ps-3"
-              onChange={(e) => setServings(Number(e.target.value))}
+              onChange={(e) => {
+                newRecipe.servings = Number(e.target.value);
+                setNewRecipe({ ...newRecipe });
+              }}
             />
           </label>
           <label className="flex items-center gap-3">
             <p>Cook time (min)</p>
             <input
               type="number"
-              defaultValue={cookTime}
+              defaultValue={newRecipe.cook_time}
               className="w-16 border border-black rounded-md ps-3"
-              onChange={(e) => setCookTime(Number(e.target.value))}
+              onChange={(e) => {
+                newRecipe.cook_time = Number(e.target.value);
+                setNewRecipe({ ...newRecipe });
+              }}
             />
           </label>
         </div>
         <label>
           <p>Categories</p>
           <div className="flex flex-wrap gap-3">
-            {recipecategory.map((cat) => (
+            {newRecipe.categories.map((cat: CategoryType) => (
               <div
                 className=" relative px-3 py-1 border border-green-500 rounded-full bg-green-100 text-green-800 group "
                 key={cat._id}
@@ -220,7 +288,11 @@ export default function AddRecipe({
             >
               <option defaultChecked>choose category</option>
               {category.map((cat) => {
-                if (!recipecategory.some((i) => i._id == cat._id)) {
+                if (
+                  !newRecipe.categories.some(
+                    (i: { _id: string }) => i._id == cat._id
+                  )
+                ) {
                   return (
                     <option
                       value={[cat._id, cat.name, cat.picture]}
@@ -237,7 +309,7 @@ export default function AddRecipe({
         <label>
           <p>Tags</p>
           <div className="flex flex-wrap gap-3">
-            {recipeTags.map((tag) => (
+            {newRecipe.tags.map((tag: TagType) => (
               <div
                 className=" relative px-3 py-1 border border-orange-500 rounded-full bg-orange-100 text-orange-800 group "
                 key={tag._id}
@@ -257,7 +329,9 @@ export default function AddRecipe({
             >
               <option defaultChecked>choose category</option>
               {tags.map((tag) => {
-                if (!recipeTags.some((i) => i._id == tag._id)) {
+                if (
+                  !newRecipe.tags.some((i: { _id: string }) => i._id == tag._id)
+                ) {
                   return (
                     <option value={[tag._id, tag.name]} key={tag._id}>
                       {tag.name}
@@ -274,21 +348,25 @@ export default function AddRecipe({
             name=""
             id=""
             className="w-full border rounded-lg resize-none p-5 text-lg h-40"
-            defaultValue={description}
-            onChange={(e) => setDescription(e.target.value)}
+            defaultValue={newRecipe.description}
+            onChange={(e) => {
+              newRecipe.description = e.target.value;
+              setNewRecipe({ ...newRecipe });
+            }}
           />
         </label>
-        <Ingredient ingredients={ingredients} setIngredients={setIngredients} />
-        <Instructions
-          instructions={instructions}
-          setInstructions={setInstructions}
-        />
+        <Ingredient newRecipe={newRecipe} setNewRecipe={setNewRecipe} />
+        <Instructions newRecipe={newRecipe} setNewRecipe={setNewRecipe} />
         .
         <input
           type="button"
-          value={`add recipe ${adding ? `O` : ""}`}
+          value={`${
+            recipe
+              ? `update recipe ${adding ? `O` : ""}`
+              : `add recipe ${adding ? `O` : ""}`
+          }`}
           disabled={adding}
-          onClick={createRecipe}
+          onClick={recipe ? updateRecipe : createRecipe}
           className=" sticky w-40  bottom-10 px-5 py-3 border border-green-700 bg-green-500 text-green-950 rounded-lg "
         />
       </form>
@@ -296,13 +374,24 @@ export default function AddRecipe({
   );
 }
 
-export async function getStaticProps() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getServerSideProps(context: any) {
+  const id = context.query.recipeId;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let recipe: any;
   const catResult = await axios.get(`http://localhost:3030/category/all`);
-
   const tagResult = await axios.get(`http://localhost:3030/tag/all`);
 
   const categories = catResult.data;
   const tag = tagResult.data;
+  if (id) {
+    const recipeResult = await axios.get(`http://localhost:3030/recipes/${id}`);
+    recipe = recipeResult.data;
+    return {
+      props: { categories, tag, recipe },
+    };
+  }
+
   return {
     props: { categories, tag },
   };

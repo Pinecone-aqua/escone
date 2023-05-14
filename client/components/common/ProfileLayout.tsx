@@ -1,6 +1,7 @@
 import { useUser } from "@/context/userContext";
 import Link from "next/link";
 import React from "react";
+import Login from "./Login";
 const randomCover = "https://source.unsplash.com/random/900%C3%97700/?food";
 const randomProfile = "https://loremflickr.com/200/200/face";
 
@@ -23,7 +24,7 @@ export default function ProfileLayout({
     },
     { icon: "", label: "Reviews", url: "profile/reviews" },
   ];
-  return (
+  return user ? (
     <>
       <div className="profile container">
         {/* COVER */}
@@ -52,13 +53,13 @@ export default function ProfileLayout({
               <div className="side-box">
                 <picture>
                   <img
-                    src={user?.image ? user.image : randomProfile}
+                    src={user.image ? user.image : randomProfile}
                     alt="profile"
                   />
                 </picture>
                 <div className="profile-text">
-                  <h2>{user?.username}</h2>
-                  <p>{user?.email}</p>
+                  <h2>{user.username}</h2>
+                  <p>{user.email}</p>
                 </div>
               </div>
 
@@ -77,5 +78,7 @@ export default function ProfileLayout({
         </div>
       </div>
     </>
+  ) : (
+    <Login show={true} />
   );
 }

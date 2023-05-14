@@ -1,12 +1,12 @@
-import { IngredientType } from "@/utils/types";
+import { IngredientType, RecipeType } from "@/utils/types";
 import React, { useState } from "react";
 
 type propType = {
-  ingredients: IngredientType[];
-  setIngredients: React.Dispatch<React.SetStateAction<IngredientType[]>>;
+  newRecipe: RecipeType;
+  setNewRecipe: React.Dispatch<React.SetStateAction<RecipeType>>;
 };
 
-function Ingredient({ ingredients, setIngredients }: propType) {
+function Ingredient({ newRecipe, setNewRecipe }: propType) {
   const [newIngredientName, setNewIngredientName] = useState<string>("");
   const [newIngredientQuantity, setNewIngredientQuantity] = useState<number>(0);
   const [newIngredientMeasure, setNewIngredientMeasure] = useState<string>("");
@@ -17,7 +17,7 @@ function Ingredient({ ingredients, setIngredients }: propType) {
       !newIngredientName ||
       !newIngredientQuantity ||
       !newIngredientMeasure ||
-      ingredients.some((ing) => ing.name == newIngredientName)
+      newRecipe.ingredients.some((ing) => ing.name == newIngredientName)
     ) {
       return;
     }
@@ -27,7 +27,8 @@ function Ingredient({ ingredients, setIngredients }: propType) {
       measure: newIngredientMeasure,
     };
     console.log(newIngredient);
-    setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
+    newRecipe.ingredients = [...newRecipe.ingredients, newIngredient];
+    setNewRecipe({ ...newRecipe });
     setNewIngredientName("");
 
     setNewIngredientQuantity(0);
@@ -41,8 +42,8 @@ function Ingredient({ ingredients, setIngredients }: propType) {
         newIngredientQuantity == 0 ? ing.quantity : newIngredientQuantity,
       measure: newIngredientMeasure == "" ? ing.measure : newIngredientMeasure,
     };
-    ingredients.splice(index, 1, updateIngredient);
-    setIngredients(ingredients);
+    newRecipe.ingredients.splice(index, 1, updateIngredient);
+    setNewRecipe({ ...newRecipe });
     setNewIngredientName("");
     setIsChange(undefined);
     setNewIngredientQuantity(0);
@@ -52,16 +53,18 @@ function Ingredient({ ingredients, setIngredients }: propType) {
   function removeIngredient(name: string) {
     // ingredients.splice(index, 1);
     // setIngredients([...ingredients]);
-    const updatedIngredients = ingredients.filter((ing) => ing.name !== name);
+    const updatedIngredients = newRecipe.ingredients.filter(
+      (ing) => ing.name !== name
+    );
     console.log(updatedIngredients);
-
-    setIngredients(updatedIngredients);
+    newRecipe.ingredients = updatedIngredients;
+    setNewRecipe({ ...newRecipe });
   }
 
   return (
     <div className="flex flex-col gap-2">
       <p className="text-xl font-semi">Ingredients</p>
-      {ingredients.map((ing, index) => (
+      {newRecipe.ingredients.map((ing, index) => (
         <div key={ing.name} className="flex">
           <div className="flex gap-3">
             <input
