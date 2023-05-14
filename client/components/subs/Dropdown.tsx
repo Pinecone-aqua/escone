@@ -13,6 +13,7 @@ export default function Dropdown() {
       label: "Profile",
       url: `/profile?user=${user?._id}`,
     },
+    { icon: "pi pi-plus", label: "Add recipe", url: "/addRecipe" },
     { icon: "pi pi-heart", label: "Favorites", url: "/profile/favorites" },
     {
       icon: "pi pi-sign-out",
