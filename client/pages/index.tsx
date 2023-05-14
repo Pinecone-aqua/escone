@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Hero from "@/components/home/Hero";
 import Popular from "@/components/home/Popular";
-import Special from "@/components/home/Special";
+// import Special from "@/components/home/Special";
 import axios from "axios";
 import { RecipeType } from "@/utils/types";
 
