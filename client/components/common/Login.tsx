@@ -10,8 +10,8 @@ import Cookies from "js-cookie";
 import { FcGoogle } from "react-icons/fc";
 import { useUser } from "@/context/userContext";
 
-export default function Login() {
-  const [visible, setVisible] = useState<boolean>(false);
+export default function Login({ show }: { show?: boolean }) {
+  const [visible, setVisible] = useState<boolean>(show || false);
   const [register, setRegister] = useState<boolean>(false);
   const [pass, setpass] = useState<boolean>(false);
   const emailRef = useRef<string>();
@@ -27,6 +27,7 @@ export default function Login() {
   );
 
   const Router = useRouter();
+
   function registerHandler() {
     const user = {
       username: nameRef.current,
@@ -104,7 +105,7 @@ export default function Login() {
       <Dialog
         header={modalHeader}
         visible={visible}
-        onHide={() => setVisible(false)}
+        onHide={() => setVisible(show || false)}
       >
         <div className="login-modal">
           <button onClick={googleHandler} className="btn-google">

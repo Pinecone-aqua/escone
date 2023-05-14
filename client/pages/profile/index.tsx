@@ -21,11 +21,14 @@ export default function Profile({
 }
 
 export async function getServerSideProps(context: { query: { user: string } }) {
-  const userId: string = context.query.user; // logs the query parameters
-  const result = await axios.get(
-    `http://localhost:3030/recipes/user/${userId}`
-  );
-  const recipes = result.data;
+  let recipes = [];
+  const userId: string = context.query.user;
+  if (userId) {
+    const result = await axios.get(
+      `http://localhost:3030/recipes/user/${userId}`
+    );
+    recipes = result.data;
+  }
   return {
     props: { recipes },
   };

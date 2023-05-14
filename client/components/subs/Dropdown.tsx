@@ -14,11 +14,15 @@ export default function Dropdown() {
       url: `/profile?user=${user?._id}`,
     },
     { icon: "pi pi-plus", label: "Add recipe", url: "/addRecipe" },
-    { icon: "pi pi-heart", label: "Favorites", url: "/profile/favorites" },
+    {
+      icon: "pi pi-heart",
+      label: "Favorites",
+      url: `/profile/favorites?user=${user?._id}`,
+    },
     {
       icon: "pi pi-sign-out",
       label: "Log out",
-      link: "/",
+      url: "/",
       command: logoutHandler,
     },
   ];

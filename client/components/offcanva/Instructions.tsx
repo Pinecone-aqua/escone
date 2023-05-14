@@ -1,11 +1,12 @@
+import { RecipeType } from "@/utils/types";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 type propType = {
-  instructions: { [x: number]: string }[];
-  setInstructions: Dispatch<SetStateAction<{ [x: number]: string }[]>>;
+  newRecipe: RecipeType;
+  setNewRecipe: Dispatch<SetStateAction<RecipeType>>;
 };
 
-function Instructions({ instructions, setInstructions }: propType) {
+function Instructions({ newRecipe, setNewRecipe }: propType) {
   const [newInstruction, setNewInstruction] = useState<string>();
   const [updateInstruction, setUpdateInstruction] = useState<string>();
   const [isChangeIns, setIsChangeIns] = useState<number>();
@@ -16,30 +17,31 @@ function Instructions({ instructions, setInstructions }: propType) {
     }
 
     const newInstructionObject = {
-      [instructions.length + 1]: newInstruction,
+      [newRecipe.instructions.length + 1]: newInstruction,
     };
 
-    setInstructions([...instructions, newInstructionObject]);
+    newRecipe.instructions = [...newRecipe.instructions, newInstructionObject];
+    setNewRecipe({ ...newRecipe });
     setNewInstruction("");
   }
 
   function removeInstruction(index: number) {
-    instructions.splice(index, 1);
-    setInstructions([...instructions]);
+    newRecipe.instructions.splice(index, 1);
+    setNewRecipe({ ...newRecipe });
   }
 
   function updateInstructionHandler(index: number) {
     if (updateInstruction) {
       const InstructionObj = { [index + 1]: updateInstruction };
-      instructions.splice(index, 1, InstructionObj);
-      setInstructions([...instructions]);
+      newRecipe.instructions.splice(index, 1, InstructionObj);
+      setNewRecipe({ ...newRecipe });
     } else {
     }
   }
   return (
     <div className="flex flex-col gap-4">
       <p className="text-xl font-semi">Instructions</p>
-      {instructions.map((ins, index) => (
+      {newRecipe.instructions.map((ins, index) => (
         <div key={index} className="relative">
           {" "}
           <div className="flex w-full justify-between ">
@@ -72,7 +74,7 @@ function Instructions({ instructions, setInstructions }: propType) {
       ))}
       <div className="flex flex-col w-full ">
         {" "}
-        <p>Step {instructions.length + 1}</p>{" "}
+        <p>Step {newRecipe.instructions.length + 1}</p>{" "}
         <textarea
           name=""
           id=""

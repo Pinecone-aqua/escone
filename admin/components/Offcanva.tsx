@@ -70,7 +70,6 @@ function Offcanva({ show, setShow }: PropType) {
   }
 
   function updateRecipe() {
-    console.log("work");
     const recipeFormData = new FormData();
     const updatedRecipe = {
       status,
