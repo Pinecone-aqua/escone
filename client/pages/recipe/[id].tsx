@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import PopularSection from "@/components/home/Popular";
+import PopularSection from "@/components/Home/Popular";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import axios from "axios";

@@ -1,9 +1,8 @@
 import Head from "next/head";
-import Hero from "@/components/home/Hero";
-import Popular from "@/components/home/Popular";
-// import Special from "@/components/home/Special";
 import axios from "axios";
 import { RecipeType } from "@/utils/types";
+import HeroSection from "@/components/Home/Hero";
+import PopularSection from "@/components/Home/Popular";
 
 export default function Home({ recipes }: { recipes: RecipeType[] }) {
   return (
@@ -12,8 +11,8 @@ export default function Home({ recipes }: { recipes: RecipeType[] }) {
         <title key="title">Home | FOODIE</title>
       </Head>
 
-      <Hero />
-      <Popular recipes={recipes} />
+      <HeroSection />
+      <PopularSection recipes={recipes} />
       {/* <Special /> */}
     </>
   );
