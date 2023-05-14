@@ -1,30 +1,26 @@
 import { RecipeType } from "@/utils/types";
-import {
-  MdOutlineArrowForwardIos,
-  MdOutlineArrowBackIos,
-} from "react-icons/md";
+import { Carousel } from "primereact/carousel";
 import RecipeCard from "../common/RecipeCard";
 
-export default function PopularSection({ recipes }: { recipes: RecipeType[] }) {
+interface PopularSectionProps {
+  recipes: RecipeType[];
+}
+
+export default function PopularSection({ recipes }: PopularSectionProps) {
+  const recipeTemplate = (recipe: RecipeType) => (
+    <RecipeCard key={recipe._id} recipe={recipe} />
+  );
+
   return (
     <div className="popular container">
-      <div className="popular-head">
-        <h3>Popular recipes</h3>
-        <div className="btns">
-          <button>
-            <MdOutlineArrowBackIos />
-          </button>
-          <button>
-            <MdOutlineArrowForwardIos />
-          </button>
-        </div>
-      </div>
-
-      <div className="popular-grid">
-        {recipes.slice(0, 4).map((recipe: RecipeType) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
-        ))}
-      </div>
+      <h3>Popular recipes</h3>
+      <Carousel
+        className="carousel"
+        value={recipes.slice(0, 9)}
+        numVisible={4}
+        numScroll={3}
+        itemTemplate={recipeTemplate}
+      />
     </div>
   );
 }
