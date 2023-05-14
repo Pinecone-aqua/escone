@@ -29,7 +29,7 @@ export class RecipeController {
     },
   ) {
     const req: RecipeDto = JSON.parse(body.body);
-
+    req.status = 'pending';
     if (files?.images) {
       const url = await this.recipeService.uploadImageToCloudinary(
         files.images,
@@ -57,6 +57,7 @@ export class RecipeController {
       );
       req.images.push(...url);
     }
+    req.status = 'pending';
 
     return this.recipeService.editRecipe(id, req);
   }
