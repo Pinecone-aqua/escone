@@ -32,11 +32,13 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
     },
   ];
   return (
+
     <div className="recipeCard relative group">
       <picture>
         <img src={recipe.images[0]} alt="" />
       </picture>
       <Link href={`/recipe/${recipe._id}`}>
+
         <div className="text">
           <div className="title">
             <button onClick={saveHandler} className="favorite">
@@ -50,6 +52,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
           </button>
         </div>
       </Link>
+
       {user && user._id == recipe.created_by._id && (
         <button
           className="p-1 group-hover:block hidden rounded-full bg-slate-50 bg-opacity-50 absolute top-1 right-1 text-2xl text-white hover:bg-opacity-70"
