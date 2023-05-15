@@ -40,7 +40,7 @@ function Offcanva({ show, setShow }: PropType) {
     setRecipe(undefined);
     router.query.id &&
       axios
-        .get(`http://localhost:3030/recipes/${router.query.id}`)
+        .get(`http://localhost:3030/recipe/${router.query.id}`)
         .then((res) => {
           setRecipe(res.data);
           setRecipeCategory(res.data.categories);
@@ -96,7 +96,7 @@ function Offcanva({ show, setShow }: PropType) {
 
     axios
       .patch(
-        `http://localhost:3030/recipes/upload/${recipe?._id}`,
+        `http://localhost:3030/recipe/upload/${recipe?._id}`,
         recipeFormData
       )
       .then((res) => console.log(res.data));

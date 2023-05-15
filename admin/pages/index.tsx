@@ -30,8 +30,6 @@ ChartJS.register(
 );
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Home({ status, userStatus }: any) {
-  console.log(status);
-  console.log(userStatus);
   const { tagsStatus, ingredientStatus, CategoryStatus, createStatus } = status;
   const data1 = {
     labels: ingredientStatus.map((st: { name: string }) => st.name),
@@ -169,7 +167,7 @@ export default function Home({ status, userStatus }: any) {
 }
 
 export async function getStaticProps() {
-  const result = await axios.get("http://localhost:3030/recipes/status");
+  const result = await axios.get("http://localhost:3030/recipe/statistics");
   const status = result.data;
   const resultuser = await axios.get("http://localhost:3030/user/status");
   const userStatus = resultuser.data;

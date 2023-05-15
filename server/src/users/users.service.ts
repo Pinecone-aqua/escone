@@ -33,6 +33,11 @@ export class UserService {
 
     return result;
   }
+
+  async updateUser(id, body) {
+    return await this.userModel.updateOne({ _id: id }, body);
+  }
+
   async googleLogin() {
     const stringifiedParams = queryString.stringify({
       client_id: process.env.CLIENT_ID,

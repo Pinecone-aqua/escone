@@ -6,7 +6,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RecipeType } from "@/utils/types";
 
-export default function Recipes({ recipes }: { recipes: RecipeType[] }) {
+export default function Recipes({
+  recipes,
+  status,
+}: {
+  recipes: RecipeType[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  status: any;
+}) {
   const { query } = useRouter();
   const [filter, setFilter] = useState<(string[] | undefined)[]>([]);
   const [show, setShow] = useState<boolean>(false);
@@ -46,7 +53,7 @@ export default function Recipes({ recipes }: { recipes: RecipeType[] }) {
       <div className="flex w-full">
         {/* SIDE FILTER */}
         <div className="recipes-filter w-3/12">
-          <Filter />
+          <Filter status={status} />
         </div>
 
         {/* RECIPES */}
@@ -65,8 +72,8 @@ export default function Recipes({ recipes }: { recipes: RecipeType[] }) {
 }
 
 type queryType = {
-  cat?: string | string[];
-  ing?: string | string[];
+  category?: string | string[];
+  ingredient?: string | string[];
   tag?: string | string[];
 };
 
@@ -74,24 +81,63 @@ export async function getServerSideProps(context: { query: queryType }) {
   const queryObj = context.query;
 
   const queryParams = new URLSearchParams();
+  queryParams.append("status", "approve");
+  const statusResult = await axios.get(
+    `${process.env.BACK_END_URL}/recipe/statistics`
+  );
+  const status = statusResult.data;
 
   for (const key in queryObj) {
     const value = queryObj[key];
     if (Array.isArray(value)) {
-      value.forEach((v) => queryParams.append(key, v));
+      value.forEach((v) => {
+        if (key == "category") {
+          const category = status.CategoryStatus.find(
+            (cate: { _id: string; name: string }) => {
+              if (cate.name == v) return cate._id;
+            }
+          );
+          queryParams.append(key, category._id);
+        } else if (key == "tag") {
+          const tags = status.tagsStatus.find(
+            (tag: { _id: string; name: string }) => {
+              if (tag.name == v) return tag._id;
+            }
+          );
+          queryParams.append(key, tags._id);
+        } else {
+          queryParams.append(key, v);
+        }
+      });
     } else {
-      queryParams.append(key, value);
+      if (key == "category") {
+        const category = status.CategoryStatus.find(
+          (cate: { _id: string; name: string }) => {
+            if (cate.name == value) return cate._id;
+          }
+        );
+        queryParams.append(key, category._id);
+      } else if (key == "tag") {
+        const tags = status.tagsStatus.find(
+          (tag: { _id: string; name: string }) => {
+            if (tag.name == value) return tag._id;
+          }
+        );
+        queryParams.append(key, tags._id);
+      } else {
+        queryParams.append(key, value);
+      }
     }
   }
 
   const queryString = queryParams.toString();
-  console.log(queryString, "this");
-  const url = `http://localhost:3030/recipes/${
-    queryString ? `filter?${queryString}` : "all"
+  const url = `${process.env.BACK_END_URL}/recipe/recipes?${
+    queryString && `${queryString}`
   }`;
   const result = await axios.get(url);
   const recipes = result.data;
+  console.log(queryString);
   return {
-    props: { recipes },
+    props: { recipes, status },
   };
 }

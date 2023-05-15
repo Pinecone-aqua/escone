@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 export default function Review({ review }: { review: ReviewType }) {
   const accept = (id: string) => {
     axios
-      .delete(`http://localhost:3030/review/${id}`)
+      .delete(`${process.env.BACK_END_URL}/review/${id}`)
       .then(() => toast.success("review deleted"));
   };
 

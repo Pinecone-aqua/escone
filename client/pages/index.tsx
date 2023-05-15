@@ -1,10 +1,11 @@
 import Head from "next/head";
 import axios from "axios";
 import { RecipeType } from "@/utils/types";
-import HeroSection from "@/components/Home/Hero";
-import PopularSection from "@/components/Home/Popular";
+import HeroSection from "@/components/home/Hero";
+import PopularSection from "@/components/home/Popular";
 
 export default function Home({ recipes }: { recipes: RecipeType[] }) {
+  console.log(process.env.BACK_END_URL);
   return (
     <>
       <Head>
@@ -19,7 +20,9 @@ export default function Home({ recipes }: { recipes: RecipeType[] }) {
 }
 
 export async function getServerSideProps() {
-  const result = await axios.get(`http://localhost:3030/recipes/all`);
+  const result = await axios.get(
+    `${process.env.BACK_END_URL}/recipe/recipes?status=approve`
+  );
   const recipes = result.data;
   return {
     props: { recipes },

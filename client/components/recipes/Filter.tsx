@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CategoryType, IngredientType, TagType } from "../../utils/types";
 import { useRouter } from "next/router";
 
-function Filter() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Filter({ status }: any): JSX.Element {
   const Router = useRouter();
   const [tags, setTags] = useState<TagType[] | undefined>();
   const [categories, setCategories] = useState<CategoryType[] | undefined>();
@@ -12,16 +12,10 @@ function Filter() {
   >();
 
   useEffect(() => {
-    axios.get("http://localhost:3030/tag/all").then((res) => {
-      setTags(res.data.slice(0, 10));
-    });
-    axios.get("http://localhost:3030/category/all").then((res) => {
-      setCategories(res.data.slice(0, 10));
-    });
-    axios.get("http://localhost:3030/ingredient/all").then((res) => {
-      setIngredients(res.data.slice(0, 10));
-    });
-  }, []);
+    setTags(status.tagsStatus);
+    setCategories(status.CategoryStatus);
+    setIngredients(status.ingredientStatus);
+  }, [status.CategoryStatus, status.ingredientStatus, status.tagsStatus]);
 
   function selectHandler(type: string, name: string) {
     let query: string | string[] | undefined = Router.query[type];
@@ -60,11 +54,11 @@ function Filter() {
                   id={category.name}
                   className="focus:outline-0 border rounded-sm  w-2 h-2 lg:w-4 lg:h-4"
                   onChange={() => {
-                    selectHandler("cat", category.name);
+                    selectHandler("category", category.name);
                   }}
                   checked={
-                    Router.query.cat
-                      ? Router.query.cat.indexOf(category.name) != -1
+                    Router.query.category
+                      ? Router.query.category.indexOf(category.name) != -1
                       : false
                   }
                 />
@@ -89,11 +83,12 @@ function Filter() {
                       id={ingredient.name}
                       className=" focus:outline-0 border rounded-sm  w-2 h-2 lg:w-4 lg:h-4"
                       onChange={() => {
-                        selectHandler("ing", ingredient.name);
+                        selectHandler("ingredient", ingredient.name);
                       }}
                       checked={
-                        Router.query.ing
-                          ? Router.query.ing.indexOf(ingredient.name) != -1
+                        Router.query.ingredient
+                          ? Router.query.ingredient.indexOf(ingredient.name) !=
+                            -1
                           : false
                       }
                     />

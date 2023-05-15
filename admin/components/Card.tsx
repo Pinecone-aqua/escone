@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useRef } from "react";
 import { Toast } from "primereact/toast";
+import Cookies from "js-cookie";
 
 type PropType = {
   recipe: RecipeType;
@@ -28,24 +29,29 @@ export default function Card({ recipe, setShow }: PropType) {
   }
   const toast = useRef(null);
 
-  function approveHandler(id: string) {
-    axios.put("http://localhost:3030/recipes/approve", { id: id }).then(() => {
-      toast.current.show({
-        severity: "success",
-        summary: "success",
-        detail: "recipe approve",
+  function statusHandler(status: string) {
+    const token = Cookies.get("token");
+    axios
+      .put(
+        `http://localhost:3030/recipe/status/${recipe._id}`,
+        {
+          status: status,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.current.show({
+          severity: "success",
+          summary: "success",
+          detail: `recipe ${status}`,
+        });
       });
-    });
   }
-  function denyHandler(id: string) {
-    axios.put("http://localhost:3030/recipes/deny", { id: id }).then((res) => {
-      toast.current.show({
-        severity: "success",
-        summary: "success",
-        detail: "recipe deny",
-      });
-    });
-  }
+
   return (
     <div className=" ">
       <Toast ref={toast} />
@@ -70,14 +76,14 @@ export default function Card({ recipe, setShow }: PropType) {
         <button
           className="py-1 px-2 border border-green-500 rounded-lg text-green-700 hover:bg-green-500 hover:text-white   disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white"
           disabled={recipe.status == "approve"}
-          onClick={() => approveHandler(recipe._id)}
+          onClick={() => statusHandler("approve")}
         >
           approve
         </button>
         <button
           className="py-1 px-2 border border-red-500 rounded-lg text-red-700 hover:bg-red-500 hover:text-white disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white "
           disabled={recipe.status == "deny"}
-          onClick={() => denyHandler(recipe._id)}
+          onClick={() => statusHandler("deny")}
         >
           deny
         </button>
