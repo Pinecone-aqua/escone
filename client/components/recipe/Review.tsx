@@ -1,7 +1,6 @@
 import { dateFormat, starPrinter } from "@/utils/functions";
 import { ReviewType } from "@/utils/types";
 import axios from "axios";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { confirmDialog } from "primereact/confirmdialog";
 import { toast } from "react-toastify";
@@ -28,50 +27,23 @@ export default function Review({ review }: { review: ReviewType }) {
   }
 
   return (
-    <div className="flex gap-10 py-10 w-full border-b-2 border-gray-300 ">
-      <picture className="block w-[60px]">
-        <img
-          src={review.created_by.image}
-          alt=""
-          className="w-full rounded-full"
-        />
-      </picture>
-      <div className="w-full flex flex-col gap-3">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <p className="text-2xl font-semibold text-primary">
-              {review.created_by.username}
-            </p>
-            <p className="font-semibold text-gray-400">
-              {dateFormat(review.created_date)}
-            </p>
-          </div>
-          <div className=" flex text-2xl  flex-col gap-2 items-end ">
-            <div className="flex  text-primary ">
-              {starPrinter(review.rate)}
-            </div>
+    <div className="review">
+      <div className="sub">
+        <div className="createdby">
+          <picture>
+            <img src={review.created_by.image} alt="" />
+          </picture>
+          <h5>{review.created_by.username}</h5>
+        </div>
+        <p>{review.content}</p>
+      </div>
 
-            <button
-              onClick={() => confirm2(review._id)}
-              className="text-red-700 border-2 p-2 rounded-xl border-red-700"
-            >
-              <BsTrashFill />
-            </button>
-          </div>
-        </div>
-        <div className="w-full ">
-          <p>{review.content}</p>
-        </div>
-        <div className="flex text-3xl gap-10">
-          <div className="flex gap-2 items-center">
-            <AiOutlineLike color="green" />
-            <span className="text-2xl">10</span>
-          </div>
-          <div className="flex gap-2 items-center">
-            <AiOutlineDislike color="red" />
-            <span className="text-2xl">10</span>
-          </div>
-        </div>
+      <div className="sub">
+        <p>{dateFormat(review.created_date)}</p>
+        <div className="review-stars">{starPrinter(review.rate)}</div>
+        <button onClick={() => confirm2(review._id)}>
+          <BsTrashFill />
+        </button>
       </div>
     </div>
   );
