@@ -6,6 +6,7 @@ import { useUser } from "@/context/userContext";
 import { CategoryType, RecipeType, TagType } from "@/utils/types";
 import axios from "axios";
 import dayjs from "dayjs";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { toast } from "react-toastify";
@@ -50,6 +51,7 @@ export default function AddRecipe({
   }, [categories, recipe, tag]);
 
   function updateRecipe() {
+    const token = Cookies.get("token");
     setAdding(true);
     const recipeFormData = new FormData();
 
@@ -60,8 +62,13 @@ export default function AddRecipe({
     recipeFormData.append("body", JSON.stringify(newRecipe));
     axios
       .patch(
-        `http://localhost:3030/recipes/upload/${recipe?._id}`,
-        recipeFormData
+        `${process.env.BACK_END_URL}/recipe/upload/${recipe?._id}`,
+        recipeFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then(() => {
         toast.success("succes recipe updated", {
@@ -111,18 +118,20 @@ export default function AddRecipe({
     }
     recipeFormData.append("body", JSON.stringify(newRecipe));
 
-    axios.post(`http://localhost:3030/recipes/add`, recipeFormData).then(() => {
-      toast.success("succes recipe add", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+    axios
+      .post(`${process.env.BACK_END_URL}/recipe/create`, recipeFormData)
+      .then(() => {
+        toast.success("succes recipe add", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       });
-    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -379,13 +388,15 @@ export async function getServerSideProps(context: any) {
   const id = context.query.recipeId;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let recipe: any;
-  const catResult = await axios.get(`http://localhost:3030/category/all`);
-  const tagResult = await axios.get(`http://localhost:3030/tag/all`);
+  const catResult = await axios.get(`${process.env.BACK_END_URL}/category/all`);
+  const tagResult = await axios.get(`${process.env.BACK_END_URL}/tag/all`);
 
   const categories = catResult.data;
   const tag = tagResult.data;
   if (id) {
-    const recipeResult = await axios.get(`http://localhost:3030/recipes/${id}`);
+    const recipeResult = await axios.get(
+      `${process.env.BACK_END_URL}/recipe/${id}`
+    );
     recipe = recipeResult.data;
     return {
       props: { categories, tag, recipe },

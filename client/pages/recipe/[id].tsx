@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import PopularSection from "@/components/Home/Popular";
+import PopularSection from "@/components/home/Popular";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import axios from "axios";
@@ -49,7 +49,7 @@ function Recipe({
     } else if (content === "") {
       toast.error("You have not written a review");
     } else {
-      axios.post("http://localhost:3030/review/create", newReview);
+      axios.post(`${process.env.BACK_END_URL}/review/create`, newReview);
       toast.success("You have written a review");
       setContent("");
       setNewRate(0);
@@ -152,11 +152,13 @@ function Recipe({
 export default Recipe;
 
 export async function getStaticPaths() {
-  const result = await axios.get("http://localhost:3030/recipes/all");
+  const result = await axios.get(`${process.env.BACK_END_URL}/recipe/recipes`);
   const recipes = result.data;
+
   const paths = recipes.map((recipe: RecipeType) => ({
     params: { id: recipe._id },
   }));
+  console.log(paths);
   return {
     paths,
     fallback: false,
@@ -165,11 +167,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: { params: { id: string } }) {
   const id = context.params.id;
-  const result = await axios.get(`http://localhost:3030/recipes/${id}`);
+  const result = await axios.get(`${process.env.BACK_END_URL}/recipe/${id}`);
   const reviewResult = await axios.get(
-    `http://localhost:3030/review/recipe/${id}`
+    `${process.env.BACK_END_URL}/review/recipe/${id}`
   );
-  const resultRecipes = await axios.get(`http://localhost:3030/recipes/all`);
+  const resultRecipes = await axios.get(
+    `${process.env.BACK_END_URL}/recipe/recipes?status=approve`
+  );
   const recipe = result.data;
   const recipes = resultRecipes.data;
   const review = reviewResult.data;

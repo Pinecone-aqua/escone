@@ -34,7 +34,7 @@ export default function Login({ show }: { show?: boolean }) {
       email: emailRef.current,
       password: passwordRef.current,
     };
-    axios.post("http://localhost:3030/user/add", user).then((res) => {
+    axios.post(`${process.env.BACK_END_URL}/user/add`, user).then((res) => {
       if (res.data.status) {
         loginHandler();
       } else {
@@ -61,39 +61,41 @@ export default function Login({ show }: { show?: boolean }) {
     const user = jwt.sign(payload, secret);
     console.log(user);
 
-    axios.get(`http://localhost:3030/user/login?token=${user}`).then((res) => {
-      if (res.data.status) {
-        Cookies.set("token", res.data.token);
-        setToken(res.data.token);
-        setVisible(false);
-        toast.success(res.data.data, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error(res.data.data, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    });
+    axios
+      .get(`${process.env.BACK_END_URL}/user/login?token=${user}`)
+      .then((res) => {
+        if (res.data.status) {
+          Cookies.set("token", res.data.token);
+          setToken(res.data.token);
+          setVisible(false);
+          toast.success(res.data.data, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.error(res.data.data, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      });
   }
 
   function googleHandler() {
     axios
-      .get("http://localhost:3030/user/google")
+      .get(`${process.env.BACK_END_URL}/user/google`)
       .then((res) => Router.push(res.data));
   }
 
