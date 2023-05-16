@@ -16,120 +16,152 @@ export class RecipeService {
   ) {}
 
   async createRecipe(recipeDto: RecipeDto) {
-    const createdRecipe = await this.recipeModel.create({
-      ...recipeDto,
-    });
-    return createdRecipe;
+    try {
+      const createdRecipe = await this.recipeModel.create({
+        ...recipeDto,
+      });
+      return createdRecipe;
+    } catch (error) {
+      return error;
+    }
   }
 
   async getRecipes(Query?: FilterQuery<Recipe>) {
-    const result = await this.recipeModel
-      .find(Query)
-      .populate('categories')
-      .populate('tags')
-      .populate('created_by');
-    return result;
+    try {
+      const result = await this.recipeModel
+        .find(Query)
+        .populate('categories')
+        .populate('tags')
+        .populate('created_by');
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   async uploadImageToCloudinary(
     images: Express.Multer.File[],
   ): Promise<string[]> {
-    const arr = [];
-    await Promise.all(
-      images?.map(async (file) => {
-        const { secure_url } = await this.cloudinaryService.uploadImage(file);
-        return arr.push(secure_url);
-      }),
-    );
-    return arr;
+    try {
+      const arr = [];
+      await Promise.all(
+        images?.map(async (file) => {
+          const { secure_url } = await this.cloudinaryService.uploadImage(file);
+          return arr.push(secure_url);
+        }),
+      );
+      return arr;
+    } catch (error) {
+      return error;
+    }
   }
 
   async getRecipe(id: string) {
-    const result = await this.recipeModel
-      .findOne({ _id: id })
-      .populate('categories')
-      .populate('tags')
-      .populate('created_by');
+    try {
+      const result = await this.recipeModel
+        .findOne({ _id: id })
+        .populate('categories')
+        .populate('tags')
+        .populate('created_by');
 
-    return result;
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   async recipeStatus(id: string, status: string) {
-    const result = await this.recipeModel.updateOne(
-      { _id: id },
-      { status: status },
-    );
-    return result;
+    try {
+      const result = await this.recipeModel.updateOne(
+        { _id: id },
+        { status: status },
+      );
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async editRecipe(id: string, recipeDto: RecipeDto) {
-    const result = await this.recipeModel.updateOne({ _id: id }, recipeDto);
-    return result;
+    try {
+      const result = await this.recipeModel.updateOne({ _id: id }, recipeDto);
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 
   async deleteRecipe(id: string) {
-    const result = await this.recipeModel.deleteOne({ _id: id });
-    return result;
+    try {
+      const result = await this.recipeModel.deleteOne({ _id: id });
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 
   async getStatistics() {
-    const recipes: any = await this.getRecipes();
-    type popular = {
-      name: string;
-      count: number;
-      _id?: string;
-    };
-    const ingredientStatus: popular[] = [];
-    const tagsStatus: popular[] = [];
-    const CategoryStatus: popular[] = [];
-    const createStatus: popular[] = [];
+    try {
+      const recipes: any = await this.getRecipes();
+      type popular = {
+        name: string;
+        count: number;
+        _id?: string;
+      };
+      const ingredientStatus: popular[] = [];
+      const tagsStatus: popular[] = [];
+      const CategoryStatus: popular[] = [];
+      const createStatus: popular[] = [];
 
-    recipes.forEach((recipe) => {
-      recipe.ingredients.forEach((ingredient) => {
-        const existingIngredient = ingredientStatus.find(
-          (pi) => pi.name === ingredient.name,
-        );
+      recipes.forEach((recipe) => {
+        recipe.ingredients.forEach((ingredient) => {
+          const existingIngredient = ingredientStatus.find(
+            (pi) => pi.name === ingredient.name,
+          );
 
-        if (existingIngredient) {
-          existingIngredient.count++;
-        } else {
-          ingredientStatus.push({ name: ingredient.name, count: 1 });
-        }
-      });
-      recipe.categories.forEach((Category) => {
-        const existingCategory = CategoryStatus.find(
-          (pi) => pi.name === Category.name,
+          if (existingIngredient) {
+            existingIngredient.count++;
+          } else {
+            ingredientStatus.push({ name: ingredient.name, count: 1 });
+          }
+        });
+        recipe.categories.forEach((Category) => {
+          const existingCategory = CategoryStatus.find(
+            (pi) => pi.name === Category.name,
+          );
+          if (existingCategory) {
+            existingCategory.count++;
+          } else {
+            CategoryStatus.push({
+              name: Category.name,
+              count: 1,
+              _id: Category._id,
+            });
+          }
+        });
+        recipe.tags.forEach((tag) => {
+          const existingTags = tagsStatus.find((pi) => pi.name === tag.name);
+          if (existingTags) {
+            existingTags.count++;
+          } else {
+            tagsStatus.push({ name: tag.name, count: 1, _id: tag._id });
+          }
+        });
+
+        const existingCategory = createStatus.find(
+          (pi) => pi.name === dayjs(recipe.created_date).format('YYYY-MM-DD'),
         );
         if (existingCategory) {
           existingCategory.count++;
         } else {
-          CategoryStatus.push({
-            name: Category.name,
+          createStatus.push({
+            name: dayjs(recipe.created_date).format('YYYY-MM-DD'),
             count: 1,
-            _id: Category._id,
           });
         }
       });
-      recipe.tags.forEach((tag) => {
-        const existingTags = tagsStatus.find((pi) => pi.name === tag.name);
-        if (existingTags) {
-          existingTags.count++;
-        } else {
-          tagsStatus.push({ name: tag.name, count: 1, _id: tag._id });
-        }
-      });
-
-      const existingCategory = createStatus.find(
-        (pi) => pi.name === dayjs(recipe.created_date).format('YYYY-MM-DD'),
-      );
-      if (existingCategory) {
-        existingCategory.count++;
-      } else {
-        createStatus.push({
-          name: dayjs(recipe.created_date).format('YYYY-MM-DD'),
-          count: 1,
-        });
-      }
-    });
-    return { ingredientStatus, tagsStatus, CategoryStatus, createStatus };
+      return { ingredientStatus, tagsStatus, CategoryStatus, createStatus };
+    } catch (error) {
+      return error;
+    }
   }
 }

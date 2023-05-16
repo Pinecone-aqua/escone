@@ -11,26 +11,46 @@ export class CategoryService {
     @InjectModel(Category.name) private categoryModel: Model<Category>,
   ) {}
   async getAllCategories() {
-    const result = await this.categoryModel.find({});
-    return result;
+    try {
+      const result = await this.categoryModel.find({});
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   async getCategory(id: string) {
-    const result = await this.categoryModel.find({ _id: id });
-    return result;
+    try {
+      const result = await this.categoryModel.find({ _id: id });
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   async deleteCategory(id: string) {
-    const result = await this.categoryModel.deleteOne({ _id: id });
-    return result;
+    try {
+      const result = await this.categoryModel.deleteOne({ _id: id });
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   async createCategory(newCategory: CategoryDto) {
-    const result = await this.categoryModel.insertMany({ newCategory });
-    return result;
+    try {
+      const result = await this.categoryModel.insertMany({ newCategory });
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   async updateCategory(id: string, CategoryData: any) {
-    const result = await this.categoryModel.updateOne(
-      { _id: id },
-      CategoryData,
-    );
-    return result;
+    try {
+      const result = await this.categoryModel.updateOne(
+        { _id: id },
+        CategoryData,
+      );
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 }

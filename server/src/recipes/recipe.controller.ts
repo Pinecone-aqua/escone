@@ -63,7 +63,7 @@ export class RecipeController {
     },
   ) {
     try {
-      const [type, token] = Headers.authorization?.split(' ') ?? [];
+      const [, token] = Headers.authorization?.split(' ') ?? [];
       if (!token) {
         return 'have not token';
       }
@@ -86,7 +86,7 @@ export class RecipeController {
         return 'you have not permission';
       }
     } catch (error) {
-      return { error };
+      return error;
     }
   }
 
@@ -94,69 +94,85 @@ export class RecipeController {
   @UseGuards(CheckRoleGuard)
   @CheckRole(true)
   recipeStatus(@Param('id') id: string, @Body('status') status: string) {
-    return this.recipeService.recipeStatus(id, status);
+    try {
+      return this.recipeService.recipeStatus(id, status);
+    } catch (error) {
+      return error;
+    }
   }
 
   @Get('statistics')
   getStatistics() {
-    return this.recipeService.getStatistics();
+    try {
+      return this.recipeService.getStatistics();
+    } catch (error) {
+      return error;
+    }
   }
 
   @Get('recipes')
   async getRecipes(@Query() query: any) {
-    let optionQuery: any = { $and: [] };
+    try {
+      let optionQuery: any = { $and: [] };
 
-    if (query.status) {
-      optionQuery.$and.push({ status: query.status });
-    }
-    if (query.category) {
-      const categoryIds = Array.isArray(query.category)
-        ? query.category.map((categoryId: string) => new ObjectId(categoryId))
-        : [new ObjectId(query.category)];
+      if (query.status) {
+        optionQuery.$and.push({ status: query.status });
+      }
+      if (query.category) {
+        const categoryIds = Array.isArray(query.category)
+          ? query.category.map((categoryId: string) => new ObjectId(categoryId))
+          : [new ObjectId(query.category)];
 
-      optionQuery.$and.push({ categories: { $all: categoryIds } });
-    }
-    if (query.tag) {
-      const tagIds = Array.isArray(query.tag)
-        ? query.tag.map((tagId: string) => new ObjectId(tagId))
-        : [new ObjectId(query.tag)];
+        optionQuery.$and.push({ categories: { $all: categoryIds } });
+      }
+      if (query.tag) {
+        const tagIds = Array.isArray(query.tag)
+          ? query.tag.map((tagId: string) => new ObjectId(tagId))
+          : [new ObjectId(query.tag)];
 
-      optionQuery.$and.push({ tags: { $all: tagIds } });
-    }
-    if (query.ingredient) {
-      const ingredientNames = Array.isArray(query.ingredient)
-        ? query.ingredient.map((ingredient: string) => ingredient)
-        : [query.ingredient];
-      optionQuery.$and.push({ ingredients: { $all: ingredientNames } });
-    }
-    if (query.user) {
-      const userId = new ObjectId(query.user);
-      optionQuery.$and.push({ created_by: userId });
-    }
-    if (query.favorites) {
-      const userfavorites = await this.userService.getUser(query.favorites);
-      const favoriteIds = userfavorites.favorites.map(
-        (Id: string) => new ObjectId(Id),
-      );
-      optionQuery.$and.push({ _id: { $in: favoriteIds } });
-    }
-    if (Object.keys(query).length == 0) {
-      optionQuery = {};
-    }
+        optionQuery.$and.push({ tags: { $all: tagIds } });
+      }
+      if (query.ingredient) {
+        const ingredientNames = Array.isArray(query.ingredient)
+          ? query.ingredient.map((ingredient: string) => ingredient)
+          : [query.ingredient];
+        optionQuery.$and.push({ ingredients: { $all: ingredientNames } });
+      }
+      if (query.user) {
+        const userId = new ObjectId(query.user);
+        optionQuery.$and.push({ created_by: userId });
+      }
+      if (query.favorites) {
+        const userfavorites = await this.userService.getUser(query.favorites);
+        const favoriteIds = userfavorites.favorites.map(
+          (Id: string) => new ObjectId(Id),
+        );
+        optionQuery.$and.push({ _id: { $in: favoriteIds } });
+      }
+      if (Object.keys(query).length == 0) {
+        optionQuery = {};
+      }
 
-    const result = await this.recipeService.getRecipes(optionQuery);
-    return result;
+      const result = await this.recipeService.getRecipes(optionQuery);
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 
   @Get(':id')
   getRecipe(@Param('id') id: string) {
-    return this.recipeService.getRecipe(id);
+    try {
+      return this.recipeService.getRecipe(id);
+    } catch (error) {
+      return error;
+    }
   }
 
   @Delete(':id')
   async deleteRecipe(@Param('id') id: string, @Headers() Headers) {
     try {
-      const [type, token] = Headers.authorization?.split(' ') ?? [];
+      const [, token] = Headers.authorization?.split(' ') ?? [];
 
       if (!token) {
         return 'have not token';

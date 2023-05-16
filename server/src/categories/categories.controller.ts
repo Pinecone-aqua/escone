@@ -8,22 +8,38 @@ export class CategoryContoller {
 
   @Get('all')
   getAllCategories() {
-    const result = this.categoryService.getAllCategories();
-    return result;
+    try {
+      const result = this.categoryService.getAllCategories();
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   @Get(':id')
   getCategory(@Param('id') id: string) {
-    const result = this.categoryService.getCategory(id);
-    return result;
+    try {
+      const result = this.categoryService.getCategory(id);
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   @Post('add')
   createCategory(@Body() categoryDto: CategoryDto) {
-    const result = this.categoryService.createCategory(categoryDto);
-    return result;
+    try {
+      const result = this.categoryService.createCategory(categoryDto);
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
   @Put(':id')
   updateCategory(@Body() categoryDto: CategoryDto, @Param('id') id: string) {
-    const result = this.categoryService.updateCategory(id, categoryDto);
-    return result;
+    try {
+      const result = this.categoryService.updateCategory(id, categoryDto);
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 }

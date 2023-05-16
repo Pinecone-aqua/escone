@@ -6,6 +6,10 @@ export class TagController {
   constructor(private readonly tagService: TagService) {}
   @Get('all')
   getAllTags() {
-    return this.tagService.getAllTags();
+    try {
+      return this.tagService.getAllTags();
+    } catch (error) {
+      return error;
+    }
   }
 }

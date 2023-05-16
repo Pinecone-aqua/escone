@@ -35,25 +35,55 @@ export class UserController {
   ) {}
   @Get('status')
   getUserStatus() {
-    return this.userService.getUserStatus();
+    try {
+      return this.userService.getUserStatus();
+    } catch (error) {
+      return error;
+    }
   }
   @Get('all')
   getAllUser() {
-    return this.userService.getAllUsers();
+    try {
+      return this.userService.getAllUsers();
+    } catch (error) {
+      return error;
+    }
   }
   @Post('add')
   addUser(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    return this.userService.addUser(createUserDto);
+    try {
+      return this.userService.addUser(createUserDto);
+    } catch (error) {
+      return error;
+    }
   }
   @Delete(':id')
-  deleteUser(@Param('id') id: string) {
-    console.log(id);
-    return this.userService.deleteUser(id);
+  deleteUser(@Param('id') id: string, @Headers() Headers: any) {
+    try {
+      const [type, token] = Headers.authorization?.split(' ') ?? [];
+      if (!token) {
+        return 'have not token';
+      }
+      const decodedToken: any = this.jwtService.decode(token);
+      if (!decodedToken) {
+        return 'token extist';
+      }
+
+      if (decodedToken._id != id || decodedToken.role == false) {
+        return 'you have not permission';
+      }
+      return this.userService.deleteUser(id);
+    } catch (error) {
+      return error;
+    }
   }
   @Get('google')
   getGoogle() {
-    return this.userService.googleLogin();
+    try {
+      return this.userService.googleLogin();
+    } catch (error) {
+      return error;
+    }
   }
   @Put('update/:id')
   @UseInterceptors(FileInterceptor('image'))
@@ -63,88 +93,104 @@ export class UserController {
     @Headers() Headers: any,
     @UploadedFile() Image?: Express.Multer.File,
   ) {
-    const [type, token] = Headers.authorization?.split(' ') ?? [];
-    if (!token) {
-      return 'have not token';
-    }
-    const decodedToken: any = this.jwtService.decode(token);
-    if (!decodedToken) {
-      return 'token extist';
-    }
-
-    if (decodedToken._id != id || decodedToken.role == false) {
-      return 'you have not permission';
-    }
-    const user = await this.userService.getUser(id);
-    let userBody: any = {};
-    if (body.favorites) {
-      userBody.favorites = [];
-      const favIds = body.favorites.map((id) => new ObjectId(id));
-      userBody.favorites.push(...favIds);
-    }
-
-    if (body.body) {
-      userBody = JSON.parse(body.body);
-      if (userBody.oldpassword) {
-        if (user.password) {
-          const passwordCheck = await bcrypt.compare(
-            userBody.oldpassword,
-            user.password,
-          );
-
-          if (!passwordCheck) return 'password is wrong';
-        } else if (userBody.password) {
-          userBody.password = await bcrypt.hash(userBody.password, 7);
-        }
-        delete userBody.oldpassword;
+    try {
+      const [type, token] = Headers.authorization?.split(' ') ?? [];
+      if (!token) {
+        return 'have not token';
       }
-    }
-    if (Image) {
-      const { secure_url } = await this.cloudinaryService.uploadImage(Image);
-      userBody.image = secure_url;
-    }
-    const result = await this.userService.updateUser(id, userBody);
+      const decodedToken: any = this.jwtService.decode(token);
+      if (!decodedToken) {
+        return 'token extist';
+      }
 
-    if (result) {
+      if (decodedToken._id != id || decodedToken.role == false) {
+        return 'you have not permission';
+      }
       const user = await this.userService.getUser(id);
-      console.log(user, 'user');
-      const token = this.jwtService.sign(user.toJSON());
-      console.log(token, 'token');
+      let userBody: any = {};
+      if (body.favorites) {
+        userBody.favorites = [];
+        const favIds = body.favorites.map((id) => new ObjectId(id));
+        userBody.favorites.push(...favIds);
+      }
 
-      return { token };
+      if (body.body) {
+        userBody = JSON.parse(body.body);
+        if (userBody.oldpassword) {
+          if (user.password) {
+            const passwordCheck = await bcrypt.compare(
+              userBody.oldpassword,
+              user.password,
+            );
+
+            if (!passwordCheck) return 'password is wrong';
+          } else if (userBody.password) {
+            userBody.password = await bcrypt.hash(userBody.password, 7);
+          }
+          delete userBody.oldpassword;
+        }
+      }
+      if (Image) {
+        const { secure_url } = await this.cloudinaryService.uploadImage(Image);
+        userBody.image = secure_url;
+      }
+      const result = await this.userService.updateUser(id, userBody);
+
+      if (result) {
+        const user = await this.userService.getUser(id);
+        console.log(user, 'user');
+        const token = this.jwtService.sign(user.toJSON());
+        console.log(token, 'token');
+
+        return { token };
+      }
+    } catch (error) {
+      return error;
     }
   }
   @Get('google-callback')
   async getGoogleCallback(@Query('code') code: string, @Res() res: Response) {
-    const user = await this.userService.verifyGoogle(code);
+    try {
+      const user = await this.userService.verifyGoogle(code);
 
-    if (user.error) {
-      return 'error';
-    }
+      if (user.error) {
+        return 'error';
+      }
 
-    const result = await this.userService.getUserInfo(user);
+      const result = await this.userService.getUserInfo(user);
 
-    if (result && result[0].email == user.email) {
-      const token = this.jwtService.sign(result[0].toJSON());
-      res
-        .status(200)
-        .cookie('token', token)
-        .redirect(`http://localhost:${process.env.CLIENT_PORT}`);
+      if (result && result[0].email == user.email) {
+        const token = this.jwtService.sign(result[0].toJSON());
+        res
+          .status(200)
+          .cookie('token', token)
+          .redirect(`${process.env.CLIENT_URL}`);
+      }
+    } catch (error) {
+      return error;
     }
   }
   @Get('login')
   async getLogin(@Query('token') token: string, @Res() res: Response) {
-    const user = this.jwtService.decode(token);
-    const result = await this.userService.getLogin(user);
-    if (result.status) {
-      res.status(200).send(result);
-    } else {
-      res.status(203).send(result);
+    try {
+      const user = this.jwtService.decode(token);
+      const result = await this.userService.getLogin(user);
+      if (result.status) {
+        res.status(200).send(result);
+      } else {
+        res.status(203).send(result);
+      }
+    } catch (error) {
+      return error;
     }
   }
 
   @Get(':id')
   getUser(@Param('id') id: string) {
-    return this.userService.getUser(id);
+    try {
+      return this.userService.getUser(id);
+    } catch (error) {
+      return error;
+    }
   }
 }
