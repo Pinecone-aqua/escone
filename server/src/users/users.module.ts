@@ -5,6 +5,7 @@ import { User, UserSchema } from 'src/users/user.schema';
 import { UserController } from './users.controller';
 import { UserService } from './users.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       },
       inject: [ConfigService],
     }),
+    CloudinaryModule,
   ],
   controllers: [UserController],
   providers: [UserService],

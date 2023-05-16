@@ -22,7 +22,7 @@ export default function ProfileLayout({
       label: "Favorites",
       url: `/profile/favorites?user=${user?._id}`,
     },
-    { icon: "", label: "Reviews", url: "profile/reviews" },
+    { icon: "", label: "Settings", url: `/profile/settings?user=${user?._id}` },
   ];
   return user ? (
     <>

@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   Headers,
   Param,
   Patch,
@@ -17,7 +18,6 @@ import { RecipeService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dto/user.create.dto';
 import { CheckRoleGuard } from 'src/role/role.guard';
 import { CheckRole } from 'src/role/role.decorator';
 import { ObjectId } from 'mongodb';
