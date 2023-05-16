@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import axios from "axios";
 import { RecipeType, ReviewType } from "@/utils/types";
+import { ScrollPanel } from "primereact/scrollpanel";
 import { toast } from "react-toastify";
 import { useUser } from "@/context/userContext";
 
@@ -87,15 +88,17 @@ function Recipe({
 
           <div className="body-item">
             <h3>Ingredients</h3>
-            <div className="ingredients">
-              {recipe.ingredients.map((ing, index) => (
-                <p className="ingredient" key={index}>
-                  {ing.quantity}
-                  <span>{ing.measure}</span>
-                  {ing.name}
-                </p>
-              ))}
-            </div>
+            <ScrollPanel style={{ width: "300px", height: "280px" }}>
+              <div className="ingredients">
+                {recipe.ingredients.map((ing, index) => (
+                  <p className="ingredient" key={index}>
+                    {ing.quantity}
+                    <span>{ing.measure}</span>
+                    {ing.name}
+                  </p>
+                ))}
+              </div>
+            </ScrollPanel>
           </div>
         </div>
       </div>

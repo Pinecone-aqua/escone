@@ -34,15 +34,16 @@
         &:first-child {
           .head {
             display: flex;
-            align-items: center;
             justify-content: space-between;
             h1 {
+              width: 500px;
               font-size: 36px;
               font-weight: 700;
               text-transform: capitalize;
               color: $brand-primary;
             }
             p {
+              margin-top: 15px;
               color: $brand-shade;
               font-weight: 300;
               font-style: italic;
@@ -241,4 +242,20 @@
       }
     }
   }
+}
+
+@media screen and (min-width: 576px) {
+  .recipe {
+    &-body {
+      
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
+}
+@media screen and (min-width: 1440px) {
 }
