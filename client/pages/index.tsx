@@ -3,6 +3,7 @@ import axios from "axios";
 import { RecipeType } from "@/utils/types";
 import HeroSection from "@/components/home/Hero";
 import PopularSection from "@/components/home/Popular";
+import SpecialRecipe from "@/components/home/Special";
 
 export default function Home({ recipes }: { recipes: RecipeType[] }) {
   console.log(process.env.BACK_END_URL);
@@ -14,7 +15,7 @@ export default function Home({ recipes }: { recipes: RecipeType[] }) {
 
       <HeroSection />
       <PopularSection recipes={recipes} />
-      {/* <Special /> */}
+      <SpecialRecipe recipes={recipes}/>
     </>
   );
 }

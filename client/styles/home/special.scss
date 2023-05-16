@@ -1,0 +1,73 @@
+.special {
+  background-color: $brand-lightgray;
+  padding: 100px 0;
+  ul {
+    display: none;
+  }
+  h2 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
+    color: $brand-secondary;
+  }
+  &-recipe {
+    h3 {
+      text-align: center;
+      text-transform: capitalize;
+      font-size: 36px;
+      font-weight: 600;
+      margin: 30px 0;
+      color: $brand-primary;
+    }
+    &-body {
+      margin: 50px 0;
+      display: flex;
+      justify-content: center;
+      picture {
+        width: 640px;
+        height: 600px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .ingredients {
+        width: 600px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 50px;
+        background-color: $brand-white;
+        h5 {
+          color: $brand-primary;
+          font-size: 20px;
+          font-weight: 500;
+          margin-bottom: 30px;
+        }
+        &-body {
+          color: $brand-gray;
+          width: 500px;
+          height: 230px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          p {
+            font-size: 16px;
+            line-height: 30px;
+          }
+        }
+        .ingredient {
+          display: flex;
+          gap: 5px;
+        }
+        .description {
+          text-align: justify;
+          width: 450px;
+          color: $brand-gray;
+        }
+      }
+    }
+  }
+}
