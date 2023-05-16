@@ -182,25 +182,24 @@ export default function AddRecipe({
   }
   function removeImage(index: number) {
     images.splice(index, 1);
-
     setImages([...images]);
   }
   function removeRecipeImage(index: number) {
     newRecipe.images.splice(index, 1);
     setNewRecipe({ ...newRecipe });
-    // setRecipeImages([...recipeImages]);
   }
 
   return (
-    <div className="container mb-20 relative">
+    <div className="add container">
       {!user && <Login show={true} />}
-      <form className="px-10 py-5 flex flex-col gap-5">
-        <div className=" flex w-full justify-between">
-          <p className="flex gap-2">
-            created by
-            <span className="text-xl font-semibold">{user?.username}</span>
-          </p>
-        </div>
+      <div className="add-head">
+        <h2>Add recipe</h2>
+        <p>
+          post by
+          <span>{user?.username}</span>
+        </p>
+      </div>
+      <form>
         <label className="flex flex-col gap-3">
           <p className="text-xl font-semi">Title</p>
           <input
