@@ -3,7 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { categoryModel } from './categories/categories.module';
-import { ingredientModel } from './ingredients/ingredients.module';
 import { recipeModule } from './recipes/recipes.module';
 import { reviewModule } from './reviews/reviews.module';
 import { tagsModule } from './tags/tags.module';
@@ -17,7 +16,6 @@ import { userModule } from './users/users.module';
     userModule,
     tagsModule,
     recipeModule,
-    ingredientModel,
     categoryModel,
     reviewModule,
   ],

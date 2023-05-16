@@ -6,7 +6,11 @@ import { Tag } from './tags.schema';
 export class TagService {
   constructor(@InjectModel(Tag.name) private tagModel: Model<Tag>) {}
   async getAllTags() {
-    const result = await this.tagModel.find({});
-    return result;
+    try {
+      const result = await this.tagModel.find({});
+      return result;
+    } catch (error) {
+      return error;
+    }
   }
 }

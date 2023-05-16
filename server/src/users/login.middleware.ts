@@ -7,16 +7,16 @@ dotenv.config();
 @Injectable()
 export class LoginMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    const { code } = req.query;
-    console.log(code, 'code ');
-    const { access_token } = await getAccessTokenFromCode(code);
-    console.log(access_token);
-    next();
+    try {
+      const { code } = req.query;
+      const { access_token } = await getAccessTokenFromCode(code);
+      next();
+    } catch (error) {
+      return error;
+    }
   }
 }
-
 async function getAccessTokenFromCode(code: any) {
-  console.log('code', code);
   try {
     const { data } = await axios({
       url: `https://oauth2.googleapis.com/token`,
@@ -25,7 +25,7 @@ async function getAccessTokenFromCode(code: any) {
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
         grant_type: 'authorization_code',
-        redirect_uri: `http://localhost:${process.env.PORT}/user/google-callback`,
+        redirect_uri: `${process.env.BACK_END_URL}/user/google-callback`,
         code: code,
       },
     });
