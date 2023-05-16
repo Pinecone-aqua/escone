@@ -63,7 +63,6 @@ export class UserController {
     @Headers() Headers: any,
     @UploadedFile() Image?: Express.Multer.File,
   ) {
-    console.log(Image);
     const [type, token] = Headers.authorization?.split(' ') ?? [];
     if (!token) {
       return 'have not token';
@@ -105,17 +104,13 @@ export class UserController {
       userBody.image = secure_url;
     }
 
-    console.log(userBody);
     const result = await this.userService.updateUser(id, userBody);
-    console.log(result);
 
     if (result) {
       const token = this.jwtService.sign(userBody);
-      console.log(token, 'token');
+
       return { token };
     }
-    console.log('hh');
-    return 'll';
   }
   @Get('google-callback')
   async getGoogleCallback(@Query('code') code: string, @Res() res: Response) {

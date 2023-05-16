@@ -1,12 +1,14 @@
 import { useUser } from "@/context/userContext";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FiEdit, FiEdit3 } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 function Settings() {
   const { user } = useUser();
+  const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [updatedUser, setUpdatedUser] = useState<any>();
   const [newProfileImage, setNewProfileImage] = useState<File>();
@@ -88,46 +90,52 @@ function Settings() {
         }
       )
       .then((res) => {
-        console.log("hh");
-        console.log(res);
+        if (res.data.token) {
+          Cookies.remove("token");
+          Cookies.set("token", res.data.token);
+          router.reload();
+        }
       });
   }
 
   return (
     <div className="recipes lg:w-9/12  flex h-full flex-col items-end gap-3">
       <div className="flex gap-20 w-full items-center">
-        <div className="w-52 rounded-full relative flex flex-col gap-8">
+        <div className="w-52  rounded-full flex-col flex gap-8">
           <p className="text-xl font-semibold text-primary ">Change picture</p>
-          {newProfileImage ? (
-            <picture>
-              <img
-                src={URL.createObjectURL(newProfileImage)}
-                alt="profile"
-                className="w-full rounded-full"
+          <div className="w-52 h-52 relative ">
+            {newProfileImage ? (
+              <picture className="block w-full h-full">
+                <img
+                  src={URL.createObjectURL(newProfileImage)}
+                  alt="profile"
+                  className="w-full rounded-full h-full"
+                />
+              </picture>
+            ) : (
+              <picture className="block w-full h-full">
+                <img
+                  src={updatedUser?.image}
+                  alt="profile"
+                  className="w-full rounded-full h-full"
+                />
+              </picture>
+            )}
+
+            <label className=" absolute bottom-0 right-0">
+              <p className="text-3xl p-4 bg-gray-500 bg-opacity-50 hover:bg-opacity-80 rounded-full">
+                <FiEdit />
+              </p>
+              <input
+                type="file"
+                name="image"
+                id=""
+                onChange={uploadImageHandler}
+                value={""}
+                className="hidden"
               />
-            </picture>
-          ) : (
-            <picture>
-              <img
-                src={updatedUser?.image}
-                alt="profile"
-                className="w-full rounded-full"
-              />
-            </picture>
-          )}
-          <label className=" absolute bottom-0 right-0">
-            <p className="text-3xl p-4 bg-gray-500 bg-opacity-50 hover:bg-opacity-80 rounded-full">
-              <FiEdit />
-            </p>
-            <input
-              type="file"
-              name="image"
-              id=""
-              onChange={uploadImageHandler}
-              value={""}
-              className="hidden"
-            />
-          </label>
+            </label>
+          </div>
         </div>
         <div className=" flex  gap-4">
           <div className="flex flex-col  gap-4">
