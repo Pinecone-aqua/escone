@@ -1,4 +1,5 @@
 import RecipeCard from "@/components/common/RecipeCard";
+import { useUser } from "@/context/userContext";
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
 
@@ -7,9 +8,13 @@ export default function Profile({
 }: {
   recipes: RecipeType[];
 }): JSX.Element {
+  const { user } = useUser();
+  console.log(recipes);
+  console.log(user);
+
   return (
     <div className="recipes lg:w-9/12 flex h-full flex-wrap gap-3">
-      {recipes.length == 0 ? (
+      {recipes.length != 0 ? (
         recipes.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} />
         ))

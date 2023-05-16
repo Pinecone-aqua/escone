@@ -8,6 +8,8 @@ import { BsThreeDots } from "react-icons/bs";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { Toast } from "primereact/toast";
 import { ConfirmPopup } from "primereact/confirmpopup";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 type PropType = {
   recipe: RecipeType;
@@ -15,12 +17,30 @@ type PropType = {
 };
 export default function RecipeCard({ recipe }: PropType): JSX.Element {
   const { user } = useUser();
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const saveHandler = () => {
+    const token = Cookies.get("token");
     if (user && user.favorites) {
-      axios.put(`${process.env.BACK_END_URL}/user/update/${user._id}`, {
-        favorites: [...user.favorites, recipe._id],
-      });
+      axios
+        .put(
+          `${process.env.BACK_END_URL}/user/update/${user._id}`,
+          {
+            favorites: [...user.favorites, recipe._id],
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.token) {
+            Cookies.remove("token");
+            Cookies.set("token", res.data.token);
+            router.reload();
+          }
+        });
     }
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,7 +85,6 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
     );
     console.log(recipe._id);
   }
-  console.log(user?.favorites?.some((fav) => fav == recipe._id));
   return (
     <div className="recipeCard relative group">
       <picture>

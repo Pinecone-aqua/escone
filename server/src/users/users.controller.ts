@@ -103,11 +103,13 @@ export class UserController {
       const { secure_url } = await this.cloudinaryService.uploadImage(Image);
       userBody.image = secure_url;
     }
-
     const result = await this.userService.updateUser(id, userBody);
 
     if (result) {
-      const token = this.jwtService.sign(userBody);
+      const user = await this.userService.getUser(id);
+      console.log(user, 'user');
+      const token = this.jwtService.sign(user.toJSON());
+      console.log(token, 'token');
 
       return { token };
     }
