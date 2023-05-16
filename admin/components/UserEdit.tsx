@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Sidebar } from "primereact/sidebar";
-import { ConfirmPopup } from "primereact/confirmpopup";
+
 
 type PropsType = {
   isOffCanvasOpen: boolean;
   setIsOffCanvasOpen: Dispatch<SetStateAction<boolean>>;
-  id: string;
+  // id: string;
   email: string;
 };
 
