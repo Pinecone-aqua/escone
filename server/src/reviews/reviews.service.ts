@@ -7,9 +7,12 @@ import { Review } from './review.schema';
 export class ReviewService {
   constructor(@InjectModel(Review.name) private ReviewModel: Model<Review>) {}
 
-  async getAllReview() {
+  async getAllReview(page, orderBy) {
     try {
-      const result = await this.ReviewModel.find({});
+      const result = await this.ReviewModel.find({})
+        .sort(orderBy)
+        .skip((page - 1) * 11)
+        .limit(11);
       return result;
     } catch (error) {
       return error;

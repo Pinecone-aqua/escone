@@ -7,6 +7,7 @@ import {
   Headers,
   Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -26,9 +27,21 @@ export class ReviewController {
   @Get('all')
   @UseGuards(CheckRoleGuard)
   @CheckRole(true)
-  getAllReview() {
+  getAllReview(@Query() query) {
     try {
-      const result = this.reviewService.getAllReview();
+      let page = 1;
+      let orderBy;
+      if (query.page) {
+        page = query.page;
+      }
+      if (query.order_by) {
+        if (query.type) {
+          orderBy = { [query.order_by]: Number(query.type) };
+        }
+      }
+      console.log(query);
+      console.log(orderBy);
+      const result = this.reviewService.getAllReview(page, orderBy);
       return result;
     } catch (error) {
       return error;
