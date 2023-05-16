@@ -1,0 +1,244 @@
+.recipe {
+  .review-stars {
+    margin: 10px 0;
+    color: $brand-yellow;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+  }
+  &-body {
+    display: flex;
+    width: 100%;
+    height: 820px;
+    picture {
+      width: 35%;
+      height: 100%;
+      display: block;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &-content {
+      width: 65%;
+      padding: 50px 75px;
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      .body-item {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &:first-child {
+          .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h1 {
+              font-size: 36px;
+              font-weight: 700;
+              text-transform: capitalize;
+              color: $brand-primary;
+            }
+            p {
+              color: $brand-shade;
+              font-weight: 300;
+              font-style: italic;
+            }
+          }
+          .review-stars {
+            p {
+              color: $brand-shade;
+              margin-left: 20px;
+              font-size: 16px;
+            }
+          }
+          .tags {
+            margin-top: 10px;
+            display: flex;
+            gap: 5px;
+            .tag {
+              font-size: 12px;
+              color: $brand-gray;
+              border-radius: 25px;
+              border: 1px solid $brand-shade;
+              padding: 3px 8px;
+            }
+          }
+        }
+        &:nth-child(2) {
+          font-weight: 400;
+          text-align: justify;
+          width: 90%;
+          color: $brand-primary;
+        }
+        &:nth-child(3) {
+          h3 {
+            color: $brand-primary;
+            font-size: 20px;
+            font-weight: 600;
+          }
+          .ingredients {
+            color: $brand-gray;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            .ingredient {
+              font-weight: 300;
+              display: flex;
+              gap: 5px;
+              span {
+                margin-right: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-methods {
+    width: 100%;
+    padding: 100px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $brand-lightgray;
+    &-body {
+      max-width: 700px;
+      width: 100%;
+      h2 {
+        text-align: left;
+        color: $brand-primary;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        .step {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          h4 {
+            font-weight: 500;
+            color: $brand-secondary;
+            text-transform: uppercase;
+          }
+          p {
+            text-align: justify;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+
+  &-reviews {
+    width: 100%;
+    h2 {
+      color: $brand-primary;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    &-review {
+      margin: 20px 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &-review-write {
+    margin: 70px 0;
+    h2 {
+      color: $brand-primary;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .input {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      textarea {
+        margin: 20px 0;
+        padding: 25px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        height: 200px;
+        background-color: $brand-lightgray;
+      }
+      button {
+        align-self: flex-end;
+        transition: all 0.5s;
+        color: $brand-secondary;
+        background-color: $brand-secondary-light;
+        padding: 7px 20px;
+        border-radius: 20px;
+        &:hover {
+          border: 0.1px solid $brand-secondary;
+          box-shadow: $brand-shadow;
+        }
+      }
+    }
+  }
+}
+
+// REVIEW
+.review {
+  padding: 25px;
+  width: 100%;
+  border-radius: 25px;
+  box-shadow: $brand-shadow;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  .sub {
+    &:first-child {
+      .createdby {
+        margin-bottom: 20px;
+        width: 250px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        picture {
+          width: 40px;
+          img {
+            border-radius: 50%;
+            width: 100%;
+          }
+        }
+        h5 {
+          color: $brand-secondary;
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+    &:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      justify-content: space-between;
+      button {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 24px;
+        width: 24px;
+        color: $brand-red;
+        border: 1px solid $brand-red;
+        border-radius: 50%;
+      }
+    }
+  }
+}

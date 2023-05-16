@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Res,
 } from '@nestjs/common';
@@ -13,15 +14,20 @@ import { Response } from 'express';
 import { CreateUserDto } from './dto/user.create.dto';
 import { UserService } from './users.service';
 import * as dotenv from 'dotenv';
+import { ObjectId } from 'mongodb';
 
 dotenv.config();
 
-@Controller('/user')
+@Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
+  @Get('status')
+  getUserStatus() {
+    return this.userService.getUserStatus();
+  }
   @Get('all')
   getAllUser() {
     return this.userService.getAllUsers();
@@ -40,7 +46,16 @@ export class UserController {
   getGoogle() {
     return this.userService.googleLogin();
   }
-
+  @Put('update/:id')
+  updateUser(@Param('id') id: string, @Body() body: any) {
+    const userBody: any = {};
+    if (body.favorites) {
+      userBody.favorites = [];
+      const favIds = body.favorites.map((id) => new ObjectId(id));
+      userBody.favorites.push(...favIds);
+    }
+    return this.userService.updateUser(id, userBody);
+  }
   @Get('google-callback')
   async getGoogleCallback(@Query('code') code: string, @Res() res: Response) {
     const user = await this.userService.verifyGoogle(code);

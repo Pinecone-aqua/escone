@@ -1,8 +1,19 @@
 import { RecipeType } from "@/utils/types";
 import dayjs from "dayjs";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { Dispatch, SetStateAction } from "react";
+type PropType = {
+  recipes: RecipeType[];
+  setShow: Dispatch<SetStateAction<boolean>>;
+};
 
-function Table({ recipes }: { recipes: RecipeType[] }) {
+function Table({ recipes, setShow }: PropType) {
+  const router = useRouter();
+
+  function showHandler(id: string) {
+    setShow(true);
+    router.push({ query: { id: id } });
+  }
   return (
     <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
       <thead className="bg-gray-50">
@@ -107,12 +118,8 @@ function Table({ recipes }: { recipes: RecipeType[] }) {
             </td>
             <td className="px-6 py-4">
               <div className="flex justify-end gap-4">
-                <a x-data="{ tooltip: 'Delete' }" href="#">
-                  delete
-                </a>
-                <a x-data="{ tooltip: 'Edit' }" href="#">
-                  edit
-                </a>
+                <button>delete</button>
+                <button onClick={() => showHandler(recipe._id)}>edit</button>
               </div>
             </td>
           </tr>

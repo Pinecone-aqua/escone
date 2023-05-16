@@ -1,15 +1,28 @@
 import { UserType } from "@/utils/types";
 import { FiUser } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
-import {TiUserDelete} from "react-icons/ti"
-import {FaUserEdit} from "react-icons/fa"
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import OffCanvas from "./UserDeleteOffCanvas";
 import React from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
-import UserDeleteOffCanvas from "./UserDeleteOffCanvas";
+import { emit } from "process";
+// import { ConfirmPopup } from "primereact/confirmpopup";
+// import { confirmPopup } from "primereact/confirmpopup";
 
 function UserTable({ users }: { users: UserType[] }) {
+  const [isOffCanvasOpen, setIsOffCanvasOpen] = useState(false);
+
+  const handleOffCanvasOpen = () => {
+    setIsOffCanvasOpen(true);
+  };
+
+  const handleOffCanvasClose = () => {
+    setIsOffCanvasOpen(false);
+  };
+
   return (
-    <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
+    <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 gap-10">
       <thead className="bg-gray-50">
         <tr>
           <th>
@@ -18,10 +31,10 @@ function UserTable({ users }: { users: UserType[] }) {
           <th>Username</th>
           <th>Created Date</th>
           <th>Role</th>
-          <th>E-Mail</th>
+          <th className="text-center">E-Mail</th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+      <tbody className="divide-y divide-gray-100 border-t border-gray-100 ">
         {users.map((user, index) => (
           <tr className="hover:bg-gray-50" key={index}>
             <td>
@@ -29,14 +42,37 @@ function UserTable({ users }: { users: UserType[] }) {
             </td>
             <td>{user.username}</td>
             <td>{dayjs(user.created_date).format("YYYY MMM/DD")}</td>
-            <td>{user.role ? <>Admin</> : <>Client</>}</td>
-            <td>{user.email}</td>
-            <td>
-              <button><FaUserEdit/></button>
-              
+            <td
+              className={
+                user.role
+                  ? "bg-green-200 text-center"
+                  : "bg-cyan-50 text-center"
+              }
+            >
+              {user.role ? <>Admin</> : <>Client</>}
             </td>
-            {/* <td><button><TiUserDelete/></button></td> */}
-            <td><UserDeleteOffCanvas/></td>
+            <td>{user.email}</td>
+            <td className="gap-10">
+              <>
+                <>
+                  <button className="hover:bg-blue-100  font-bold py-2 px-4 rounded">
+                    <AiFillEdit />
+                  </button>
+                  <button
+                    className=" hover:bg-red-100  font-bold py-2 px-4 rounded"
+                    onClick={handleOffCanvasOpen}
+                  >
+                    <AiFillDelete />
+                  </button>
+                  <OffCanvas
+                    isOffCanvasOpen={isOffCanvasOpen}
+                    setIsOffCanvasOpen={handleOffCanvasClose}
+                    id={user._id}
+                    email={user.email}
+                  />
+                </>
+              </>
+            </td>
           </tr>
         ))}
       </tbody>

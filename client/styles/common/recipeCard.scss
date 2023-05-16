@@ -1,0 +1,173 @@
+.recipeCard {
+  width: 335px;
+  height: 130px;
+  display: flex;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: $brand-shadow;
+
+  picture {
+    width: 150px;
+    height: 100%;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px 0 0 10px;
+    }
+  }
+
+  .text {
+    width: 185px;
+    height: 100%;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h4 {
+      color: $brand-primary;
+      font-size: 18px;
+    }
+    p {
+      display: none;
+    }
+    button.favorite {
+      font-weight: 200;
+      font-size: 18px;
+      color: $brand-shade;
+    }
+    button.more {
+      width: 100%;
+      display: flex;
+      align-self: flex-end;
+      font-size: 12px;
+      color: $brand-secondary;
+      font-style: italic;
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .recipeCard {
+    width: 250px;
+    height: 150px;
+
+    picture {
+      width: 115px;
+    }
+
+    .text {
+      width: 135px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .recipeCard {
+    width: 335px;
+
+    picture {
+      width: 150px;
+    }
+
+    .text {
+      width: 185px;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .recipeCard {
+    width: 210px;
+    height: 295px;
+    flex-direction: column;
+    justify-content: space-between;
+
+    picture {
+      width: 100%;
+      height: 190px;
+      img {
+        border-radius: 10px 10px 0 0;
+      }
+    }
+
+    .text {
+      display: flex;
+      width: 100%;
+      height: 100px;
+      .title {
+        display: flex;
+        justify-content: space-between;
+        h4 {
+          font-size: 18px;
+        }
+        button {
+          font-size: 22px;
+          order: 2;
+        }
+      }
+      button.more {
+        display: flex;
+        justify-content: end;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .recipeCard {
+    width: 260px;
+    height: 380px;
+
+    picture {
+      width: 100%;
+      height: 275px;
+    }
+
+    .text {
+      width: 100%;
+      height: 125px;
+      .title {
+        h4 {
+          font-size: 18px;
+        }
+        button {
+          font-size: 22px;
+        }
+      }
+      p {
+        display: block;
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .recipeCard {
+    width: 280px;
+    height: 430px;
+
+    picture {
+      width: 100%;
+      height: 290px;
+    }
+
+    .text {
+      width: 100%;
+      height: 145px;
+      .title {
+        h4 {
+          font-size: 20px;
+          font-weight: 500;
+        }
+        button {
+          font-size: 24px;
+        }
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}

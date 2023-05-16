@@ -1,0 +1,203 @@
+.header {
+  * {
+    transition: all 0.5s;
+  }
+  top: 0;
+  height: 75px;
+  z-index: 1000;
+  display: flex;
+  position: sticky;
+  background-color: $brand-primary;
+  border-bottom: 1px solid $brand-gray;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    .logo svg {
+      width: 80px;
+    }
+    nav {
+      display: none;
+    }
+    .menu {
+      display: flex;
+      gap: 20px;
+      button {
+        display: flex;
+        align-items: center;
+        color: $brand-shade;
+        height: 24px;
+        &:hover {
+          color: $brand-lightgray;
+        }
+      }
+    }
+  }
+}
+
+// RESPONSIVE
+@media screen and (min-width: 576px) {
+  .header {
+    height: 80px;
+    .container {
+      .logo svg {
+        width: 85px;
+      }
+      .menu {
+        gap: 25px;
+        button {
+          height: 26px;
+          &.menu {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    height: 85px;
+    .container {
+      padding: 0 25px;
+      .logo svg {
+        width: 90px;
+      }
+      .menu {
+        gap: 30px;
+        button {
+          height: 30px;
+          &.sign {
+            font-size: 12px;
+            padding: 8px 16px;
+          }
+          &.menu {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// TABLET-MAX
+@media screen and (min-width: 992px) {
+  .header {
+    height: 90px;
+    .container {
+      .logo svg {
+        width: 100px;
+      }
+      nav {
+        display: block;
+        width: 400px;
+        ul {
+          font-size: 16px;
+          color: $brand-shade;
+          display: flex;
+          justify-content: space-between;
+          li,
+          li:after,
+          li:before {
+            transition: all 0.5s;
+          }
+          li {
+            position: relative;
+            padding: 0 5px;
+            margin: 0 5px;
+            &:hover {
+              color: $brand-lightgray;
+              &:after {
+                width: 100%;
+              }
+            }
+            &:after {
+              position: absolute;
+              bottom: -5px;
+              left: 0;
+              right: 0;
+              margin: auto;
+              width: 0%;
+              content: ".";
+              color: transparent;
+              background: $brand-lightgray;
+              height: 1.2px;
+            }
+          }
+        }
+      }
+      .menu {
+        button {
+          height: 34px;
+          &.sign {
+            font-size: 14px;
+          }
+          &.menu {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .header {
+    height: 95px;
+    .container {
+      padding: 0 30px;
+      .logo svg {
+        width: 110px;
+      }
+      nav {
+        width: 500px;
+        ul {
+          font-size: 18px;
+          li {
+            padding: 0 8px;
+            margin: 0 8px;
+          }
+        }
+      }
+
+      .menu {
+        button {
+          height: 38px;
+          &.sign {
+            font-size: 16px;
+            padding: 10px 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .header {
+    height: 100px;
+    .container {
+      padding: 0 35px;
+      .logo svg {
+        width: 115px;
+      }
+      nav {
+        width: 600px;
+        ul {
+          font-size: 18px;
+          li {
+            padding: 0 10px;
+            margin: 0 10px;
+          }
+        }
+      }
+      .menu {
+        button {
+          height: 42px;
+        }
+      }
+    }
+  }
+}

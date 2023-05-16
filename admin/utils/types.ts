@@ -14,9 +14,13 @@ export interface UserType {
   favorites?: string[];
   created_date: Date;
 }
-
+export enum ProcessStatus {
+  Pending = "pending",
+  Approve = "approve",
+  Deny = "deny",
+}
 export interface RecipeType {
-  status: ReactNode;
+  status: ProcessStatus;
   _id: string;
   created_by: UserType;
   images: string[];
@@ -25,7 +29,7 @@ export interface RecipeType {
   ingredients: IngredientType[];
   categories: CategoryType[];
   tags: TagType[];
-  method: { ["number"]: string }[];
+  instructions: { [x: number]: string }[];
   servings: number;
   cook_time: number;
   created_date: Date;
@@ -37,11 +41,9 @@ export interface CategoryType {
   picture: string;
 }
 export interface IngredientType {
-  _id: string;
   name: string;
-  quintity: number;
+  quantity: number;
   measure: string;
-  picture: string;
 }
 
 export interface ReviewType {

@@ -1,28 +1,53 @@
-import React from "react";
-import { Offcanvas } from "react-offcanvas";
+import React, { Dispatch, SetStateAction } from "react";
+import { Sidebar } from "primereact/sidebar";
+import { ConfirmPopup } from "primereact/confirmpopup";
 
-const OffCanvas = ({ isOpen, onClose }) => (
-  <Offcanvas
-    width={300}
-    transitionDuration={300}
-    effect={"overlay"}
-    isMenuOpened={isOpen}
-    onClose={onClose}
-  >
-    <div className="flex flex-col h-full bg-white p-4">
-      <h1 className="text-lg font-medium mb-4">Off-canvas menu</h1>
-      <p className="text-sm text-gray-500 mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante nulla,
-        venenatis quis mauris non, iaculis efficitur nisi.
-      </p>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={onClose}
-      >
-        Close
-      </button>
-    </div>
-  </Offcanvas>
-);
+type PropsType = {
+  isOffCanvasOpen: boolean;
+  setIsOffCanvasOpen: Dispatch<SetStateAction<boolean>>;
+  id: string;
+  email: string;
+};
+
+function OffCanvas({
+  isOffCanvasOpen,
+  setIsOffCanvasOpen,
+  id,
+  email,
+}: PropsType) {
+  function hideHandler() {
+    setIsOffCanvasOpen(false);
+  }
+  return (
+    <Sidebar
+      visible={isOffCanvasOpen}
+      position="right"
+      onHide={hideHandler}
+      className="p-sidebar-lg"
+    >
+      {" "}
+      <div className="flex flex-col h-full bg-white p-4">
+        <h1 className="text-lg font-medium mb-4">Off-canvas menu</h1>
+        <p className="text-sm text-gray-500 mb-4">
+          Are you sure you wanna delete {email} ?
+        </p>
+        <div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={hideHandler}
+          >
+            Close
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={hideHandler}
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </Sidebar>
+  );
+}
 
 export default OffCanvas;

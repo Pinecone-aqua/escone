@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/common/Layout";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "@/styles/globals.scss";
@@ -7,17 +7,27 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 import type { AppProps } from "next/app";
-import RecipeProvider from "@/context/recipeContext";
 import UserProvider from "@/context/userContext";
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <RecipeProvider>
+import ProfileLayout from "@/components/common/ProfileLayout";
+export default function App({ Component, pageProps, router }: AppProps) {
+  if (router.pathname.startsWith("/profile")) {
+    return (
       <UserProvider>
         <Layout>
-          <Component {...pageProps} />
-          <ToastContainer />
+          <ProfileLayout>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </ProfileLayout>
         </Layout>
       </UserProvider>
-    </RecipeProvider>
+    );
+  }
+  return (
+    <UserProvider>
+      <Layout>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </Layout>
+    </UserProvider>
   );
 }
