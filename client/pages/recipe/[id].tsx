@@ -130,7 +130,9 @@ function Recipe({
       <div className="recipe-review-write">
         <h2>Write a review</h2>
         <div className="review-stars">
-          {starPrinter(newRate, (e) => setNewRate(Number(e.target.id)))}
+          {starPrinter(newRate, (e) =>
+            setNewRate(Number((e.target as HTMLInputElement).id))
+          )}
         </div>
 
         <div className="input">
