@@ -6,8 +6,12 @@ import {
   Param,
   Post,
   Put,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  Headers,
   Query,
   Res,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
@@ -15,6 +19,7 @@ import { CreateUserDto } from './dto/user.create.dto';
 import { UserService } from './users.service';
 import * as dotenv from 'dotenv';
 import { ObjectId } from 'mongodb';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 dotenv.config();
 
@@ -47,7 +52,14 @@ export class UserController {
     return this.userService.googleLogin();
   }
   @Put('update/:id')
-  updateUser(@Param('id') id: string, @Body() body: any) {
+  @UseInterceptors(FileInterceptor('image'))
+  updateUser(
+    @Param('id') id: string,
+    @Body() body: any,
+    @Headers() Headers: any,
+    @UploadedFile() Image?: Express.Multer.File,
+  ) {
+    console.log(Image);
     const userBody: any = {};
     if (body.favorites) {
       userBody.favorites = [];
