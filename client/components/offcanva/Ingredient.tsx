@@ -6,7 +6,7 @@ type propType = {
   setNewRecipe: React.Dispatch<React.SetStateAction<RecipeType>>;
 };
 
-function Ingredient({ newRecipe, setNewRecipe }: propType) {
+export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
   const [newIngredientName, setNewIngredientName] = useState<string>("");
   const [newIngredientQuantity, setNewIngredientQuantity] = useState<number>(0);
   const [newIngredientMeasure, setNewIngredientMeasure] = useState<string>("");
@@ -51,8 +51,6 @@ function Ingredient({ newRecipe, setNewRecipe }: propType) {
   }
 
   function removeIngredient(name: string) {
-    // ingredients.splice(index, 1);
-    // setIngredients([...ingredients]);
     const updatedIngredients = newRecipe.ingredients.filter(
       (ing) => ing.name !== name
     );
@@ -62,15 +60,14 @@ function Ingredient({ newRecipe, setNewRecipe }: propType) {
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-xl font-semi">Ingredients</p>
+    <div className="ingredients">
+      <label htmlFor="ingredients">ingredients</label>
       {newRecipe.ingredients.map((ing, index) => (
-        <div key={ing.name} className="flex">
-          <div className="flex gap-3">
+        <div key={ing.name} className="ingredient">
+          <div className="ingredient-detail">
             <input
               type="text"
               defaultValue={ing.name}
-              className="border  px-2 py-1 border-black rounded-lg"
               onChange={(e) => {
                 setIsChange(index);
                 setNewIngredientName(e.target.value);
@@ -79,7 +76,6 @@ function Ingredient({ newRecipe, setNewRecipe }: propType) {
             <input
               type="number"
               defaultValue={ing.quantity}
-              className="border w-20 px-2 py-1 border-black rounded-lg"
               onChange={(e) => {
                 setIsChange(index);
                 setNewIngredientQuantity(Number(e.target.value));
@@ -88,7 +84,6 @@ function Ingredient({ newRecipe, setNewRecipe }: propType) {
             <input
               type="text"
               defaultValue={ing.measure}
-              className="border w-20 px-2 py-1 border-black rounded-lg "
               onChange={(e) => {
                 setIsChange(index);
                 setNewIngredientMeasure(e.target.value);
@@ -111,29 +106,28 @@ function Ingredient({ newRecipe, setNewRecipe }: propType) {
           </div>
         </div>
       ))}
-      <div className="flex gap-3">
+
+      <div className="ingredients-add">
         <input
+          placeholder="ingredient"
           type="text"
-          className="border  px-2 py-1 border-black rounded-lg"
           value={newIngredientName}
           onChange={(e) => setNewIngredientName(e.target.value)}
         />
         <input
           type="number"
-          className="border w-20 px-2 py-1 border-black rounded-lg"
           value={newIngredientQuantity}
           onChange={(e) => setNewIngredientQuantity(Number(e.target.value))}
         />
         <input
+          placeholder="measure"
           type="text"
-          className="border w-20 px-2 py-1 border-black rounded-lg"
           value={newIngredientMeasure}
           onChange={(e) => setNewIngredientMeasure(e.target.value)}
         />
-        <input onClick={addIngredientHandler} type="button" value="add" />
+
+        <button onClick={addIngredientHandler}>Add</button>
       </div>
     </div>
   );
 }
-
-export default Ingredient;

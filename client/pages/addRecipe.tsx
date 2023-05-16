@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
+
 import Login from "@/components/common/Login";
 import Ingredient from "@/components/offcanva/Ingredient";
 import Instructions from "@/components/offcanva/Instructions";
@@ -8,8 +11,8 @@ import axios from "axios";
 import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { IoMdCloseCircleOutline } from "react-icons/io";
 import { toast } from "react-toastify";
+import { CiCircleRemove } from "react-icons/ci";
 
 export default function AddRecipe({
   categories,
@@ -35,7 +38,6 @@ export default function AddRecipe({
     created_date: "",
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [newRecipe, setNewRecipe] = useState<any>(emtpyObject);
   const [category, setCategory] = useState<CategoryType[]>([]);
   const [tags, setTags] = useState<TagType[]>([]);
@@ -213,75 +215,33 @@ export default function AddRecipe({
             />
           </div>
           <div className="images">
-            <label htmlFor="image">upload image</label>
-            <div className="images-gallery">
+            <label htmlFor="images">upload image</label>
+            <div className="images-list">
               {newRecipe.images.map(
                 (img: string | undefined, index: number) => (
                   <picture key={index}>
-                    <img src={img} alt="" />
-                    <div
-                      className="remove "
-                      onClick={() => removeRecipeImage(index)}
-                    >
-                      <IoMdCloseCircleOutline />
-                    </div>
+                    <img src={img} alt="recipe" />
+                    <button onClick={() => removeRecipeImage(index)}>
+                      <CiCircleRemove />
+                    </button>
                   </picture>
                 )
               )}
-
               {images.map((img, index) => (
                 <picture key={index}>
-                  <img src={URL.createObjectURL(img)} alt="" />
-                  <div className="remove " onClick={() => removeImage(index)}>
-                    <IoMdCloseCircleOutline />
-                  </div>
+                  <img src={URL.createObjectURL(img)} alt="remove" />
+                  <button onClick={() => removeImage(index)}>
+                    <CiCircleRemove />
+                  </button>
                 </picture>
               ))}
             </div>
 
             <input className="uploader" type="file" onChange={uploadHandler} />
           </div>
-          <div className="serving">
-            <label htmlFor="serving">serving</label>
-            <input
-              type="number"
-              defaultValue={newRecipe.servings}
-              className="w-16 border border-black rounded-md ps-3"
-              onChange={(e) => {
-                newRecipe.servings = Number(e.target.value);
-                setNewRecipe({ ...newRecipe });
-              }}
-            />
-          </div>
-          <div className="cooktime">
-            <label htmlFor="cooktime">cooktime (min)</label>
-            <input
-              type="number"
-              defaultValue={newRecipe.cook_time}
-              className="w-16 border border-black rounded-md ps-3"
-              onChange={(e) => {
-                newRecipe.cook_time = Number(e.target.value);
-                setNewRecipe({ ...newRecipe });
-              }}
-            />
-          </div>
           <div className="category">
             <label htmlFor="category">category</label>
-            <div className="flex flex-wrap gap-3">
-              {newRecipe.categories.map((cat: CategoryType) => (
-                <div
-                  className=" relative px-3 py-1 border border-green-500 rounded-full bg-green-100 text-green-800 group "
-                  key={cat._id}
-                >
-                  <p>{cat.name}</p>
-                  <div
-                    className=" absolute top-[-10px] right-[-10px] bg-gray-100 px-2 hover:bg-red-300 text-sm border rounded-full group-hover:block hidden"
-                    onClick={() => removeCategoryHandler(cat._id)}
-                  >
-                    x
-                  </div>
-                </div>
-              ))}
+            <div className="category-list">
               <select onChange={addCategoryHandler}>
                 <option defaultChecked>choose category</option>
                 {category.map((cat) => {
@@ -301,13 +261,21 @@ export default function AddRecipe({
                   }
                 })}
               </select>
+              {newRecipe.categories.map((cat: CategoryType) => (
+                <div className="category-list-item" key={cat._id}>
+                  <p>{cat.name}</p>
+                  <button onClick={() => removeCategoryHandler(cat._id)}>
+                    <CiCircleRemove />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
           <div className="tags">
             <label htmlFor="tags">tags</label>
-            <div className="flex flex-wrap gap-3">
+            <div className="tags-list">
               <select onChange={addTagHandler}>
-                <option defaultChecked>choose tags</option>
+                <option defaultChecked>add tags</option>
                 {tags.map((tag) => {
                   if (
                     !newRecipe.tags.some(
@@ -322,50 +290,57 @@ export default function AddRecipe({
                   }
                 })}
               </select>
-              
+
               {newRecipe.tags.map((tag: TagType) => (
-                <div
-                  className="tag relative  group "
-                  key={tag._id}
-                >
+                <div className="tags-list-item" key={tag._id}>
                   <p>{tag.name}</p>
-                  <div
-                    className="remove absolute top-[-10px] right-[-10px] bg-gray-100 px-2 hover:bg-red-300 text-sm border rounded-full group-hover:block hidden"
-                    onClick={() => removeTagHandler(tag._id)}
-                  >
-                    x
-                  </div>
+                  <button onClick={() => removeTagHandler(tag._id)}>
+                    <CiCircleRemove />
+                  </button>
                 </div>
               ))}
             </div>
           </div>
-          <label className="flex flex-col gap-3">
-            <p className="text-xl font-semi">Description</p>
+          <div className="serving">
+            <label htmlFor="serving">serving</label>
+            <input
+              type="number"
+              defaultValue={newRecipe.servings}
+              onChange={(e) => {
+                newRecipe.servings = Number(e.target.value);
+                setNewRecipe({ ...newRecipe });
+              }}
+            />
+          </div>
+          <div className="cooktime">
+            <label htmlFor="cooktime">cooktime (min)</label>
+            <input
+              type="number"
+              defaultValue={newRecipe.cook_time}
+              onChange={(e) => {
+                newRecipe.cook_time = Number(e.target.value);
+                setNewRecipe({ ...newRecipe });
+              }}
+            />
+          </div>
+
+          <div className="description">
+            <label htmlFor="description">description</label>
             <textarea
-              name=""
-              id=""
-              className="w-full border rounded-lg resize-none p-5 text-lg h-40"
               defaultValue={newRecipe.description}
               onChange={(e) => {
                 newRecipe.description = e.target.value;
                 setNewRecipe({ ...newRecipe });
               }}
             />
-          </label>
+          </div>
+
           <Ingredient newRecipe={newRecipe} setNewRecipe={setNewRecipe} />
           <Instructions newRecipe={newRecipe} setNewRecipe={setNewRecipe} />
-          .
-          <input
-            type="button"
-            value={`${
-              recipe
-                ? `update recipe ${adding ? `O` : ""}`
-                : `add recipe ${adding ? `O` : ""}`
-            }`}
-            disabled={adding}
-            onClick={recipe ? updateRecipe : createRecipe}
-            className=" sticky w-40  bottom-10 px-5 py-3 border border-green-700 bg-green-500 text-green-950 rounded-lg "
-          />
+
+          <div className="post">
+            <button onClick={recipe ? updateRecipe : createRecipe}>Post</button>
+          </div>
         </form>
       </div>
     </div>
