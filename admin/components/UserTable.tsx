@@ -2,11 +2,11 @@ import { UserType } from "@/utils/types";
 import { FiUser } from "react-icons/fi";
 import { SiFoodpanda } from "react-icons/si";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import OffCanvas from "./UserDeleteOffCanvas";
+import OffCanvas from "./UserEdit";
 import React from "react";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { emit } from "process";
+
 // import { ConfirmPopup } from "primereact/confirmpopup";
 // import { confirmPopup } from "primereact/confirmpopup";
 
@@ -29,7 +29,7 @@ function UserTable({ users }: { users: UserType[] }) {
             <SiFoodpanda />
           </th>
           <th>Username</th>
-          <th>Created Date</th>
+          <th>Created Date</th> 
           <th>Role</th>
           <th className="text-center">E-Mail</th>
         </tr>
@@ -55,22 +55,23 @@ function UserTable({ users }: { users: UserType[] }) {
             <td className="gap-10">
               <>
                 <>
-                  <button className="hover:bg-blue-100  font-bold py-2 px-4 rounded">
-                    <AiFillEdit />
-                  </button>
+                  
                   <button
-                    className=" hover:bg-red-100  font-bold py-2 px-4 rounded"
+                    className=" hover:bg-blue-200  font-bold py-2 px-4 rounded"
                     onClick={handleOffCanvasOpen}
                   >
-                    <AiFillDelete />
+                    <AiFillEdit />
                   </button>
                   <OffCanvas
                     isOffCanvasOpen={isOffCanvasOpen}
                     setIsOffCanvasOpen={handleOffCanvasClose}
-                    id={user._id}
+                    // id={user._id}
                     email={user.email}
                   />
                 </>
+                <button className="hover:bg-red-100  font-bold py-2 px-4 rounded">
+                    <AiFillDelete />
+              </button>
               </>
             </td>
           </tr>

@@ -12,7 +12,7 @@ type PropsType = {
 function OffCanvas({
   isOffCanvasOpen,
   setIsOffCanvasOpen,
-  id,
+  // id,
   email,
 }: PropsType) {
   function hideHandler() {
