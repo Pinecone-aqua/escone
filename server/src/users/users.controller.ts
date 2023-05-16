@@ -15,11 +15,14 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
+
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/user.create.dto';
 import { UserService } from './users.service';
 import * as dotenv from 'dotenv';
 import { ObjectId } from 'mongodb';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 dotenv.config();
 
@@ -28,6 +31,7 @@ export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
   @Get('status')
   getUserStatus() {
@@ -53,20 +57,65 @@ export class UserController {
   }
   @Put('update/:id')
   @UseInterceptors(FileInterceptor('image'))
-  updateUser(
+  async updateUser(
     @Param('id') id: string,
     @Body() body: any,
     @Headers() Headers: any,
     @UploadedFile() Image?: Express.Multer.File,
   ) {
     console.log(Image);
-    const userBody: any = {};
+    const [type, token] = Headers.authorization?.split(' ') ?? [];
+    if (!token) {
+      return 'have not token';
+    }
+    const decodedToken: any = this.jwtService.decode(token);
+    if (!decodedToken) {
+      return 'token extist';
+    }
+
+    if (decodedToken._id != id || decodedToken.role == false) {
+      return 'you have not permission';
+    }
+    const user = await this.userService.getUser(id);
+    let userBody: any = {};
     if (body.favorites) {
       userBody.favorites = [];
       const favIds = body.favorites.map((id) => new ObjectId(id));
       userBody.favorites.push(...favIds);
     }
-    return this.userService.updateUser(id, userBody);
+
+    if (body.body) {
+      userBody = JSON.parse(body.body);
+      if (userBody.oldpassword) {
+        if (user.password) {
+          const passwordCheck = await bcrypt.compare(
+            userBody.oldpassword,
+            user.password,
+          );
+
+          if (!passwordCheck) return 'password is wrong';
+        } else if (userBody.password) {
+          userBody.password = await bcrypt.hash(userBody.password, 7);
+        }
+        delete userBody.oldpassword;
+      }
+    }
+    if (Image) {
+      const { secure_url } = await this.cloudinaryService.uploadImage(Image);
+      userBody.image = secure_url;
+    }
+
+    console.log(userBody);
+    const result = await this.userService.updateUser(id, userBody);
+    console.log(result);
+
+    if (result) {
+      const token = this.jwtService.sign(userBody);
+      console.log(token, 'token');
+      return { token };
+    }
+    console.log('hh');
+    return 'll';
   }
   @Get('google-callback')
   async getGoogleCallback(@Query('code') code: string, @Res() res: Response) {

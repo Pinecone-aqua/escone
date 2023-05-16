@@ -40,12 +40,20 @@ function Settings() {
 
   function saveHandler() {
     const token = Cookies.get("token");
-    if (newPassword.confirmPass != newPassword.pass || oldPassword == "") {
-      toast.warning("confirm password is different or old password is empty");
+    if (newPassword.confirmPass != newPassword.pass) {
+      toast.warning("confirm password is different ");
       return;
     }
-    updatedUser.oldpassword = oldPassword;
-    updatedUser.password = newPassword.pass;
+    console.log(newPassword.pass != "" && oldPassword == "");
+    if (newPassword.pass != "") {
+      if (oldPassword == "") {
+        toast.warning("old password is empty ");
+        return;
+      } else {
+        updatedUser.oldpassword = oldPassword;
+        updatedUser.password = newPassword.pass;
+      }
+    }
     delete updatedUser?.exp;
     delete updatedUser?.iat;
     const userFormData = new FormData();
@@ -69,16 +77,20 @@ function Settings() {
     }
 
     userFormData.append("body", JSON.stringify(updatedUser));
-    axios.put(
-      `${process.env.BACK_END_URL}/user/update/${user?._id}`,
-      userFormData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log(userFormData);
+    axios
+      .put(
+        `${process.env.BACK_END_URL}/user/update/${user?._id}`,
+        userFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("hh");
+        console.log(res);
+      });
   }
 
   return (
