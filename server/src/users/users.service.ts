@@ -27,7 +27,6 @@ export class UserService {
     return result;
   }
   async getUser(id: string) {
-    console.log('this is user id: ', typeof id);
     const result = await this.userModel.findOne({ _id: { $eq: id } });
     // console.log(result);
 
@@ -35,7 +34,7 @@ export class UserService {
   }
 
   async updateUser(id, body) {
-    return await this.userModel.updateOne({ _id: id }, body);
+    return await this.userModel.updateOne({ _id: id }, { ...body });
   }
 
   async googleLogin() {

@@ -127,7 +127,6 @@ export class RecipeController {
       const ingredientNames = Array.isArray(query.ingredient)
         ? query.ingredient.map((ingredient: string) => ingredient)
         : [query.ingredient];
-      console.log(ingredientNames, 'this is worked');
       optionQuery.$and.push({ ingredients: { $all: ingredientNames } });
     }
     if (query.user) {
@@ -136,20 +135,17 @@ export class RecipeController {
     }
     if (query.favorites) {
       const userfavorites = await this.userService.getUser(query.favorites);
-      console.log(userfavorites);
       const favoriteIds = userfavorites.favorites.map(
         (Id: string) => new ObjectId(Id),
       );
-
       optionQuery.$and.push({ _id: { $in: favoriteIds } });
     }
     if (Object.keys(query).length == 0) {
       optionQuery = {};
     }
-    console.log(query);
-    console.log(optionQuery);
 
-    return this.recipeService.getRecipes(optionQuery);
+    const result = await this.recipeService.getRecipes(optionQuery);
+    return result;
   }
 
   @Get(':id')

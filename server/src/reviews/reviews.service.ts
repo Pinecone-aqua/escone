@@ -24,7 +24,6 @@ export class ReviewService {
       path: 'created_by',
       select: { username: 1, image: 1 },
     });
-    console.log(result);
     return result;
   }
 
