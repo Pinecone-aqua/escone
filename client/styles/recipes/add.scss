@@ -1,56 +1,30 @@
-.add-recipe {
-  &-modal {
-    &-inputs {
+.add {
+  padding: 25px;
+  &-head {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: $brand-secondary;
+    }
+    p {
+      font-size: 18px;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      label {
-        display: flex;
-      }
-      .input {
-        width: 100%;
-      }
-      .category {
-        &-choices {
-          gap: 20px;
-          display: flex;
-          flex-wrap: wrap;
-        }
-        &-choice {
-          display: flex;
-          gap: 5px;
-        }
-      }
-      .servings {
-        span {
-          width: 100px;
-        }
-        &-input {
-          width: 50px;
-        }
+      gap: 10px;
+      align-items: center;
+      span {
+        font-weight: 600;
       }
     }
+    width: 100%;
   }
-}
 
-@media screen and (min-width: 375px) {
-  .add-recipe {
-    &-modal {
-      width: 100%;
-    }
-  }
-}
-@media screen and (min-width: 768px) {
-  .add-recipe {
-    &-modal {
-      width: 425px;
-    }
-  }
-}
-@media screen and (min-width: 1024px) {
-  .add-recipe {
-    &-modal {
-      width: 500px;
-    }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }
