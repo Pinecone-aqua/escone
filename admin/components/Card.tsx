@@ -33,7 +33,7 @@ export default function Card({ recipe, setShow }: PropType) {
     const token = Cookies.get("token");
     axios
       .put(
-        `http://localhost:3030/recipe/status/${recipe._id}`,
+        `${process.env.BACK_END_URL}/recipe/status/${recipe._id}`,
         {
           status: status,
         },
