@@ -165,8 +165,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-function extractTokenFromCookie(cookie) {
-  const match = cookie.match(/token=([^;]+)/);
+function extractTokenFromCookie(cookie: string | undefined) {
+  const match = cookie?.match(/token=([^;]+)/);
   const token = match?.[1];
 
   return token;

@@ -40,7 +40,7 @@ function Offcanva({ show, setShow }: PropType) {
     setRecipe(undefined);
     router.query.id &&
       axios
-        .get(`http://localhost:3030/recipe/${router.query.id}`)
+        .get(`${process.env.BACK_END_URL}/recipe/${router.query.id}`)
         .then((res) => {
           setRecipe(res.data);
           setRecipeCategory(res.data.categories);
@@ -54,10 +54,10 @@ function Offcanva({ show, setShow }: PropType) {
           setRecipeImages(res.data.images);
           setInstructions(res.data.instructions);
         });
-    axios.get(`http://localhost:3030/category/all`).then((res) => {
+    axios.get(`${process.env.BACK_END_URL}/category/all`).then((res) => {
       setCategory(res.data);
     });
-    axios.get(`http://localhost:3030/tag/all`).then((res) => {
+    axios.get(`${process.env.BACK_END_URL}/tag/all`).then((res) => {
       setTags(res.data);
     });
   }, [router.query.id]);
@@ -96,7 +96,7 @@ function Offcanva({ show, setShow }: PropType) {
 
     axios
       .patch(
-        `http://localhost:3030/recipe/upload/${recipe?._id}`,
+        `${process.env.BACK_END_URL}/recipe/upload/${recipe?._id}`,
         recipeFormData
       )
       .then((res) => console.log(res.data));

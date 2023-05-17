@@ -9,7 +9,7 @@ export default function Users({ users }: { users: UserType[] }) {
 }
 
 export async function getStaticProps() {
-  const result = await axios.get("http://localhost:3030/user/all");
+  const result = await axios.get(`${process.env.BACK_END_URL}/user/all`);
   const users = result.data;
   return {
     props: { users }, // will be passed to the page component as props

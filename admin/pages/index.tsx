@@ -167,9 +167,11 @@ export default function Home({ status, userStatus }: any) {
 }
 
 export async function getStaticProps() {
-  const result = await axios.get("http://localhost:3030/recipe/statistics");
+  const result = await axios.get(
+    `${process.env.BACK_END_URL}/recipe/statistics`
+  );
   const status = result.data;
-  const resultuser = await axios.get("http://localhost:3030/user/status");
+  const resultuser = await axios.get(`${process.env.BACK_END_URL}/user/status`);
   const userStatus = resultuser.data;
   return {
     props: { status, userStatus }, // will be passed to the page component as props

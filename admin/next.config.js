@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    BACK_END_URL: "http://localhost:3030",
+    BACK_END_URL: "https://foodie-cenq.onrender.com",
   },
 };
 

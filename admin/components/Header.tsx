@@ -1,7 +1,12 @@
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsArrowDownCircle } from "react-icons/bs";
 
 export default function Header(): JSX.Element {
+  const token = Cookies.get("token");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const user: any = token && jwtDecode(token);
   return (
     <div className="w-full  flex justify-between h-24 items-center">
       <div className="text-2xl font-semibold">Dashboard</div>
@@ -27,7 +32,7 @@ export default function Header(): JSX.Element {
 
           <div className="text-xl font-semibold">
             <p className="text-sm text-green-500">ADMIN</p>
-            <p>Uka Yura</p>
+            <p>{user.username}</p>
           </div>
           <button className="text-2xl">
             <BsArrowDownCircle />
