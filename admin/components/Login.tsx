@@ -46,6 +46,7 @@ export default function Login({ show }: { show?: boolean }) {
           progress: undefined,
           theme: "light",
         });
+        Router.reload();
       }
     });
   }
@@ -74,6 +75,7 @@ export default function Login({ show }: { show?: boolean }) {
             progress: undefined,
             theme: "light",
           });
+          Router.reload();
         } else {
           toast.error(res.data.data, {
             position: "top-right",
@@ -85,6 +87,7 @@ export default function Login({ show }: { show?: boolean }) {
             progress: undefined,
             theme: "light",
           });
+          Router.reload();
         }
       });
   }
