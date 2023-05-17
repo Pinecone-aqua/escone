@@ -4,11 +4,17 @@ import axios from "axios";
 import { BsTrashFill } from "react-icons/bs";
 import { confirmDialog } from "primereact/confirmdialog";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 export default function Review({ review }: { review: ReviewType }) {
+  const token = Cookies.get("token");
   const accept = (id: string) => {
     axios
-      .delete(`${process.env.BACK_END_URL}/review/${id}`)
+      .delete(`${process.env.BACK_END_URL}/review/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(() => toast.success("review deleted"));
   };
 

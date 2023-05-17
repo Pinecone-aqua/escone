@@ -97,7 +97,7 @@ export default function Other({ category, tag }) {
       <div className="h-[80vh] flex-col w-1/2">
         <h1 className="text-2xl font-semibold text-blue-800 ">tags</h1>
         <div className=" h-full flex flex-col flex-wrap gap-3">
-          {tag.map((tg: TagType, index) => (
+          {tags.map((tg: TagType, index) => (
             <div
               key={tg._id}
               className="py-1 px-4 bg-green-400 text-green-800 rounded-full border-2 border-green-800 flex justify-between items-center"

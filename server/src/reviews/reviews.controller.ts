@@ -77,7 +77,7 @@ export class ReviewController {
   @Delete(':id')
   async deleteReview(@Param('id') id: string, @Headers() Headers: any) {
     try {
-      const [, token] = Headers.authorization?.split(' ') ?? [];
+      const [g, token] = Headers.authorization?.split(' ') ?? [];
       if (!token) {
         return 'have not token';
       }
