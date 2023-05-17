@@ -5,10 +5,10 @@ import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import { TbTrash } from "react-icons/tb";
 
-export default function Other({ category, tag }) {
+export default function Other({ category, tag }): JSX.Element {
   // console.log(category);
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [tags, setTags] = useState<CategoryType[]>([]);
+  const [tags, setTags] = useState<TagType[]>([]);
   const [newCategory, setNewCategory] = useState<string>();
   const [newTag, setNewTag] = useState<string>();
   const token = Cookies.get("token");
@@ -30,7 +30,7 @@ export default function Other({ category, tag }) {
     setCategories([...categories, newCategoryObj]);
   }
 
-  function deleteCategory(id, index) {
+  function deleteCategory(id: string, index: number) {
     categories.splice(index, 1);
     setCategories([...categories]);
     axios.delete(`${process.env.BACK_END_URL}/category/${id}`, {
@@ -51,7 +51,7 @@ export default function Other({ category, tag }) {
     setTags([...tags, newTagObj]);
   }
 
-  function deleteTag(id, index) {
+  function deleteTag(id: string, index: number) {
     tags.splice(index, 1);
     setTags([...tags]);
     axios.delete(`${process.env.BACK_END_URL}/category/${id}`, {
