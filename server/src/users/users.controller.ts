@@ -68,11 +68,12 @@ export class UserController {
       if (!decodedToken) {
         return 'token extist';
       }
-
-      if (decodedToken._id != id || decodedToken.role == false) {
-        return 'you have not permission';
+      console.log(decodedToken._id != id);
+      console.log(decodedToken._id == id, decodedToken.role == true);
+      if (decodedToken._id == id || decodedToken.role == true) {
+        return this.userService.deleteUser(id);
       }
-      return this.userService.deleteUser(id);
+      return 'you have not permission';
     } catch (error) {
       return error;
     }
@@ -103,47 +104,49 @@ export class UserController {
         return 'token extist';
       }
 
-      if (decodedToken._id != id || decodedToken.role == false) {
-        return 'you have not permission';
-      }
-      const user = await this.userService.getUser(id);
-      let userBody: any = {};
-      if (body.favorites) {
-        userBody.favorites = [];
-        const favIds = body.favorites.map((id) => new ObjectId(id));
-        userBody.favorites.push(...favIds);
-      }
+      if (decodedToken._id == id || decodedToken.role == true) {
+        const user = await this.userService.getUser(id);
+        let userBody: any = {};
+        if (body.favorites) {
+          userBody.favorites = [];
+          const favIds = body.favorites.map((id) => new ObjectId(id));
+          userBody.favorites.push(...favIds);
+        }
 
-      if (body.body) {
-        userBody = JSON.parse(body.body);
-        if (userBody.oldpassword) {
-          if (user.password) {
-            const passwordCheck = await bcrypt.compare(
-              userBody.oldpassword,
-              user.password,
-            );
+        if (body.body) {
+          userBody = JSON.parse(body.body);
+          if (userBody.oldpassword) {
+            if (user.password) {
+              const passwordCheck = await bcrypt.compare(
+                userBody.oldpassword,
+                user.password,
+              );
 
-            if (!passwordCheck) return 'password is wrong';
-          } else if (userBody.password) {
-            userBody.password = await bcrypt.hash(userBody.password, 7);
+              if (!passwordCheck) return 'password is wrong';
+            } else if (userBody.password) {
+              userBody.password = await bcrypt.hash(userBody.password, 7);
+            }
+            delete userBody.oldpassword;
           }
-          delete userBody.oldpassword;
+        }
+        if (Image) {
+          const { secure_url } = await this.cloudinaryService.uploadImage(
+            Image,
+          );
+          userBody.image = secure_url;
+        }
+        const result = await this.userService.updateUser(id, userBody);
+
+        if (result) {
+          const user = await this.userService.getUser(id);
+          console.log(user, 'user');
+          const token = this.jwtService.sign(user.toJSON());
+          console.log(token, 'token');
+
+          return { token };
         }
       }
-      if (Image) {
-        const { secure_url } = await this.cloudinaryService.uploadImage(Image);
-        userBody.image = secure_url;
-      }
-      const result = await this.userService.updateUser(id, userBody);
-
-      if (result) {
-        const user = await this.userService.getUser(id);
-        console.log(user, 'user');
-        const token = this.jwtService.sign(user.toJSON());
-        console.log(token, 'token');
-
-        return { token };
-      }
+      return 'you have not permission';
     } catch (error) {
       return error;
     }
