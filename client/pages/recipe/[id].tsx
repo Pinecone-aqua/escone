@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useUser } from "@/context/userContext";
 
 import { ConfirmDialog } from "primereact/confirmdialog";
-import Review from "@/components/recipe/Review";
+import Review from "@/components/subs/Review";
 import { dateFormat, starPrinter } from "@/utils/functions";
 
 function Recipe({

@@ -1,9 +1,10 @@
 import { useUser } from "@/context/userContext";
 import Link from "next/link";
+import cover from "../../public/images/background.jpg";
+import Image from "next/image";
 import React from "react";
 import Login from "./Login";
-const randomCover = "https://source.unsplash.com/random/900%C3%97700/?food";
-const randomProfile = "https://loremflickr.com/200/200/face";
+import dayjs from "dayjs";
 
 export default function ProfileLayout({
   children,
@@ -11,7 +12,7 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   const { user } = useUser();
-  const contentHeaderItems = [
+  const profileNavigation = [
     {
       icon: "pi pi-table",
       label: "Recipes",
@@ -26,54 +27,40 @@ export default function ProfileLayout({
   ];
   return user ? (
     <>
-      <div className="profile container">
-        {/* COVER */}
+      <div className="profile">
         <div className="cover">
           <picture>
-            <img src={randomCover} alt="cover" />
+            <Image src={cover} alt="cover" />
           </picture>
         </div>
-
-        <div className="content">
-          {/* HEADER */}
-          <div className="content-header">
-            <ul>
-              {contentHeaderItems.map((item, index) => (
-                <li key={index}>
-                  <Link href={item.url}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* SIDE */}
-          <div className="content-body">
-            <div className="side">
-              {/* PROFILE BOX */}
-              <div className="side-box">
+        <div className="profile-body">
+          <nav>
+            <div className="container">
+              <ul>
+                {profileNavigation.map((navItem, index) => (
+                  <li key={index}>
+                    <Link href={navItem.url}>{navItem.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
+          <div className="container">
+            <div className="info">
+              <div className="info-box">
                 <picture>
-                  <img
-                    src={user.image ? user.image : randomProfile}
-                    alt="profile"
-                  />
+                  <img src={user.image} alt="profile" />
                 </picture>
-                <div className="profile-text">
-                  <h2>{user.username}</h2>
+                <h3>{user.username}</h3>
+                <div className="info-box-detail">
                   <p>{user.email}</p>
+                  <p>
+                    starts: {dayjs(user.created_date).format("YYYY MMM/DD")}
+                  </p>
                 </div>
               </div>
-
-              {/* BIO */}
-              <div className="side-bio">
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Excepturi error odio sit quaerat minima atque, esse provident
-                  voluptatibus suscipit. Minus porro earum delectus reiciendis
-                  quas! Repellat eaque corrupti quos ex.
-                </p>
-              </div>
             </div>
-            {children}
+            <div className="children">{children}</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
-import RecipeCard from "@/components/common/RecipeCard";
-import { RecipeType } from "@/utils/types";
 import axios from "axios";
+import { RecipeType } from "../../utils/types";
+import RecipeCard from "../../components/common/RecipeCard";
 
 export default function Profile({
   recipes,
@@ -8,7 +8,7 @@ export default function Profile({
   recipes: RecipeType[];
 }): JSX.Element {
   return (
-    <div className="recipes lg:w-9/12 flex h-full flex-wrap gap-3">
+    <div className="recipes">
       {recipes.length != 0 ? (
         recipes.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} />
