@@ -59,10 +59,6 @@ export default function ProfileLayout({
                   </p>
                 </div>
               </div>
-              
-              {/* <div className="info-box-bio">
-                
-              </div> */}
             </div>
             <div className="children">{children}</div>
           </div>

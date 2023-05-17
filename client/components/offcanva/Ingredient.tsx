@@ -63,8 +63,8 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
     <div className="ingredients">
       <label htmlFor="ingredients">ingredients</label>
       {newRecipe.ingredients.map((ing, index) => (
-        <div key={ing.name} className="ingredient">
-          <div className="ingredient-detail">
+        <div key={ing.name} className="ingredient my-2">
+          <div className="ingredient-detail flex gap-3">
             <input
               type="text"
               defaultValue={ing.name}
@@ -92,14 +92,14 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
             {isChange == index && (
               <input
                 type="button"
-                className="cursor-pointer text-green-500"
+                className="cursor-pointer text-green-500 flex justify-center"
                 value={"save"}
                 onClick={() => updateIngredientHanlder(index, ing)}
               />
             )}
             <input
               type="button"
-              className="cursor-pointer text-red-500"
+              className="cursor-pointer text-red-500 flex justify-center"
               value={"remove"}
               onClick={() => removeIngredient(ing.name)}
             />
@@ -126,7 +126,12 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
           onChange={(e) => setNewIngredientMeasure(e.target.value)}
         />
 
-        <button onClick={addIngredientHandler}>Add</button>
+        <input
+          type="button"
+          value="add"
+          onClick={addIngredientHandler}
+          className="flex justify-center"
+        />
       </div>
     </div>
   );

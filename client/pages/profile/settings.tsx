@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { FiEdit, FiEdit3 } from "react-icons/fi";
+import { FiEdit, FiEdit3, FiEye } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 function Settings() {
@@ -191,7 +191,7 @@ function Settings() {
                   onChange={(e) => setoldPassword(e.target.value)}
                 />
                 <button onClick={() => setoldPasswordShow(!oldPasswordShow)}>
-                  show
+                  <FiEye />
                 </button>
               </div>
 
@@ -210,7 +210,7 @@ function Settings() {
                   }}
                 />
                 <button onClick={() => setnewPasswordShow(!newPasswordShow)}>
-                  show
+                  <FiEye />
                 </button>
               </div>
 
@@ -233,13 +233,15 @@ function Settings() {
                     setConfirmNewPasswordShow(!confirmNewPasswordShow)
                   }
                 >
-                  show
+                  <FiEye />
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <hr />
 
       <button onClick={saveHandler} className="save">
         Save changes

@@ -44,50 +44,52 @@ function Instructions({ newRecipe, setNewRecipe }: propType) {
       {newRecipe.instructions.map((ins, index) => (
         <div key={index} className="relative">
           {" "}
-          <div className="flex w-full justify-between ">
-            <p>Step {index + 1}</p>
-            <input
-              type={"button"}
-              value="remove"
-              className="text-red-500"
-              onClick={() => removeInstruction(index)}
-            />
+          <div className="flex w-full justify-between items-center">
+            <p className="w-[100px]">Step {index + 1}</p>
           </div>
-          <textarea
-            defaultValue={Object.values(ins)}
-            onChange={(e) => {
-              setUpdateInstruction(e.target.value);
-              setIsChangeIns(index);
-            }}
-            className="w-full border p-4 rounded-lg resize-none h-[150px]"
-          />
-          {isChangeIns == index &&
-            updateInstruction != Object.values(ins).at(0) && (
+          <div className="flex gap-5">
+            <textarea
+              defaultValue={Object.values(ins)}
+              onChange={(e) => {
+                setUpdateInstruction(e.target.value);
+                setIsChangeIns(index);
+              }}
+              className="w-full border p-4 rounded-lg resize-none h-[100px]"
+            />
+            <div className="buttons flex flex-col h-full gap-2">
               <input
-                type="button"
-                value={"save"}
-                onClick={() => updateInstructionHandler(index)}
-                className="text-green-500 absolute bottom-3 right-2 px-2 py-1 border border-green-500 rounded-xl hover:bg-green-500 hover:text-white"
+                type={"button"}
+                value="remove"
+                className="text-red-500 px-5"
+                onClick={() => removeInstruction(index)}
               />
-            )}
+              {isChangeIns == index &&
+                updateInstruction != Object.values(ins).at(0) && (
+                  <input
+                    type="button"
+                    value={"save"}
+                    onClick={() => updateInstructionHandler(index)}
+                    className="text-green-500 border rounded-xl flex justify-center"
+                  />
+                )}
+            </div>
+          </div>
         </div>
       ))}
       <div className="flex flex-col w-full ">
         {" "}
         <p>Step {newRecipe.instructions.length + 1}</p>{" "}
         <textarea
-          name=""
-          id=""
           placeholder="next Ingredients"
           value={newInstruction}
-          className="w-full border p-4 rounded-lg resize-none h-[150px]"
+          className="w-full border p-4 rounded-lg resize-none h-[100px]"
           onChange={(e) => setNewInstruction(e.target.value)}
         />
         <input
           type="button"
           value={"add"}
           onClick={addInstruction}
-          className={"self-end px-3 py-1 border rounded-lg "}
+          className={"px-5 mt-3 justify-center"}
         />
       </div>
     </div>

@@ -13,7 +13,7 @@ export default function Profile({
   console.log(user);
 
   return (
-    <div className="recipes lg:w-9/12 flex h-full flex-wrap gap-3">
+    <div className="recipes">
       {recipes.length != 0 ? (
         recipes.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} />

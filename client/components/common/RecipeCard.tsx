@@ -93,13 +93,6 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
       <Link href={`/recipe/${recipe._id}`}>
         <div className="text">
           <div className="title">
-            <button onClick={saveHandler} className="favorite">
-              {user?.favorites?.some((fav) => fav == recipe._id) ? (
-                <MdFavorite />
-              ) : (
-                <MdFavoriteBorder />
-              )}
-            </button>
             <h4>{recipe.title.slice(0, 20)}</h4>
           </div>
           <p>{recipe.description.slice(0, 80)}...</p>
@@ -108,6 +101,16 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
           </button>
         </div>
       </Link>
+      <button
+        onClick={saveHandler}
+        className="favorite absolute bottom-[105px] right-5 text-xl text-red-500"
+      >
+        {user?.favorites?.some((fav) => fav == recipe._id) ? (
+          <MdFavorite />
+        ) : (
+          <MdFavoriteBorder />
+        )}
+      </button>
       <ConfirmPopup
         visible={visible}
         onHide={() => setVisible(false)}
