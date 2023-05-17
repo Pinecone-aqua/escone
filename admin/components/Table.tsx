@@ -1,7 +1,11 @@
 import { RecipeType } from "@/utils/types";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
+import axios from "axios";
+import Cookies from "js-cookie";
 type PropType = {
   recipes: RecipeType[];
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -9,10 +13,26 @@ type PropType = {
 
 function Table({ recipes, setShow }: PropType) {
   const router = useRouter();
+  const [visible, setVisible] = useState<boolean>(false);
+  const toast = useRef<Toast>(null);
+  const token = Cookies.get("token");
 
   function showHandler(id: string) {
     setShow(true);
     router.push({ query: { id: id } });
+  }
+  function deleteHandlers(id: string) {
+    axios.delete(`${process.env.BACK_END_URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    toast.current?.show({
+      severity: "info",
+      summary: "Confirmed",
+      detail: "You have accepted",
+      life: 3000,
+    });
   }
   return (
     <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
@@ -50,11 +70,13 @@ function Table({ recipes, setShow }: PropType) {
           <tr className="hover:bg-gray-50" key={index}>
             <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
               <div className="relative h-10 w-10">
-                <img
-                  className="h-full w-full rounded-full object-cover object-center"
-                  src={recipe.created_by.image}
-                  alt=""
-                />
+                <picture>
+                  <img
+                    className="h-full w-full rounded-full object-cover object-center"
+                    src={recipe.created_by.image}
+                    alt=""
+                  />
+                </picture>
                 <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white" />
               </div>
               <div className="text-sm">
@@ -118,7 +140,24 @@ function Table({ recipes, setShow }: PropType) {
             </td>
             <td className="px-6 py-4">
               <div className="flex justify-end gap-4">
-                <button>delete</button>
+                <Toast ref={toast} />
+                <ConfirmDialog
+                  visible={visible}
+                  onHide={() => setVisible(false)}
+                  message="Are you sure you want to delete?"
+                  header="Confirmation"
+                  icon="pi pi-exclamation-triangle"
+                  accept={() => deleteHandlers(recipe._id)}
+                  reject={() => {
+                    toast.current?.show({
+                      severity: "warn",
+                      summary: "Rejected",
+                      detail: "You have rejected",
+                      life: 3000,
+                    });
+                  }}
+                />
+                <button onClick={() => setVisible(true)}>delete</button>
                 <button onClick={() => showHandler(recipe._id)}>edit</button>
               </div>
             </td>

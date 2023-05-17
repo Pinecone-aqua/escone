@@ -1,12 +1,34 @@
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
+import { useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsArrowDownCircle } from "react-icons/bs";
-
+import { Menu } from "primereact/menu";
+import { MenuItem } from "primereact/menuitem";
+import { useRouter } from "next/router";
 export default function Header(): JSX.Element {
   const token = Cookies.get("token");
+  const menu = useRef<Menu>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const user: any = token && jwtDecode(token);
+  const router = useRouter();
+
+  const items: MenuItem[] = [
+    {
+      label: "Foodie web site",
+      icon: "pi pi-fw pi-plus",
+      url: "http://localhost:3000/",
+    },
+    {
+      label: "Log out",
+      icon: "pi pi-fw pi-trash",
+      command: () => {
+        Cookies.remove("token");
+        router.reload();
+      },
+    },
+  ];
+
   return (
     <div className="w-full  flex justify-between h-24 items-center">
       <div className="text-2xl font-semibold">Dashboard</div>
@@ -34,7 +56,8 @@ export default function Header(): JSX.Element {
             <p className="text-sm text-green-500">ADMIN</p>
             <p>{user.username}</p>
           </div>
-          <button className="text-2xl">
+          <Menu model={items} popup ref={menu} />
+          <button className="text-2xl" onClick={(e) => menu.current?.toggle(e)}>
             <BsArrowDownCircle />
           </button>
         </div>
