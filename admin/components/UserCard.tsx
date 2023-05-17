@@ -3,11 +3,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { Toast } from "primereact/toast";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Dispatch, SetStateAction } from "react";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { ConfirmDialog } from "primereact/confirmdialog";
 
-export default function UserCard({ user }: { user: UserType }) {
+export default function UserCard({
+  user,
+  setShow,
+}: {
+  user: UserType;
+  setShow: Dispatch<SetStateAction<boolean>>;
+}) {
   const router = useRouter();
   const toast = useRef<Toast>(null);
   const [visible, setVisible] = useState<string>();
@@ -73,7 +79,10 @@ export default function UserCard({ user }: { user: UserType }) {
         <p> {user.username}</p>
 
         <div className="flex gap-3 w-full justify-end">
-          <button className="py-1 px-2 border border-green-500 rounded-lg text-green-700 hover:bg-green-500 hover:text-white   disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white flex items-center gap-2">
+          <button
+            className="py-1 px-2 border border-green-500 rounded-lg text-green-700 hover:bg-green-500 hover:text-white   disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white flex items-center gap-2"
+            onClick={() => setShow(true)}
+          >
             <MdEditSquare /> <p>Edit</p>
           </button>
           <button

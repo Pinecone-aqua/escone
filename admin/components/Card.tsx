@@ -27,7 +27,7 @@ export default function Card({ recipe, setShow }: PropType) {
         "py-1 px-2 border border-red-500  text-red-700 bg-red-200  rounded-full";
       break;
   }
-  const toast = useRef(null);
+  const toast = useRef<Toast>(null);
 
   function statusHandler(status: string) {
     const token = Cookies.get("token");
@@ -44,7 +44,7 @@ export default function Card({ recipe, setShow }: PropType) {
         }
       )
       .then(() => {
-        toast.current.show({
+        toast.current?.show({
           severity: "success",
           summary: "success",
           detail: `recipe ${status}`,
