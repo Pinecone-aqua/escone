@@ -5,14 +5,19 @@ import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
+
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 
 export default function Reviews({ result }: { result: ReviewType[] }) {
   const router = useRouter();
   const [page, setPage] = useState(1);
-  console.log(result);
+  const [visible, setVisible] = useState<string>();
+  const toast = useRef<Toast>(null);
+
   function sortHandler(sortItem: string) {
     const query = router.query;
     if (query.order_by == sortItem) {
@@ -25,6 +30,7 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
       router.push({ query: { order_by: sortItem, type: "1", page: "1" } });
     }
   }
+
   function deleteReview(id: string) {
     const token = Cookies.get("token");
     axios
@@ -33,8 +39,17 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => router.reload());
+      .then(() => {
+        router.reload();
+        toast.current?.show({
+          severity: "success",
+          summary: "Confirmed",
+          detail: "You have accepted",
+          life: 3000,
+        });
+      });
   }
+
   function pageHandler(valid: boolean) {
     const { query } = router;
 
@@ -48,7 +63,7 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
       router.push({ query: query });
     } else {
       router.push({ query: { page: 2 } });
-      setPage(Number(query.page));
+      setPage(2);
     }
   }
   return (
@@ -119,10 +134,28 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
               </td>
               <td className="px-6 py-4">{review.recipe_id}</td>
               <td className="px-6 py-4">
+                <Toast ref={toast} />
+                <ConfirmDialog
+                  visible={visible == review._id}
+                  onHide={() => setVisible(undefined)}
+                  message="Are you sure you want to delete?"
+                  header="Confirmation"
+                  icon="pi pi-exclamation-triangle"
+                  accept={() => deleteReview(review._id)}
+                  reject={() =>
+                    toast.current?.show({
+                      severity: "warn",
+                      summary: "Rejected",
+                      detail: "You have rejected",
+                      life: 3000,
+                    })
+                  }
+                />
                 <p
-                  className="text-2xl text-red-600"
-                  onClick={() => deleteReview(review._id)}
+                  onClick={() => setVisible(review._id)}
+                  className="text-xl text-red-500"
                 >
+                  {" "}
                   <AiOutlineDelete />
                 </p>
               </td>

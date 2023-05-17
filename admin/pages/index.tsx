@@ -31,7 +31,7 @@ ChartJS.register(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Home({ status, userStatus }: any) {
   const { tagsStatus, ingredientStatus, CategoryStatus, createStatus } = status;
-  const data1 = {
+  const ingredientData = {
     labels: ingredientStatus.map((st: { name: string }) => st.name),
     datasets: [
       {
@@ -57,7 +57,7 @@ export default function Home({ status, userStatus }: any) {
       },
     ],
   };
-  const data2 = {
+  const tagData = {
     labels: tagsStatus.map((st: { name: string }) => st.name),
     datasets: [
       {
@@ -83,7 +83,7 @@ export default function Home({ status, userStatus }: any) {
       },
     ],
   };
-  const data3 = {
+  const categoryData = {
     labels: CategoryStatus.map((st: { name: string }) => st.name),
     datasets: [
       {
@@ -112,12 +112,12 @@ export default function Home({ status, userStatus }: any) {
 
   const labels = userStatus.map((us: { date: string }) => us.date);
 
-  const data = {
+  const userData = {
     labels,
     datasets: [
       {
         fill: true,
-        label: "users",
+        label: "Users",
         data: userStatus.map((us: { count: number }) => us.count),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
@@ -125,12 +125,12 @@ export default function Home({ status, userStatus }: any) {
     ],
   };
 
-  const data4 = {
+  const recipeData = {
     labels: createStatus.map((us: { name: string }) => us.name),
     datasets: [
       {
         fill: true,
-        label: "users",
+        label: "Recipe",
         data: createStatus.map((us: { count: number }) => us.count),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
@@ -142,24 +142,24 @@ export default function Home({ status, userStatus }: any) {
       {" "}
       <div className="flex ">
         <div className="w-[700px]">
-          <Line data={data} />
+          <Line data={userData} />
         </div>
         <div className="w-[700px]">
-          <Bar data={data4} />
+          <Bar data={recipeData} />
         </div>
       </div>
       <div className="w-full flex justify-between">
         <div className=" w-[500px]">
           <p>ingredient</p>
-          <Doughnut data={data1} updateMode={"reset"} redraw={true} />
+          <Doughnut data={ingredientData} updateMode={"reset"} redraw={true} />
         </div>
         <div className=" w-[500px]">
           <p>tags</p>
-          <Doughnut data={data2} updateMode={"reset"} redraw={true} />
+          <Doughnut data={tagData} updateMode={"reset"} redraw={true} />
         </div>
         <div className=" w-[500px]">
           <p>category</p>
-          <Doughnut data={data3} updateMode={"reset"} redraw={true} />
+          <Doughnut data={categoryData} updateMode={"reset"} redraw={true} />
         </div>
       </div>
     </div>

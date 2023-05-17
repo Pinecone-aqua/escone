@@ -13,7 +13,7 @@ type PropType = {
 
 function Table({ recipes, setShow }: PropType) {
   const router = useRouter();
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState<string>();
   const toast = useRef<Toast>(null);
   const token = Cookies.get("token");
 
@@ -142,8 +142,8 @@ function Table({ recipes, setShow }: PropType) {
               <div className="flex justify-end gap-4">
                 <Toast ref={toast} />
                 <ConfirmDialog
-                  visible={visible}
-                  onHide={() => setVisible(false)}
+                  visible={visible == recipe._id}
+                  onHide={() => setVisible(undefined)}
                   message="Are you sure you want to delete?"
                   header="Confirmation"
                   icon="pi pi-exclamation-triangle"
@@ -157,7 +157,7 @@ function Table({ recipes, setShow }: PropType) {
                     });
                   }}
                 />
-                <button onClick={() => setVisible(true)}>delete</button>
+                <button onClick={() => setVisible(recipe._id)}>delete</button>
                 <button onClick={() => showHandler(recipe._id)}>edit</button>
               </div>
             </td>
