@@ -99,48 +99,39 @@ function Settings() {
   }
 
   return (
-    <div className="recipes lg:w-9/12  flex h-full flex-col items-end gap-3">
-      <div className="flex gap-20 w-full items-center">
-        <div className="w-52  rounded-full flex-col flex gap-8">
-          <p className="text-xl font-semibold text-primary ">Change picture</p>
-          <div className="w-52 h-52 relative ">
-            {newProfileImage ? (
-              <picture className="block w-full h-full">
-                <img
-                  src={URL.createObjectURL(newProfileImage)}
-                  alt="profile"
-                  className="w-full rounded-full h-full"
-                />
-              </picture>
-            ) : (
-              <picture className="block w-full h-full">
-                <img
-                  src={updatedUser?.image}
-                  alt="profile"
-                  className="w-full rounded-full h-full"
-                />
-              </picture>
-            )}
+    <div className="settings">
+      <h2>User Information</h2>
+      <div className="settings-body">
+        <div className="profile-image">
+          {newProfileImage ? (
+            <picture>
+              <img src={URL.createObjectURL(newProfileImage)} alt="profile" />
+            </picture>
+          ) : (
+            <picture>
+              <img src={updatedUser?.image} alt="profile" />
+            </picture>
+          )}
 
-            <label className=" absolute bottom-0 right-0">
-              <p className="text-3xl p-4 bg-gray-500 bg-opacity-50 hover:bg-opacity-80 rounded-full">
-                <FiEdit />
-              </p>
-              <input
-                type="file"
-                name="image"
-                id=""
-                onChange={uploadImageHandler}
-                value={""}
-                className="hidden"
-              />
-            </label>
-          </div>
+          <label>
+            <p>
+              <FiEdit />
+            </p>
+            <input
+              type="file"
+              name="image"
+              onChange={uploadImageHandler}
+              value={""}
+              className="hidden"
+            />
+          </label>
         </div>
-        <div className=" flex  gap-4">
-          <div className="flex flex-col  gap-4">
-            <label className="flex items-center gap-2">
-              <p className="font-semibold">User Name : </p>
+
+        <div className="profile-information">
+          <div className="main detail">
+            <h5>Change username</h5>
+            <div className="username">
+              <p className="label">username:</p>
               <input
                 type="text"
                 defaultValue={updatedUser?.username}
@@ -151,10 +142,8 @@ function Settings() {
                     data: e.target.value,
                   })
                 }
-                className="p-0 border-none"
               />
-              <p
-                className=""
+              <button
                 onClick={() =>
                   setUserNameEdit({
                     edit: !userNameEdit.edit,
@@ -163,10 +152,11 @@ function Settings() {
                 }
               >
                 <FiEdit3 />
-              </p>
-            </label>
-            <label className="flex items-center gap-2 w-[400px]">
-              <p className="font-semibold"> Email : </p>
+              </button>
+            </div>
+
+            <div className="email">
+              <p className="label">email:</p>
               <input
                 type="text"
                 defaultValue={updatedUser?.email}
@@ -177,10 +167,8 @@ function Settings() {
                     data: e.target.value,
                   })
                 }
-                className="p-1 border-none w-8/12"
               />
-              <p
-                className=""
+              <button
                 onClick={() =>
                   setEmailEdit({
                     edit: !emailEdit.edit,
@@ -189,89 +177,73 @@ function Settings() {
                 }
               >
                 <FiEdit3 />
-              </p>
-            </label>
+              </button>
+            </div>
           </div>
-          <div className="">
-            <p className="font-semibold">Change password </p>
-            <div className="ps-5 flex flex-col gap-4">
-              <label
-                htmlFor=""
-                className="flex gap-3 items-center w-[400px] justify-between"
-              >
-                <p className="w-2/6">old password :</p>
+
+          <div className="password detail">
+            <h5>Change password</h5>
+            <div className="password-inputs">
+              <div className="old">
+                <p className="label">old: </p>
                 <input
                   type={oldPasswordShow ? `text` : `password`}
-                  className="p-1 rounded-lg w-5/12"
                   onChange={(e) => setoldPassword(e.target.value)}
                 />
-                <p
-                  className=""
-                  onClick={() => setoldPasswordShow(!oldPasswordShow)}
-                >
+                <button onClick={() => setoldPasswordShow(!oldPasswordShow)}>
                   show
-                </p>
-              </label>
-              <label
-                htmlFor=""
-                className="flex gap-3 items-center w-[400px] justify-between"
-              >
-                <p className="w-2/6">new password :</p>
+                </button>
+              </div>
+
+              <div className="new">
+                <p className="label">new:</p>
                 <input
                   type={newPasswordShow ? `text` : `password`}
-                  className={`p-1 rounded-lg w-5/12 ${
+                  className={
                     newPassword.confirmPass == newPassword.pass
-                      ? `border-2 border-green-500`
-                      : `border-2 border-red-500`
-                  }`}
+                      ? "correct"
+                      : "wrong"
+                  }
                   onChange={(e) => {
                     newPassword.pass = e.target.value;
                     setnewPassword({ ...newPassword });
                   }}
                 />
-                <p
-                  className=""
-                  onClick={() => setnewPasswordShow(!newPasswordShow)}
-                >
+                <button onClick={() => setnewPasswordShow(!newPasswordShow)}>
                   show
-                </p>
-              </label>
-              <label
-                htmlFor=""
-                className="flex gap-3 items-center w-[400px] justify-between"
-              >
-                <p className="w-2/6">confirm new password :</p>
+                </button>
+              </div>
+
+              <div className="confirm">
+                <p className="label">confirm: </p>
                 <input
                   type={confirmNewPasswordShow ? `text` : `password`}
-                  className={`p-1 rounded-lg w-5/12 ${
+                  className={
                     newPassword.confirmPass == newPassword.pass
-                      ? `border-2 border-green-500`
-                      : `border-2 border-red-500`
-                  }`}
+                      ? "correct"
+                      : "wrong"
+                  }
                   onChange={(e) => {
                     newPassword.confirmPass = e.target.value;
                     setnewPassword({ ...newPassword });
                   }}
                 />
-                <p
-                  className=""
+                <button
                   onClick={() =>
                     setConfirmNewPasswordShow(!confirmNewPasswordShow)
                   }
                 >
                   show
-                </p>
-              </label>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <input
-        type="button"
-        value="save all"
-        className="bg-green-400 text-green-800 border border-green-800 py-2 px-20 rounded-xl"
-        onClick={saveHandler}
-      />
+
+      <button onClick={saveHandler} className="save">
+        Save changes
+      </button>
     </div>
   );
 }

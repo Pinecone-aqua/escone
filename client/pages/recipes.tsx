@@ -1,5 +1,5 @@
 import RecipeCard from "@/components/common/RecipeCard";
-import Filter from "@/components/recipes/Filter";
+import Filter from "@/components/subs/Filter";
 import { useRouter } from "next/router";
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
@@ -78,7 +78,7 @@ type queryType = {
 };
 
 export async function getServerSideProps(context: { query: queryType }) {
-  const queryObj = context.query;
+  const queryObj: queryType = context.query;
 
   const queryParams = new URLSearchParams();
   queryParams.append("status", "approve");
@@ -88,7 +88,7 @@ export async function getServerSideProps(context: { query: queryType }) {
   const status = statusResult.data;
 
   for (const key in queryObj) {
-    const value = queryObj[key];
+    const value = queryObj[key as keyof queryType];
     if (Array.isArray(value)) {
       value.forEach((v) => {
         if (key == "category") {
@@ -125,7 +125,7 @@ export async function getServerSideProps(context: { query: queryType }) {
         );
         queryParams.append(key, tags._id);
       } else {
-        queryParams.append(key, value);
+        value && queryParams.append(key, value);
       }
     }
   }

@@ -1,6 +1,6 @@
-import RecipeCard from "@/components/common/RecipeCard";
-import { RecipeType } from "@/utils/types";
 import axios from "axios";
+import { RecipeType } from "../../utils/types";
+import RecipeCard from "../../components/common/RecipeCard";
 
 export default function Profile({
   recipes,
