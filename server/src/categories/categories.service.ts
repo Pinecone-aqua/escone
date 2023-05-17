@@ -12,7 +12,7 @@ export class CategoryService {
   ) {}
   async getAllCategories() {
     try {
-      const result = await this.categoryModel.find({});
+      const result = await this.categoryModel.find({}).limit(30);
       return result;
     } catch (error) {
       return error;
@@ -36,7 +36,7 @@ export class CategoryService {
   }
   async createCategory(newCategory: CategoryDto) {
     try {
-      const result = await this.categoryModel.insertMany({ newCategory });
+      const result = await this.categoryModel.create({ ...newCategory });
       return result;
     } catch (error) {
       return error;

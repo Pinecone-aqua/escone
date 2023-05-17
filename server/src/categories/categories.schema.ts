@@ -6,8 +6,6 @@ export class Category {
   // _id: string;
   @Prop()
   name: string;
-  @Prop()
-  picture: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

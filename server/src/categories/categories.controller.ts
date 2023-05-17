@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
+import { CheckRole } from 'src/role/role.decorator';
+import { CheckRoleGuard } from 'src/role/role.guard';
 import { CategoryService } from './categories.service';
 import { CategoryDto } from './dto/categories.create.dto';
 
@@ -25,6 +36,8 @@ export class CategoryContoller {
     }
   }
   @Post('add')
+  @UseGuards(CheckRoleGuard)
+  @CheckRole(true)
   createCategory(@Body() categoryDto: CategoryDto) {
     try {
       const result = this.categoryService.createCategory(categoryDto);
@@ -37,6 +50,17 @@ export class CategoryContoller {
   updateCategory(@Body() categoryDto: CategoryDto, @Param('id') id: string) {
     try {
       const result = this.categoryService.updateCategory(id, categoryDto);
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  @Delete(':id')
+  @UseGuards(CheckRoleGuard)
+  @CheckRole(true)
+  deleteCategory(@Param('id') id: string) {
+    try {
+      const result = this.categoryService.deleteCategory(id);
       return result;
     } catch (error) {
       return error;
