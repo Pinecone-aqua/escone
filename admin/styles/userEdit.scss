@@ -1,0 +1,83 @@
+.settings {
+  &-body {
+    .profile-image {
+      width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      img {
+        object-fit: cover;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+      }
+      label {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 10px;
+        border: 1px solid $brand-lightgray;
+        right: 100px;
+        font-size: 24px;
+        border-radius: 50%;
+        color: $brand-gray;
+        background-color: $brand-white;
+      }
+    }
+  }
+  .profile-information {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    .detail {
+      width: 300px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      input {
+        width: 80%;
+        border: 1px solid black;
+        padding: 2px;
+        margin-right: 20px;
+        border-radius: 5px;
+      }
+      .password-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      h5 {
+        font-weight: 600;
+        color: $brand-secondary;
+      }
+    }
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 500;
+    color: $brand-secondary;
+    margin-bottom: 20px;
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+  }
+  hr {
+    margin: 20px 0;
+  }
+  button.save {
+    color: $brand-primary;
+    border: 1px solid $brand-primary;
+    background-color: $brand-primary-light;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px 15px;
+  }
+}
