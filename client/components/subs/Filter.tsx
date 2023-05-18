@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { CategoryType, IngredientType, TagType } from "../../utils/types";
+import { CategoryType, IngredientType, TagType } from "@/utils/types";
 import { useRouter } from "next/router";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Filter({ status }: any): JSX.Element {
   const Router = useRouter();
-  const [tags, setTags] = useState<TagType[] | undefined>();
-  const [categories, setCategories] = useState<CategoryType[] | undefined>();
-  const [ingredients, setIngredients] = useState<
-    IngredientType[] | undefined
-  >();
+  const [tags, setTags] = useState<TagType[] | undefined>(status?.tagsStatus);
+  const [categories, setCategories] = useState<CategoryType[] | undefined>(
+    status?.CategoryStatus
+  );
+  const [ingredients, setIngredients] = useState<IngredientType[] | undefined>(
+    status?.ingredientStatus
+  );
 
   useEffect(() => {
-    setTags(status.tagsStatus);
-    setCategories(status.CategoryStatus);
-    setIngredients(status.ingredientStatus);
-  }, [status.CategoryStatus, status.ingredientStatus, status.tagsStatus]);
+    setTags(status?.tagsStatus);
+    setCategories(status?.CategoryStatus);
+    setIngredients(status?.ingredientStatus);
+  }, [status?.CategoryStatus, status?.ingredientStatus, status?.tagsStatus]);
 
   function selectHandler(type: string, name: string) {
     let query: string | string[] | undefined = Router.query[type];

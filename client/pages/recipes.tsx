@@ -1,10 +1,10 @@
 import RecipeCard from "@/components/common/RecipeCard";
 import Filter from "@/components/subs/Filter";
 import { useRouter } from "next/router";
-import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RecipeType } from "@/utils/types";
+import DropFilter from "@/components/subs/DropFilter";
 
 export default function Recipes({
   recipes,
@@ -16,7 +16,6 @@ export default function Recipes({
 }) {
   const { query } = useRouter();
   const [filter, setFilter] = useState<(string[] | undefined)[]>([]);
-  const [show, setShow] = useState<boolean>(false);
 
   useEffect(() => {
     const fltr: (string[] | undefined)[] = Object.values(query).map((res) => {
@@ -29,8 +28,7 @@ export default function Recipes({
 
   return (
     <div className="recipes container">
-      {/* HEADER */}
-      <div className="recipes-header">
+      <div className="recipes-header flex justify-between">
         <p>
           {recipes.length} results for {`" `}
           {Object.keys(query).length === 0
@@ -38,26 +36,20 @@ export default function Recipes({
             : filter.map((res) => res?.join(", ")).join(", ")}
           {` "`}
         </p>
-        <button
-          className="text-[25px] lg:hidden"
-          onClick={() => {
-            setShow(!show);
-            console.log("clicked");
-          }}
-        >
-          <TbAdjustmentsHorizontal />
-        </button>
+
+        <div className="dropfilter">
+          <DropFilter status={status} />
+        </div>
       </div>
 
       {/* BODY */}
-      <div className="flex w-full">
-        {/* SIDE FILTER */}
-        <div className="recipes-filter w-3/12">
+      <div className="recipes flex w-full">
+        <div className="recipes-filter">
           <Filter status={status} />
         </div>
 
         {/* RECIPES */}
-        <div className="recipes-grid w-9/12">
+        <div className="recipes-list">
           {recipes.length == 0 ? (
             <p>empty</p>
           ) : (

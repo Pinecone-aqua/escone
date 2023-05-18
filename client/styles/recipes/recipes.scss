@@ -1,13 +1,35 @@
 .recipes {
-  &-header {
-    font-size: 22px;
-    font-weight: 600;
-    padding: 35px 50px;
+  &-filter {
+    display: none;
+    width: 300px;
   }
-  &-grid {
-    padding: 50px;
-    justify-content: space-between;
+  &-list {
+    padding-left: 50px;
     display: flex;
     flex-wrap: wrap;
+    gap: 50px;
+    .recipeCard {
+      margin: 0;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
   }
+}
+
+@media screen and (min-width: 576px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+  .recipes {
+    &-filter {
+      display: block;
+    }
+    .dropfilter {
+      display: none;
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+}
+@media screen and (min-width: 1440px) {
 }
