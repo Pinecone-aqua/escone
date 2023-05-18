@@ -25,7 +25,7 @@ export async function getServerSideProps(context: { query: { user: string } }) {
   const userId: string = context.query.user;
   if (userId) {
     const result = await axios.get(
-      `${process.env.BACK_END_URL}/recipe/recipes?user=${userId}`
+      `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes?user=${userId}`
     );
     recipes = result.data;
   }

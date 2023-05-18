@@ -32,23 +32,25 @@ export default function Login({ show }: { show?: boolean }) {
       email: emailRef.current,
       password: passwordRef.current,
     };
-    axios.post(`${process.env.BACK_END_URL}/user/add`, user).then((res) => {
-      if (res.data.status) {
-        loginHandler();
-      } else {
-        toast.error(res.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        Router.reload();
-      }
-    });
+    axios
+      .post(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/add`, user)
+      .then((res) => {
+        if (res.data.status) {
+          loginHandler();
+        } else {
+          toast.error(res.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          Router.reload();
+        }
+      });
   }
 
   function loginHandler() {
@@ -60,7 +62,7 @@ export default function Login({ show }: { show?: boolean }) {
     const user = jwt.sign(payload, secret);
 
     axios
-      .get(`${process.env.BACK_END_URL}/user/login?token=${user}`)
+      .get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/login?token=${user}`)
       .then((res) => {
         if (res.data.status) {
           Cookies.set("token", res.data.token);
@@ -94,7 +96,7 @@ export default function Login({ show }: { show?: boolean }) {
 
   function googleHandler() {
     axios
-      .get(`${process.env.BACK_END_URL}/user/google`)
+      .get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/google`)
       .then((res) => Router.push(res.data));
   }
 

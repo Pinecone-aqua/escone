@@ -22,7 +22,9 @@ export default function Recipes({ recipes }: { recipes: RecipeType[] }) {
 }
 
 export async function getStaticProps() {
-  const result = await axios.get(`${process.env.BACK_END_URL}/recipe/recipes`);
+  const result = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes`
+  );
   const recipes = result.data;
   return {
     props: { recipes }, // will be passed to the page component as props

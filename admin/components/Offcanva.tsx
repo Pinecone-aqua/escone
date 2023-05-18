@@ -41,7 +41,9 @@ function Offcanva({ show, setShow }: PropType) {
     setRecipe(undefined);
     router.query.id &&
       axios
-        .get(`${process.env.BACK_END_URL}/recipe/${router.query.id}`)
+        .get(
+          `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${router.query.id}`
+        )
         .then((res) => {
           setRecipe(res.data);
           setRecipeCategory(res.data.categories);
@@ -55,10 +57,12 @@ function Offcanva({ show, setShow }: PropType) {
           setRecipeImages(res.data.images);
           setInstructions(res.data.instructions);
         });
-    axios.get(`${process.env.BACK_END_URL}/category/all`).then((res) => {
-      setCategory(res.data);
-    });
-    axios.get(`${process.env.BACK_END_URL}/tag/all`).then((res) => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/category/all`)
+      .then((res) => {
+        setCategory(res.data);
+      });
+    axios.get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/tag/all`).then((res) => {
       setTags(res.data);
     });
   }, [router.query.id]);
@@ -97,7 +101,7 @@ function Offcanva({ show, setShow }: PropType) {
 
     axios
       .patch(
-        `${process.env.BACK_END_URL}/recipe/upload/${recipe?._id}`,
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/upload/${recipe?._id}`,
         recipeFormData,
         {
           headers: {

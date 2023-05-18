@@ -21,7 +21,7 @@ export default function UserCard({
   function deleteUser(id: string) {
     const token = Cookies.get("token");
     axios
-      .delete(`${process.env.BACK_END_URL}/user/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

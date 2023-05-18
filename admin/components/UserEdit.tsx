@@ -56,7 +56,9 @@ function UserEdit({ show, setShow }: PropsType) {
   useEffect(() => {
     router.query.user &&
       axios
-        .get(`${process.env.BACK_END_URL}/user/${router.query.user}`)
+        .get(
+          `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/${router.query.user}`
+        )
         .then((res) => setUpdatedUser(res.data));
   }, [router.query.user]);
 
@@ -109,7 +111,7 @@ function UserEdit({ show, setShow }: PropsType) {
     userFormData.append("body", JSON.stringify(updatedUser));
     axios
       .put(
-        `${process.env.BACK_END_URL}/user/update/${updatedUser?._id}`,
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/update/${updatedUser?._id}`,
         userFormData,
         {
           headers: {

@@ -50,7 +50,10 @@ function Recipe({
     } else if (content === "") {
       toast.error("You have not written a review");
     } else {
-      axios.post(`${process.env.BACK_END_URL}/review/create`, newReview);
+      axios.post(
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/review/create`,
+        newReview
+      );
       toast.success("You have written a review");
       setContent("");
       setNewRate(0);
@@ -157,7 +160,9 @@ function Recipe({
 export default Recipe;
 
 export async function getStaticPaths() {
-  const result = await axios.get(`${process.env.BACK_END_URL}/recipe/recipes`);
+  const result = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes`
+  );
   const recipes = result.data;
 
   const paths = recipes.map((recipe: RecipeType) => ({
@@ -172,12 +177,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: { params: { id: string } }) {
   const id = context.params.id;
-  const result = await axios.get(`${process.env.BACK_END_URL}/recipe/${id}`);
+  const result = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${id}`
+  );
   const reviewResult = await axios.get(
-    `${process.env.BACK_END_URL}/review/recipe/${id}`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/review/recipe/${id}`
   );
   const resultRecipes = await axios.get(
-    `${process.env.BACK_END_URL}/recipe/recipes?status=approve`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes?status=approve`
   );
   const recipe = result.data;
   const recipes = resultRecipes.data;

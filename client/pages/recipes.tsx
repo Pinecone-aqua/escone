@@ -83,7 +83,7 @@ export async function getServerSideProps(context: { query: queryType }) {
   const queryParams = new URLSearchParams();
   queryParams.append("status", "approve");
   const statusResult = await axios.get(
-    `${process.env.BACK_END_URL}/recipe/statistics`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/statistics`
   );
   const status = statusResult.data;
 
@@ -131,7 +131,7 @@ export async function getServerSideProps(context: { query: queryType }) {
   }
 
   const queryString = queryParams.toString();
-  const url = `${process.env.BACK_END_URL}/recipe/recipes?${
+  const url = `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes?${
     queryString && `${queryString}`
   }`;
   const result = await axios.get(url);

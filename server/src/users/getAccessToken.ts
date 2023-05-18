@@ -9,7 +9,7 @@ export async function getAccessTokenFromCode(code: any) {
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
       grant_type: 'authorization_code',
-      redirect_uri: `${process.env.BACK_END_URL}/user/google-callback`,
+      redirect_uri: `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/google-callback`,
       code,
     });
 

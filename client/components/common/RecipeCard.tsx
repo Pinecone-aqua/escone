@@ -24,7 +24,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
     if (user && user.favorites) {
       axios
         .put(
-          `${process.env.BACK_END_URL}/user/update/${user._id}`,
+          `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/update/${user._id}`,
           {
             favorites: [...user.favorites, recipe._id],
           },
@@ -75,14 +75,16 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
     },
   ];
   function deleteHandler() {
-    axios.delete(`${process.env.BACK_END_URL}/recipe/${recipe._id}`).then(() =>
-      toast.current.show({
-        severity: "success",
-        summary: "Success",
-        detail: "You have deleted",
-        life: 3000,
-      })
-    );
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${recipe._id}`)
+      .then(() =>
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "You have deleted",
+          life: 3000,
+        })
+      );
     console.log(recipe._id);
   }
   return (

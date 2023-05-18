@@ -10,7 +10,7 @@ export default function Review({ review }: { review: ReviewType }) {
   const token = Cookies.get("token");
   const accept = (id: string) => {
     axios
-      .delete(`${process.env.BACK_END_URL}/review/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/review/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

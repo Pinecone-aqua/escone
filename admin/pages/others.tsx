@@ -30,11 +30,15 @@ export default function Other({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newCategoryObj: any = { name: newCategory };
     axios
-      .post(`${process.env.BACK_END_URL}/category/add`, newCategoryObj, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/category/add`,
+        newCategoryObj,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(() =>
         toast.current?.show({
           severity: "success",
@@ -51,7 +55,7 @@ export default function Other({
     categories.splice(index, 1);
     setCategories([...categories]);
     axios
-      .delete(`${process.env.BACK_END_URL}/category/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/category/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +73,7 @@ export default function Other({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newTagObj: any = { name: newTag };
     axios
-      .post(`${process.env.BACK_END_URL}/tag/add`, newTagObj, {
+      .post(`${process.env.NEXT_PUBLIC_BACK_END_URL}/tag/add`, newTagObj, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -90,7 +94,7 @@ export default function Other({
     tags.splice(index, 1);
     setTags([...tags]);
     axios
-      .delete(`${process.env.BACK_END_URL}/tag/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/tag/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -205,9 +209,11 @@ export default function Other({
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const responseCategory = await axios.get(
-      `${process.env.BACK_END_URL}/category/all`
+      `${process.env.NEXT_PUBLIC_BACK_END_URL}/category/all`
     );
-    const responseTag = await axios.get(`${process.env.BACK_END_URL}/tag/all`);
+    const responseTag = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_END_URL}/tag/all`
+    );
     const category = responseCategory.data;
     const tag = responseTag.data;
 
