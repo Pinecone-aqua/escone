@@ -1,14 +1,14 @@
 .add {
   min-height: 85vh;
-  max-height: 100vh;
   height: 100%;
   background-color: $brand-lightgray;
-  padding: 15px;
+  padding: 50px 15px;
+
   &-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding-bottom: 20px;
     h2 {
       font-size: 28px;
       font-weight: 600;
@@ -104,7 +104,7 @@
         &-item,
         picture {
           width: 150px;
-          color: $brand-shade;
+          color: $brand-gray;
           position: relative;
           border: 1px solid $brand-shade;
           background-color: transparent;

@@ -39,8 +39,7 @@ export class ReviewController {
           orderBy = { [query.order_by]: Number(query.type) };
         }
       }
-      console.log(query);
-      console.log(orderBy);
+
       const result = this.reviewService.getAllReview(page, orderBy);
       return result;
     } catch (error) {

@@ -22,17 +22,21 @@ function Table({ recipes, setShow }: PropType) {
     router.push({ query: { id: id } });
   }
   function deleteHandlers(id: string) {
-    axios.delete(`${process.env.BACK_END_URL}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    toast.current?.show({
-      severity: "info",
-      summary: "Confirmed",
-      detail: "You have accepted",
-      life: 3000,
-    });
+    axios
+      .delete(`${process.env.BACK_END_URL}/recipe/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        toast.current?.show({
+          severity: "success",
+          summary: "Confirmed",
+          detail: "Deleted recipe",
+          life: 3000,
+        });
+        router.reload();
+      });
   }
   return (
     <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
