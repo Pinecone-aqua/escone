@@ -163,6 +163,12 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        input.correct {
+          border-color: green;
+        }
+        input.wrong {
+          border-color: red;
+        }
       }
       h5 {
         font-weight: 600;
