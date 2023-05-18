@@ -21,7 +21,6 @@ export class CheckRoleGuard implements CanActivate {
       return false;
     }
     const decodedToken = this.jwtService.decode(token);
-    console.log('decodedToken:', decodedToken);
     if (!decodedToken) {
       return false;
     }
@@ -31,7 +30,6 @@ export class CheckRoleGuard implements CanActivate {
       context.getHandler(),
     );
 
-    console.log('requiredRoles:', requiredRoles);
     if (!requiredRoles) {
       return true;
     }

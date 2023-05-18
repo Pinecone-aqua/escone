@@ -68,8 +68,6 @@ export class UserController {
       if (!decodedToken) {
         return 'token extist';
       }
-      console.log(decodedToken._id != id);
-      console.log(decodedToken._id == id, decodedToken.role == true);
       if (decodedToken._id == id || decodedToken.role == true) {
         return this.userService.deleteUser(id);
       }
@@ -139,9 +137,8 @@ export class UserController {
 
         if (result) {
           const user = await this.userService.getUser(id);
-          console.log(user, 'user');
+
           const token = this.jwtService.sign(user.toJSON());
-          console.log(token, 'token');
 
           return { token };
         }

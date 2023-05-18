@@ -12,6 +12,7 @@ import {
 import Instructions from "./offcanva/Instructions";
 import Ingredient from "./offcanva/Ingredient";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import Cookies from "js-cookie";
 
 type PropType = {
   show: boolean;
@@ -35,7 +36,7 @@ function Offcanva({ show, setShow }: PropType) {
   const [servings, setServings] = useState<number>();
   const [cookTime, setCookTime] = useState<number>();
   const [recipeImages, setRecipeImages] = useState<string[]>([]);
-
+  const token = Cookies.get("token");
   useEffect(() => {
     setRecipe(undefined);
     router.query.id &&
@@ -97,9 +98,17 @@ function Offcanva({ show, setShow }: PropType) {
     axios
       .patch(
         `${process.env.BACK_END_URL}/recipe/upload/${recipe?._id}`,
-        recipeFormData
+        recipeFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        console.log(res.data);
+        router.reload();
+      });
 
     hideHandler();
   }

@@ -63,7 +63,7 @@ export class RecipeController {
     },
   ) {
     try {
-      const [, token] = Headers.authorization?.split(' ') ?? [];
+      const [type, token] = Headers.authorization?.split(' ') ?? [];
       if (!token) {
         return 'have not token';
       }
