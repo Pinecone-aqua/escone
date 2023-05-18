@@ -23,7 +23,7 @@ function Table({ recipes, setShow }: PropType) {
   }
   function deleteHandlers(id: string) {
     axios
-      .delete(`${process.env.BACK_END_URL}/recipe/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

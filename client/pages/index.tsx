@@ -6,7 +6,7 @@ import PopularSection from "@/components/home/Popular";
 import SpecialRecipe from "@/components/home/Special";
 
 export default function Home({ recipes }: { recipes: RecipeType[] }) {
-  console.log(process.env.BACK_END_URL);
+  console.log(process.env.NEXT_PUBLIC_NEXT_PUBLIC_BACK_END_URL);
   return (
     <>
       <Head>
@@ -15,14 +15,14 @@ export default function Home({ recipes }: { recipes: RecipeType[] }) {
 
       <HeroSection />
       <PopularSection recipes={recipes} />
-      <SpecialRecipe recipes={recipes}/>
+      <SpecialRecipe recipes={recipes} />
     </>
   );
 }
 
 export async function getServerSideProps() {
   const result = await axios.get(
-    `${process.env.BACK_END_URL}/recipe/recipes?status=approve`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes?status=approve`
   );
   const recipes = result.data;
   return {

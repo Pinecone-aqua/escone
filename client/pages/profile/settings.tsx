@@ -81,7 +81,7 @@ function Settings() {
     userFormData.append("body", JSON.stringify(updatedUser));
     axios
       .put(
-        `${process.env.BACK_END_URL}/user/update/${user?._id}`,
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/update/${user?._id}`,
         userFormData,
         {
           headers: {

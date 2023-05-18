@@ -28,7 +28,7 @@ export default function Profile({
 export async function getServerSideProps(context: { query: { user: string } }) {
   const userId: string = context.query.user; // logs the query parameters
   const result = await axios.get(
-    `${process.env.BACK_END_URL}/recipe/recipes?favorites=${userId}&status=approve`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes?favorites=${userId}&status=approve`
   );
   const recipes = result.data;
   return {

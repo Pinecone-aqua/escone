@@ -64,7 +64,7 @@ export default function AddRecipe({
     recipeFormData.append("body", JSON.stringify(newRecipe));
     axios
       .patch(
-        `${process.env.BACK_END_URL}/recipe/upload/${recipe?._id}`,
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/upload/${recipe?._id}`,
         recipeFormData,
         {
           headers: {
@@ -121,7 +121,10 @@ export default function AddRecipe({
     recipeFormData.append("body", JSON.stringify(newRecipe));
 
     axios
-      .post(`${process.env.BACK_END_URL}/recipe/create`, recipeFormData)
+      .post(
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/create`,
+        recipeFormData
+      )
       .then(() => {
         toast.success("succes recipe add", {
           position: "top-right",
@@ -352,14 +355,18 @@ export async function getServerSideProps(context: any) {
   const id = context.query.recipeId;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let recipe: any;
-  const catResult = await axios.get(`${process.env.BACK_END_URL}/category/all`);
-  const tagResult = await axios.get(`${process.env.BACK_END_URL}/tag/all`);
+  const catResult = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/category/all`
+  );
+  const tagResult = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/tag/all`
+  );
 
   const categories = catResult.data;
   const tag = tagResult.data;
   if (id) {
     const recipeResult = await axios.get(
-      `${process.env.BACK_END_URL}/recipe/${id}`
+      `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${id}`
     );
     recipe = recipeResult.data;
     return {

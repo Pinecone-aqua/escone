@@ -34,7 +34,7 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
   function deleteReview(id: string) {
     const token = Cookies.get("token");
     axios
-      .delete(`${process.env.BACK_END_URL}/review/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/review/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -174,12 +174,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log(query);
 
   try {
-    const response = await axios.get(`${process.env.BACK_END_URL}/review/all`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: query,
-    });
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACK_END_URL}/review/all`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: query,
+      }
+    );
 
     const result = response.data;
 
