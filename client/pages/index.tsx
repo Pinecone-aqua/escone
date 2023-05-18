@@ -6,7 +6,6 @@ import PopularSection from "@/components/home/Popular";
 import SpecialRecipe from "@/components/home/Special";
 
 export default function Home({ recipes }: { recipes: RecipeType[] }) {
-  console.log(process.env.NEXT_PUBLIC_NEXT_PUBLIC_BACK_END_URL);
   return (
     <>
       <Head>
