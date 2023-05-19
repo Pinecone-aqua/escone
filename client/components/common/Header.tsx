@@ -5,7 +5,7 @@ import { useUser } from "@/context/userContext";
 import Logo from "@/public/Logo";
 import Login from "./Login";
 import Dropdown from "../subs/Dropdown";
-import { AiOutlineMenu } from "react-icons/ai";
+import Menu from "../subs/Menu";
 
 interface MenuItem {
   label: string;
@@ -42,13 +42,8 @@ export default function Header(): JSX.Element {
 
           <div className="menu">
             {user ? <Dropdown /> : <Login />}
-            {/* <button className="sign">
-              {!user ? "Login" : `Welcome, ${user.username}`}
-            </button> */}
 
-            <button className="menu">
-              <AiOutlineMenu />
-            </button>
+            <Menu />
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function Menu() {
   }
   const menuItems: MenuItem[] = [
     { label: "Home", url: "/" },
-    { label: "Recipes", url: "/recipes/filter" },
+    { label: "Recipes", url: "/recipes" },
     { label: "Blog", url: "/blog" },
     { label: "About", url: "/about" },
   ];
@@ -20,10 +20,10 @@ export default function Menu() {
   return (
     <>
       <div className="menu">
-        <button>
+        <button onClick={() => setVisible(true)} className="menu">
           <FiMenu />
         </button>
-        <Sidebar visible={visible} onHide={() => setVisible(false)}>
+        <Sidebar visible={visible} position="top" onHide={() => setVisible(false)}>
           <nav>
             <ul>
               {menuItems.map((menuItem, index) => (

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { CategoryType, IngredientType, TagType } from "../../utils/types";
+import { CategoryType, IngredientType, TagType } from "@/utils/types";
 import { useRouter } from "next/router";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Filter({ status }: any): JSX.Element {
   const Router = useRouter();
-  const [tags, setTags] = useState<TagType[] | undefined>();
-  const [categories, setCategories] = useState<CategoryType[] | undefined>();
-  const [ingredients, setIngredients] = useState<
-    IngredientType[] | undefined
-  >();
+  const [tags, setTags] = useState<TagType[] | undefined>(status?.tagsStatus);
+  const [categories, setCategories] = useState<CategoryType[] | undefined>(
+    status?.CategoryStatus
+  );
+  const [ingredients, setIngredients] = useState<IngredientType[] | undefined>(
+    status?.ingredientStatus
+  );
 
   useEffect(() => {
-    setTags(status.tagsStatus);
-    setCategories(status.CategoryStatus);
-    setIngredients(status.ingredientStatus);
-  }, [status.CategoryStatus, status.ingredientStatus, status.tagsStatus]);
+    setTags(status?.tagsStatus);
+    setCategories(status?.CategoryStatus);
+    setIngredients(status?.ingredientStatus);
+  }, [status?.CategoryStatus, status?.ingredientStatus, status?.tagsStatus]);
 
   function selectHandler(type: string, name: string) {
     let query: string | string[] | undefined = Router.query[type];
@@ -40,9 +42,8 @@ function Filter({ status }: any): JSX.Element {
     }
   }
   return (
-    <div className="side-filter">
-      {/* CATEGORIES */}
-      <div className="categories">
+    <div className="filter">
+      <div className="categories filter-box">
         <h2>All Categories</h2>
         <div className="list">
           {categories &&
@@ -68,8 +69,7 @@ function Filter({ status }: any): JSX.Element {
         </div>
       </div>
 
-      {/* INGREDIENTS */}
-      <div className="ingredients pack">
+      <div className="ingredients filter-box">
         <h2>Ingredients</h2>
         <div className="list">
           {ingredients &&
@@ -99,10 +99,9 @@ function Filter({ status }: any): JSX.Element {
         </div>
       </div>
 
-      {/* TAGS */}
-      <div className="tags pack">
+      <div className="tags filter-box">
         <h2>Tags</h2>
-        <div className="tag-buttons">
+        <div className="tag list">
           {tags &&
             tags.map((tag, index: number) => (
               <button

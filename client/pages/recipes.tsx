@@ -1,35 +1,31 @@
 import RecipeCard from "@/components/common/RecipeCard";
 import Filter from "@/components/subs/Filter";
 import { useRouter } from "next/router";
-import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RecipeType } from "@/utils/types";
+import DropFilter from "@/components/subs/DropFilter";
 
 export default function Recipes({
   recipes,
   status,
 }: {
   recipes: RecipeType[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  status: any;
+  status: string;
 }) {
   const { query } = useRouter();
   const [filter, setFilter] = useState<(string[] | undefined)[]>([]);
-  const [show, setShow] = useState<boolean>(false);
 
   useEffect(() => {
     const fltr: (string[] | undefined)[] = Object.values(query).map((res) => {
       if (typeof res === "string") return [res];
       return res;
     });
-
     setFilter(fltr);
   }, [query]);
 
   return (
     <div className="recipes container">
-      {/* HEADER */}
       <div className="recipes-header">
         <p>
           {recipes.length} results for {`" `}
@@ -38,26 +34,16 @@ export default function Recipes({
             : filter.map((res) => res?.join(", ")).join(", ")}
           {` "`}
         </p>
-        <button
-          className="text-[25px] lg:hidden"
-          onClick={() => {
-            setShow(!show);
-            console.log("clicked");
-          }}
-        >
-          <TbAdjustmentsHorizontal />
-        </button>
+
+        <DropFilter status={status} className="dropfilter" />
       </div>
 
-      {/* BODY */}
-      <div className="flex w-full">
-        {/* SIDE FILTER */}
-        <div className="recipes-filter w-3/12">
+      <div className="recipes-body">
+        <div className="recipes-body-filter">
           <Filter status={status} />
         </div>
 
-        {/* RECIPES */}
-        <div className="recipes-grid w-9/12">
+        <div className="recipes-body-list">
           {recipes.length == 0 ? (
             <p>empty</p>
           ) : (

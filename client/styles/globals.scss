@@ -4,21 +4,21 @@
 
 @import "./variables.scss";
 
-@import "./common/header.scss";
+@import "./common/about.scss";
 @import "./common/footer.scss";
+@import "./common/header.scss";
 @import "./common/login.scss";
 @import "./common/profile.scss";
-@import "./common/recipeCard.scss";
 
 @import "./home/hero.scss";
 @import "./home/popular.scss";
 @import "./home/special.scss";
-@import "./common//about.scss";
 
 @import "./recipes/add.scss";
+@import "./recipes/card.scss";
 @import "./recipes/filter.scss";
-@import "./recipes/recipes.scss";
 @import "./recipes/recipe.scss";
+@import "./recipes/recipes.scss";
 
 * {
   box-sizing: border-box;

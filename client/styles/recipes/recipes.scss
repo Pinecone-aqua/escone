@@ -1,13 +1,98 @@
 .recipes {
   &-header {
-    font-size: 22px;
-    font-weight: 600;
-    padding: 35px 50px;
-  }
-  &-grid {
-    padding: 50px;
-    justify-content: space-between;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
   }
+  &-body {
+    display: flex;
+    width: 100%;
+    &-filter {
+      display: none;
+      width: 300px;
+    }
+    &-list {
+      padding-left: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      .recipeCard {
+        margin: 0;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+    }
+  }
+}
+
+// FILTER STARTS
+.filter {
+  &-box {
+    margin: 50px 0;
+  }
+  h2 {
+    margin-bottom: 15px;
+    color: $brand-secondary;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .list {
+    .single-item {
+      color: $brand-primary;
+      border-radius: 10px;
+      box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      gap: 10px;
+      margin: 5px 0;
+    }
+  }
+  .tags {
+    .list {
+      border-radius: 10px;
+      box-shadow: $brand-shadow;
+      padding: 20px;
+      width: 100%;
+      gap: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      button.tag {
+        color: $brand-primary;
+        font-size: 12px;
+        width: 60px;
+        padding: 5px 10px;
+        border: 0.5px solid $brand-primary;
+        border-radius: 5px;
+      }
+      button.tag.clicked {
+        color: $brand-secondary;
+        border-color: $brand-secondary;
+      }
+    }
+  }
+}
+// FILTER END
+
+@media screen and (min-width: 576px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+  .recipes {
+    &-header {
+      .dropfilter {
+        display: none;
+      }
+    }
+    &-body {
+      &-filter {
+        display: block;
+      }
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+}
+@media screen and (min-width: 1440px) {
 }
