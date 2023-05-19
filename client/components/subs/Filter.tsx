@@ -42,9 +42,8 @@ function Filter({ status }: any): JSX.Element {
     }
   }
   return (
-    <div className="side-filter">
-      {/* CATEGORIES */}
-      <div className="categories">
+    <div className="filter">
+      <div className="categories filter-box">
         <h2>All Categories</h2>
         <div className="list">
           {categories &&
@@ -70,8 +69,7 @@ function Filter({ status }: any): JSX.Element {
         </div>
       </div>
 
-      {/* INGREDIENTS */}
-      <div className="ingredients pack">
+      <div className="ingredients filter-box">
         <h2>Ingredients</h2>
         <div className="list">
           {ingredients &&
@@ -101,10 +99,9 @@ function Filter({ status }: any): JSX.Element {
         </div>
       </div>
 
-      {/* TAGS */}
-      <div className="tags pack">
+      <div className="tags filter-box">
         <h2>Tags</h2>
-        <div className="tag-buttons">
+        <div className="tag list">
           {tags &&
             tags.map((tag, index: number) => (
               <button

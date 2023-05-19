@@ -11,8 +11,7 @@ export default function Recipes({
   status,
 }: {
   recipes: RecipeType[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  status: any;
+  status: string;
 }) {
   const { query } = useRouter();
   const [filter, setFilter] = useState<(string[] | undefined)[]>([]);
@@ -22,13 +21,12 @@ export default function Recipes({
       if (typeof res === "string") return [res];
       return res;
     });
-
     setFilter(fltr);
   }, [query]);
 
   return (
     <div className="recipes container">
-      <div className="recipes-header flex justify-between">
+      <div className="recipes-header">
         <p>
           {recipes.length} results for {`" `}
           {Object.keys(query).length === 0
@@ -37,19 +35,15 @@ export default function Recipes({
           {` "`}
         </p>
 
-        <div className="dropfilter">
-          <DropFilter status={status} />
-        </div>
+        <DropFilter status={status} className="dropfilter" />
       </div>
 
-      {/* BODY */}
-      <div className="recipes flex w-full">
-        <div className="recipes-filter">
+      <div className="recipes-body">
+        <div className="recipes-body-filter">
           <Filter status={status} />
         </div>
 
-        {/* RECIPES */}
-        <div className="recipes-list">
+        <div className="recipes-body-list">
           {recipes.length == 0 ? (
             <p>empty</p>
           ) : (
