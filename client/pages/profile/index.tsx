@@ -14,7 +14,7 @@ export default function Profile({
           <RecipeCard key={index} recipe={recipe} />
         ))
       ) : (
-        <p>empty</p>
+        <p>Та жор нэмээгүй байна.</p>
       )}
     </div>
   );

@@ -199,15 +199,15 @@ export default function AddRecipe({
       <div className="container">
         {!user && <Login show={true} />}
         <div className="add-head">
-          <h2>Add recipe</h2>
+          <h2>Жор нэмэх</h2>
           <p>
-            post by
+            нийтлэсэн:
             <span>{user?.username}</span>
           </p>
         </div>
         <form>
           <div className="title">
-            <label htmlFor="title">title</label>
+            <label htmlFor="title">гарчиг</label>
             <input
               defaultValue={newRecipe.title}
               type="text"
@@ -218,7 +218,7 @@ export default function AddRecipe({
             />
           </div>
           <div className="images">
-            <label htmlFor="images">upload image</label>
+            <label htmlFor="images">Зураг оруулах</label>
             <div className="images-list">
               {newRecipe.images.map(
                 (img: string | undefined, index: number) => (
@@ -243,10 +243,10 @@ export default function AddRecipe({
             <input className="uploader" type="file" onChange={uploadHandler} />
           </div>
           <div className="category">
-            <label htmlFor="category">category</label>
+            <label htmlFor="category">категори</label>
             <div className="category-list">
               <select onChange={addCategoryHandler}>
-                <option defaultChecked>choose category</option>
+                <option defaultChecked>категори сонгох</option>
                 {category.map((cat) => {
                   if (
                     !newRecipe.categories.some(
@@ -275,10 +275,10 @@ export default function AddRecipe({
             </div>
           </div>
           <div className="tags">
-            <label htmlFor="tags">tags</label>
+            <label htmlFor="tags">Ангилал</label>
             <div className="tags-list">
               <select onChange={addTagHandler}>
-                <option defaultChecked>add tags</option>
+                <option defaultChecked>ангилал нэмэх</option>
                 {tags.map((tag) => {
                   if (
                     !newRecipe.tags.some(
@@ -305,7 +305,7 @@ export default function AddRecipe({
             </div>
           </div>
           <div className="serving">
-            <label htmlFor="serving">serving</label>
+            <label htmlFor="serving">Порц</label>
             <input
               type="number"
               defaultValue={newRecipe.servings}
@@ -316,7 +316,7 @@ export default function AddRecipe({
             />
           </div>
           <div className="cooktime">
-            <label htmlFor="cooktime">cooktime (min)</label>
+            <label htmlFor="cooktime">Бэлтгэх хугацаа (минут)</label>
             <input
               type="number"
               defaultValue={newRecipe.cook_time}
@@ -328,7 +328,7 @@ export default function AddRecipe({
           </div>
 
           <div className="description">
-            <label htmlFor="description">description</label>
+            <label htmlFor="description">Товч тайлбар</label>
             <textarea
               defaultValue={newRecipe.description}
               onChange={(e) => {
@@ -342,7 +342,9 @@ export default function AddRecipe({
           <Instructions newRecipe={newRecipe} setNewRecipe={setNewRecipe} />
 
           <div className="post">
-            <button onClick={recipe ? updateRecipe : createRecipe}>Post</button>
+            <button onClick={recipe ? updateRecipe : createRecipe}>
+              Нийтлэх
+            </button>
           </div>
         </form>
       </div>

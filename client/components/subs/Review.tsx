@@ -15,7 +15,7 @@ export default function Review({ review }: { review: ReviewType }) {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => toast.success("review deleted"));
+      .then(() => toast.success("Үнэлгээ устгагдлаа."));
   };
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -23,8 +23,8 @@ export default function Review({ review }: { review: ReviewType }) {
 
   function confirm2(id: string) {
     confirmDialog({
-      message: "Do you want to delete this review?",
-      header: "Delete Confirmation",
+      message: "Та энэ үнэлгээг устгахыг хүсч байна уу?",
+      header: "Устгах зөвшөөрөл",
       icon: "pi pi-info-circle",
       acceptClassName: "p-button-danger",
       accept: () => accept(id),

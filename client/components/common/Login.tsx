@@ -22,7 +22,7 @@ export default function Login({ show }: { show?: boolean }) {
 
   const modalHeader = (
     <div className="modal-header">
-      <h1>{register ? "Register" : "Login"}</h1>
+      <h1>{register ? "Бүртгүүлэх" : "Нэвтрэх"}</h1>
     </div>
   );
 
@@ -114,17 +114,17 @@ export default function Login({ show }: { show?: boolean }) {
         <div className="login-modal">
           <button onClick={googleHandler} className="btn-google">
             <FcGoogle />
-            Sign in with <span>Google account</span>
+            <span>Google account</span>-аар нэвтрэх
           </button>
 
           <Divider layout="horizontal" align="center">
-            <b>OR</b>
+            <b>эсвэл</b>
           </Divider>
 
           <div className="login-inputs">
             <input
               type="text"
-              placeholder="Email Address"
+              placeholder="Цахим шуудан"
               onChange={(e) => {
                 emailRef.current = e.target.value;
               }}
@@ -132,7 +132,7 @@ export default function Login({ show }: { show?: boolean }) {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Нууц үг"
               onChange={(e) => {
                 passwordRef.current = e.target.value;
                 setpass(
@@ -146,14 +146,14 @@ export default function Login({ show }: { show?: boolean }) {
               <>
                 <input
                   type="text"
-                  placeholder="Username"
+                  placeholder="Хэрэглэгчийн нэр"
                   onChange={(e) => {
                     nameRef.current = e.target.value;
                   }}
                   className="login-input"
                 />
                 <input
-                  type="password"
+                  type="Нууц үг баталгаажуулах"
                   placeholder="Confirm Password"
                   onChange={(e) => {
                     password2Ref.current != e.target.value;
@@ -174,18 +174,18 @@ export default function Login({ show }: { show?: boolean }) {
                 register ? pass && registerHandler() : loginHandler();
               }}
             >
-              {register ? "Register" : "Login"}
+              {register ? "Бүртгүүлэх" : "Нэвтрэх"}
             </button>
 
             {register ? (
               <p>
-                Already have an acccount?{" "}
-                <span onClick={() => setRegister(false)}>Sign in</span>
+                Та бүртгэлтэй юу?
+                <span onClick={() => setRegister(false)}>Нэвтрэх</span>
               </p>
             ) : (
               <p>
-                {"Don't"} have an acccount?{" "}
-                <span onClick={() => setRegister(true)}>Create one</span>
+                Та бүртгэлгүй юу?
+                <span onClick={() => setRegister(true)}>Бүртгүүлэх</span>
               </p>
             )}
           </div>

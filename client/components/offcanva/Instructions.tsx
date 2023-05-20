@@ -40,12 +40,12 @@ function Instructions({ newRecipe, setNewRecipe }: propType) {
   }
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-xl font-semi">Instructions</p>
+      <p className="text-xl font-semi">Алхамууд</p>
       {newRecipe.instructions.map((ins, index) => (
         <div key={index} className="relative">
           {" "}
           <div className="flex w-full justify-between items-center">
-            <p className="w-[100px]">Step {index + 1}</p>
+            <p className="w-[100px]">{index + 1}-р алхам</p>
           </div>
           <div className="flex gap-5">
             <textarea
@@ -78,16 +78,16 @@ function Instructions({ newRecipe, setNewRecipe }: propType) {
       ))}
       <div className="flex flex-col w-full ">
         {" "}
-        <p>Step {newRecipe.instructions.length + 1}</p>{" "}
+        <p>{newRecipe.instructions.length + 1}-р алхам</p>
         <textarea
-          placeholder="next Ingredients"
+          placeholder="дараагийн алхамд хийх зүйлсийг бичих хэсэг"
           value={newInstruction}
           className="w-full border p-4 rounded-lg resize-none h-[100px]"
           onChange={(e) => setNewInstruction(e.target.value)}
         />
         <input
           type="button"
-          value={"add"}
+          value="алхам нэмэх"
           onClick={addInstruction}
           className={"px-5 mt-3 justify-center"}
         />

@@ -13,7 +13,7 @@ export default function PopularSection({ recipes }: PopularSectionProps) {
 
   return (
     <div className="popular container">
-      <h3>Popular recipes</h3>
+      <h3>Түгээмэл жорууд</h3>
       <Carousel
         className="carousel"
         value={recipes.slice(0, 9)}

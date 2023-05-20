@@ -16,7 +16,7 @@ export default function SpecialRecipe({ recipes }: SpecialProps) {
         </picture>
         <div className="ingredients">
           <div className="ingredients-inner">
-            <h5>Ingredients</h5>
+            <h5>Ашиглагдах орцууд:</h5>
             <ScrollPanel className="ingredients-body">
               {recipe.ingredients.map((ing, index) => (
                 <p className="ingredient" key={index}>
@@ -36,7 +36,7 @@ export default function SpecialRecipe({ recipes }: SpecialProps) {
   return (
     <div className="special">
       <div className="container">
-        <h2>Special recipe</h2>
+        <h2>Онцгой жор</h2>
         <Carousel
           value={recipes}
           numVisible={1}

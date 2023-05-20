@@ -53,8 +53,8 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
   const reject = () => {
     toast.current.show({
       severity: "warn",
-      summary: "Rejected",
-      detail: "You have rejected",
+      summary: "Цуцлагдлаа",
+      detail: "Устгах хүсэлт цуцлагдлаа.",
       life: 3000,
     });
   };
@@ -80,8 +80,8 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
       .then(() =>
         toast.current.show({
           severity: "success",
-          summary: "Success",
-          detail: "You have deleted",
+          summary: "Амжилттай",
+          detail: "Устгах хүсэлт амжиллтай.",
           life: 3000,
         })
       );
@@ -99,7 +99,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
           </div>
           <p>{recipe.description.slice(0, 80)}...</p>
           <button className="more">
-            read more <span>&#8594;</span>
+            дэлгэрэнгүй <span>&#8594;</span>
           </button>
         </div>
       </Link>
@@ -116,7 +116,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
       <ConfirmPopup
         visible={visible}
         onHide={() => setVisible(false)}
-        message="do you want to delete"
+        message="Та устгахыг хүсч байна уу?"
         icon="pi pi-exclamation-triangle"
         accept={deleteHandler}
         reject={reject}

@@ -44,7 +44,7 @@ function Filter({ status }: any): JSX.Element {
   return (
     <div className="filter">
       <div className="categories filter-box">
-        <h2>All Categories</h2>
+        <h2>Категори</h2>
         <div className="list">
           {categories &&
             categories.map((category, index) => (
@@ -70,7 +70,7 @@ function Filter({ status }: any): JSX.Element {
       </div>
 
       <div className="ingredients filter-box">
-        <h2>Ingredients</h2>
+        <h2>Орц</h2>
         <div className="list">
           {ingredients &&
             ingredients.map(
@@ -81,7 +81,7 @@ function Filter({ status }: any): JSX.Element {
                       type="checkbox"
                       name={ingredient.name}
                       id={ingredient.name}
-                      className=" focus:outline-0 border rounded-sm  w-2 h-2 lg:w-4 lg:h-4"
+                      className="focus:outline-0 border rounded-sm  w-2 h-2 lg:w-4 lg:h-4"
                       onChange={() => {
                         selectHandler("ingredient", ingredient.name);
                       }}
@@ -100,7 +100,7 @@ function Filter({ status }: any): JSX.Element {
       </div>
 
       <div className="tags filter-box">
-        <h2>Tags</h2>
+        <h2>Ангилал</h2>
         <div className="tag list">
           {tags &&
             tags.map((tag, index: number) => (

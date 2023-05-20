@@ -5,6 +5,11 @@ import Image from "next/image";
 import React from "react";
 import Login from "./Login";
 import dayjs from "dayjs";
+import {
+  MdOutlineBookmarkAdded,
+  MdFavoriteBorder,
+  MdSettings,
+} from "react-icons/md";
 
 export default function ProfileLayout({
   children,
@@ -14,16 +19,20 @@ export default function ProfileLayout({
   const { user } = useUser();
   const profileNavigation = [
     {
-      icon: "pi pi-table",
-      label: "Recipes",
+      icon: <MdOutlineBookmarkAdded />,
+      label: "Миний жорууд",
       url: `/profile?user=${user?._id}`,
     },
     {
-      icon: "pi pi-heart",
-      label: "Favorites",
+      icon: <MdFavoriteBorder />,
+      label: "Таалагдсан",
       url: `/profile/favorites?user=${user?._id}`,
     },
-    { icon: "", label: "Settings", url: `/profile/settings?user=${user?._id}` },
+    {
+      icon: <MdSettings />,
+      label: "Тохиргоо",
+      url: `/profile/settings?user=${user?._id}`,
+    },
   ];
   return user ? (
     <>
@@ -38,7 +47,8 @@ export default function ProfileLayout({
             <div className="container">
               <ul>
                 {profileNavigation.map((navItem, index) => (
-                  <li key={index}>
+                  <li key={index} className="flex items-center gap-2">
+                    {navItem.icon}
                     <Link href={navItem.url}>{navItem.label}</Link>
                   </li>
                 ))}
