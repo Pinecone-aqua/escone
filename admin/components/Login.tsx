@@ -2,12 +2,10 @@
 import React, { useRef, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { toast } from "react-toastify";
-import { Divider } from "primereact/divider";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import { FcGoogle } from "react-icons/fc";
 
 export default function Login({ show }: { show?: boolean }) {
   const [visible, setVisible] = useState<boolean>(show || false);
@@ -94,12 +92,6 @@ export default function Login({ show }: { show?: boolean }) {
       });
   }
 
-  function googleHandler() {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/google`)
-      .then((res) => Router.push(res.data));
-  }
-
   return (
     <div className="login">
       <button onClick={() => setVisible(true)} className="login-btn">
@@ -111,15 +103,6 @@ export default function Login({ show }: { show?: boolean }) {
         onHide={() => setVisible(show || false)}
       >
         <div className="login-modal">
-          <button onClick={googleHandler} className="btn-google">
-            <FcGoogle />
-            Sign in with <span>Google account</span>
-          </button>
-
-          <Divider layout="horizontal" align="center">
-            <b>OR</b>
-          </Divider>
-
           <div className="login-inputs">
             <input
               type="text"
