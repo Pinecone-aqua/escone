@@ -1,11 +1,14 @@
-.recipeCard {
+.recipe-card {
   width: 335px;
   height: 130px;
   display: flex;
   margin: 0 auto;
   border-radius: 10px;
   box-shadow: $brand-shadow;
-
+  button.favorite {
+    position: absolute;
+    color: rgb(255, 80, 80);
+  }
   picture {
     width: 150px;
     height: 100%;
@@ -16,7 +19,6 @@
       border-radius: 10px 0 0 10px;
     }
   }
-
   .text {
     width: 185px;
     height: 100%;
@@ -31,11 +33,6 @@
     p {
       display: none;
     }
-    button.favorite {
-      font-weight: 200;
-      font-size: 18px;
-      color: $brand-shade;
-    }
     button.more {
       width: 100%;
       display: flex;
@@ -48,28 +45,37 @@
 }
 
 @media screen and (min-width: 576px) {
-  .recipeCard {
+  .recipe-card {
     width: 250px;
     height: 150px;
-
     picture {
-      width: 115px;
+      width: 110px;
     }
-
+    button.favorite {
+      font-size: 18px;
+      top: 15px;
+      right: 20px;
+    }
     .text {
-      width: 135px;
+      width: 140px;
+      .title {
+        padding-right: 20px;
+      }
     }
   }
 }
 
 @media screen and (min-width: 768px) {
-  .recipeCard {
+  .recipe-card {
     width: 335px;
-
     picture {
       width: 150px;
     }
-
+    button.favorite {
+      font-size: 20px;
+      top: 15px;
+      right: 20px;
+    }
     .text {
       width: 185px;
     }
@@ -77,12 +83,11 @@
 }
 
 @media screen and (min-width: 992px) {
-  .recipeCard {
+  .recipe-card {
     width: 210px;
     height: 295px;
     flex-direction: column;
     justify-content: space-between;
-
     picture {
       width: 100%;
       height: 190px;
@@ -90,7 +95,10 @@
         border-radius: 10px 10px 0 0;
       }
     }
-
+    button.favorite {
+      font-size: 22px;
+      left: 15px;
+    }
     .text {
       display: flex;
       width: 100%;
@@ -115,15 +123,17 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .recipeCard {
+  .recipe-card {
     width: 260px;
     height: 380px;
-
     picture {
       width: 100%;
       height: 275px;
     }
-
+    button.favorite {
+      font-size: 24px;
+      left: 15px;
+    }
     .text {
       width: 100%;
       height: 125px;
@@ -144,15 +154,18 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .recipeCard {
+  .recipe-card {
     width: 280px;
     height: 430px;
-
     picture {
       width: 100%;
       height: 290px;
     }
-
+    button.favorite {
+      height: 32px;
+      font-size: 28px;
+      left: 15px;
+    }
     .text {
       width: 100%;
       height: 145px;

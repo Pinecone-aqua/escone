@@ -15,13 +15,17 @@ type PropType = {
   recipe: RecipeType;
   width?: string;
 };
+
 export default function RecipeCard({ recipe }: PropType): JSX.Element {
   const { user } = useUser();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
+  const toast = useRef<Toast>(null);
+  const menu = useRef<Menu>(null);
+
   const saveHandler = () => {
     const token = Cookies.get("token");
-    if (user && user.favorites) {
+    if (user?.favorites) {
       axios
         .put(
           `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/update/${user._id}`,
@@ -43,15 +47,9 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
         });
     }
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const toast = useRef<any>(null);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const menu: React.MutableRefObject<any> = useRef(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   const reject = () => {
-    toast.current.show({
+    toast.current?.show({
       severity: "warn",
       summary: "Цуцлагдлаа",
       detail: "Устгах хүсэлт цуцлагдлаа.",
@@ -74,21 +72,22 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
       },
     },
   ];
+
   function deleteHandler() {
     axios
       .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${recipe._id}`)
       .then(() =>
-        toast.current.show({
+        toast.current?.show({
           severity: "success",
           summary: "Амжилттай",
           detail: "Устгах хүсэлт амжиллтай.",
           life: 3000,
         })
       );
-    console.log(recipe._id);
   }
+
   return (
-    <div className="recipeCard relative group">
+    <div className="recipe-card relative group">
       <picture>
         <img src={recipe.images[0]} alt="" />
       </picture>
@@ -103,11 +102,8 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
           </button>
         </div>
       </Link>
-      <button
-        onClick={saveHandler}
-        className="favorite absolute bottom-[105px] right-5 text-xl text-red-500"
-      >
-        {user?.favorites?.some((fav) => fav == recipe._id) ? (
+      <button onClick={saveHandler} className="favorite">
+        {user?.favorites?.some((fav: string) => fav == recipe._id) ? (
           <MdFavorite />
         ) : (
           <MdFavoriteBorder />
@@ -126,7 +122,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
         <button
           className="p-1 group-hover:block hidden rounded-full bg-slate-50 bg-opacity-50 absolute top-1 right-1 text-2xl text-white hover:bg-opacity-70"
           onClick={(e) => {
-            menu.current.toggle(e);
+            menu.current?.toggle(e);
           }}
         >
           <BsThreeDots />
