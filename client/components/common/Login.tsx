@@ -104,7 +104,7 @@ export default function Login({ show }: { show?: boolean }) {
   return (
     <div className="login">
       <button onClick={() => setVisible(true)} className="login-btn">
-        Login
+        Нэвтрэх
       </button>
       <Dialog
         header={modalHeader}
@@ -153,8 +153,8 @@ export default function Login({ show }: { show?: boolean }) {
                   className="login-input"
                 />
                 <input
-                  type="Нууц үг баталгаажуулах"
-                  placeholder="Confirm Password"
+                  type="password"
+                  placeholder="Нууц үг баталгаажуулах"
                   onChange={(e) => {
                     password2Ref.current != e.target.value;
                     setpass(
@@ -180,12 +180,12 @@ export default function Login({ show }: { show?: boolean }) {
             {register ? (
               <p>
                 Та бүртгэлтэй юу?
-                <span onClick={() => setRegister(false)}>Нэвтрэх</span>
+                <span onClick={() => setRegister(false)}> Нэвтрэх</span>
               </p>
             ) : (
               <p>
                 Та бүртгэлгүй юу?
-                <span onClick={() => setRegister(true)}>Бүртгүүлэх</span>
+                <span onClick={() => setRegister(true)}> Бүртгүүлэх</span>
               </p>
             )}
           </div>
