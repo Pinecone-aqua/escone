@@ -42,6 +42,6 @@ Team "PineApple" ~ PINECONE AQUA 2023
 
 ---
 
-```All rights reserved :) ~~
+```All rights reserved :) ~~~
 
 ```
