@@ -11,10 +11,10 @@ export default function Menu() {
     url: string;
   }
   const menuItems: MenuItem[] = [
-    { label: "Home", url: "/" },
-    { label: "Recipes", url: "/recipes" },
-    { label: "Blog", url: "/blog" },
-    { label: "About", url: "/about" },
+    { label: "Нүүр", url: "/" },
+    { label: "Жор", url: "/recipes" },
+    // { label: "Blog", url: "/blog" },
+    { label: "Бидний тухай", url: "/about" },
   ];
 
   return (

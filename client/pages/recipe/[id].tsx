@@ -90,7 +90,7 @@ function Recipe({
           </div>
 
           <div className="body-item">
-            <h3>Ingredients</h3>
+            <h3>Хоолны орц:</h3>
             <ScrollPanel style={{ width: "300px", height: "280px" }}>
               <div className="ingredients">
                 {recipe.ingredients.map((ing, index) => (
@@ -108,11 +108,11 @@ function Recipe({
 
       <div className="recipe-methods">
         <div className="recipe-methods-body">
-          <h2>Methods</h2>
+          <h2>Алхамууд:</h2>
           <div className="steps">
             {recipe.instructions.map((mtd, index) => (
               <div key={index} className="step">
-                <h4>step {Object.keys(mtd)}</h4>
+                <h4>{Object.keys(mtd)}-р алхам</h4>
                 <p>{Object.values(mtd)}</p>
               </div>
             ))}
@@ -123,7 +123,7 @@ function Recipe({
       <PopularSection recipes={recipes} />
 
       <div className="recipe-reviews">
-        <h2>Recipe Reviews</h2>
+        <h2>Үнэлгээ</h2>
         <ConfirmDialog />
 
         <div className="recipe-reviews-review">
@@ -134,7 +134,7 @@ function Recipe({
       </div>
 
       <div className="recipe-review-write">
-        <h2>Write a review</h2>
+        <h2>Үнэлгээ өгөх</h2>
         <div className="review-stars">
           {starPrinter(newRate, (e) =>
             setNewRate(Number((e.target as HTMLInputElement).id))
@@ -144,12 +144,12 @@ function Recipe({
         <div className="input">
           <textarea
             name="review"
-            placeholder="Your review"
+            placeholder="Үнэлгээ өгөх хэсэг"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
           <button type="submit" onClick={reviewHandler}>
-            Submit
+            Илгээх
           </button>
         </div>
       </div>

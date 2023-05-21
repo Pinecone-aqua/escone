@@ -137,7 +137,7 @@ function UserEdit({ show, setShow }: PropsType) {
         <div className="">
           <Toast ref={toast} />
           <div className="settings">
-            <h2>User Information</h2>
+            <h2>Хэрэглэгчийн мэдээлэл</h2>
             <div className="settings-body">
               <div className="profile-image">
                 {newProfileImage ? (
@@ -169,9 +169,9 @@ function UserEdit({ show, setShow }: PropsType) {
 
               <div className="profile-information">
                 <div className="main detail">
-                  <h5>Change username</h5>
+                  <h5>Хэрэглэгчийн нэр өөрчлөх:</h5>
                   <div className="username">
-                    <p className="label">username:</p>
+                    <p className="label">Хэрэглэгчийн нэр:</p>
                     <input
                       type="text"
                       defaultValue={updatedUser.username}
@@ -196,7 +196,7 @@ function UserEdit({ show, setShow }: PropsType) {
                   </div>
 
                   <div className="email">
-                    <p className="label">email:</p>
+                    <p className="label">Цахим шуудан:</p>
                     <input
                       type="text"
                       defaultValue={updatedUser?.email}
@@ -220,29 +220,29 @@ function UserEdit({ show, setShow }: PropsType) {
                     </button>
                   </div>
                   <div className="">
-                    <h5>Change Role</h5>
+                    <h5>Үүрэг өөрчлөх:</h5>
                     <select
                       className="border-2  border-black rounded p-2"
                       onChange={(e) => setRole(e.target.value == "true")}
                     >
                       <option value="true" selected={updatedUser.role == true}>
-                        admin
+                        Админ
                       </option>
                       <option
                         value="false"
                         selected={updatedUser.role == false}
                       >
-                        client
+                        Хэрэглэгч
                       </option>
                     </select>
                   </div>
                 </div>
 
                 <div className="password detail">
-                  <h5>Change password</h5>
+                  <h5>Нууц үг өөрчлөх:</h5>
                   <div className="password-inputs">
                     <div className="new">
-                      <p className="label">new:</p>
+                      <p className="label">шинэ:</p>
                       <input
                         type={newPasswordShow ? `text` : `password`}
                         className={
@@ -263,7 +263,7 @@ function UserEdit({ show, setShow }: PropsType) {
                     </div>
 
                     <div className="confirm">
-                      <p className="label">confirm: </p>
+                      <p className="label">баталгаажуулах: </p>
                       <input
                         type={confirmNewPasswordShow ? `text` : `password`}
                         className={
@@ -292,17 +292,11 @@ function UserEdit({ show, setShow }: PropsType) {
             <hr />
 
             <button onClick={saveHandler} className="save">
-              Save changes
+              Хадгалах
             </button>
           </div>
         </div>
-      ) : (
-        <div className="w-full flex justify-center">
-          <div className="w-16 h-16 border-4 border-blue-400 border-double rounded-full animate-spin">
-            <span className="bg-white h-1 w-1 text-white">.</span>
-          </div>
-        </div>
-      )}
+      ) : null}
     </Sidebar>
   );
 }

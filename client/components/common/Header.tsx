@@ -13,10 +13,10 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { label: "Home", url: "/" },
-  { label: "Recipes", url: "/recipes" },
+  { label: "Нүүр", url: "/" },
+  { label: "Жор", url: "/recipes" },
   // { label: "Blog", url: "/blog" },
-  { label: "About", url: "/about" },
+  { label: "Бидний тухай", url: "/about" },
 ];
 
 export default function Header(): JSX.Element {
@@ -26,9 +26,9 @@ export default function Header(): JSX.Element {
     <>
       <div className="header">
         <div className="container">
-          <div className="logo">
+          <Link href="/" className="logo">
             <Logo />
-          </div>
+          </Link>
 
           <nav>
             <ul>

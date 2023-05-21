@@ -10,18 +10,18 @@ export default function Dropdown() {
   const items = [
     {
       icon: "pi pi-fw pi-user",
-      label: "Profile",
+      label: "Хэрэглэгчийн булан",
       url: `/profile?user=${user?._id}`,
     },
-    { icon: "pi pi-plus", label: "Add recipe", url: "/addRecipe" },
+    { icon: "pi pi-plus", label: "Жор нэмэх", url: "/addRecipe" },
     {
       icon: "pi pi-heart",
-      label: "Favorites",
+      label: "Таалагдсан жорууд",
       url: `/profile/favorites?user=${user?._id}`,
     },
     {
       icon: "pi pi-sign-out",
-      label: "Log out",
+      label: "Гарах",
       url: "/",
       command: logoutHandler,
     },
@@ -40,7 +40,7 @@ export default function Dropdown() {
       <Menu model={items} popup ref={menu} className="mt-3" />
 
       <button className="popup gap-2" onClick={dropDownHanlder}>
-        Hi, {user?.username}!
+        Сайн уу?, {user?.username}!
       </button>
     </div>
   );

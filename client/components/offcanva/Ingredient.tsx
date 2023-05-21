@@ -61,7 +61,7 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
 
   return (
     <div className="ingredients">
-      <label htmlFor="ingredients">ingredients</label>
+      <label htmlFor="ingredients">Орц нэмэх</label>
       {newRecipe.ingredients.map((ing, index) => (
         <div key={ing.name} className="ingredient my-2">
           <div className="ingredient-detail flex gap-3">
@@ -109,7 +109,7 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
 
       <div className="ingredients-add">
         <input
-          placeholder="ingredient"
+          placeholder="орц"
           type="text"
           value={newIngredientName}
           onChange={(e) => setNewIngredientName(e.target.value)}
@@ -120,7 +120,7 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
           onChange={(e) => setNewIngredientQuantity(Number(e.target.value))}
         />
         <input
-          placeholder="measure"
+          placeholder="хэмжих нэгж"
           type="text"
           value={newIngredientMeasure}
           onChange={(e) => setNewIngredientMeasure(e.target.value)}
@@ -128,7 +128,7 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
 
         <input
           type="button"
-          value="add"
+          value="орц нэмэх"
           onClick={addIngredientHandler}
           className="flex justify-center"
         />

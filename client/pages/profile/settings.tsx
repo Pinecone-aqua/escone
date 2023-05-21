@@ -100,7 +100,7 @@ function Settings() {
 
   return (
     <div className="settings">
-      <h2>User Information</h2>
+      <h2>Хэрэглэгчийн мэдээлэл</h2>
       <div className="settings-body">
         <div className="profile-image">
           {newProfileImage ? (
@@ -129,9 +129,9 @@ function Settings() {
 
         <div className="profile-information">
           <div className="main detail">
-            <h5>Change username</h5>
+            <h5>Хэрэглэгчийн нэр өөрчлөх:</h5>
             <div className="username">
-              <p className="label">username:</p>
+              <p className="label">Хэрэглэгчийн нэр:</p>
               <input
                 type="text"
                 defaultValue={updatedUser?.username}
@@ -156,7 +156,7 @@ function Settings() {
             </div>
 
             <div className="email">
-              <p className="label">email:</p>
+              <p className="label">Цахим шуудан:</p>
               <input
                 type="text"
                 defaultValue={updatedUser?.email}
@@ -182,10 +182,10 @@ function Settings() {
           </div>
 
           <div className="password detail">
-            <h5>Change password</h5>
+            <h5>Нууц үг өөрчлөх:</h5>
             <div className="password-inputs">
               <div className="old">
-                <p className="label">old: </p>
+                <p className="label">Хуучин нууц үг: </p>
                 <input
                   type={oldPasswordShow ? `text` : `password`}
                   onChange={(e) => setoldPassword(e.target.value)}
@@ -196,7 +196,7 @@ function Settings() {
               </div>
 
               <div className="new">
-                <p className="label">new:</p>
+                <p className="label">Шинэ нууц үг:</p>
                 <input
                   type={newPasswordShow ? `text` : `password`}
                   className={
@@ -215,7 +215,7 @@ function Settings() {
               </div>
 
               <div className="confirm">
-                <p className="label">confirm: </p>
+                <p className="label">Баталгаажуулах: </p>
                 <input
                   type={confirmNewPasswordShow ? `text` : `password`}
                   className={
@@ -244,7 +244,7 @@ function Settings() {
       <hr />
 
       <button onClick={saveHandler} className="save">
-        Save changes
+        Хадгалах
       </button>
     </div>
   );
