@@ -51,7 +51,7 @@ export class UserService {
     try {
       const stringifiedParams = queryString.stringify({
         client_id: process.env.CLIENT_ID,
-        redirect_uri: `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/google-callback`,
+        redirect_uri: `${process.env.BACK_END_URL}/user/google-callback`,
         scope: [
           'https://www.googleapis.com/auth/userinfo.email',
           'https://www.googleapis.com/auth/userinfo.profile',
@@ -118,6 +118,7 @@ export class UserService {
   async verifyGoogle(code) {
     try {
       const access_token: any = await getAccessTokenFromCode(code);
+
       const user = await getGoogleUserInfo(access_token);
 
       return user;

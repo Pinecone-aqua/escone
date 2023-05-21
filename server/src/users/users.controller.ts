@@ -161,13 +161,10 @@ export class UserController {
 
       if (result && result[0].email == user.email) {
         const token = this.jwtService.sign(result[0].toJSON());
-        res
-          .status(200)
-          .cookie('token', token)
-          .redirect(`${process.env.CLIENT_URL}`);
+        res.status(200).redirect(`${process.env.CLIENT_URL}/?token=${token}`);
       }
     } catch (error) {
-      return error;
+      return 'eroor';
     }
   }
   @Get('login')
