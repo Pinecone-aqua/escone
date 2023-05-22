@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import PopularSection from "@/components/home/Popular";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RecipeType, ReviewType } from "@/utils/types";
 import { ScrollPanel } from "primereact/scrollpanel";
@@ -11,6 +11,7 @@ import { useUser } from "@/context/userContext";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import Review from "@/components/subs/Review";
 import { dateFormat, starPrinter } from "@/utils/functions";
+import Cookies from "js-cookie";
 
 function Recipe({
   recipe,
@@ -21,12 +22,16 @@ function Recipe({
   recipe: RecipeType;
   review: ReviewType[];
 }) {
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
   const { user } = useUser();
   const [newRate, setNewRate] = useState(0);
   const [content, setContent] = useState("");
+  const token = Cookies.get("token");
 
   const rates = review.map((rev) => rev.rate);
-
+  useEffect(() => {
+    setReviews(review);
+  }, [review]);
   function Avg(array: number[]) {
     let sum = 0;
     for (let i = 0; i < array.length; i++) {
@@ -36,28 +41,49 @@ function Recipe({
   }
 
   function reviewHandler() {
-    // eslint-disable-next-line camelcase
-    const newReview = {
-      created_by: user?._id,
+    // eslint-disable-next-line camelcase, @typescript-eslint/no-explicit-any
+    const newReview: any = {
+      created_by: {
+        _id: user?._id,
+        username: user?.username,
+        image: user?.image,
+      },
       recipe_id: recipe._id,
       rate: newRate,
       content: content,
       created_date: dayjs().format(),
     };
-    console.log(newReview);
-    if (newRate === 0) {
-      toast.error("You have not rated");
+    if (!user) {
+      toast.error("Та нэвтрэх хэрэгтэй");
+    } else if (newRate === 0) {
+      toast.error("Та үнэлгээ өгөөгүй байна");
     } else if (content === "") {
-      toast.error("You have not written a review");
+      toast.error("Та сэтгэгдэл бичээгүй байна");
     } else {
+      setReviews([...reviews, newReview]);
+      console.log(newReview);
+      const reqReview = { ...newReview };
+      reqReview.created_by = user._id;
+      console.log(reqReview);
       axios.post(
         `${process.env.NEXT_PUBLIC_BACK_END_URL}/review/create`,
-        newReview
+        reqReview
       );
-      toast.success("You have written a review");
+      toast.success("Сэтгэгдэл бичсэнд баярлалаа");
       setContent("");
       setNewRate(0);
     }
+  }
+  function deleteReviewHandler(id: string) {
+    const newviews = reviews.filter((review) => review._id != id);
+    setReviews([...newviews]);
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_BACK_END_URL}/review/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => toast.success("Үнэлгээ устгагдлаа."));
   }
 
   return (
@@ -127,8 +153,12 @@ function Recipe({
         <ConfirmDialog />
 
         <div className="recipe-reviews-review">
-          {review.map((rev, index) => (
-            <Review key={index} review={rev} />
+          {reviews.map((rev, index) => (
+            <Review
+              key={index}
+              review={rev}
+              deleteReviewHandler={deleteReviewHandler}
+            />
           ))}
         </div>
       </div>
@@ -144,7 +174,7 @@ function Recipe({
         <div className="input">
           <textarea
             name="review"
-            placeholder="Үнэлгээ өгөх хэсэг"
+            placeholder="Сэтгэгдэл бичих хэсэг"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
