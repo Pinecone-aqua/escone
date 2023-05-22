@@ -1,7 +1,11 @@
 .recipes {
+  min-height: 80vh;
   &-header {
     display: flex;
     justify-content: space-between;
+    color: $brand-gray;
+    font-size: 20px;
+    padding: 20px;
   }
   &-body {
     display: flex;
@@ -11,7 +15,7 @@
       width: 300px;
     }
     &-list {
-      padding-left: 50px;
+      padding: 50px;
       display: flex;
       flex-wrap: wrap;
       gap: 50px;
@@ -81,9 +85,7 @@
 @media screen and (min-width: 992px) {
   .recipes {
     &-header {
-      .dropfilter {
-        display: none;
-      }
+      display: none;
     }
     &-body {
       &-filter {
