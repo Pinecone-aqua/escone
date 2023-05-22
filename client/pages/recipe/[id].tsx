@@ -168,7 +168,6 @@ export async function getStaticPaths() {
   const paths = recipes.map((recipe: RecipeType) => ({
     params: { id: recipe._id },
   }));
-  console.log(paths);
   return {
     paths,
     fallback: false,
