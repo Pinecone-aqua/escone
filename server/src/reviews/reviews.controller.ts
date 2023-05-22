@@ -67,6 +67,7 @@ export class ReviewController {
   @Post('create')
   createReview(@Body() ReviewDto: ReviewDto) {
     try {
+      console.log(ReviewDto);
       const result = this.reviewService.createReview(ReviewDto);
       return result;
     } catch (error) {

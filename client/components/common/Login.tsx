@@ -34,6 +34,7 @@ export default function Login({ show }: { show?: boolean }) {
       email: emailRef.current,
       password: passwordRef.current,
     };
+    console.log(user);
     axios
       .post(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/add`, user)
       .then((res) => {
@@ -156,7 +157,7 @@ export default function Login({ show }: { show?: boolean }) {
                   type="password"
                   placeholder="Нууц үг баталгаажуулах"
                   onChange={(e) => {
-                    password2Ref.current != e.target.value;
+                    password2Ref.current = e.target.value;
                     setpass(
                       password2Ref.current != "" &&
                         password2Ref.current == passwordRef.current
@@ -174,7 +175,7 @@ export default function Login({ show }: { show?: boolean }) {
                 register ? pass && registerHandler() : loginHandler();
               }}
             >
-              {register ? "Бүртгүүлэх" : "Нэвтрэх"}
+              {register ? pass && "Бүртгүүлэх" : "Нэвтрэх"}
             </button>
 
             {register ? (
