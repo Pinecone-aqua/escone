@@ -139,27 +139,26 @@ export default function Home({ status, userStatus }: any) {
   };
   return (
     <div className="children">
-      {" "}
-      <div className="flex ">
-        <div className="w-[700px]">
+      <div className="flex gap-5 justify-center">
+        <div className="w-[600px] h-[400px] p-5 m-2">
           <Line data={userData} />
         </div>
-        <div className="w-[700px]">
+        <div className="w-[600px] h-[400px] p-5 m-2">
           <Bar data={recipeData} />
         </div>
       </div>
-      <div className="w-full flex justify-between">
-        <div className=" w-[500px]">
-          <p>ingredient</p>
-          <Doughnut data={ingredientData} updateMode={"reset"} redraw={true} />
+      <div className="w-full flex flex-wrap justify-center gap-5">
+        <div className="w-[400px] p-5">
+          <h5>Category</h5>
+          <Doughnut data={categoryData} updateMode={"reset"} redraw={true} />
         </div>
-        <div className=" w-[500px]">
-          <p>tags</p>
+        <div className="w-[400px] p-5">
+          <h5>Tags</h5>
           <Doughnut data={tagData} updateMode={"reset"} redraw={true} />
         </div>
-        <div className=" w-[500px]">
-          <p>category</p>
-          <Doughnut data={categoryData} updateMode={"reset"} redraw={true} />
+        <div className="w-[400px] p-5">
+          <h5>Ingredient</h5>
+          <Doughnut data={ingredientData} updateMode={"reset"} redraw={true} />
         </div>
       </div>
     </div>
