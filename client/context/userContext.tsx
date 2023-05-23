@@ -1,9 +1,9 @@
-import { PropType, userContextType, UserType } from "@/utils/types";
+import { PropType, UserContextType, UserType } from "@/utils/types";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const userContext = createContext<userContextType>({} as userContextType);
+const userContext = createContext<UserContextType>({} as UserContextType);
 
 export const useUser = () => useContext(userContext);
 
