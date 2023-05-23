@@ -139,7 +139,6 @@ export default function AddRecipe({
       });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function addCategoryHandler(e: any) {
     const newCategoryArr = e.target.value.split(",");
     const newCategoryObject = {
@@ -150,7 +149,6 @@ export default function AddRecipe({
     newRecipe.categories = [...newRecipe.categories, newCategoryObject];
     setNewRecipe({ ...newRecipe });
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function addTagHandler(e: any) {
     const newTag = e.target.value.split(",");
     const newTagObject = {
@@ -177,7 +175,6 @@ export default function AddRecipe({
     setNewRecipe({ ...newRecipe });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function uploadHandler(e: any) {
     const image: FileList = e.target.files;
     for (let i = 0; i < image.length; i++) {
@@ -342,9 +339,12 @@ export default function AddRecipe({
           <Instructions newRecipe={newRecipe} setNewRecipe={setNewRecipe} />
 
           <div className="post">
-            <button onClick={recipe ? updateRecipe : createRecipe}>
-              Нийтлэх
-            </button>
+            <input
+              onClick={recipe ? updateRecipe : createRecipe}
+              value={"Нийтлэх"}
+              disabled={adding}
+              type={"button"}
+            />
           </div>
         </form>
       </div>
@@ -352,10 +352,8 @@ export default function AddRecipe({
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getServerSideProps(context: any) {
   const id = context.query.recipeId;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let recipe: any;
   const catResult = await axios.get(
     `${process.env.NEXT_PUBLIC_BACK_END_URL}/category/all`

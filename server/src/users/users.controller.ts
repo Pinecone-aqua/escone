@@ -137,7 +137,6 @@ export class UserController {
 
         if (result) {
           const user = await this.userService.getUser(id);
-
           const token = this.jwtService.sign(user.toJSON());
 
           return { token };

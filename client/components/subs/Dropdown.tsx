@@ -22,12 +22,11 @@ export default function Dropdown() {
     {
       icon: "pi pi-sign-out",
       label: "Гарах",
-      url: "/",
+      url: "",
       command: logoutHandler,
     },
   ];
   function logoutHandler() {
-    console.log("logout");
     Cookies.remove("token");
     setUser(undefined);
   }

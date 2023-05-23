@@ -1,7 +1,7 @@
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction, useRef } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { Toast } from "primereact/toast";
 import Cookies from "js-cookie";
 
@@ -11,9 +11,10 @@ type PropType = {
 };
 
 export default function Card({ recipe, setShow }: PropType) {
+  const [isStatus, setIsStatus] = useState<string>(recipe.status);
   const router = useRouter();
   let statusClass;
-  switch (recipe.status) {
+  switch (isStatus) {
     case "approve":
       statusClass =
         "py-1 px-2 border border-green-500 text-green-700 bg-green-200 rounded-full";
@@ -44,6 +45,7 @@ export default function Card({ recipe, setShow }: PropType) {
         }
       )
       .then(() => {
+        setIsStatus(status);
         toast.current?.show({
           severity: "success",
           summary: "success",
@@ -53,7 +55,7 @@ export default function Card({ recipe, setShow }: PropType) {
   }
 
   return (
-    <div>
+    <div className=" relative">
       <Toast ref={toast} />
       <div
         className="card"
@@ -66,26 +68,27 @@ export default function Card({ recipe, setShow }: PropType) {
           <img src={recipe.images[1]} alt="recipe picture" />
         </picture>
         <div className="card-text">
-          <p className={`status ${statusClass}`}>{recipe.status}</p>
+          <p className={`status ${statusClass}`}>{isStatus}</p>
           <h5> {recipe.title}</h5>
           <p>{recipe.description.slice(0, 60)}...</p>
-          <div className="status-btns">
-            <button
-              className="approve"
-              disabled={recipe.status == "approve"}
-              onClick={() => statusHandler("approve")}
-            >
-              approve
-            </button>
-            <button
-              className="deny"
-              disabled={recipe.status == "deny"}
-              onClick={() => statusHandler("deny")}
-            >
-              deny
-            </button>
-          </div>
         </div>
+      </div>
+      <div className="status-btns">
+        <input
+          className="approve"
+          disabled={isStatus == "approve"}
+          onClick={() => statusHandler("approve")}
+          value={"approve"}
+          type="button"
+        />
+
+        <input
+          className="deny"
+          disabled={isStatus == "deny"}
+          onClick={() => statusHandler("deny")}
+          type={"button"}
+          value={"deny"}
+        />
       </div>
     </div>
   );

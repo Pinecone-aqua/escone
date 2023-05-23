@@ -31,7 +31,6 @@ async function getAccessTokenFromCode(code: any) {
     });
     return { access_token: data.access_token };
   } catch (err: any) {
-    // console.log('error: ', err);
     return { err };
   }
 }

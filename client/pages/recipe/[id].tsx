@@ -62,7 +62,7 @@ function Recipe({
     } else {
       setReviews([...reviews, newReview]);
       console.log(newReview);
-      const reqReview = newReview;
+      const reqReview = { ...newReview };
       reqReview.created_by = user._id;
       console.log(reqReview);
       axios.post(
@@ -168,8 +168,9 @@ function Recipe({
         <div className="review-stars">
           {starPrinter({
             rate: newRate,
-            onClick: (e) =>
-              setNewRate(Number((e.target as HTMLInputElement).id)),
+            onClick: (e: React.MouseEvent<HTMLInputElement>) => {
+              setNewRate(Number(e.currentTarget.id));
+            },
           })}
         </div>
 
@@ -193,7 +194,7 @@ export default Recipe;
 
 export async function getStaticPaths() {
   const result = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/recipes`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/ids`
   );
   const recipes = result.data;
 

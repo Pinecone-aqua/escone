@@ -17,7 +17,7 @@ type PropType = {
 };
 
 export default function RecipeCard({ recipe }: PropType): JSX.Element {
-  const { user } = useUser();
+  const { user, setToken } = useUser();
   const [visible, setVisible] = useState(false);
   const [favorite, setFavorite] = useState<string[]>([]);
   const toast = useRef<Toast>(null);
@@ -31,19 +31,21 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
     const token = Cookies.get("token");
     let message = "Та нэвтрэх хэрэгтэй";
     if (user) {
+      let newFavorite = [];
       if (favorite.some((favRec) => favRec == recipe._id)) {
         message = "Жорыг таалагдсан хэсгээс хаслаа";
-        const newFavorite = favorite.filter((favRec) => favRec != recipe._id);
+        newFavorite = favorite.filter((favRec) => favRec != recipe._id);
         setFavorite([...newFavorite]);
       } else {
         message = "Жорыг таалагдсан хэсэгт нэмлээ";
+        newFavorite = [...favorite, recipe._id];
         setFavorite([...favorite, recipe._id]);
       }
       axios
         .put(
           `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/update/${user._id}`,
           {
-            favorites: favorite,
+            favorites: newFavorite,
           },
           {
             headers: {
@@ -55,6 +57,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
           if (res.data.token) {
             Cookies.remove("token");
             Cookies.set("token", res.data.token);
+            setToken(res.data.token);
             toast.current?.show({
               severity: "success",
               summary: "",

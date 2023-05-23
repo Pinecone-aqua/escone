@@ -13,7 +13,7 @@ export function starPrinter({ rate, onClick }: StarProps): JSX.Element[] {
 
   for (let i = 1; i <= 5; i++) {
     const StarIcon = i <= roundedRate ? AiFillStar : AiOutlineStar;
-    const starId = `star-${i}`;
+    const starId = `${i}`;
 
     stars.push(
       <div className="star" id={starId} key={starId} onClick={onClick}>

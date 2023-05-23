@@ -109,12 +109,20 @@ export class RecipeController {
       return error;
     }
   }
-
+  @Get('ids')
+  getRecipesIds() {
+    try {
+      return this.recipeService.getRecipesIds();
+    } catch (error) {
+      return error;
+    }
+  }
   @Get('recipes')
   async getRecipes(@Query() query: any) {
     try {
       let optionQuery: any = { $and: [] };
-
+      let limit = 12;
+      let page = 1;
       if (query.status) {
         optionQuery.$and.push({ status: query.status });
       }
@@ -136,7 +144,9 @@ export class RecipeController {
         const ingredientNames = Array.isArray(query.ingredient)
           ? query.ingredient.map((ingredient: string) => ingredient)
           : [query.ingredient];
-        optionQuery.$and.push({ ingredients: { $all: ingredientNames } });
+        optionQuery.$and.push({
+          'ingredients.name': { $all: ingredientNames },
+        });
       }
       if (query.user) {
         const userId = new ObjectId(query.user);
@@ -149,11 +159,21 @@ export class RecipeController {
         );
         optionQuery.$and.push({ _id: { $in: favoriteIds } });
       }
+      if (query.page) {
+        page = query.page;
+      }
       if (Object.keys(query).length == 0) {
         optionQuery = {};
       }
+      if (query.limit) {
+        limit = query.limit;
+      }
 
-      const result = await this.recipeService.getRecipes(optionQuery);
+      const result = await this.recipeService.getRecipes(
+        optionQuery,
+        limit,
+        page,
+      );
       return result;
     } catch (error) {
       return error;
