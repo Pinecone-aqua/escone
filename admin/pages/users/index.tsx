@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import UserTable from "@/components/UserTable";
 import { UserType } from "@/utils/types";
-import UserLayout from "@/components/UserLayout";
+import UserLayout from "@/layouts/UserLayout";
 import UserCards from "@/components/UserCards";
 import UserEdit from "@/components/UserEdit";
 

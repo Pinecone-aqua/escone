@@ -1,39 +1,36 @@
 import React from "react";
-import { AiOutlineDashboard, AiOutlineComment } from "react-icons/ai";
-import { TbTriangleSquareCircle, TbSettings } from "react-icons/tb";
+import { RxDashboard } from "react-icons/rx";
+import { TbSettings } from "react-icons/tb";
 import { ImSpoonKnife, ImUsers } from "react-icons/im";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "@/utils/logo";
 
 const SideBarItems = [
-  { label: "Dashboard", url: "/", icon: <AiOutlineDashboard /> },
+  { label: "Dashboard", url: "/", icon: <RxDashboard /> },
   { label: "Recipes", url: "/recipes", icon: <ImSpoonKnife /> },
   { label: "Users", url: "/users", icon: <ImUsers /> },
-  { label: "Reviews", url: "/reviews", icon: <AiOutlineComment /> },
-  { label: "Others", url: "/others", icon: <TbTriangleSquareCircle /> },
   { label: "Settings", url: "/settings", icon: <TbSettings /> },
 ];
 
 export default function Sidebar(): JSX.Element {
-
   const { route } = useRouter();
   return (
-    <div className="bg-blue-900 w-[250px] px-5 text-white min-h-[100vh] py-3 flex flex-col items-center gap-10">
-      <Logo width={400} height={60} />
-      <ul className="w-full flex flex-col gap-10">
+    <div className="sidebar">
+      <div className="logo">
+        <Logo width={400} height={60} />
+      </div>
+      <ul>
         {SideBarItems.map((item, index) => (
           <Link
             key={index}
             href={item.url}
-            className={`flex gap-2 items-center text-2xl  py-4 px-6 rounded-xl ${
-
-              route == item.url && `bg-green-500`
-
-            } `}
+            className={`btn ${route === item.url && "btn-active"} `}
           >
-            <span className="text-3xl"> {item.icon} </span>
-            {item.label}
+            <li>
+              <span>{item.icon}</span>
+              {item.label}
+            </li>
           </Link>
         ))}
       </ul>

@@ -75,19 +75,19 @@ function Table({ recipes, setShow }: PropType) {
             <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
               <div className="relative h-10 w-10">
                 <picture>
-                  <img
+                  {/* <img
                     className="h-full w-full rounded-full object-cover object-center"
                     src={recipe.created_by.image}
                     alt=""
-                  />
+                  /> */}
                 </picture>
                 <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white" />
               </div>
               <div className="text-sm">
                 <div className="font-medium text-gray-700">
-                  {recipe.created_by.username}
+                  {/* {recipe.created_by.username} */}
                 </div>
-                <div className="text-gray-400">{recipe.created_by.email}</div>
+                {/* <div className="text-gray-400">{recipe.created_by.email}</div> */}
               </div>
             </th>
             <td className="px-6 py-4 text-black">{recipe.title}</td>
