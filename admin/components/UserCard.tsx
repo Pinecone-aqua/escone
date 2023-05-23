@@ -4,8 +4,9 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState, Dispatch, SetStateAction } from "react";
-import { MdDelete, MdEditSquare } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 import { ConfirmDialog } from "primereact/confirmdialog";
+import dayjs from "dayjs";
 
 export default function UserCard({
   user,
@@ -49,13 +50,13 @@ export default function UserCard({
       break;
   }
   return (
-    <div className="w-[400px] rounded-2xl">
+    <div className="card">
       <Toast ref={toast} />
       <ConfirmDialog
         visible={visible == user._id}
         onHide={() => setVisible(undefined)}
-        message="Are you sure you want to delete?"
-        header="Confirmation"
+        message="Устгахдаа итгэлтэй байна уу?"
+        header="Хэрэглэгчийн бүртгэл устгах"
         icon="pi pi-exclamation-triangle"
         accept={() => deleteUser(user._id)}
         reject={() =>
@@ -67,28 +68,24 @@ export default function UserCard({
           })
         }
       />
-      <picture className="w-full block rounded-2xl h-[400px]">
-        <img
-          src={user.image}
-          alt="profile picture"
-          className="w-full rounded-t-2xl bg-gray-300 h-full"
-        />
+      <picture>
+        <img src={user.image} alt="profile picture" />
       </picture>
-      <div className="p-3 flex flex-col items-start bg-white rounded-b-2xl gap-3 ">
-        <p className={statusClass}>{user.role ? "admin" : "client"}</p>
-        <p> {user.username}</p>
+      <div className="card-text">
+        <p className={`status ${statusClass}`}>
+          {user.role ? "admin" : "client"}
+        </p>
+        <h5>{user.username}</h5>
+        <p>
+          Бүртгүүлсэн огноо: {dayjs(user.created_date).format("YYYY MMM/DD")}
+        </p>
+        <p>ID: {user._id}</p>
 
-        <div className="flex gap-3 w-full justify-end">
-          <button
-            className="py-1 px-2 border border-green-500 rounded-lg text-green-700 hover:bg-green-500 hover:text-white   disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white flex items-center gap-2"
-            onClick={() => setShow(true)}
-          >
-            <MdEditSquare /> <p>Edit</p>
+        <div className="status-btns">
+          <button className="approve" onClick={() => setShow(true)}>
+            <MdEdit /> <p>Edit</p>
           </button>
-          <button
-            className="py-1 px-2 border border-red-500 rounded-lg text-red-700 hover:bg-red-500 hover:text-white disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white flex items-center gap-2"
-            onClick={() => setVisible(user._id)}
-          >
+          <button className="deny" onClick={() => setVisible(user._id)}>
             <MdDelete /> <p>Delete</p>
           </button>
         </div>

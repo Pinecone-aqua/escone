@@ -40,4 +40,14 @@
       }
     }
   }
+  .card {
+    .status-btns {
+      button {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        gap: 5px;
+      }
+    }
+  }
 }

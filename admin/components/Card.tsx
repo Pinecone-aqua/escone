@@ -63,7 +63,7 @@ export default function Card({ recipe, setShow }: PropType) {
         }}
       >
         <picture>
-          <img src={recipe.images[1]} alt="" />
+          <img src={recipe.images[1]} alt="recipe picture" />
         </picture>
         <div className="card-text">
           <p className={`status ${statusClass}`}>{recipe.status}</p>
