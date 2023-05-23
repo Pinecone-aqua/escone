@@ -5,6 +5,7 @@ import { UserType } from "@/utils/types";
 import UserLayout from "@/layouts/UserLayout";
 import UserCards from "@/components/UserCards";
 import UserEdit from "@/components/UserEdit";
+import Pagination from "@/components/Pagination";
 
 export default function Users({ users }: { users: UserType[] }) {
   const [grid, setGrid] = useState<boolean>(false);
@@ -18,7 +19,7 @@ export default function Users({ users }: { users: UserType[] }) {
         ) : (
           <UserTable users={users} setShow={setShow} />
         )}
-        ;
+        <Pagination totalPages={10} />
         <UserEdit show={show} setShow={setShow} />
       </UserLayout>
     </div>

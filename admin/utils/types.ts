@@ -15,6 +15,7 @@ export interface UserType {
   created_date: Date;
 }
 export enum ProcessStatus {
+  Any = "any",
   Pending = "pending",
   Approve = "approve",
   Deny = "deny",
