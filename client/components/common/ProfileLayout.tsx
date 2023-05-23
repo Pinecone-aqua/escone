@@ -39,7 +39,7 @@ export default function ProfileLayout({
       <div className="profile">
         <div className="cover">
           <picture>
-            <Image src={cover} alt="cover" />
+            <Image src={cover} alt="cover" priority />
           </picture>
         </div>
         <div className="profile-body">

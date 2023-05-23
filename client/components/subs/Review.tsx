@@ -42,7 +42,7 @@ export default function Review({
 
       <div className="sub">
         <p>{dateFormat(review.created_date)}</p>
-        <div className="review-stars">{starPrinter(review.rate)}</div>
+        <div className="review-stars">{starPrinter({ rate: review.rate })}</div>
         <button
           onClick={() => confirm2(review._id)}
           disabled={user?._id != review.created_by._id}
