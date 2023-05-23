@@ -50,8 +50,7 @@ export interface TagType {
 }
 
 export interface RecipeInstruction {
-  step: number;
-  description: string;
+  [step: number]: string;
 }
 
 export interface ReviewType {
