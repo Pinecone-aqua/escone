@@ -53,40 +53,39 @@ export default function Card({ recipe, setShow }: PropType) {
   }
 
   return (
-    <div className=" ">
+    <div>
       <Toast ref={toast} />
-
       <div
-        className="w-[400px] rounded-2xl"
+        className="card"
         onClick={() => {
           setShow(true);
           router.push({ query: { id: recipe._id } });
         }}
       >
-        <picture className="w-full block rounded-2xl">
-          <img src={recipe.images[1]} alt="" className="w-full rounded-t-2xl" />
+        <picture>
+          <img src={recipe.images[1]} alt="recipe picture" />
         </picture>
-        <div className="p-3 flex flex-col items-start bg-white rounded-b-2xl gap-3 pb-16">
-          <p className={statusClass}>{recipe.status}</p>
-          <p> {recipe.title}</p>
-          <p>{recipe.description.slice(0, 100)} ...</p>
+        <div className="card-text">
+          <p className={`status ${statusClass}`}>{recipe.status}</p>
+          <h5> {recipe.title}</h5>
+          <p>{recipe.description.slice(0, 60)}...</p>
+          <div className="status-btns">
+            <button
+              className="approve"
+              disabled={recipe.status == "approve"}
+              onClick={() => statusHandler("approve")}
+            >
+              approve
+            </button>
+            <button
+              className="deny"
+              disabled={recipe.status == "deny"}
+              onClick={() => statusHandler("deny")}
+            >
+              deny
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="flex gap-3 w-full justify-end  mt-[-50px] pe-5">
-        <button
-          className="py-1 px-2 border border-green-500 rounded-lg text-green-700 hover:bg-green-500 hover:text-white   disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white"
-          disabled={recipe.status == "approve"}
-          onClick={() => statusHandler("approve")}
-        >
-          approve
-        </button>
-        <button
-          className="py-1 px-2 border border-red-500 rounded-lg text-red-700 hover:bg-red-500 hover:text-white disabled:border-gray-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:hover:text-white "
-          disabled={recipe.status == "deny"}
-          onClick={() => statusHandler("deny")}
-        >
-          deny
-        </button>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ export default function UserCards({
   setShow: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
-    <div className="flex flex-wrap justify-between gap-4">
+    <div className="grid-cards">
       {users.map((user) => (
         <UserCard user={user} key={user._id} setShow={setShow} />
       ))}
