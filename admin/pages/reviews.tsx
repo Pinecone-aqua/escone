@@ -171,7 +171,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req, query } = context;
   const { cookie } = req.headers;
   const token = extractTokenFromCookie(cookie);
-  console.log(query);
 
   try {
     const response = await axios.get(

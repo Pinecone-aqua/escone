@@ -151,7 +151,7 @@
       margin-top: 30px;
       display: flex;
       justify-content: center;
-      button {
+      input {
         border-radius: 10px;
         width: 200px;
         display: flex;
@@ -160,6 +160,10 @@
         background-color: $brand-secondary;
         color: $brand-white;
         height: 50px;
+      }
+      input:disabled {
+        background-color: $brand-gray;
+        color: $brand-shade;
       }
     }
   }

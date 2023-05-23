@@ -24,6 +24,7 @@ function Filter({ status }: any): JSX.Element {
     const objectQuery = Router.query;
 
     if (!query) {
+      Router.query.page = "1";
       Router.push({ query: { [type]: name, ...Router.query } });
     } else {
       if (typeof query == "string") query = [query];
@@ -35,9 +36,9 @@ function Filter({ status }: any): JSX.Element {
         const newarr = [...query, name];
         objectQuery[type] = newarr;
       }
-
+      objectQuery.page = "1";
       Router.push({
-        query: objectQuery,
+        query: { ...objectQuery },
       });
     }
   }

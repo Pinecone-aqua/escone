@@ -97,7 +97,6 @@ function Offcanva({ show, setShow }: PropType) {
       images.forEach((image) => recipeFormData.append("images", image));
     }
     recipeFormData.append("body", JSON.stringify(updatedRecipe));
-    console.log(updatedRecipe);
 
     axios
       .patch(
@@ -149,11 +148,9 @@ function Offcanva({ show, setShow }: PropType) {
   function uploadHandler(e: any) {
     const image: FileList = e.target.files;
     for (let i = 0; i < image.length; i++) {
-      console.log(i);
       images.push(image[i]);
     }
     setImages([...images]);
-    console.log(images);
   }
   function removeImage(index: number) {
     images.splice(index, 1);

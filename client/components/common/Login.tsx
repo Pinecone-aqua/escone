@@ -34,7 +34,7 @@ export default function Login({ show }: { show?: boolean }) {
       email: emailRef.current,
       password: passwordRef.current,
     };
-    console.log(user);
+
     axios
       .post(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/add`, user)
       .then((res) => {
@@ -62,7 +62,6 @@ export default function Login({ show }: { show?: boolean }) {
       password: passwordRef.current,
     };
     const user = jwt.sign(payload, secret);
-    console.log(user);
 
     axios
       .get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/user/login?token=${user}`)

@@ -26,7 +26,6 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
       quantity: newIngredientQuantity,
       measure: newIngredientMeasure,
     };
-    console.log(newIngredient);
     newRecipe.ingredients = [...newRecipe.ingredients, newIngredient];
     setNewRecipe({ ...newRecipe });
     setNewIngredientName("");
@@ -54,7 +53,7 @@ export default function Ingredient({ newRecipe, setNewRecipe }: propType) {
     const updatedIngredients = newRecipe.ingredients.filter(
       (ing) => ing.name !== name
     );
-    console.log(updatedIngredients);
+
     newRecipe.ingredients = updatedIngredients;
     setNewRecipe({ ...newRecipe });
   }

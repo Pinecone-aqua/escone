@@ -17,7 +17,6 @@ export default function Review({
   const reject = () => {};
 
   function confirm2(id: string) {
-    console.log(user?._id == review.created_by._id);
     confirmDialog({
       message: "Та энэ үнэлгээг устгахыг хүсч байна уу?",
       header: "Устгах зөвшөөрөл",

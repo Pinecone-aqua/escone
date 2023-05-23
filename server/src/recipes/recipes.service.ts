@@ -25,14 +25,23 @@ export class RecipeService {
       return error;
     }
   }
-
-  async getRecipes(Query?: FilterQuery<Recipe>) {
+  async getRecipesIds() {
+    try {
+      const recipeIds = this.recipeModel.find({}).select({ _id: 1 });
+      return recipeIds;
+    } catch (error) {
+      return error;
+    }
+  }
+  async getRecipes(Query?: FilterQuery<Recipe>, limit?: number, page?: number) {
     try {
       const result = await this.recipeModel
         .find(Query)
         .populate('categories')
         .populate('tags')
-        .populate('created_by');
+        .populate('created_by')
+        .skip((page - 1) * limit)
+        .limit(limit);
       return result;
     } catch (error) {
       return error;

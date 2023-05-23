@@ -26,7 +26,6 @@ function Ingredient({ ingredients, setIngredients }: propType) {
       quantity: newIngredientQuantity,
       measure: newIngredientMeasure,
     };
-    console.log(newIngredient);
     setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
     setNewIngredientName("");
 
@@ -53,7 +52,6 @@ function Ingredient({ ingredients, setIngredients }: propType) {
     // ingredients.splice(index, 1);
     // setIngredients([...ingredients]);
     const updatedIngredients = ingredients.filter((ing) => ing.name !== name);
-    console.log(updatedIngredients);
 
     setIngredients(updatedIngredients);
   }

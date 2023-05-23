@@ -20,41 +20,42 @@
       top: -50px;
       position: absolute;
     }
-    .status-btns {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 260px;
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      button {
-        border: 1px solid;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px 10px;
-        &.approve {
-          color: green;
-          border-color: green;
-        }
-        &.deny {
-          color: red;
-          border-color: red;
-        }
-        &:disabled {
-          color: grey;
-          border-color: gray;
-          background-color: rgba(128, 128, 128, 0.2);
-        }
-      }
-    }
+
     h5 {
       font-size: 18px;
       line-height: 18px;
       font-weight: 500;
       margin-bottom: 10px;
+    }
+  }
+}
+.status-btns {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 260px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  input {
+    border: 1px solid;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    &.approve {
+      color: green;
+      border-color: green;
+    }
+    &.deny {
+      color: red;
+      border-color: red;
+    }
+    &:disabled {
+      color: grey;
+      border-color: gray;
+      background-color: rgba(128, 128, 128, 0.2);
     }
   }
 }

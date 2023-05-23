@@ -64,7 +64,6 @@ function UserEdit({ show, setShow }: PropsType) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function uploadImageHandler(e: any) {
-    console.log(e.target.files[0]);
     setNewProfileImage(e.target.files[0]);
   }
 

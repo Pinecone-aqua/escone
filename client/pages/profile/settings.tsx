@@ -1,14 +1,12 @@
 import { useUser } from "@/context/userContext";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FiEdit, FiEdit3, FiEye } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 function Settings() {
-  const { user } = useUser();
-  const router = useRouter();
+  const { user, setToken } = useUser();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [updatedUser, setUpdatedUser] = useState<any>();
   const [newProfileImage, setNewProfileImage] = useState<File>();
@@ -36,20 +34,18 @@ function Settings() {
   }, [user]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function uploadImageHandler(e: any) {
-    console.log(e.target.files[0]);
     setNewProfileImage(e.target.files[0]);
   }
 
   function saveHandler() {
     const token = Cookies.get("token");
     if (newPassword.confirmPass != newPassword.pass) {
-      toast.warning("confirm password is different ");
+      toast.warning("Баталгаажуулах нууц үг таарахгүй байна ");
       return;
     }
-    console.log(newPassword.pass != "" && oldPassword == "");
     if (newPassword.pass != "") {
       if (oldPassword == "") {
-        toast.warning("old password is empty ");
+        toast.warning("Хуучин нууц үгээ оруулна уу ");
         return;
       } else {
         updatedUser.oldpassword = oldPassword;
@@ -93,7 +89,8 @@ function Settings() {
         if (res.data.token) {
           Cookies.remove("token");
           Cookies.set("token", res.data.token);
-          router.reload();
+          setToken(res.data.token);
+          toast.success("Хэрэглэгчийн мэдээлэл амжилттай шинэчлэгдлээ ");
         }
       });
   }
