@@ -167,7 +167,6 @@ function Offcanva({ show, setShow }: PropType) {
 
   return (
     <div>
-      (
       <Sidebar
         visible={show}
         position="right"
@@ -375,7 +374,6 @@ function Offcanva({ show, setShow }: PropType) {
           </div>
         )}
       </Sidebar>
-      )
     </div>
   );
 }

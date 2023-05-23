@@ -11,15 +11,17 @@ export default function Users({ users }: { users: UserType[] }) {
   const [show, setShow] = useState<boolean>(false);
 
   return (
-    <UserLayout grid={grid} setGrid={setGrid}>
-      {grid ? (
-        <UserCards users={users} setShow={setShow} />
-      ) : (
-        <UserTable users={users} setShow={setShow} />
-      )}
-      ;
-      <UserEdit show={show} setShow={setShow} />
-    </UserLayout>
+    <div className="users children">
+      <UserLayout grid={grid} setGrid={setGrid}>
+        {grid ? (
+          <UserCards users={users} setShow={setShow} />
+        ) : (
+          <UserTable users={users} setShow={setShow} />
+        )}
+        ;
+        <UserEdit show={show} setShow={setShow} />
+      </UserLayout>
+    </div>
   );
 }
 
@@ -29,6 +31,6 @@ export async function getStaticProps() {
   );
   const users = result.data;
   return {
-    props: { users }, // will be passed to the page component as props
+    props: { users },
   };
 }

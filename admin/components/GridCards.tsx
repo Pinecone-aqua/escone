@@ -9,7 +9,7 @@ type PropType = {
 
 function GridCards({ recipes, setShow }: PropType) {
   return (
-    <div className="flex flex-wrap justify-between gap-10">
+    <div className="grid-cards">
       {recipes.map((recipe, index) => (
         <Card key={index} recipe={recipe} setShow={setShow} />
       ))}

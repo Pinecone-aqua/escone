@@ -18,7 +18,7 @@ export default function Layout({ children }: Props): JSX.Element {
   }, []);
 
   return isadmin ? (
-    <div className="flex w-full">
+    <div className="container">
       <Sidebar />
       <div className="body">
         <Header />
