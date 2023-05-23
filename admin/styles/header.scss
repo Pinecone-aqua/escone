@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 50px;
+  width: 100%;
+  border-bottom: 1px solid $brand-shade;
+  color: $brand-primary;
+  h1 {
+    font-size: 36px;
+    font-weight: 500;
+  }
+  button {
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ececee;
+    padding: 10px 20px;
+    border-radius: 12px;
+  }
+}
