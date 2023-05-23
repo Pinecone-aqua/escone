@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { RecipeType } from "@/utils/types";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -6,6 +7,7 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { TbArrowsSort } from "react-icons/tb";
 type PropType = {
   recipes: RecipeType[];
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -16,7 +18,6 @@ function Table({ recipes, setShow }: PropType) {
   const [visible, setVisible] = useState<string>();
   const toast = useRef<Toast>(null);
   const token = Cookies.get("token");
-
   function showHandler(id: string) {
     setShow(true);
     router.push({ query: { id: id } });
@@ -38,14 +39,40 @@ function Table({ recipes, setShow }: PropType) {
         router.reload();
       });
   }
-  return (
+  function sortHandler(sortItem: string) {
+    const query = router.query;
+    if (query.order_by == sortItem) {
+      if (query.type == "1") {
+        query.order_by = sortItem;
+        query.type = "-1";
+        query.page = "1";
+        router.push({ query: query });
+      } else if (query.type == "-1") {
+        delete query.order_by;
+        delete query.type;
+        query.page = "1";
+        router.push({ query: query });
+      }
+    } else {
+      query.order_by = sortItem;
+      query.type = "1";
+      query.page = "1";
+      router.push({ query: query });
+    }
+  }
+
+  return recipes.length != 0 ? (
     <table>
       <thead>
         <tr>
           <th>нийтлэсэн</th>
           <th>гарчиг</th>
           <th>товч тайлбар</th>
-          <th>огноо</th>
+          <th onClick={() => sortHandler("created_date")}>
+            <span className="flex items-center gap-2">
+              огноо <TbArrowsSort size={25} />
+            </span>{" "}
+          </th>
           <th>төлөв</th>
           <th>засварлах</th>
         </tr>
@@ -124,6 +151,8 @@ function Table({ recipes, setShow }: PropType) {
         ))}
       </tbody>
     </table>
+  ) : (
+    <div className="">empty</div>
   );
 }
 

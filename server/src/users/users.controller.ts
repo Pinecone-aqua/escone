@@ -42,8 +42,9 @@ export class UserController {
     }
   }
   @Get('all')
-  getAllUser() {
+  getAllUser(@Query() query: any) {
     try {
+      console.log(query);
       return this.userService.getAllUsers();
     } catch (error) {
       return error;

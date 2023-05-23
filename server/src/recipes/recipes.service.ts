@@ -33,13 +33,19 @@ export class RecipeService {
       return error;
     }
   }
-  async getRecipes(Query?: FilterQuery<Recipe>, limit?: number, page?: number) {
+  async getRecipes(
+    Query?: FilterQuery<Recipe>,
+    limit?: number,
+    page?: number,
+    order_by?,
+  ) {
     try {
       const result = await this.recipeModel
         .find(Query)
         .populate('categories')
         .populate('tags')
         .populate('created_by')
+        .sort(order_by)
         .skip((page - 1) * limit)
         .limit(limit);
       return result;

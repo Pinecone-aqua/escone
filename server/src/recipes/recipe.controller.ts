@@ -22,6 +22,7 @@ import { CheckRoleGuard } from 'src/role/role.guard';
 import { CheckRole } from 'src/role/role.decorator';
 import { ObjectId } from 'mongodb';
 import { UserService } from 'src/users/users.service';
+import { type } from 'os';
 
 @Controller('recipe')
 export class RecipeController {
@@ -123,6 +124,7 @@ export class RecipeController {
       let optionQuery: any = { $and: [] };
       let limit = 12;
       let page = 1;
+      let order_by = {};
       if (query.status) {
         optionQuery.$and.push({ status: query.status });
       }
@@ -152,6 +154,7 @@ export class RecipeController {
         const userId = new ObjectId(query.user);
         optionQuery.$and.push({ created_by: userId });
       }
+
       if (query.favorites) {
         const userfavorites = await this.userService.getUser(query.favorites);
         const favoriteIds = userfavorites.favorites.map(
@@ -162,7 +165,21 @@ export class RecipeController {
       if (query.page) {
         page = query.page;
       }
-      if (Object.keys(query).length == 0) {
+      if (query.order_by) {
+        if (query.type) {
+          order_by = { [query.order_by]: Number(query.type) };
+        }
+      }
+      if (
+        Object.keys(query).filter((keys) => {
+          if (keys == 'page') return;
+          if (keys == 'limit') return;
+          if (keys == 'order_by') return;
+          if (keys == 'type') return;
+          if (keys == 'id') return;
+          return keys;
+        }).length == 0
+      ) {
         optionQuery = {};
       }
       if (query.limit) {
@@ -173,7 +190,9 @@ export class RecipeController {
         optionQuery,
         limit,
         page,
+        order_by,
       );
+      console.log(result);
       return result;
     } catch (error) {
       return error;

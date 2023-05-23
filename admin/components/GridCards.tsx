@@ -8,12 +8,14 @@ type PropType = {
 };
 
 function GridCards({ recipes, setShow }: PropType) {
-  return (
+  return recipes.length != 0 ? (
     <div className="grid-cards">
       {recipes.map((recipe, index) => (
         <Card key={index} recipe={recipe} setShow={setShow} />
       ))}
     </div>
+  ) : (
+    <div className="">empty</div>
   );
 }
 

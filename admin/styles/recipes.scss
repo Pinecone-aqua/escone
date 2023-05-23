@@ -15,17 +15,17 @@
     overflow: hidden;
     width: 100%;
     thead {
-      th {
-        padding: 0 10px;
-        text-align: center;
-        text-transform: capitalize;
-      }
       tr {
         height: 70px;
         color: $brand-secondary;
         background: $brand-secondary-light;
         font-size: 16px;
         border-bottom: 1px $brand-shade;
+        th {
+          padding: 0 10px;
+          text-align: center;
+          text-transform: capitalize;
+        }
       }
     }
     tbody {
