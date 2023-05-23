@@ -62,12 +62,12 @@ function Recipe({
     } else {
       setReviews([...reviews, newReview]);
       console.log(newReview);
-      const reqReview = { ...newReview };
+      const reqReview = newReview;
       reqReview.created_by = user._id;
       console.log(reqReview);
       axios.post(
         `${process.env.NEXT_PUBLIC_BACK_END_URL}/review/create`,
-        reqReview
+        newReview
       );
       toast.success("Сэтгэгдэл бичсэнд баярлалаа");
       setContent("");
@@ -99,7 +99,7 @@ function Recipe({
               <p>{dateFormat(recipe.created_date)}</p>
             </div>
             <div className="review-stars ">
-              {starPrinter(Avg(rates))}
+              {starPrinter({ rate: Avg(rates) })}
               <p>{Avg(rates).toFixed(1)}/5</p>
             </div>
             <div className="tags">
@@ -166,9 +166,11 @@ function Recipe({
       <div className="recipe-review-write">
         <h2>Үнэлгээ өгөх</h2>
         <div className="review-stars">
-          {starPrinter(newRate, (e) =>
-            setNewRate(Number((e.target as HTMLInputElement).id))
-          )}
+          {starPrinter({
+            rate: newRate,
+            onClick: (e) =>
+              setNewRate(Number((e.target as HTMLInputElement).id)),
+          })}
         </div>
 
         <div className="input">
