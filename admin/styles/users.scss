@@ -1,0 +1,43 @@
+.users {
+  table {
+    font-size: 18px;
+    tbody {
+      .admin {
+        text-align: center;
+        font-weight: 500;
+        color: red;
+        font-size: 16px;
+        .role {
+          padding: 5px;
+          border-radius: 50px;
+          background-color: rgba(255, 0, 0, 0.1);
+        }
+      }
+      .client {
+        text-align: center;
+        font-weight: 500;
+        color: green;
+        font-size: 16px;
+        .role {
+          padding: 5px;
+          border-radius: 50px;
+          background-color: rgba(0, 128, 0, 0.1);
+        }
+      }
+      .edit {
+        color: $brand-shade;
+        font-size: 20px;
+        width: 90px;
+        display: flex;
+        gap: 50px;
+        button {
+          color: $brand-shade;
+          transition: all 0.5s;
+          &:hover {
+            color: $brand-gray;
+          }
+        }
+      }
+    }
+  }
+}

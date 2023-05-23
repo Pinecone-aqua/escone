@@ -1,6 +1,5 @@
 import { UserType } from "@/utils/types";
 import { FiUser } from "react-icons/fi";
-import { SiFoodpanda } from "react-icons/si";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import React from "react";
 import { useRouter } from "next/router";
@@ -42,69 +41,64 @@ function UserTable({
       });
   }
   return (
-    <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 gap-10">
-      <thead className="bg-gray-50">
+    <table>
+      <thead>
         <tr>
-          <th>
-            <SiFoodpanda />
-          </th>
-          <th>Username</th>
-          <th>Created Date</th>
-          <th>Role</th>
-          <th className="text-center">E-Mail</th>
+          <th>№</th>
+          <th>хэрэглэгчийн нэр</th>
+          <th>бүртгүүлсэн огноо</th>
+          <th>үүрэг</th>
+          <th>цахим шуудан</th>
+          <th>засварлах</th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-100 border-t border-gray-100 ">
+      <tbody>
         {users.map((user, index) => (
-          <tr className="hover:bg-gray-50" key={index}>
+          <tr key={index}>
             <td>
               <FiUser />
             </td>
             <td>{user.username}</td>
-            <td>{dayjs(user.created_date).format("YYYY MMM/DD")}</td>
-            <td
-              className={
-                user.role
-                  ? "bg-green-200 text-center"
-                  : "bg-cyan-50 text-center"
-              }
-            >
-              {user.role ? <p>Admin</p> : <p>Client</p>}
+            <td className="center">
+              {dayjs(user.created_date).format("YYYY MMM/DD")}
+            </td>
+            <td className={user.role ? "admin" : "client"}>
+              <div className="role">
+                {user.role ? <p>Admin</p> : <p>Client</p>}
+              </div>
             </td>
             <td>{user.email}</td>
-            <td className="gap-10">
-              <button
-                className=" hover:bg-blue-200  font-bold py-2 px-4 rounded"
-                onClick={() => {
-                  setShow(true);
-                  router.push({ query: { user: user._id } });
-                }}
-              >
-                <AiFillEdit />
-              </button>
-              <Toast ref={toast} />
-              <ConfirmDialog
-                visible={visible == user._id}
-                onHide={() => setVisible(undefined)}
-                message="Are you sure you want to delete?"
-                header="Confirmation"
-                icon="pi pi-exclamation-triangle"
-                accept={() => deleteUser(user._id)}
-                reject={() =>
-                  toast.current?.show({
-                    severity: "warn",
-                    summary: "Rejected",
-                    detail: "You have rejected",
-                    life: 3000,
-                  })
-                }
-              />
-              <button
-                className="hover:bg-red-100  font-bold py-2 px-4 rounded"
-                onClick={() => setVisible(user._id)}
-              >
-                <AiFillDelete />
-              </button>
+            <td>
+              <div className="edit">
+                <button
+                  onClick={() => {
+                    setShow(true);
+                    router.push({ query: { user: user._id } });
+                  }}
+                >
+                  <AiFillEdit />
+                </button>
+                <Toast ref={toast} />
+                <ConfirmDialog
+                  visible={visible == user._id}
+                  onHide={() => setVisible(undefined)}
+                  message="Устгахдаа итгэлтэй байна уу?"
+                  header="Хэрэглэгчийн бүртгэл устгах"
+                  icon="pi pi-exclamation-triangle"
+                  accept={() => deleteUser(user._id)}
+                  reject={() =>
+                    toast.current?.show({
+                      severity: "warn",
+                      summary: "Rejected",
+                      detail: "You have rejected",
+                      life: 3000,
+                    })
+                  }
+                />
+                <button onClick={() => setVisible(user._id)}>
+                  <AiFillDelete />
+                </button>
+              </div>
             </td>
           </tr>
         ))}
