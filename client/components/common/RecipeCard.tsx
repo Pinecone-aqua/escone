@@ -24,8 +24,8 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
   const menu = useRef<Menu>(null);
   const router = useRouter();
   useEffect(() => {
-    user && setFavorite(user.favorites);
-  }, [recipe.images, user]);
+    user && user.favorites && setFavorite(user.favorites);
+  }, [recipe, recipe.images, user]);
 
   const saveHandler = () => {
     const token = Cookies.get("token");
@@ -107,20 +107,19 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
 
   return (
     <div className="recipe-card relative group">
-      <Link href={`/recipe/${recipe._id}`}>
-        <Carousel className="rounded-xl">
-          {recipe.images.map((image, index) => (
-            <picture className="w-[335px] h-full " key={index}>
+      <Carousel className="rounded-xl">
+        {recipe.images.map((image, index) => (
+          <Link href={`/recipe/${recipe._id}`} key={index}>
+            <picture className="w-[335px] h-full ">
               <img
                 src={image}
                 alt=""
                 className=" object-cover w-full h-full "
               />
             </picture>
-          ))}
-        </Carousel>{" "}
-      </Link>
-
+          </Link>
+        ))}
+      </Carousel>{" "}
       <Link href={`/recipe/${recipe._id}`}>
         <div className="text">
           <div className="title">
