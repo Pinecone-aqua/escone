@@ -39,41 +39,22 @@ function Table({ recipes, setShow }: PropType) {
       });
   }
   return (
-    <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
-      <thead className="bg-gray-50">
+    <table>
+      <thead>
         <tr>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            Created by
-          </th>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            title
-          </th>
-
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            description
-          </th>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            Tags
-          </th>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            Categories
-          </th>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            date
-          </th>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            status
-          </th>
-          <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-            same
-          </th>
+          <th>created by</th>
+          <th>title</th>
+          <th>description</th>
+          <th>date</th>
+          <th>status</th>
+          <th>same</th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+      <tbody>
         {recipes.map((recipe, index) => (
-          <tr className="hover:bg-gray-50" key={index}>
-            <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
-              <div className="relative h-10 w-10">
+          <tr key={index}>
+            <td>
+              <div>
                 <picture>
                   {/* <img
                     className="h-full w-full rounded-full object-cover object-center"
@@ -81,46 +62,19 @@ function Table({ recipes, setShow }: PropType) {
                     alt=""
                   /> */}
                 </picture>
-                <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white" />
               </div>
-              <div className="text-sm">
-                <div className="font-medium text-gray-700">
-                  {/* {recipe.created_by.username} */}
-                </div>
-                {/* <div className="text-gray-400">{recipe.created_by.email}</div> */}
-              </div>
-            </th>
-            <td className="px-6 py-4 text-black">{recipe.title}</td>
+              <div>{/* {recipe.created_by.username} */}</div>
+            </td>
 
-            <td className="px-6 py-4">{recipe.description}</td>
-            <td className="px-6 py-4">
-              <div className="flex gap-2 flex-wrap">
-                {recipe.tags.slice(0, 5).map((tag, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-                  >
-                    {tag.name}
-                  </span>
-                ))}
-              </div>
-            </td>
-            <td className="px-6 py-4">
-              <div className="flex gap-2 flex-wrap">
-                {recipe.categories.slice(0, 5).map((tag, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center gap-1 rounded-full bg-pink-50 px-2 py-1 text-xs font-semibold text-pink-600"
-                  >
-                    {tag.name}
-                  </span>
-                ))}
-              </div>
-            </td>
-            <td className="px-6 py-4 text-black">
+            <td>{recipe.title}</td>
+
+            <td>{recipe.description}</td>
+
+            <td className="date">
               {dayjs(recipe.created_date).format("YYYY MMM/DD")}
             </td>
-            <td className="px-6 py-4">
+
+            <td>
               <span
                 className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold  ${
                   recipe.status == "pending"
@@ -142,14 +96,15 @@ function Table({ recipes, setShow }: PropType) {
                 {recipe.status}
               </span>
             </td>
-            <td className="px-6 py-4">
-              <div className="flex justify-end gap-4">
+
+            <td>
+              <div className="options">
                 <Toast ref={toast} />
                 <ConfirmDialog
                   visible={visible == recipe._id}
                   onHide={() => setVisible(undefined)}
-                  message="Are you sure you want to delete?"
-                  header="Confirmation"
+                  message="Жорыг устгахдаа итгэлтэй байна уу?"
+                  header="Жор устгах"
                   icon="pi pi-exclamation-triangle"
                   accept={() => deleteHandlers(recipe._id)}
                   reject={() => {
@@ -161,7 +116,7 @@ function Table({ recipes, setShow }: PropType) {
                     });
                   }}
                 />
-                <button onClick={() => setVisible(recipe._id)}>delete</button>
+                <button onClick={() => setVisible(recipe._id)}>delete</button>/
                 <button onClick={() => showHandler(recipe._id)}>edit</button>
               </div>
             </td>

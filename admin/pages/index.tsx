@@ -138,7 +138,7 @@ export default function Home({ status, userStatus }: any) {
     ],
   };
   return (
-    <div className="w-full">
+    <div className="children">
       {" "}
       <div className="flex ">
         <div className="w-[700px]">
@@ -176,6 +176,6 @@ export async function getStaticProps() {
   );
   const userStatus = resultuser.data;
   return {
-    props: { status, userStatus }, // will be passed to the page component as props
+    props: { status, userStatus },
   };
 }

@@ -4,8 +4,30 @@
 @import "./variables.scss";
 
 @import "./login.scss";
-@import "./userEdit.scss";
-@import "./sidebar.scss";
 @import "./header.scss";
+@import "./sidebar.scss";
+@import "./recipes.scss";
+
+@import "./userEdit.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+.container {
+  display: flex;
+  width: 100vw;
+  .children {
+    transition: all 0.5s;
+    padding: 30px;
+    width: calc(100vw - 305px);
+    &-head {
+      font-size: 24px;
+      font-weight: 500;
+      color: $brand-secondary;
+      padding: 0 25px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

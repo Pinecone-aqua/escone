@@ -7,10 +7,10 @@ import { useRouter } from "next/router";
 import Logo from "@/utils/logo";
 
 const SideBarItems = [
-  { label: "Dashboard", url: "/", icon: <RxDashboard /> },
-  { label: "Recipes", url: "/recipes", icon: <ImSpoonKnife /> },
-  { label: "Users", url: "/users", icon: <ImUsers /> },
-  { label: "Settings", url: "/settings", icon: <TbSettings /> },
+  { label: "Хянах самбар", url: "/", icon: <RxDashboard /> },
+  { label: "Жорын сан", url: "/recipes", icon: <ImSpoonKnife /> },
+  { label: "Хэрэглэгчид", url: "/users", icon: <ImUsers /> },
+  { label: "Тохиргоо", url: "/settings", icon: <TbSettings /> },
 ];
 
 export default function Sidebar(): JSX.Element {
