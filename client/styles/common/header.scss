@@ -20,17 +20,15 @@
     nav {
       display: none;
     }
+  }
+  .options {
+    color: $brand-lightgray;
+    display: flex;
+    gap: 20px;
+    align-items: center;
     .menu {
-      display: flex;
-      gap: 20px;
-      button {
+      &-btn {
         display: flex;
-        align-items: center;
-        color: $brand-shade;
-        height: 24px;
-        &:hover {
-          color: $brand-lightgray;
-        }
       }
     }
   }
@@ -44,15 +42,6 @@
       .logo svg {
         width: 85px;
       }
-      .menu {
-        gap: 25px;
-        button {
-          height: 26px;
-          &.menu {
-            font-size: 20px;
-          }
-        }
-      }
     }
   }
 }
@@ -65,25 +54,12 @@
       .logo svg {
         width: 90px;
       }
-      .menu {
-        gap: 30px;
-        button {
-          height: 30px;
-          &.sign {
-            font-size: 12px;
-            padding: 8px 16px;
-          }
-          &.menu {
-            font-size: 22px;
-          }
-        }
-      }
     }
   }
 }
 
 // TABLET-MAX
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 820px) {
   .header {
     height: 90px;
     .container {
@@ -92,7 +68,7 @@
       }
       nav {
         display: block;
-        width: 300px;
+        width: 350px;
         ul {
           font-size: 16px;
           color: $brand-shade;
@@ -128,16 +104,10 @@
           }
         }
       }
-      .menu {
-        button {
-          height: 34px;
-          &.sign {
-            font-size: 14px;
-          }
-          &.menu {
-            display: none;
-          }
-        }
+    }
+    .options {
+      .menu-btn {
+        display: none;
       }
     }
   }
@@ -158,16 +128,6 @@
           li {
             padding: 0 8px;
             margin: 0 8px;
-          }
-        }
-      }
-
-      .menu {
-        button {
-          height: 38px;
-          &.sign {
-            font-size: 16px;
-            padding: 10px 20px;
           }
         }
       }
@@ -193,10 +153,45 @@
           }
         }
       }
-      .menu {
-        button {
-          height: 42px;
+    }
+  }
+}
+
+nav.menu {
+  margin: 0 auto;
+  display: block;
+  width: 350px;
+  ul {
+    font-size: 16px;
+    color: $brand-primary;
+    display: flex;
+    justify-content: space-between;
+    li,
+    li:after,
+    li:before {
+      transition: all 0.5s;
+    }
+    li {
+      position: relative;
+      padding: 0 5px;
+      margin: 0 5px;
+      &:hover {
+        color: $brand-gray;
+        &:after {
+          width: 100%;
         }
+      }
+      &:after {
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 0%;
+        content: ".";
+        color: transparent;
+        background: $brand-secondary;
+        height: 1.2px;
       }
     }
   }

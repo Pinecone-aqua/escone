@@ -1,34 +1,42 @@
 .recipe-card {
-  width: 335px;
-  height: 130px;
+  width: 120px;
+  height: 180px;
   display: flex;
+  flex-direction: column;
   margin: 0 auto;
   border-radius: 10px;
   box-shadow: $brand-shadow;
   button.favorite {
+    top: 100px;
+    right: 10px;
     position: absolute;
     color: rgb(255, 80, 80);
   }
   picture {
-    width: 150px;
-    height: 100%;
+    width: 100%;
+    height: 85px;
     img {
       object-fit: cover;
       width: 100%;
       height: 100%;
-      border-radius: 10px 0 0 10px;
+      border-radius: 10px 10px 0 0;
     }
   }
   .text {
     width: 185px;
     height: 100%;
-    padding: 15px 20px;
+    padding: 15px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     h4 {
+      width: 100px;
+      height: 50px;
+      display: flex;
+      flex-wrap: wrap;
       color: $brand-primary;
-      font-size: 18px;
+      font-size: 14px;
+      line-height: 14px;
     }
     p {
       display: none;
@@ -37,52 +45,14 @@
       width: 100%;
       display: flex;
       align-self: flex-end;
-      font-size: 12px;
+      font-size: 10px;
       color: $brand-secondary;
       font-style: italic;
     }
   }
 }
 
-@media screen and (min-width: 576px) {
-  .recipe-card {
-    width: 250px;
-    height: 150px;
-    picture {
-      width: 110px;
-    }
-    button.favorite {
-      font-size: 18px;
-      top: 15px;
-      right: 20px;
-    }
-    .text {
-      width: 140px;
-      .title {
-        padding-right: 20px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .recipe-card {
-    width: 335px;
-    picture {
-      width: 150px;
-    }
-    button.favorite {
-      font-size: 20px;
-      top: 15px;
-      right: 20px;
-    }
-    .text {
-      width: 185px;
-    }
-  }
-}
-
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 820px) {
   .recipe-card {
     width: 210px;
     height: 295px;
@@ -91,15 +61,14 @@
     picture {
       width: 100%;
       height: 190px;
-      img {
-        border-radius: 10px 10px 0 0;
-      }
     }
     button.favorite {
       font-size: 22px;
-      left: 15px;
+      top: 210px;
+      right: 20px;
     }
     .text {
+      padding: 15px 20px;
       display: flex;
       width: 100%;
       height: 100px;
@@ -107,7 +76,9 @@
         display: flex;
         justify-content: space-between;
         h4 {
+          width: 140px;
           font-size: 18px;
+          line-height: 18px;
         }
         button {
           font-size: 22px;
@@ -128,18 +99,19 @@
     height: 380px;
     picture {
       width: 100%;
-      height: 275px;
+      height: 240px;
     }
     button.favorite {
       font-size: 24px;
-      left: 15px;
+      bottom: 50px;
     }
     .text {
       width: 100%;
-      height: 125px;
+      height: 140px;
       .title {
         h4 {
-          font-size: 18px;
+          font-size: 22px;
+          line-height: 22px;
         }
         button {
           font-size: 22px;
@@ -153,34 +125,29 @@
   }
 }
 
-@media screen and (min-width: 1440px) {
-  .recipe-card {
-    width: 280px;
-    height: 430px;
-    picture {
-      width: 100%;
-      height: 290px;
-    }
-    button.favorite {
-      height: 32px;
-      font-size: 28px;
-      left: 15px;
-    }
-    .text {
-      width: 100%;
-      height: 145px;
-      .title {
-        h4 {
-          font-size: 20px;
-          font-weight: 500;
-        }
-        button {
-          font-size: 24px;
-        }
-      }
-      p {
-        font-size: 14px;
-      }
-    }
-  }
-}
+// @media screen and (min-width: 1440px) {
+//   .recipe-card {
+//     width: 280px;
+//     height: 430px;
+//     picture {
+//       width: 100%;
+//       height: 290px;
+//     }
+//     .text {
+//       width: 100%;
+//       height: 145px;
+//       .title {
+//         h4 {
+//           font-size: 20px;
+//           font-weight: 500;
+//         }
+//         button {
+//           font-size: 24px;
+//         }
+//       }
+//       p {
+//         font-size: 14px;
+//       }
+//     }
+//   }
+// }
