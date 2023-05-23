@@ -1,0 +1,60 @@
+.card {
+  width: 300px;
+  height: 440px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 5px 5px;
+  picture {
+    width: 100%;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 260px;
+      border-radius: 10px 10px 0 0;
+    }
+  }
+  &-text {
+    position: relative;
+    height: 180px;
+    padding: 20px;
+    .status {
+      top: -50px;
+      position: absolute;
+    }
+    .status-btns {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 260px;
+      display: flex;
+      gap: 10px;
+      justify-content: end;
+      button {
+        border: 1px solid;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 10px;
+        &.approve {
+          color: green;
+          border-color: green;
+        }
+        &.deny {
+          color: red;
+          border-color: red;
+        }
+        &:disabled {
+          color: grey;
+          border-color: gray;
+          background-color: rgba(128, 128, 128, 0.2);
+        }
+      }
+    }
+    h5 {
+      font-size: 18px;
+      line-height: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+  }
+}
