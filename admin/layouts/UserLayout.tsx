@@ -7,14 +7,14 @@ type PropsType = {
 };
 export default function UserLayout({ children, setGrid, grid }: PropsType) {
   return (
-    <div className="w-full flex flex-col gap-5 p-10">
-      <div className="w-full text-green-700 p-4 border-b-2 border-green-500 text-2xl flex justify-between">
-        <p> Users</p>
+    <div>
+      <div className="children-head">
+        <p>Users</p>
         <button onClick={() => setGrid(!grid)}>
           {grid ? <BsTable /> : <BsFillGrid3X3GapFill />}
         </button>
       </div>
-      <div className="">{children}</div>
+      {children}
     </div>
   );
 }

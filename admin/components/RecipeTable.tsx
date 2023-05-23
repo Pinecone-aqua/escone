@@ -42,12 +42,12 @@ function Table({ recipes, setShow }: PropType) {
     <table>
       <thead>
         <tr>
-          <th>created by</th>
-          <th>title</th>
-          <th>description</th>
-          <th>date</th>
-          <th>status</th>
-          <th>same</th>
+          <th>нийтлэсэн</th>
+          <th>гарчиг</th>
+          <th>товч тайлбар</th>
+          <th>огноо</th>
+          <th>төлөв</th>
+          <th>засварлах</th>
         </tr>
       </thead>
       <tbody>
