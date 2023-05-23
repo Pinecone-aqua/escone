@@ -14,7 +14,7 @@
     margin-bottom: 50px;
   }
   ul {
-    color: #d0d2da;
+    color: $brand-shade;
     width: 100%;
     display: flex;
     gap: 30px;
@@ -25,8 +25,8 @@
       padding: 0 30px;
       border-radius: 50px;
       &-active {
-        color: #551fff;
-        background-color: #f3f0ff;
+        color: $brand-primary;
+        background-color: $brand-primary-light;
       }
     }
     li {

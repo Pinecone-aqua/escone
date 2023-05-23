@@ -20,7 +20,7 @@ export default function Layout({ children }: Props): JSX.Element {
   return isadmin ? (
     <div className="flex w-full">
       <Sidebar />
-      <div className="flex flex-col w-full gap-10 px-10 bg-slate-200 ">
+      <div className="body">
         <Header />
         {children}
       </div>
