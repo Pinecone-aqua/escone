@@ -13,19 +13,23 @@ export default function Menu() {
   const menuItems: MenuItem[] = [
     { label: "Нүүр", url: "/" },
     { label: "Жор", url: "/recipes" },
-    // { label: "Blog", url: "/blog" },
+    { label: "Нийтлэл", url: "/blog" },
     { label: "Бидний тухай", url: "/about" },
   ];
 
   return (
     <>
       <div className="menu">
-        <button onClick={() => setVisible(true)} className="menu">
+        <button onClick={() => setVisible(true)} className="menu-btn">
           <FiMenu />
         </button>
-        <Sidebar visible={visible} position="top" onHide={() => setVisible(false)}>
-          <nav>
-            <ul>
+        <Sidebar
+          visible={visible}
+          position="top"
+          onHide={() => setVisible(false)}
+        >
+          <nav className="menu">
+            <ul className="flex w-full justify-around">
               {menuItems.map((menuItem, index) => (
                 <li key={index}>
                   <Link href={menuItem.url}>{menuItem.label}</Link>

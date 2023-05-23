@@ -40,7 +40,7 @@ export default function Dropdown() {
       <Menu model={items} popup ref={menu} className="mt-3" />
 
       <button className="popup gap-2" onClick={dropDownHanlder}>
-        Сайн уу?, {user?.username}!
+        {user?.username}
       </button>
     </div>
   );

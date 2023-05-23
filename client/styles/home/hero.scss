@@ -30,7 +30,7 @@
       position: absolute;
       width: 100px;
       top: 13px;
-      left: 11px;
+      left: 22px;
     }
   }
   .items {
@@ -63,41 +63,7 @@
   }
 }
 
-@media screen and (min-width: 576px) {
-  .hero {
-    height: 475px;
-    .content {
-      width: 360px;
-      h1 {
-        font-size: 115px;
-      }
-      p {
-        font-size: 12px;
-      }
-      .abs {
-        width: 150px;
-      }
-    }
-    .items {
-      .abs {
-        &:first-child {
-          width: 170px;
-        }
-        &:nth-child(2) {
-          width: 105px;
-        }
-        &:nth-child(3) {
-          width: 135px;
-        }
-        &:nth-child(4) {
-          width: 100px;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 820px) {
   .hero {
     height: 670px;
     .content {
@@ -109,6 +75,7 @@
         font-size: 14px;
       }
       .abs {
+        left: 30px;
         width: 200px;
       }
     }
@@ -131,40 +98,6 @@
   }
 }
 
-@media screen and (min-width: 992px) {
-  .hero {
-    height: 770px;
-    .content {
-      width: 580px;
-      h1 {
-        font-size: 185px;
-      }
-      p {
-        font-size: 16px;
-      }
-      .abs {
-        width: 250px;
-      }
-    }
-    .items {
-      .abs {
-        &:first-child {
-          width: 280px;
-        }
-        &:nth-child(2) {
-          width: 170px;
-        }
-        &:nth-child(3) {
-          width: 230px;
-        }
-        &:nth-child(4) {
-          width: 170px;
-        }
-      }
-    }
-  }
-}
-
 @media screen and (min-width: 1200px) {
   .hero {
     height: 890px;
@@ -177,7 +110,8 @@
         font-size: 18px;
       }
       .abs {
-        width: 315px;
+        left: 50px;
+        width: 310px;
       }
     }
     .items {
@@ -211,7 +145,9 @@
         font-size: 20px;
       }
       .abs {
-        width: 350px;
+        top: 30px;
+        left: 60px;
+        width: 320px;
       }
     }
     .items {
