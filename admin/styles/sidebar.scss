@@ -1,0 +1,39 @@
+.sidebar {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 305px;
+  font-family: $font-stack;
+  color: $brand-primary;
+  background-color: $brand-white;
+  border-right: 1px solid $brand-shade;
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  ul {
+    color: #d0d2da;
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    .btn {
+      height: 65px;
+      display: flex;
+      padding: 0 30px;
+      border-radius: 50px;
+      &-active {
+        color: #551fff;
+        background-color: #f3f0ff;
+      }
+    }
+    li {
+      font-size: 22px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "@/layouts/Layout";
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 import "primereact/resources/themes/lara-light-indigo/theme.css";

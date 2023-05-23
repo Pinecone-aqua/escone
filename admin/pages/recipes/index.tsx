@@ -1,6 +1,6 @@
 import GridCards from "@/components/GridCards";
 import Offcanva from "@/components/Offcanva";
-import RecipesLayout from "@/components/RecipesLayout";
+import RecipesLayout from "@/layouts/RecipesLayout";
 import Table from "@/components/Table";
 import { RecipeType } from "@/utils/types";
 import axios from "axios";
