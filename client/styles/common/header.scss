@@ -17,6 +17,33 @@
     .logo svg {
       width: 80px;
     }
+    .search {
+      display: none;
+      border: 1px solid $brand-shade;
+      border-radius: 10px;
+      input {
+        border: none;
+        font-size: 14px;
+        &:first-child {
+          background-color: transparent;
+          &::placeholder {
+            opacity: 50%;
+            color: $brand-lightgray;
+          }
+        }
+        &:nth-child(2) {
+          border-left: 1px solid $brand-shade;
+          width: 70px;
+          height: 40px;
+          color: $brand-shade;
+          transition: all 0.5s;
+          &:hover {
+            color: $brand-lightgray;
+            font-weight: 500;
+          }
+        }
+      }
+    }
     nav {
       display: none;
     }
@@ -65,6 +92,9 @@
     .container {
       .logo svg {
         width: 100px;
+      }
+      .search {
+        display: block;
       }
       nav {
         display: block;

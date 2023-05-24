@@ -30,6 +30,11 @@ export default function Header(): JSX.Element {
             <Logo />
           </Link>
 
+          <div className="search">
+            <input type="text" placeholder="search anything..." />
+            <input type="button" value="search" />
+          </div>
+
           <nav>
             <ul>
               {menuItems.map((menuItem, index) => (
