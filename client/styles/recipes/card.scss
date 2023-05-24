@@ -1,11 +1,11 @@
 .recipe-card {
-  width: 120px;
+  width: 130px;
   height: 180px;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 20px auto;
   border-radius: 10px;
-  box-shadow: $brand-shadow;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px;
   button.favorite {
     top: 100px;
     right: 10px;
@@ -52,10 +52,49 @@
   }
 }
 
+@media screen and (min-width: 420px) {
+  .recipe-card {
+    width: 150px;
+    height: 190px;
+    button.favorite {
+      top: 110px;
+      right: 15px;
+      position: absolute;
+      color: rgb(255, 80, 80);
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .recipe-card {
+    width: 135px;
+    height: 200px;
+    button.favorite {
+      top: 120px;
+      position: absolute;
+      color: rgb(255, 80, 80);
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .recipe-card {
+    width: 180px;
+    height: 270px;
+    button.favorite {
+      font-size: 18px;
+      top: 190px;
+      right: 10px;
+      position: absolute;
+      color: rgb(255, 80, 80);
+    }
+  }
+}
+
 @media screen and (min-width: 820px) {
   .recipe-card {
-    width: 210px;
-    height: 295px;
+    width: 205px;
+    height: 310px;
     flex-direction: column;
     justify-content: space-between;
     picture {
@@ -64,7 +103,7 @@
     }
     button.favorite {
       font-size: 22px;
-      top: 210px;
+      top: 225px;
       right: 20px;
     }
     .text {
@@ -95,7 +134,7 @@
 
 @media screen and (min-width: 1200px) {
   .recipe-card {
-    width: 260px;
+    width: 250px;
     height: 380px;
     picture {
       width: 100%;
@@ -103,7 +142,7 @@
     }
     button.favorite {
       font-size: 24px;
-      bottom: 50px;
+      top: 255px;
     }
     .text {
       width: 100%;
@@ -125,29 +164,35 @@
   }
 }
 
-// @media screen and (min-width: 1440px) {
-//   .recipe-card {
-//     width: 280px;
-//     height: 430px;
-//     picture {
-//       width: 100%;
-//       height: 290px;
-//     }
-//     .text {
-//       width: 100%;
-//       height: 145px;
-//       .title {
-//         h4 {
-//           font-size: 20px;
-//           font-weight: 500;
-//         }
-//         button {
-//           font-size: 24px;
-//         }
-//       }
-//       p {
-//         font-size: 14px;
-//       }
-//     }
-//   }
-// }
+@media screen and (min-width: 1440px) {
+  .recipe-card {
+    width: 300px;
+    height: 456px;
+    picture {
+      width: 100%;
+      img {
+        height: 280px;
+      }
+    }
+    button.favorite {
+      font-size: 28px;
+      top: 295px;
+    }
+    .text {
+      width: 100%;
+      height: 176px;
+      .title {
+        h4 {
+          font-size: 20px;
+          font-weight: 500;
+        }
+        button {
+          font-size: 24px;
+        }
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
