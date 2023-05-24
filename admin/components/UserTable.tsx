@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { UserType } from "@/utils/types";
 import { FiUser } from "react-icons/fi";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
@@ -9,6 +10,8 @@ import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { ConfirmDialog } from "primereact/confirmdialog";
+
+import { TbArrowsSort } from "react-icons/tb";
 
 function UserTable({
   users,
@@ -40,13 +43,38 @@ function UserTable({
         });
       });
   }
+  function sortHandler(sortItem: string) {
+    const query = router.query;
+    if (query.order_by == sortItem) {
+      if (query.type == "1") {
+        query.order_by = sortItem;
+        query.type = "-1";
+        query.page = "1";
+        router.push({ query: query });
+      } else if (query.type == "-1") {
+        delete query.order_by;
+        delete query.type;
+        query.page = "1";
+        router.push({ query: query });
+      }
+    } else {
+      query.order_by = sortItem;
+      query.type = "1";
+      query.page = "1";
+      router.push({ query: query });
+    }
+  }
   return (
     <table>
       <thead>
         <tr>
           <th>№</th>
           <th>хэрэглэгчийн нэр</th>
-          <th>бүртгүүлсэн огноо</th>
+          <th onClick={() => sortHandler("created_date")}>
+            <span className="flex items-center gap-2">
+              огноо <TbArrowsSort size={25} />
+            </span>{" "}
+          </th>
           <th>үүрэг</th>
           <th>цахим шуудан</th>
           <th>засварлах</th>

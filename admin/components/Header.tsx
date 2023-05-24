@@ -30,7 +30,17 @@ export default function Header(): JSX.Element {
   return (
     <div className="header">
       <h1>Dashboard</h1>
-
+      <form
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          router.push({ query: { search: e.target.search.value } });
+        }}
+        className="flex items-center gap-2 "
+      >
+        <input type="text" placeholder="search ..." name="search" />
+        <button type="submit">search</button>
+      </form>
       <Menu model={items} popup ref={menu} />
       <button onClick={(e) => menu.current?.toggle(e)}>
         <MdAdminPanelSettings />

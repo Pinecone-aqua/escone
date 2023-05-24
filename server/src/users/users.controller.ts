@@ -44,15 +44,51 @@ export class UserController {
   @Get('all')
   getAllUser(@Query() query: any) {
     try {
+
+      let limit = 8;
       let page = 1;
-      let limit = 12;
-      if (query.page) {
-        page = Number(query.page);
+      let order_by = {};
+      let queryOption: any = { $and: [] };
+      if (query.role) {
+        const booleanRole = query.role == 'admin';
+        queryOption.$and.push({ role: booleanRole });
+      }
+      if (query.order_by) {
+        if (query.type) {
+          order_by = { [query.order_by]: Number(query.type) };
+        }
       }
       if (query.limit) {
         limit = Number(query.limit);
       }
-      return this.userService.getAllUsers(page, limit);
+      if (query.page) {
+        page = Number(query.page);
+      }
+      if (query.search) {
+        const searchQuery = {
+          $or: [
+            { username: { $regex: query.search, $options: 'i' } },
+            { email: { $regex: query.search, $options: 'i' } },
+          ],
+        };
+        queryOption.$and.push(searchQuery);
+      }
+
+      if (
+        Object.keys(query).filter((key) => {
+          if (key == 'limit') return;
+          if (key == 'page') return;
+          if (key == 'order_by') return;
+          if (key == 'type') return;
+          if (key == 'id') return;
+          return key;
+        }).length == 0
+      ) {
+        queryOption = {};
+      }
+      console.log(queryOption.$and[0].$or);
+      return this.userService.getAllUsers(queryOption, limit, page, order_by);
+
     } catch (error) {
       return error;
     }
@@ -133,6 +169,8 @@ export class UserController {
               userBody.password = await bcrypt.hash(userBody.password, 7);
             }
             delete userBody.oldpassword;
+          } else {
+            userBody.password = await bcrypt.hash(userBody.password, 7);
           }
         }
         if (Image) {

@@ -17,12 +17,24 @@ export default function Recipes({
 }) {
   const [show, setShow] = useState(false);
   const [grid, setGrid] = useState(false);
-  const { query } = useRouter();
-  let totalPages = Number(query.page) + 1 || 2;
+  const router = useRouter();
+  let totalPages = 1;
+  const page = router.query.page ? router.query.page : 1;
   if (recipes.length < limit) {
-    totalPages = Number(query.page);
+    if (recipes.length == 0) {
+      if (page == 1) {
+        totalPages = 1;
+      } else {
+        totalPages = Number(`${page}`) - 1;
+        router.query.page = `${totalPages}`;
+        router.push({ query: router.query });
+      }
+    } else {
+      totalPages = Number(`${page}`);
+    }
+  } else {
+    totalPages = Number(page) + 1;
   }
-
   return (
     <div className="recipes children">
       <RecipesLayout setGrid={setGrid} grid={grid}>
