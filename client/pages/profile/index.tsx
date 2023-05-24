@@ -11,14 +11,23 @@ export default function Profile({
   recipes: RecipeType[];
   limit: number;
 }): JSX.Element {
-  const { query, push } = useRouter();
-  let totalPages = Number(query.page) + 1 || 2;
+  const router = useRouter();
+  let totalPages = 1;
+  const page = router.query.page ? router.query.page : 1;
   if (recipes.length < limit) {
     if (recipes.length == 0) {
-      totalPages = Number(query.page) - 1;
-      push({ query: { ...query, page: totalPages } });
+      if (page == 1) {
+        totalPages = 1;
+      } else {
+        totalPages = Number(`${page}`) - 1;
+        router.query.page = `${totalPages}`;
+        router.push({ query: router.query });
+      }
+    } else {
+      totalPages = Number(`${page}`);
     }
-    totalPages = Number(query.page);
+  } else {
+    totalPages = Number(page) + 1;
   }
   return (
     <div className="recipes">
