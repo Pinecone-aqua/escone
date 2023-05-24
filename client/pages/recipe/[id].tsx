@@ -192,22 +192,7 @@ function Recipe({
 
 export default Recipe;
 
-export async function getStaticPaths() {
-  const result = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/ids`
-  );
-  const recipes = result.data;
-
-  const paths = recipes.map((recipe: RecipeType) => ({
-    params: { id: recipe._id },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(context: { params: { id: string } }) {
+export async function getServerSideProps(context: { params: { id: string } }) {
   const id = context.params.id;
   const result = await axios.get(
     `${process.env.NEXT_PUBLIC_BACK_END_URL}/recipe/${id}`
