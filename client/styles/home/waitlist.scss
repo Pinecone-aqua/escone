@@ -1,0 +1,132 @@
+.waitlist {
+  * {
+    transition: all 0.5s;
+  }
+  margin: 50px 0;
+  position: relative;
+  width: 100%;
+  height: 535px;
+  display: flex;
+  justify-content: center;
+  picture {
+    height: 100%;
+    .cover {
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+  &-box {
+    padding: 30px;
+    position: absolute;
+    height: 455px;
+    width: 315px;
+    top: 40px;
+    background-color: #ffffffb5;
+    border-radius: 10px;
+
+    .text {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h2 {
+        color: $brand-secondary;
+        width: 100%;
+        font-weight: 500;
+        font-size: 36px;
+        line-height: 36px;
+      }
+      p {
+        font-size: 16px;
+        margin: 25px 0;
+        color: $brand-gray;
+        text-align: justify;
+      }
+      .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        input {
+          height: 48px;
+          border-radius: 10px;
+          width: 100%;
+        }
+        input.sub {
+          color: $brand-lightgray;
+          background-color: $brand-secondary;
+        }
+      }
+
+      .checkbox {
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 820px) {
+  .waitlist {
+    height: 560px;
+    &-box {
+      top: 80px;
+      right: 50px;
+      width: 450px;
+      height: 400px;
+      .text {
+        h2 {
+          font-size: 38px;
+        }
+        p {
+          font-size: 18px;
+        }
+        .inputs {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          input:first-child {
+            width: 75%;
+          }
+          input:nth-child(2) {
+            width: 25%;
+          }
+        }
+      }
+    }
+    picture {
+      .cover {
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .waitlist {
+    height: 585px;
+    &-box {
+      top: 95px;
+      height: 395px;
+      width: 645px;
+      .text {
+        h2 {
+          font-size: 40px;
+        }
+        p {
+          font-size: 20px;
+        }
+        .inputs {
+          input:first-child {
+            width: 65%;
+          }
+          input:nth-child(2) {
+            width: 35%;
+          }
+        }
+      }
+    }
+  }
+}

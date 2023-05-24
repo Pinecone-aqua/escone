@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { RecipeType } from "@/utils/types";
 import HeroSection from "@/components/home/Hero";
 import PopularSection from "@/components/home/Popular";
-// import SpecialRecipe from "@/components/home/Special";
+import SpecialRecipe from "@/components/home/Special";
 import Waitlist from "@/components/home/Waitlist";
 
 interface HomeProps {
@@ -20,7 +20,7 @@ export default function Home({ recipes }: HomeProps) {
 
       <HeroSection />
       <PopularSection recipes={recipes} />
-      {/* <SpecialRecipe recipes={recipes} /> */}
+      <SpecialRecipe recipes={recipes} />
       <Waitlist />
     </>
   );
