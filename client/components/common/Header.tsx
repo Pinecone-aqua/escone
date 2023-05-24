@@ -6,6 +6,7 @@ import Logo from "@/public/Logo";
 import Login from "./Login";
 import Dropdown from "../subs/Dropdown";
 import Menu from "../subs/Menu";
+import { FiSearch } from "react-icons/fi";
 
 interface MenuItem {
   label: string;
@@ -31,8 +32,10 @@ export default function Header(): JSX.Element {
           </Link>
 
           <div className="search">
-            <input type="text" placeholder="search anything..." />
-            <input type="button" value="search" />
+            <input type="text" placeholder="хайлт хийх..." />
+            <button>
+              <FiSearch />
+            </button>
           </div>
 
           <nav>
