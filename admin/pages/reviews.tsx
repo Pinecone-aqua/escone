@@ -67,7 +67,7 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
     }
   }
   return (
-    <div className="">
+    <div className="children reviews">
       <div className="flex gap-4 w-full justify-center  font-semibold items-center">
         <input
           type="button"

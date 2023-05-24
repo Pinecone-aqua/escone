@@ -6,8 +6,7 @@
   min-height: 100vh;
   font-family: $font-stack;
   color: $brand-primary;
-  background-color: $brand-white;
-  border-right: 1px solid $brand-shade;
+  background-color: $brand-primary;
   .logo {
     display: flex;
     align-items: center;
@@ -21,13 +20,22 @@
     gap: 20px;
     flex-direction: column;
     .btn {
-      height: 65px;
+      height: 60px;
       display: flex;
       padding: 0 30px;
       border-radius: 50px;
+      transition: all 0.5s;
+      &:hover {
+        color: $brand-lightgray;
+        border: 1px solid $brand-lightgray;
+      }
       &-active {
         color: $brand-primary;
         background-color: $brand-primary-light;
+        &:hover {
+          color: $brand-primary;
+          border: none;
+        }
       }
     }
     li {
