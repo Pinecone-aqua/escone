@@ -114,11 +114,7 @@ export default function RecipeCard({ recipe }: PropType): JSX.Element {
         {recipe.images.map((image, index) => (
           <Link href={`/recipe/${recipe._id}`} key={index}>
             <picture className="w-[335px] h-full ">
-              <img
-                src={image}
-                alt=""
-                className=" object-cover w-full h-full "
-              />
+              <img src={image} alt="" className="object-cover w-full h-full " />
             </picture>
           </Link>
         ))}
