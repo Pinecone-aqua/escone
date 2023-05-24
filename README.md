@@ -8,7 +8,7 @@ RECIPE SHARING PLATFORM
 
 ## Developers
 
-Team "PineApple" ~ PINECONE AQUA 2023
+Team "PineApple" - PINECONE AQUA 2023
 
 - [@maralisgoood](https://github.com/maralisgoood)
 - [@uugan-erdene](https://github.com/uka03)
