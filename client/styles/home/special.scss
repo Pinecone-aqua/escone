@@ -1,71 +1,129 @@
-.special {
-  background-color: $brand-lightgray;
-  padding: 100px 0;
-  ul {
-    display: none;
+.waitlist {
+  * {
+    transition: all 0.5s;
   }
-  h2 {
-    text-align: center;
-    font-size: 22px;
-    font-weight: 400;
-    color: $brand-secondary;
-  }
-  &-recipe {
-    h3 {
-      text-align: center;
-      text-transform: capitalize;
-      font-size: 36px;
-      font-weight: 600;
-      margin: 30px 0;
-      color: $brand-primary;
+  margin: 50px 0;
+  position: relative;
+  width: 100%;
+  height: 535px;
+  display: flex;
+  justify-content: center;
+  picture {
+    height: 100%;
+    .cover {
+      object-fit: cover;
+      height: 100%;
     }
-    &-body {
-      margin: 50px 0;
+  }
+  &-box {
+    padding: 30px;
+    position: absolute;
+    height: 455px;
+    width: 315px;
+    top: 40px;
+    background-color: #ffffffb5;
+    border-radius: 10px;
+
+    .text {
+      height: 100%;
       display: flex;
-      justify-content: center;
-      picture {
-        width: 640px;
-        height: 600px;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+      flex-direction: column;
+      justify-content: space-between;
+      h2 {
+        width: 100%;
+        font-weight: 500;
+        font-size: 36px;
+        line-height: 36px;
       }
-      .ingredients {
-        width: 600px;
-        height: 600px;
+      p {
+        font-size: 16px;
+        margin: 25px 0;
+        color: $brand-gray;
+        text-align: justify;
+      }
+      .inputs {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding: 0 50px;
-        background-color: $brand-white;
-        h5 {
-          color: $brand-primary;
-          font-size: 20px;
-          font-weight: 500;
-          margin-bottom: 30px;
+        gap: 10px;
+        input {
+          height: 48px;
+          border-radius: 10px;
+          width: 100%;
         }
-        &-body {
-          color: $brand-gray;
-          width: 500px;
-          height: 230px;
+        input.sub {
+          color: $brand-lightgray;
+          background-color: $brand-secondary;
+        }
+      }
+
+      .checkbox {
+        margin-top: 20px;
+        justify-content: center;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 820px) {
+  .waitlist {
+    height: 560px;
+    &-box {
+      top: 80px;
+      right: 50px;
+      width: 450px;
+      height: 400px;
+      .text {
+        h2 {
+          font-size: 38px;
+        }
+        p {
+          font-size: 18px;
+        }
+        .inputs {
           display: flex;
-          flex-direction: column;
-          justify-content: center;
-          p {
-            font-size: 16px;
-            line-height: 30px;
+          justify-content: space-between;
+          flex-direction: row;
+          input:first-child {
+            width: 75%;
+          }
+          input:nth-child(2) {
+            width: 25%;
           }
         }
-        .ingredient {
-          display: flex;
-          gap: 5px;
+      }
+    }
+    picture {
+      .cover {
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .waitlist {
+    height: 585px;
+    &-box {
+      top: 95px;
+      height: 395px;
+      width: 645px;
+      .text {
+        h2 {
+          font-size: 40px;
         }
-        .description {
-          text-align: justify;
-          width: 450px;
-          color: $brand-gray;
+        p {
+          font-size: 20px;
+        }
+        .inputs {
+          input:first-child {
+            width: 65%;
+          }
+          input:nth-child(2) {
+            width: 35%;
+          }
         }
       }
     }
