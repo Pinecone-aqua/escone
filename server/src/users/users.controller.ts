@@ -79,13 +79,13 @@ export class UserController {
           if (key == 'page') return;
           if (key == 'order_by') return;
           if (key == 'type') return;
-          if (key == 'id') return;
+          if (key == 'user') return;
           return key;
         }).length == 0
       ) {
         queryOption = {};
       }
-      console.log(queryOption.$and[0].$or);
+      console.log(queryOption);
       return this.userService.getAllUsers(queryOption, limit, page, order_by);
     } catch (error) {
       return error;

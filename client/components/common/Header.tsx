@@ -7,6 +7,7 @@ import Login from "./Login";
 import Dropdown from "../subs/Dropdown";
 import Menu from "../subs/Menu";
 import { FiSearch } from "react-icons/fi";
+import { useRouter } from "next/router";
 
 interface MenuItem {
   label: string;
@@ -22,7 +23,14 @@ const menuItems: MenuItem[] = [
 
 export default function Header(): JSX.Element {
   const { user } = useUser();
-
+  const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function searchHandler(e: any) {
+    e.preventDefault();
+    const searchValue = e.target.search.value;
+    router.push(`/recipes?search=${searchValue}`);
+    e.target.search.value = "";
+  }
   return (
     <>
       <div className="header">
