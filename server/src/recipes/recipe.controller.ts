@@ -22,7 +22,6 @@ import { CheckRoleGuard } from 'src/role/role.guard';
 import { CheckRole } from 'src/role/role.decorator';
 import { ObjectId } from 'mongodb';
 import { UserService } from 'src/users/users.service';
-import { type } from 'os';
 
 @Controller('recipe')
 export class RecipeController {
@@ -162,6 +161,15 @@ export class RecipeController {
         );
         optionQuery.$and.push({ _id: { $in: favoriteIds } });
       }
+      if (query.search) {
+        const searchQuery = {
+          $or: [
+            { title: { $regex: query.search, $options: 'i' } },
+            { description: { $regex: query.search, $options: 'i' } },
+          ],
+        };
+        optionQuery.$and.push(searchQuery);
+      }
       if (query.page) {
         page = query.page;
       }
@@ -171,13 +179,13 @@ export class RecipeController {
         }
       }
       if (
-        Object.keys(query).filter((keys) => {
-          if (keys == 'page') return;
-          if (keys == 'limit') return;
-          if (keys == 'order_by') return;
-          if (keys == 'type') return;
-          if (keys == 'id') return;
-          return keys;
+        Object.keys(query).filter((key) => {
+          if (key == 'page') return;
+          if (key == 'limit') return;
+          if (key == 'order_by') return;
+          if (key == 'type') return;
+          if (key == 'id') return;
+          return key;
         }).length == 0
       ) {
         optionQuery = {};
@@ -192,7 +200,6 @@ export class RecipeController {
         page,
         order_by,
       );
-      console.log(result);
       return result;
     } catch (error) {
       return error;

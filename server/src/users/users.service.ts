@@ -21,9 +21,18 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
   users = [];
-  async getAllUsers() {
+  async getAllUsers(
+    queryOption?: any,
+    limit?: number,
+    page?: number,
+    order_by?: any,
+  ) {
     try {
-      const result = await this.userModel.find({});
+      const result = await this.userModel
+        .find(queryOption)
+        .sort(order_by)
+        .skip((page - 1) * limit)
+        .limit(limit);
       return result;
     } catch (error) {
       return error;
@@ -100,6 +109,7 @@ export class UserService {
           user.password,
           result[0].password,
         );
+        console.log(user.password, result[0].password);
         if (passwordCheck) {
           const token = this.jwtService.sign(result[0].toJSON());
           message.data = 'success sign in';
@@ -107,7 +117,7 @@ export class UserService {
           message.status = true;
           return message;
         }
-        message.data = 'password wrong';
+        message.data = `Нууц үг буруу байна `;
       }
 
       return message;
