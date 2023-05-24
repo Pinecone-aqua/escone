@@ -37,7 +37,7 @@ export default function PopularSection({ recipes }: PopularSectionProps) {
   ];
 
   return (
-    <div className="popular">
+    <div className="popular container">
       <div className="popular-head">
         <h3>Жорын сан</h3>
         <Link href={"/recipes"}>

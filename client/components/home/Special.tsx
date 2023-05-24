@@ -22,7 +22,7 @@ export default function SpecialRecipe({ recipes }: SpecialProps) {
                 <p className="ingredient" key={index}>
                   {ing.quantity}
                   <span>{ing.measure}</span>
-                  {ing.name}
+                  <div className="name">{ing.name}</div>
                 </p>
               ))}
             </ScrollPanel>
