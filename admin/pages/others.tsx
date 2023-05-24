@@ -109,7 +109,7 @@ export default function Other({
       );
   }
   return (
-    <div className="w-full flex gap-4">
+    <div className="children others w-full flex gap-4">
       <div className="h-[80vh] flex-col w-1/2">
         <h1 className="text-2xl font-semibold text-blue-800 ">Categories</h1>
         <div className=" h-full flex flex-col flex-wrap gap-3">
