@@ -25,10 +25,11 @@ export default function Users({ users }: { users: UserType[] }) {
     </div>
   );
 }
-
-export async function getStaticProps() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getServerSideProps({ query }: any) {
   const result = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/all`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/user/all`,
+    { params: query }
   );
   const users = result.data;
   return {

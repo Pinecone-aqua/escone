@@ -44,8 +44,15 @@ export class UserController {
   @Get('all')
   getAllUser(@Query() query: any) {
     try {
-      console.log(query);
-      return this.userService.getAllUsers();
+      let page = 1;
+      let limit = 12;
+      if (query.page) {
+        page = Number(query.page);
+      }
+      if (query.limit) {
+        limit = Number(query.limit);
+      }
+      return this.userService.getAllUsers(page, limit);
     } catch (error) {
       return error;
     }

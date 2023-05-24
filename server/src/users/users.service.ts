@@ -21,9 +21,12 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
   users = [];
-  async getAllUsers() {
+  async getAllUsers(page?: number, limit?: number) {
     try {
-      const result = await this.userModel.find({});
+      const result = await this.userModel
+        .find({})
+        .skip((page - 1) * limit)
+        .limit(limit);
       return result;
     } catch (error) {
       return error;
