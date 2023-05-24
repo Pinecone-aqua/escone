@@ -185,14 +185,12 @@ export class RecipeController {
       if (query.limit) {
         limit = query.limit;
       }
-
       const result = await this.recipeService.getRecipes(
         optionQuery,
         limit,
         page,
         order_by,
       );
-      console.log(result);
       return result;
     } catch (error) {
       return error;
