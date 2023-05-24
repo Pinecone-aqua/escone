@@ -70,3 +70,14 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .about {
+    .container {
+      padding: 30px;
+    }
+    .features {
+      flex-direction: column;
+    }
+  }
+}
