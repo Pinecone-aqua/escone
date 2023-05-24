@@ -44,6 +44,7 @@ export class UserController {
   @Get('all')
   getAllUser(@Query() query: any) {
     try {
+
       let limit = 8;
       let page = 1;
       let order_by = {};
@@ -87,6 +88,7 @@ export class UserController {
       }
       console.log(queryOption.$and[0].$or);
       return this.userService.getAllUsers(queryOption, limit, page, order_by);
+
     } catch (error) {
       return error;
     }

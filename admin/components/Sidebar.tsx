@@ -1,6 +1,6 @@
 import React from "react";
 import { RxDashboard } from "react-icons/rx";
-import { TbSettings } from "react-icons/tb";
+import { MdReviews, MdCategory } from "react-icons/md";
 import { ImSpoonKnife, ImUsers } from "react-icons/im";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,7 +10,8 @@ const SideBarItems = [
   { label: "Хянах самбар", url: "/", icon: <RxDashboard /> },
   { label: "Жорын сан", url: "/recipes", icon: <ImSpoonKnife /> },
   { label: "Хэрэглэгчид", url: "/users", icon: <ImUsers /> },
-  { label: "Тохиргоо", url: "/settings", icon: <TbSettings /> },
+  { label: "Сэтгэгдэл", url: "/reviews", icon: <MdReviews /> },
+  { label: "Бусад", url: "/others", icon: <MdCategory /> },
 ];
 
 export default function Sidebar(): JSX.Element {
@@ -18,7 +19,7 @@ export default function Sidebar(): JSX.Element {
   return (
     <div className="sidebar">
       <div className="logo">
-        <Logo width={400} height={60} />
+        <Logo width={150} height={50} />
       </div>
       <ul>
         {SideBarItems.map((item, index) => (

@@ -21,6 +21,7 @@ export class UserService {
     private readonly jwtService: JwtService,
   ) {}
   users = [];
+
   async getAllUsers(
     queryOption?: any,
     limit?: number,

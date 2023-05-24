@@ -193,7 +193,6 @@ export class RecipeController {
       if (query.limit) {
         limit = query.limit;
       }
-
       const result = await this.recipeService.getRecipes(
         optionQuery,
         limit,
