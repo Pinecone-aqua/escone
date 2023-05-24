@@ -39,12 +39,12 @@ export default function Header(): JSX.Element {
             <Logo />
           </Link>
 
-          <div className="search">
-            <input type="text" placeholder="хайлт хийх..." />
-            <button>
+          <form className="search" onSubmit={searchHandler}>
+            <input type="text" placeholder="хайлт хийх..." name="search" />
+            <button type="submit">
               <FiSearch />
             </button>
-          </div>
+          </form>
 
           <nav>
             <ul>
