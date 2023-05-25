@@ -105,12 +105,37 @@ export class RecipeService {
     }
   }
 
-  async deleteRecipe(id: string) {
+  async deleteRecipe(id: string, recipe: any) {
+    const regex = /\/v\d+\/([^/]+)\.\w{3,4}$/;
+    console.log('whis');
+    const getPublicIdFromUrl = (url: string) => {
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    };
+
     try {
-      const result = await this.recipeModel.deleteOne({ _id: id });
-      return result;
-    } catch (error) {
-      return error;
+      const { images } = recipe;
+      const publicIds = images.map((url: string) => getPublicIdFromUrl(url));
+      console.log(publicIds);
+      const destroyResponses = await Promise.all(
+        publicIds.map((publicId: string) =>
+          this.cloudinaryService.deleteImage(publicId),
+        ),
+      );
+      console.log(destroyResponses);
+
+      const allDestroyed = destroyResponses.every(
+        (response) => response.result === 'ok',
+      );
+      if (allDestroyed) {
+        await this.recipeModel.deleteOne({ _id: recipe.id });
+        return true;
+      } else {
+        // Handle the case where some images failed to delete
+        return false;
+      }
+    } catch (err) {
+      return err;
     }
   }
 
