@@ -109,97 +109,83 @@ export default function Other({
       );
   }
   return (
-    <div className="children others w-full flex gap-4">
-      <div className="h-[80vh] flex-col w-1/2">
-        <h1 className="text-2xl font-semibold text-blue-800 ">Categories</h1>
-        <div className=" h-full flex flex-col flex-wrap gap-3">
+    <div className="children others">
+      <div className="categories others-inner">
+        <h3>Categories</h3>
+        <div className="list">
           {categories.map((cat: CategoryType, index) => (
-            <div
-              key={cat._id}
-              className="py-1 px-4 bg-green-400 text-green-800 rounded-full border-2 border-green-800 flex justify-between items-center"
-            >
+            <div className="item" key={cat._id}>
               <p>{cat.name}</p>
               <Toast ref={toast} />
               <ConfirmDialog
                 visible={visible == cat._id}
                 onHide={() => setVisible(undefined)}
-                message="Are you sure you want to delete?"
-                header="Confirmation"
+                message="Устгахдаа итгэлтэй байна уу?"
+                header="Баталгаажуулалт"
                 icon="pi pi-exclamation-triangle"
                 accept={() => deleteCategory(cat._id, index)}
                 reject={() =>
                   toast.current?.show({
                     severity: "warn",
-                    summary: "Rejected",
-                    detail: "You have rejected",
+                    summary: "Болилоо",
+                    detail: "Устгахаа болилоо",
                     life: 3000,
                   })
                 }
               />
-              <p className="text-red-500" onClick={() => setVisible(cat._id)}>
+              <span className="trash" onClick={() => setVisible(cat._id)}>
                 <TbTrash />
-              </p>
+              </span>
             </div>
           ))}
+        </div>
+        <div className="add">
           <input
             type="text"
-            placeholder="new category"
+            placeholder="нэмэх категорио бичнэ үү"
             defaultValue={newCategory}
-            className="py-1 px-4 bg-blue-400 text-blue-950 rounded-full border-2 border-blue-800 placeholder:text-black"
             onChange={(e) => setNewCategory(e.target.value)}
           />
-          <input
-            type="button"
-            value={"add"}
-            className="px-3 py-1 rounded-full  bg-green-500"
-            onClick={addCategory}
-          />
+          <input type="button" value={"add"} onClick={addCategory} />
         </div>
       </div>
-      <div className="h-[80vh] flex-col w-1/2">
-        <h1 className="text-2xl font-semibold text-blue-800 ">tags</h1>
-        <div className=" h-full flex flex-col flex-wrap gap-3">
+      <div className="tags others-inner">
+        <h3>tags</h3>
+        <div className="list">
           {tags.map((tg: TagType, index) => (
-            <div
-              key={tg._id}
-              className="py-1 px-4 bg-green-400 text-green-800 rounded-full border-2 border-green-800 flex justify-between items-center"
-            >
+            <div className="item" key={tg._id}>
               <p>{tg.name}</p>
               <Toast ref={toast} />
               <ConfirmDialog
                 visible={visible == tg._id}
                 onHide={() => setVisible(undefined)}
-                message="Are you sure you want to delete?"
-                header="Confirmation"
+                message="Устгахдаа итгэлтэй байна уу?"
+                header="Баталгаажуулалт"
                 icon="pi pi-exclamation-triangle"
                 accept={() => deleteTag(tg._id, index)}
                 reject={() =>
                   toast.current?.show({
                     severity: "warn",
-                    summary: "Rejected",
-                    detail: "You have rejected",
+                    summary: "Болилоо",
+                    detail: "Устгахаа болилоо",
                     life: 3000,
                   })
                 }
               />
-              <p className="text-red-500" onClick={() => setVisible(tg._id)}>
+              <span className="trash" onClick={() => setVisible(tg._id)}>
                 <TbTrash />
-              </p>
+              </span>
             </div>
           ))}
+        </div>
+        <div className="add">
           <input
             type="text"
-            placeholder="new category"
+            placeholder="нэмэх тагаа бичнэ үү"
             defaultValue={newTag}
-            className="py-1 px-4 bg-blue-400 text-blue-950 rounded-full border-2 border-blue-800 placeholder:text-black"
             onChange={(e) => setNewTag(e.target.value)}
           />
-          <input
-            type="button"
-            value={"add"}
-            className="px-3 py-1 rounded-full  bg-green-500"
-            onClick={addtag}
-          />
+          <input type="button" value={"add"} onClick={addtag} />
         </div>
       </div>
     </div>
