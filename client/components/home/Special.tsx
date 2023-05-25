@@ -19,11 +19,11 @@ export default function SpecialRecipe({ recipes }: SpecialProps) {
             <h5>Ашиглагдах орцууд:</h5>
             <ScrollPanel className="ingredients-body">
               {recipe.ingredients.map((ing, index) => (
-                <p className="ingredient" key={index}>
+                <div className="ingredient" key={index}>
                   {ing.quantity}
                   <span>{ing.measure}</span>
                   <div className="name">{ing.name}</div>
-                </p>
+                </div>
               ))}
             </ScrollPanel>
             <div className="description">{recipe.description}</div>
