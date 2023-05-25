@@ -1,6 +1,19 @@
 .profile {
+  &-image {
+    picture {
+      position: relative;
+      label.edit {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+    }
+  }
+  .children {
+    padding: 15px;
+  }
   .cover {
-    height: 500px;
+    height: 400px;
     width: 100%;
     img {
       object-fit: cover;
@@ -10,50 +23,48 @@
     }
   }
   &-body {
-    min-height: 60vh;
     nav {
       width: 100%;
-      height: 80px;
+      height: 70px;
       background-color: $brand-lightgray;
       box-shadow: $brand-shadow;
       display: flex;
       align-items: center;
-      .container {
-        ul {
-          width: 400px;
-          font-size: 16px;
-          color: $brand-gray;
-          margin-left: 350px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          li,
-          li:after,
-          li:before {
-            transition: all 0.5s;
-          }
-          li {
-            position: relative;
-            padding: 0 5px;
-            margin: 0 5px;
-            &:hover {
-              color: $brand-primary;
-              &:after {
-                width: 100%;
-              }
-            }
+    }
+    .content {
+      ul {
+        width: 330px;
+        font-size: 12px;
+        color: $brand-gray;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        li,
+        li:after,
+        li:before {
+          transition: all 0.5s;
+        }
+        li {
+          position: relative;
+          padding: 0 5px;
+          margin: 0 5px;
+          &:hover {
+            color: $brand-primary;
             &:after {
-              position: absolute;
-              bottom: -5px;
-              left: 0;
-              right: 0;
-              margin: auto;
-              width: 0%;
-              content: ".";
-              color: transparent;
-              background: $brand-secondary;
-              height: 1.5px;
+              width: 100%;
             }
+          }
+          &:after {
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 0%;
+            content: ".";
+            color: transparent;
+            background: $brand-secondary;
+            height: 1.5px;
           }
         }
       }
@@ -61,17 +72,21 @@
   }
   .container {
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
     .info {
       position: relative;
       width: 300px;
+      display: flex;
+      justify-content: center;
       &-box {
-        background-color: $brand-white;
-        top: -150px;
-        padding: 50px 25px;
-        height: 375px;
-        border-radius: 10px;
         position: absolute;
+        top: -460px;
+        background-color: $brand-white;
+        padding: 50px 25px;
+        border-radius: 10px;
         box-shadow: $brand-shadow;
         display: flex;
         flex-direction: column;
@@ -94,26 +109,89 @@
       }
     }
     .children {
-      padding: 50px;
       width: 100%;
+      .recipe-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        .recipeCard {
+          margin: 0;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+      }
     }
   }
+}
 
-  .recipes {
-    padding-left: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    .recipeCard {
-      margin: 0;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+@media screen and (min-width: 576px) {
+  .profile {
+    &-body {
+      .content {
+        ul {
+          width: 400px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .profile {
+    .cover {
+      height: 500px;
+    }
+    &-body {
+      .container {
+        flex-direction: row;
+      }
+      .info {
+        height: 40vh;
+        display: flex;
+        &-box {
+          h3 {
+            font-size: 24px;
+          }
+          &-detail {
+            font-size: 16px;
+            color: $brand-gray;
+          }
+        }
+      }
+      nav {
+        height: 80px;
+        .container {
+          gap: 50px;
+          flex-direction: row;
+          ul {
+            width: 400px;
+            font-size: 16px;
+            margin-left: 350px;
+          }
+        }
+      }
+      .children {
+        width: 100%;
+        .recipe-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          .recipeCard {
+            margin: 0;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          }
+        }
+      }
     }
   }
 }
 
 // SETTINGS
 .settings {
+  height: 100%;
+  min-height: 80vh;
   &-body {
+    display: flex;
+    flex-wrap: wrap;
     .profile-image {
       width: 400px;
       display: flex;
@@ -144,10 +222,9 @@
     }
   }
   .profile-information {
-    width: 100%;
     display: flex;
-    justify-content: space-around;
-    padding: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
     .detail {
       width: 300px;
       margin-top: 20px;
@@ -196,5 +273,35 @@
     border-radius: 10px;
     margin-top: 20px;
     padding: 10px 15px;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .settings {
+    &-body {
+      display: flex;
+      flex-wrap: wrap;
+      .profile-image {
+        width: 100%;
+      }
+      .profile-information {
+        justify-content: center;
+        display: flex;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .settings {
+    .profile-information {
+      justify-content: center;
+      display: flex;
+    }
+    &-body {
+      display: flex;
+      flex-wrap: nowrap;
+    }
   }
 }

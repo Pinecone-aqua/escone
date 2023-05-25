@@ -103,25 +103,36 @@ function Settings() {
           {newProfileImage ? (
             <picture>
               <img src={URL.createObjectURL(newProfileImage)} alt="profile" />
+              <label className="edit">
+                <p>
+                  <FiEdit />
+                </p>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={uploadImageHandler}
+                  value={""}
+                  className="hidden"
+                />
+              </label>
             </picture>
           ) : (
             <picture>
               <img src={updatedUser?.image} alt="profile" />
+              <label className="edit">
+                <p>
+                  <FiEdit />
+                </p>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={uploadImageHandler}
+                  value={""}
+                  className="hidden"
+                />
+              </label>
             </picture>
           )}
-
-          <label>
-            <p>
-              <FiEdit />
-            </p>
-            <input
-              type="file"
-              name="image"
-              onChange={uploadImageHandler}
-              value={""}
-              className="hidden"
-            />
-          </label>
         </div>
 
         <div className="profile-information">

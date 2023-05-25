@@ -30,7 +30,7 @@ export default function Profile({
     totalPages = Number(page) + 1;
   }
   return (
-    <div className="recipes">
+    <div className="recipes children">
       {recipes.length != 0 ? (
         <div className="recipes">
           {recipes.map((recipe, index) => (
