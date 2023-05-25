@@ -228,7 +228,9 @@ export class RecipeController {
       }
       const recipe: any = await this.recipeService.getRecipe(id);
       if (decodedToken.role == true || decodedToken._id == recipe.created_by) {
-        return this.recipeService.deleteRecipe(id);
+        return this.recipeService.deleteRecipe(id, recipe);
+
+        return '';
       } else {
         return 'you have not permission';
       }
