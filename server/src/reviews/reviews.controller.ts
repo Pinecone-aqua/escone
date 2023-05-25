@@ -30,7 +30,9 @@ export class ReviewController {
   getAllReview(@Query() query) {
     try {
       let page = 1;
+      let limit = 12;
       let orderBy;
+      let queryOption = {};
       if (query.page) {
         page = query.page;
       }
@@ -39,10 +41,22 @@ export class ReviewController {
           orderBy = { [query.order_by]: Number(query.type) };
         }
       }
+      if (query.limit) {
+        limit = query.limit;
+      }
+      if (query.search) {
+        queryOption = { content: { $regex: query.search, $options: 'i' } };
+      }
 
-      const result = this.reviewService.getAllReview(page, orderBy);
+      const result = this.reviewService.getAllReview(
+        page,
+        orderBy,
+        limit,
+        queryOption,
+      );
       return result;
     } catch (error) {
+      console.log(error, 'error');
       return error;
     }
   }

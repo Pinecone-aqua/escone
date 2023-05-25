@@ -11,13 +11,19 @@ import { CgArrowsExchangeAltV } from "react-icons/cg";
 
 import { ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
+import Pagination from "@/components/Pagination";
 
-export default function Reviews({ result }: { result: ReviewType[] }) {
+export default function Reviews({
+  result,
+  limit,
+}: {
+  result: ReviewType[];
+  limit: number;
+}) {
   const router = useRouter();
-  const [page, setPage] = useState(1);
   const [visible, setVisible] = useState<string>();
   const toast = useRef<Toast>(null);
-
+  console.log(result);
   function sortHandler(sortItem: string) {
     const query = router.query;
     if (query.order_by == sortItem) {
@@ -49,42 +55,25 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
         });
       });
   }
-
-  function pageHandler(valid: boolean) {
-    const { query } = router;
-
-    if (query.page) {
-      if (valid && result.length == 11) {
-        query.page = `${Number(query.page) + 1}`;
-      } else if (Number(query.page) != 1 || page != 1) {
-        query.page = `${Number(query.page) - 1}`;
+  let totalPages = 1;
+  const page = router.query.page ? router.query.page : 1;
+  if (result.length < limit) {
+    if (result.length == 0) {
+      if (page == 1) {
+        totalPages = 1;
+      } else {
+        totalPages = Number(`${page}`) - 1;
+        router.query.page = `${totalPages}`;
+        router.push({ query: router.query });
       }
-      setPage(Number(query.page));
-      router.push({ query: query });
     } else {
-      router.push({ query: { page: 2 } });
-      setPage(2);
+      totalPages = Number(`${page}`);
     }
+  } else {
+    totalPages = Number(page) + 1;
   }
   return (
     <div className="children reviews">
-      <div className="flex gap-4 w-full justify-center  font-semibold items-center">
-        <input
-          type="button"
-          value="<"
-          onClick={() => pageHandler(false)}
-          className="py-1 px-3 bg-blue-700 text-white rounded-full"
-        />
-        <p className="text-lg">{page}</p>
-        <input
-          type="button"
-          value=">"
-          onClick={() => {
-            pageHandler(true);
-          }}
-          className="py-1 px-3 bg-blue-700 text-white rounded-full"
-        />
-      </div>
       <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
         <thead className="bg-gray-50">
           <tr>
@@ -163,6 +152,7 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
           ))}
         </tbody>
       </table>
+      <Pagination totalPages={totalPages} />
     </div>
   );
 }
@@ -170,6 +160,7 @@ export default function Reviews({ result }: { result: ReviewType[] }) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { req, query } = context;
   const { cookie } = req.headers;
+  const limit = 12;
   const token = extractTokenFromCookie(cookie);
 
   try {
@@ -179,7 +170,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: query,
+        params: { ...query, limit },
       }
     );
 
@@ -194,6 +185,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     console.error(error);
     return {
       props: {
+        limit,
         result: null,
       },
     };
