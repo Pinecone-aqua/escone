@@ -44,7 +44,7 @@ export default function ProfileLayout({
         </div>
         <div className="profile-body">
           <nav>
-            <div className="container">
+            <div className="content container">
               <ul>
                 {profileNavigation.map((navItem, index) => (
                   <li key={index} className="flex items-center gap-2">

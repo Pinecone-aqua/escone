@@ -32,11 +32,13 @@ export default function Profile({
   return (
     <div className="recipes">
       {recipes.length != 0 ? (
-        <div className="recipes">
-          {recipes.map((recipe, index) => (
-            <RecipeCard key={index} recipe={recipe} />
-          ))}
-          <Pagination totalPages={totalPages} />
+        <div>
+          <div className="recipe-list">
+            {recipes.map((recipe, index) => (
+              <RecipeCard key={index} recipe={recipe} />
+            ))}
+            <Pagination totalPages={totalPages} />
+          </div>
         </div>
       ) : (
         <p>Та жор нэмээгүй байна.</p>
