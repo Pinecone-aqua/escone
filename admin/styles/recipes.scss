@@ -1,5 +1,6 @@
 .recipes,
-.users {
+.users,
+.reviews {
   .grid-cards {
     display: flex;
     gap: 20px;
@@ -24,6 +25,7 @@
         th {
           padding: 0 10px;
           text-align: center;
+          justify-content: center;
           text-transform: capitalize;
         }
       }

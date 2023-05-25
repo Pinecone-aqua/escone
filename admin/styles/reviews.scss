@@ -1,0 +1,16 @@
+.reviews {
+  .sort {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    span {
+      font-size: 24px;
+    }
+  }
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+    color: $brand-secondary;
+  }
+}

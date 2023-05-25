@@ -74,42 +74,31 @@ export default function Reviews({
   }
   return (
     <div className="children reviews">
-      <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
-        <thead className="bg-gray-50">
+      <h2>Reviews</h2>
+      <table>
+        <thead>
           <tr>
-            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-              Created by
-            </th>
-            <th
-              scope="col"
-              onClick={() => sortHandler("rate")}
-              className="px-6 py-4 font-medium text-gray-900 flex"
-            >
-              rate
-              <p className="text-2xl">
-                <CgArrowsExchangeAltV />
+            <th scope="col">Created by</th>
+            <th scope="col" onClick={() => sortHandler("rate")}>
+              <p className="sort">
+                rate
+                <span>
+                  <CgArrowsExchangeAltV />
+                </span>
               </p>
             </th>
 
-            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-              content
-            </th>
-            <th
-              scope="col"
-              onClick={() => sortHandler("created_date")}
-              className="px-6 py-4 font-medium text-gray-900 flex items-center"
-            >
-              Date
-              <p className="text-2xl">
-                <CgArrowsExchangeAltV />
+            <th scope="col">content</th>
+            <th scope="col" onClick={() => sortHandler("created_date")}>
+              <p className="sort">
+                Date{" "}
+                <span>
+                  <CgArrowsExchangeAltV />
+                </span>
               </p>
             </th>
-            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-              Recipe id
-            </th>
-            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
-              delete
-            </th>
+            <th scope="col">Recipe id</th>
+            <th scope="col">delete</th>
           </tr>
         </thead>
         <tbody>
