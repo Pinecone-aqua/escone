@@ -1,0 +1,51 @@
+.others {
+  display: flex;
+  justify-content: space-around;
+  &-inner {
+    width: 40%;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    .add {
+      margin-top: 20px;
+      display: flex;
+      gap: 5px;
+      input {
+        border: 1px solid $brand-secondary;
+        padding: 5px 10px;
+        border-radius: 10px;
+        &:nth-child(2) {
+          background-color: $brand-secondary-light;
+        }
+      }
+    }
+  }
+  h3 {
+    text-transform: capitalize;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: $brand-secondary;
+    font-weight: 500;
+  }
+  .list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    .item {
+      text-transform: capitalize;
+      max-width: 200px;
+      width: 100%;
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 10px;
+      border: 1px solid $brand-shade;
+      border-radius: 10px;
+      .trash {
+        color: red;
+      }
+    }
+  }
+}
