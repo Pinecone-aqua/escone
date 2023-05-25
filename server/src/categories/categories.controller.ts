@@ -58,9 +58,9 @@ export class CategoryContoller {
   @Delete(':id')
   @UseGuards(CheckRoleGuard)
   @CheckRole(true)
-  deleteCategory(@Param('id') id: string) {
+  async deleteCategory(@Param('id') id: string) {
     try {
-      const result = this.categoryService.deleteCategory(id);
+      const result = await this.categoryService.deleteCategory(id);
       return result;
     } catch (error) {
       return error;
