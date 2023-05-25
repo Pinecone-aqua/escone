@@ -73,7 +73,15 @@ export class RecipeController {
       }
       const recipe: any = await this.recipeService.getRecipe(id);
       const req: RecipeDto = JSON.parse(body.body);
+
       if (decodedToken.role == true || decodedToken._id == recipe.created_by) {
+        const deletedUrl = recipe.images.filter(
+          (element) => !req.images.includes(element),
+        );
+        console.log(deletedUrl.length != 0);
+        if (deletedUrl.length != 0) {
+          await this.recipeService.deleteImages(deletedUrl);
+        }
         if (files?.images) {
           const url = await this.recipeService.uploadImageToCloudinary(
             files.images,
@@ -229,8 +237,6 @@ export class RecipeController {
       const recipe: any = await this.recipeService.getRecipe(id);
       if (decodedToken.role == true || decodedToken._id == recipe.created_by) {
         return this.recipeService.deleteRecipe(id, recipe);
-
-        return '';
       } else {
         return 'you have not permission';
       }
