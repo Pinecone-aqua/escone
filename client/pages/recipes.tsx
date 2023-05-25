@@ -87,7 +87,7 @@ export default function Recipes({
 
 export async function getServerSideProps({ query }: { query: QueryType }) {
   const queryParams = new URLSearchParams();
-  const limit = 24;
+  const limit = 12;
   queryParams.append("status", "approve");
   queryParams.append("limit", `${limit}`);
 

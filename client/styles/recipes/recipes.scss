@@ -21,16 +21,13 @@
       justify-content: space-between;
       height: 100%;
       width: 100%;
-      padding: 50px;
-      gap: 30px;
       &-list {
         height: 100%;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        gap: 50px;
+        gap: 10px;
         .recipeCard {
-          margin: 0;
           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
       }
@@ -40,11 +37,8 @@
 
 // FILTER STARTS
 .filter {
-  &-box {
-    margin: 50px 0;
-  }
   h2 {
-    margin-bottom: 15px;
+    margin: 15px 25px;
     color: $brand-secondary;
     font-size: 20px;
     font-weight: 600;
@@ -54,12 +48,16 @@
       color: $brand-primary;
       border-radius: 10px;
       box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-      height: 60px;
+      height: 50px;
       display: flex;
       align-items: center;
       padding: 0 30px;
       gap: 10px;
-      margin: 5px 0;
+      margin: 10px 0;
+      input {
+        height: 16px;
+        width: 16px;
+      }
     }
   }
   .tags {
@@ -95,17 +93,25 @@
 }
 @media screen and (min-width: 992px) {
   .recipes {
-    &-header {
+    .drop-filter {
       display: none;
     }
     &-body {
       &-filter {
+        margin-right: 30px;
         display: block;
       }
     }
   }
 }
 @media screen and (min-width: 1200px) {
+  .recipes {
+    &-body {
+      &-filter {
+        margin-right: 50px;
+      }
+    }
+  }
 }
 @media screen and (min-width: 1440px) {
 }
