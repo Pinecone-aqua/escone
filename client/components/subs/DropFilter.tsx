@@ -10,7 +10,7 @@ export default function DropFilter({ status }: any) {
 
   return (
     <>
-      <div className="filter">
+      <div className="drop-filter">
         <button onClick={() => setVisible(true)} className="filter">
           <TbAdjustmentsHorizontal />
         </button>
